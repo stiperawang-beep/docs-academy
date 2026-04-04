@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "velite && next dev",
-    "build": "velite && next build",
+    "dev": "npx velite && next dev",
+    "build": "npx velite && next build",
     "start": "next start",
     "lint": "eslint"
   },
