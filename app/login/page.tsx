@@ -4,16 +4,12 @@ import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 const BOOT_LINES = [
-  "> Initializing victory.docs kernel v2.0.4...",
-  "> Loading system modules... [████████████] 100%",
   "> Mounting encrypted filesystem... OK",
-  "> Secure session handshake... ESTABLISHED",
   "> AUTH_REQUIRED :: Access node /docs/protected",
   "",
-  "┌─────────────────────────────────────────────┐",
-  "│         VICTORY.DOCS SECURE TERMINAL        │",
-  "│           Authentication Required           │",
-  "└─────────────────────────────────────────────┘",
+  "┌─────────────────────────────────┐",
+  "│    VICTORY.DOCS — SECURE AUTH   │",
+  "└─────────────────────────────────┘",
   "",
 ]
 
@@ -54,7 +50,7 @@ function Inner() {
   const searchParams = useSearchParams()
   const nextPath = searchParams.get("next") || "/dashboard"
 
-  const { displayed, done } = useTypewriter(BOOT_LINES)
+  const { displayed, done } = useTypewriter(BOOT_LINES, 6)
   const [username, setUsername] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [step, setStep] = React.useState<"user" | "pass" | "auth" | "done">("user")
