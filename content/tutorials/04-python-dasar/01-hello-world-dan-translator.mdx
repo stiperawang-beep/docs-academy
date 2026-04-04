@@ -1,0 +1,75 @@
+---
+title: "1. Hello World: Mengenal Sang Penerjemah"
+description: "Pelajaran pertama Python: Memahami bagaimana komputer membaca perintah layaknya seorang penerjemah bahasa."
+icon: "Terminal"
+order: 10
+---
+
+## Kata Pengantar: "Berbicara" dengan Mesin
+
+Komputer itu sebarnya tidak pintar, dia sangat kaku dan hanya mengerti instruksi yang sangat presisi dalam bentuk memori elektronik (1 dan 0). Jika kita berbahasa manusia, komputer tidak akan mengerti apa-apa.
+
+Di sinilah **Python** masuk. Bayangkan Python sebagai seorang <Glossary definition="Program yang bertugas membaca kode kita, mengecek apakah ada error, lalu mengubahnya menjadi 1 dan 0 agar dipahami komputer secara langsung.">Penerjemah Super Pintar (Interpreter)</Glossary> yang berdiri di antara Anda (sebagai Boss) dan perangkat keras komputer (sebagai Pekerja). Anda cukup memberikan instruksi dalam bahasa Inggris yang mudah, lalu Python yang akan repot mengaturnya ke bahasa mesin.
+
+<VoiceNote src="/audio/python-intro.mp3" title="Analogi Bayi: Penerjemah Asing" />
+
+<Callout type="info">
+**Mental Logic:**
+Saat Anda sedang asyik "ngoding", Anda sebenarnya sedang "menulis surat tugas" kepada asisten Anda yang bernama Python. Jika surat tugas Anda salah tulisannya (walaupun sedikit), asisten Anda akan bingung dan mengembalikan surat tersebut (dengan nama Error).
+</Callout>
+
+### Fungsi Pertama Kita: Print()
+
+Mari kita panggil "asisten" kita untuk berbicara. Perintah dasar yang pertama kali harus Anda kuasai adalah mencetak teks ke layar. Kita menggunakan alat bernama `print()`.
+
+Coba perhatikan sintaks di bawah ini:
+
+```python
+print("Halo Dunia, ini Prasakati!")
+print("Saya sedang belajar Python.")
+```
+
+#### Aturan Standar Internasional (Sintaks `print`)
+1. **Huruf Kecil Semua:** Perhatikan bahwa `print` ditulis dengan huruf kecil. Jika Anda menulisnya `Print` atau `PRINT`, asisten Python tidak akan mengenalku. Python bersifat <Glossary definition="Huruf besar dan huruf kecil dianggap sebagai karakter yang sangat berbeda. P huruf besar tidak sama dengan p huruf kecil.">Case-Sensitive</Glossary>.
+2. **Pakai Tanda Kurung `()`:** Layaknya membungkus kado, tanda kurung wajib menempel setelah nama kata kerja perintahnya.
+3. **Gunakan Tanda Kutip `""` atau `''`:** Teks manusia harus selalu dibungkus *quote* agar Python mengerti bahwa itu hanyalah kalimat biasa, bukan instruksi yang harus dia kerjakan.
+
+<Playground 
+  id="pg-hello-1"
+  language="python"
+  code={`print("Selamat datang di perjalanan Master Python!")\n# Cobalah ubah teks di atas dengan namamu!`} 
+/>
+
+### Coretan Surat (Komentar)
+
+Terkadang, Anda ingin menulis catatan di surat tugas Anda *hanya untuk diri Anda sendiri*, agar Python tidak mencoba menerjemahkannya. Kita menyebut ini sebagai Komentar (*Comment*).
+
+Dalam Python, cukup tambahkan lambang Pagar (`#`) sebelum catatan Anda.
+
+```python
+# Ini adalah catatan kecilku, Python tolong abaikan ini.
+print("Kalimat ini akan tetap tercetak ke layar") # Ini juga diabaikan
+```
+
+---
+
+<CodeChallenge 
+  id="cc-hello-1"
+  initialCode={`# Tugas Pemanasan Anda!\n# Coba ubah "Cacing" menjadi The "Python" agar outputnya sesuai target ya.\n\nprint("Sistem Ular Cacing Besar")`}
+  expectedOutput="Sistem Ular Python Besar"
+  successMessage="Luar Biasa Prasakati! Logika pertamamu menaklukan mesin Python bekerja dengan sangat gemilang!"
+/>
+
+---
+
+<Quiz 
+  question="Menurut deskripsi 'Mental Logic' di atas, apa hal yang paling tepat menggambarkan peran bahasa Python?"
+  options={[
+    "Sebuah alat fisik yang ada di dalam hardware komputer.",
+    "Buku bahasa Inggris murni.",
+    "Penerjemah yang mengubah instruksi kita menjadi bahasa mesin.",
+    "Bagian dari memori komputer yang bersifat acak."
+  ]}
+  correctAnswer={2} 
+  explanation="Tepat! Python berfungsi sebagai Interpreter/Penerjemah. Dia membaca instruksi manusia di editor kode dan menerjemahkannya secara langsung menjadi instruksi biner (1 dan 0) yang bisa diproses oleh komputer."
+/>

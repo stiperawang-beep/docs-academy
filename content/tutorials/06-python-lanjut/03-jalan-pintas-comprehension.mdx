@@ -1,0 +1,100 @@
+---
+title: "3. Sintaks Pythonic: List Comprehension & Lambda"
+description: "Membongkar rahasia para sesepuh Python yang membuat kode 5 baris bisa diperas hancur menjadi satu baris elegan yang ajaib."
+icon: "Zap"
+order: 32
+---
+
+## Kata Pengantar: Apa itu "Pythonic"?
+
+Di dunia Programming tingkat dewa, ada sebuah ajaran filsafat/sekte agama tersendiri untuk setiap bahasa. Di Python, gelar tertinggi dari kemurnian sebuah kode dinamakan **<Glossary definition="Gaya penulisan kode yang memanfaatkan keindahan, kemalasan cerdas, dan fitur bawaan bahasa Python secara maksimal sehingga terlihat elegan murni.">Pythonic</Glossary>**.
+
+Programmer C++ atau Java yang migrasi ke Python biasanya menggunakan cara kasar yang kolot (Misal: membariskan mesin `for` ke bawah 5 baris panjang-lebar).
+Sedangkan Ninja tulen *Pythonic* akan memamerkan satu jurus kilat 1 baris yang langsung menampar hasil yang sama secara lebih indah dan cepat diproses oleh CPU.
+
+<VoiceNote src="/audio/python-pythonic.mp3" title="Analogi Bayi: Tukang Kebun Manual vs Mesin Pelipat" />
+
+Dua jurus *Pythonic* paling esensial dalam pertarungan *Advanced* adalah **List Comprehension** (Penyusutan Ransel) dan **Lambda** (Pabrik Tak Bernama).
+
+---
+
+## Jurus 1: List Comprehension (Memampatkan Looping Ransel)
+
+Bayangkan Anda bekerja di Kasir. Anda punya ransel kumpulan harga barang. Tapi bos Anda tiba-tiba teriak: *"Naikkan semua harganya ditambah PPN 2000 perak, LALU MASUKKAN KE KERANJANG BARU!"*
+
+Cara orang kolot (Cara Klasik - Butuh 4 Baris):
+```python
+harga_lama = [1000, 2500, 5000]
+harga_baru = []
+
+for duit in harga_lama:
+    harga_baru.append(duit + 2000)
+    
+print(harga_baru) # [3000, 4500, 7000]
+```
+
+Namun, perhatikan Cara Ninja *Pythonic* (Bisa diringkas jadi **HANYA 1 BARIS MUTLAK**).
+
+```python
+harga_lama = [1000, 2500, 5000]
+
+# JURUS LIST COMPREHENSION (SINTAKS BAYANGAN)
+# Mental Logic dibacanya dari Tengah: "Tarik (duit) dari harga_lama... Lalu lempar ke kiri untuk ditambah 2000... Kemudian segel kembali dalam kurung siku list [ ]!"
+harga_baru = [duit + 2000 for duit in harga_lama]
+
+print(harga_baru) # Sangat Elegan! [3000, 4500, 7000]
+```
+
+Bahkan Anda bisa menambahkan Syarat Polisi (`If`) di baris paling kanan jurus tersebut secara instan tanpa masuk baris baru yang menyebabkan *Indentation error!*
+
+```python
+# Cetak list barang yang cuma angka GENAP (Bisa dibagi 2 bersisa Nol)
+daftar_angka = [1, 2, 3, 4, 5, 6]
+
+# Mental Logic: Dari kanan ke Kiri -> Tarik (c)... Tanyakan dulu (if c % 2 == 0)... Jika lolos, lempar (c) ke paling kiri masuk panci!
+hanya_genap = [c for c in daftar_angka if c % 2 == 0]
+
+print(hanya_genap) # Hasil: [2, 4, 6]
+```
+
+---
+
+## Jurus 2: Pabrik Fungsi Hantu (Mesin Fungsi Anonymous Lambda)
+
+Di bab sebelumnya, membuat Mesin Pabrik butuh izin negara, stempel nama yang sakral, indentasi 4 spasi dan ritual panjang.
+
+Tapi bagaimana jika Anda butuh *fungsi kalkulator mini* yang **cuma dipakai sekali buang seumur hidup dan Anda malas mikir cari namanya?**
+
+Gunakan Ilmu Sihir <Glossary definition="Fungsi sementara satu baris yang berumur pendek dan tidak mewajibkan penulisan nama maupun keyword return. Sering disebut Anonymous Function.">Fungsi Lambda</Glossary>.
+
+```python
+# CARA LAMA (MEMBUAT PABRIK RESMI DEF)
+def buang_pangkat_dua(x):
+    return x * x
+
+hasil = buang_pangkat_dua(5)
+
+# ===============================================
+
+# JURUS LAMBDA (MEMBUATNYA SECARA ILEGAL/TAK BERNAMA DALAM 1 NAFAS)
+# Formatnya: lambda bahan_mentah : rumus_lemparan_return
+pangkat_kilat = lambda x : x * x
+
+print(pangkat_kilat(5)) # Hasilnya sama: 25 !
+```
+
+Jurus Lambda ini sering disisipkan ke dalam celah mesin-mesin raksasa seperti saat Anda hendak meng-Sortir (Mengurutkan abjad) Ransel/Tas *Dictionary* rumit dan Anda butuh kunci gembok darurat yang langsung bereaksi buang badan dalam 1 detik hitungan milidetik *compile*.
+
+---
+
+<Quiz 
+  question="Di antara potongan ekspresi pemrograman Python berikut, manakah wujud nyata paling suci dan benar yang mencontohkan teknik 'List Comprehension' dengan operasi filter otomatis genap?"
+  options={[
+    "list = map(for i in arr : i % 2 == 0)",
+    "[x for x in angka if x % 2 == 0]",
+    "for c in box return c % 2 == 0 list()",
+    "x = lambda x, genap : x[genap/2]"
+  ]}
+  correctAnswer={1} 
+  explanation="SANGAT PYTHONIC! Elemen kunci terkuat List Comprehension dibangun dengan mengurung barisan sintaks dalam siku [ ]. Urutan sintaks bacanya yang sah: 'OperasiLemparanKiri - ForLoopTengah - IfCondisionalKanan'."
+/>

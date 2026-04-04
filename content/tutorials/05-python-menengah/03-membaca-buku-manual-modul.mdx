@@ -1,0 +1,90 @@
+---
+title: "3. Scope, Import, dan Buku Manual"
+description: "Bagaimana sebuah bahasa terpisah-pisah file dan bagaimana kita bisa menggunakan alat yang sudah dibuat programmer hebat lain."
+icon: "Library"
+order: 22
+---
+
+## Kata Pengantar: Dunia Luar Kotak Kaca
+
+Saat Anda membangun sebuah aplikasi raksasa (misal: Tokopedia), Anda tidak mungkin menumpuk 3 Juta Baris Teks Kode Anda di dalam SEBUAH file `.py` kecil secara brutal. Editor Anda akan meledak saat di-*scroll*. 
+
+Programmer yang merancang konsep berstandar pasti memotong-motong file `.py` menjadi serpihan-serpihan mesin spesifik dan menjahitnya kembali. Modul keranjang belanja dipisah, modul kasir dipisah, dan lain-lain. Serpihan/Potongan-potongan file ini, atau alat sakti buatan orang bule di benua lain yang bisa kita ambil gratis... kita namakan sebagai **Module**.
+
+Bisa diibaratkan seperti *Buku Manual Ensiklopedia* yang ada di rak buku perpustakaan.
+
+<VoiceNote src="/audio/python-modules.mp3" title="Analogi Bayi: Ensiklopedia dan Perpustakaan" />
+
+---
+
+## Aturan Pinjam Rak Buku (Import)
+
+Di Python, sebelum kita memanggil mesin pabrik `def` yang kebetulan **Milik File Orang Lain / Tidak tertulis di file kita saat ini**, kita wajib berteriak memanggil *Surat Rujukan Penarikan Cukai* di baris angka nomor paling pertama di teks kode.
+
+Surat panggilan malaikat ini dinamakan perintah <Glossary definition="Memanggil kode dari file lain untuk dikolaborasikan dengan file Python yang sedang kita tulis, mencegah pengulangan kode mutlak.">Import</Glossary>.
+
+```python
+# Minta asisten Python naik angkot ke perpustakaan Math
+import math
+
+# Sekarang kita punya Kunci akses ke Buku Panduan "math"
+print(math.pi)       # Hasil: 3.14159...
+print(math.sqrt(9))  # Hasil: 3.0 (Square Root / Akar Kuadrat dari 9)
+```
+
+### Jurus Spesifik (From ... Import)
+
+Kadang, buku `math` itu besarnya 5.000 Halaman. Padahal Anda hanya butuh 1 halaman berisi fungsi *Akar Kuadrat `sqrt`* saja tanpa ingin membawa pulang buku sakunya yang seberat gajah ke rumah. Anda bisa mencabut halamannya menggunakan kata `from`.
+
+```python
+from math import sqrt, pi
+
+# Keuntungannya: Anda jadi tidak perlu lagi mengetik kata 'math.'
+# Bisa langsung pakai namanya saking akrab!
+print(pi)
+print(sqrt(16))
+```
+
+---
+
+## Scope Lokal vs Global (Aturan Lahan Teritorial)
+
+Terdapat sebuah penyakit/konsep jebakan tersembunyi (*Trap Concept*) yang membunuh 90% otak orang yang belajar menengah: **Variable Scope (Zona Berlakunya Sebuah Stiker Nama)**.
+
+### 1. Kotak/Stiker Publik (Global Scope)
+Apabila Anda menempel stiker di Baris Paling Kiri di lautan lepas (tidak terhimpit indentasi menjorok mesin mana pun), kotak itu bisa dipinjam/dilihat oleh semua *def* di bawahnya. 
+
+### 2. Kotak Rahasia Pribadi Mesin (Local Scope)
+Jika Anda **Tiba-tiba menciptakan stiker nama baru tepat di dalam sebuah blok `def`**, Stiker itu langsung DIBANTING / DIMUSNAHKAN OLEH MESIN PYTHON sepersekian detik saat ruang pabrik tugas itu selesai dieksekusi / mencapai titik `return`!!! Ia adalah alat sekali pakai.
+
+```python
+stiker_dunia = "Aku adalah oksigen universal" # Global (Bebas)
+
+def mesin_kotak_hitam():
+    stiker_rahasia = "Virus eksperimen X" # Lokal (Hanya hidup disini)
+    print(stiker_dunia) # Mesin bisa melihat oksigen di luar! Jawabannya bisa.
+    
+mesin_kotak_hitam()
+
+# ERROR FATAL! Mesin akan meledak!
+# Stiker X sudah musnah dibakar saat mesin_kotak_hitam selesai bekerja.
+# print(stiker_rahasia) 
+```
+
+<Callout type="info">
+**Mental Logic "Scope": Las Vegas**
+Masih ingat peraturan terkenal *"What happens in Vegas, stays in Vegas"*?
+Persis! Apa Variabel yang dideklarasikan tertutup di dalam kelompok pabrik Indentasi `def` Vegas, HANYALAH HIDUP di dalam Vegas dan lenyap/mati menguap tak bersisa setelahnya.
+</Callout>
+
+<Quiz 
+  question="Paket Struktur Aturan Teritorial mana yang membuat sebuah stiker variabel akan MUSNAH ketika garis tugasnya selesai, sehingga kita tidak bisa me-print variabel itu dari barisan paling luar/selatan?"
+  options={[
+    "Scope Global / Luas",
+    "Scope Private / Lokal",
+    "Indentation Return",
+    "Keyword From Module"
+  ]}
+  correctAnswer={1} 
+  explanation="Selamat kamu menyadari mental logic terpenting dalam bahasa pemrograman! Variabel Lokal akan hancur menguap ketika blok fungsi (Indentasi di mana ia dilahirkan) telah sukses menyedot tenaganya."
+/>

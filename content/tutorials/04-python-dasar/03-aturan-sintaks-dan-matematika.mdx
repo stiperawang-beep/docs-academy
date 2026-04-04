@@ -1,0 +1,83 @@
+---
+title: "3. Matematika Python & Polisi Spasi"
+description: "Pahami bahwa Python jago matematika namun sangat sensitif dengan jarak spasi (Indentation)."
+icon: "Calculator"
+order: 12
+---
+
+## Mental Logic: Kalkulator Super Cepat
+
+Kita tahu komputer pada dasarnya adalah "mesin hitung". Di Python, melakukan matematika itu rasanya sama seperti menggunakan kalkulator anak Sekolah Dasar. Sangat langsung dan jelas!
+
+<VoiceNote src="/audio/python-math.mp3" title="Analogi Kalkulator Ajaib" />
+
+Ketika kita mencampur Variabel (Kotak) dengan <Glossary definition="Simbol khusus matematika seperti +, -, X, / yang memberitahu Python operasi apa yang harus dijalankan.">Operator</Glossary>, kita menciptakan "Mesin Pabrik Pengolah Angka".
+
+### 6 Simbol Dasar Matematika (Operator)
+
+```python
+uang_awal = 1000
+
+# 1. Penjumlahan (+)
+tambah = uang_awal + 500   # Hasil: 1500
+
+# 2. Pengurangan (-)
+kurang = uang_awal - 200   # Hasil: 800
+
+# 3. Perkalian (menggunakan Tanda Bintang *)
+kali = uang_awal * 2       # Hasil: 2000
+
+# 4. Pembagian (menggunakan Garis Miring /)
+bagi = uang_awal / 4       # Hasil: 250.0 (Walaupun bulat, 
+                           # hasil bagi otomatis jadi Float!)
+
+# 5. Pangkat (Bintangnya dua **)
+pangkat = 10 ** 2          # Hasil: 100 (Alias 10 pangkat 2)
+```
+
+Ada satu lagi operator spesial yang **wajib master** karena akan dipakai seumur hidup saat membuat game atau aplikasi canggih:
+**Sisa Bagi (Modulus `%`)**.
+Bayangkan Anda membagikan 10 permen ke 3 anak. Masing-masing dapat 3 permen. Berapa permen yang tersisa di tangan Anda? Sisa 1!
+```python
+sisa_kue = 10 % 3   # Hasil: 1
+```
+
+---
+
+## Aturan Sintaks Paling Berbahaya: "Whitespace" (Indentation)
+
+Saat menulis surat bahasa Indonesia, jika Anda kelebihan spasi 5 langkah sebelum menulis kalimat, orang yang membacanya mengerti saja (cuma menganggap Anda boros kertas).
+
+Tapi, asisten Python kita adalah asisten yang **SANGAT PERFEKSIONIS DAN SENSITIF**. 
+Bagi Python, **Spasi Kosong di awalan kalimat adalah nyawa sebuah program**. Ini disebut dengan konsep *Indentation*.
+
+<Callout type="warning">
+**Aturan Resmi Spasi (Indentation):**
+Python TIDAK menggunakan kurawal `{}` untuk mengelompokkan blok kode seperti bahasa lain. Python murni menggunakan jarak pinggir kiri kertas.
+
+1. Semua kode yang berada di "group/kelompok" yang sama, jarak pinggir kirinya harus **SUPER PERSIS SAMA**.
+2. Standar internasional PEP 8 mewajibkan **4 ketukan spasi** (atau 1 kali tekan tombol *Tab* di keyboard) untuk masuk ke kelompok/kardus yang lebih dalam.
+</Callout>
+
+### Contoh Kesalahan Fatal (Error Maut)
+```python
+print("Halo")
+ print("Prasakati")  # ERROR BESAR! (IndentationError)
+```
+Kenapa Error? Karena pada kalimat kedua, ada satu spasi kelewatan di depan tulisan `print`. Python mengamuk: *"Hei! Kenapa kalimat ini posisinya lebih menjorok ke dalam dibanding kalimat pertama? Apakah dia anak kalimat spesial? Tolong ratakan!"* 
+
+Kita akan sangat sering melihat kekuatan Spasi ini saat kita mempelajari tentang "Syarat" (If-Else) di bab berikutnya. Ingat saja: **Kiri harus rata jika mereka berada di derajat/kelas yang sama.**
+
+---
+
+<Quiz 
+  question="Apa yang akan dilakukan Python jika kamu tidak sengaja mengetik 1 spasi berlebih di awal sebuah perintah umum seperti print()?"
+  options={[
+    "Python akan otomatis meratakannya dengan pintar.",
+    "Teks yang diprint akan ikut geser 1 spasi ke dalam.",
+    "Python akan mencetak kata tambahan.",
+    "Python akan menolak menjalankannya dan mengeluarkan IndentationError."
+  ]}
+  correctAnswer={3} 
+  explanation="Sangat brilian! Python melempar IndentationError. Karena di dalam otak Python, spasi kosong atau lekukan (Indent) bukanlah dekorasi visual, melainkan kode mutlak untuk mengelompokkan keluarga hirarki program."
+/>

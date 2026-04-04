@@ -1,0 +1,127 @@
+---
+title: "1. Multi-Tasking: Threading & Asyncio (Master)"
+description: "Bagaimana memaksa otak komputer Anda membelah diri dan mengerjakan 500 tugas dalam detik yang bersamaan tanpa macet (Asynchronous)."
+icon: "Activity"
+order: 40
+---
+
+## Kata Pengantar: Dunia Paralel Sang Expert
+
+Selamat datang di Puncak Pembelajaran! Materi ini adalah pemisah nyata antara programmer *Ameturan* dengan *Senior Expert* bersertifikat global.
+
+Hampir semua program Python yang kita pelajari dari Dasar hingga Advanced sebelumnya menderita satu kelemahan cacat: **Mereka adalah Program Rombongan Antri Sembako (Synchronous/Siklus Tunggal).**
+Jika di baris nomor 3 Anda menyuruh komputer men-download video bergiga-giga byte dan butuh waktu 10 jam, maka Peringatan! Baris nomor 4 akan ikutan macet total berdiri termenung bodoh selama 10 jam hingga baris 3 kelar. Sangat tidak elok.
+
+Di sinilah dewa-dewa server masuk membawa 2 tongkat pusaka: The Multi-Threading dan The Asynchronous (`asyncio`).
+
+<VoiceNote src="/audio/python-async.mp3" title="Analogi Bayi: Koki Memasak Nasi dan Menggoreng Ikan" />
+
+---
+
+## 1. Threading: Menyewa Asisten Tukang Tambahan
+
+Mental Logic: Anda sedang mengepel lantai rumah sendirian. Lalu tiba-tiba cucian menumpuk. Jika Anda orang yang *Synchronous*, Anda menunggu pel lantai selesai dulu baru buang cucian. Jika Anda orang yang punya uang sewa (*Multithreading*), Anda menyewa 1 Asisten Pembantu rumah tangga ekstra. Anda tetap asri mengepel, dan si Pembantu mencuci baju di detik yang bersamaan! Cepat selesai.
+
+Di Python, kita bisa *"Merobek nyawa / menyewakan kuli memori tambahan"* yang lepas jalan sendiri dari jalur utama.
+
+```python
+import threading
+import time
+
+def kuli_cuci_baju():
+    print("Kuli Cuci: Mulai mencuci...")
+    time.sleep(3) # Asumsikan dia butuh keliling mesin cuci selama 3 detik
+    print("Kuli Cuci: Cucian sudah wangi!")
+
+# =================
+
+# MULAI KODE UTAMA (Sang Bos)
+print("BOS Utama: Saya mau jalan sore.")
+
+# Sewa Pekerja dari pabrik kuli! 
+kuli_1 = threading.Thread(target=kuli_cuci_baju)
+
+# Suruh dia langsung bekerja detik ini juga, SEMENTARA Sang BOS jalan santai!
+kuli_1.start() 
+
+print("BOS Utama: Saya sudah sampai di taman jalan sore.")
+
+# HASIL TERMINAL: 
+# BOS Utama: Saya mau jalan sore.
+# Kuli Cuci: Mulai mencuci...
+# BOS Utama: Saya sudah sampai di taman jalan sore.
+# (Jeda 3 detik menanti.... lalu mendadak muncul)
+# Kuli Cuci: Cucian sudah wangi!
+```
+Lihat? Sang Bos tidak memancung kakinya bertapa nunggu 3 detik di belakang si `time.sleep(3)` milik kuli; Tapi si Bos nyerobot mulus ke luar duluan! Itulah paralel multi-threading.
+
+---
+
+## 2. Async/Await: Sang Koki Bintang 5 (Asynchronous)
+
+Membayar 1 Asisten (`Thread`) itu mahal dan memberati RAM (Memori komputer) jika Anda tiba-tiba menyewa 5000 asisten. Bagaimana kalau logika pengerjaannya di-*Hack* dengan elegan TANPA asisten? 
+
+Logika Koki (Asyncio):
+Koki meletakkan Air Rebusan Indomie di tungku 1. Dia tahu airnya mendidih butuh 5 menit **Waktu Kosong (Waktu Tunggu I/O)**. Dari pada dia antri menatap air mendidih (buang umur), si Koki membalikkan badannya ke tungku 2 untuk menggoreng telur. 1 Koki, 1 Tangan, memborong 2 kompor tanpa macet. Jika telurnya sudah matang *dan* selagi telur disisihkan, ia balik lagi melihat apakah air sudah berbuih mendidih.
+
+Inilah sihir <Glossary definition="Metodologi multi-tasking di mana satu otak (single-thread) bisa terus beralih silih berganti mengerjakan tugas lain di kala ia mentok menghadapi proses loading antrean jeda sistem eksternal (Internet I/O).">Sintaks Async & Await</Glossary>.
+
+```python
+import asyncio
+
+# PABRIK/FUNGSI INI DIBERI SERTIFIKAT "ASYNC" AGAR BISA MEMBELAH KONSENTRASI WAKTU
+async def rebus_mie():
+    print("Mulai rebus air untuk mie...")
+    # Bayangkan ini proses jeda panjang Download File / loading
+    await asyncio.sleep(5) 
+    print("Air sudah mendidih! Tuang mienya!")
+
+async def goreng_telur():
+    print("Mendadar telur, minyak panas...")
+    await asyncio.sleep(2) 
+    print("Angkat piring, telur matang!")
+
+# GABUNGKAN DALAM SATU JADWAL PIKIRAN SANG KOKI
+async def jadwal_koki():
+    print("Koki masuk dapur...")
+    # Tombol ajaib gather (Kerjakan Barengan secara Cerdik)
+    await asyncio.gather(
+        rebus_mie(), 
+        goreng_telur()
+    )
+    print("Semua Makanan Sudah Terhidang di Meja VIP!")
+
+# Laksanakan!
+asyncio.run(jadwal_koki())
+
+# Urutan yang tercetak di pikiran koki Python!
+# 1. Koki masuk dapur
+# 2. Mulai rebus air
+# 3. Mendadar telur
+# (menunggu kilat 2 detik...)
+# 4. Angkat Piring telurnya (Ditinggalin air mie mendidihnya masih loading)
+# (menunggu sisa 3 detik tambahan kekakuan mie asycnio.sleep...)
+# 5. Air sudah mendidih! Tuang mie
+# 6. Makanan Tersaji.
+
+```
+Kecepatan sistem akan terpotat drastis jika Anda merancang sebuah sistem web backend menggunakan prinsip pemalas menunggu ini! Inilah ilmu dasar merilis puluhan juta interaksi data dalam 1 nanodetik.
+
+<Callout type="info">
+**Mental Logic Internasional**
+Jika Anda terbiasa dengan Node JS, Javascript memuja aliran sekte *Asynchronous* dari lahir dalam DNA-nya, sementara Python awalnya berjiwa kaku *Synchronous*. Tetapi belakangan era ini kerangka The Asyncio Python sangat digemari perusahaan modern (Contoh: Framework server terkenal *FastAPI* berdiri kokong karena teknik `async` ini).
+</Callout>
+
+---
+
+<Quiz 
+  question="Metode apa yang paling Irit RAM memori (Bukan menyewa organ kuli hardware sistem Threading) yang digunakan Python layaknya seorang koki untuk berbalik menggoreng telur *sambil* meletakkan air rebusan mendidih dalam satu garis fokus?"
+  options={[
+    "Multi-Threading Lock",
+    "List Comprehension",
+    "Asynchronous dengan kata kunci Async/Await",
+    "Dependency File API Import local"
+  ]}
+  correctAnswer={2} 
+  explanation="SUPER JENIUS! Async/Await adalah primadona di abad kecepatan internet. Bayangkan Async sebagai koki super lincah yang segera mengerjalan loyang kedua sembari loyang ke-1 dia perintahkan asisten Oven memanggang pasif dalam 10 detik jeda mati. CPU Anda tak pernah berhenti/menganggur sedetikpun!"
+/>

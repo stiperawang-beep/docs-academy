@@ -1,0 +1,97 @@
+---
+title: "4. Alat Sihir Lanjutan: Decorator & Generator"
+description: "Pelajaran terakhir Advanced: Mengendalikan aliran kekuatan waktu, mengubah mesin dari luar dan hemat memori ekstrim (Lazy Loading)."
+icon: "Wand"
+order: 33
+---
+
+## Kata Pengantar: Ruang Waktu dan Perilaku Dewa
+
+Pelajaran ini akan menutup karir Anda di level menengah menuju puncak gerbang Expert. Jika Anda sudah mahir di dua bab ini, Anda resmi bisa membaca kode buatan Google atau tim inti Facebook (Mata Anda sudah setajam Sharingan).
+
+Terdapat dua konsep membingungkan di Python yang membuat pendatang dari bahasa lain selalu menangis frustasi: **Decorator (Merapal Mantera ke Atas Mesin Lain)**, dan **Generator (Mesin Pemalas Pencipta Ruang Hampa Data)**.
+
+Mari kita bongkar pelan-pelan dengan mental logic Bayi.
+
+<VoiceNote src="/audio/python-decorator.mp3" title="Analogi Bayi: Mahkota Raja dan Mesin Keran Air Pemalas" />
+
+---
+
+## 1. Topi Kesaktian Sang Raja (Decorators)
+
+Bayangkan Anda punya 50 pabrik/mesin `def` biasa untuk sistem Login. Tiba-tiba bos memerintahkan: *"Hei! Tolong CATAT WAKTU (Log Keamanan) setiap kali salah satu dari 50 mesin itu ditekan tombol hidupnya!"*
+Mengerikan, bukan? Anda harus masuk ke dalam 50 blok indentasi baris demi baris, dan menulisan fungsi catat waktu.
+
+Sebentar... bagaimana kalau ada sebuah <Glossary definition="Sebuah fungsi tingkat tinggi yang menerima/menelan Fungsi lain secara utuh, membungkusnya dengan sihir luar, lalu memuntahkannya kembali tanpa harus melukai kode aslinya.">Decorator (Pembungkus Magis)</Glossary>?
+Logikanya: Kita ciptakan 1 Topi Sakti. Topi itu punya alarm. Mesin pabrik manapun yang 'DIPAKAIKAN' topi sakti itu, otomatis akan tersambung ke alarm tanpa merubah jeroan mesinnya! 
+
+```python
+# 1. BUAT TOPI PEMBUNGKUS SAKTINYA (DECORATOR)
+def topi_catatan_waktu(mesin_asli_tersembunyi):
+    def mesin_topeng_baru():
+        print("BEEP! ALARM SECURITY DICATAT: Seseorang mau pencet tombol...")
+        # Lalu jalankan mesin tulennya
+        mesin_asli_tersembunyi() 
+        print("Tugas mesin kelar. Menutup akses security.")
+    return mesin_topeng_baru
+
+# ========================================================
+
+# 2. CARA MEMASANG TOPI SAKTI KE MESIN (Gunakan Simbol Keong / At @)
+@topi_catatan_waktu
+def mesin_cetak_struk():
+    print(">> STRUK MIE GORENG TER-PRINT! <<")
+
+# KETIKA KITA JALANKAN... 
+mesin_cetak_struk()
+
+# HASIL TERMINAL: 
+# BEEP! ALARM SECURITY DICATAT: Seseorang mau pencet tombol...
+# >> STRUK MIE GORENG TER-PRINT! <<
+# Tugas mesin kelar. Menutup akses security.
+```
+
+Lihat betapa cantiknya? Si `mesin_cetak_struk` murni tidak sadar raganya sudah disusupi *Alarm Security*. Inilah kehebatan Decorator `(@nama_fungsi)`.
+
+---
+
+## 2. Mesin Keran Air Pemalas (Generators)
+
+Jika Anda memakai ransel koper `List []` biasa untuk menarik 10 Miliar baris Data Angka (misalnya database KTP WNI), Komputer RAM 32 GB milik Anda akan **LANGSUNG MELEDAK HANG**. Kenapa? Karena List memaksa seluruh 10 Miliar baris itu dipompa berjejal masuk ke dalam RAM sekaligus di detik yang persis sama. 
+
+Pythonic Ninja punya taktik **Santai & Pemalas / Lazy Evaluation** melalui fungsi `Generator`.
+Daripada dihidangkan seluruh air gentong hingga meluap ke lantai, bukankah lebih cerdas jika kita **pasang selang keran** dan kita keluarkan air datanya **SATU TETES SAJA** SETIAP KALI DIMINTA? Memori RAM kita jadi kosong melompong (Irit Ekstrim).
+
+Untuk menciptakan Generator, ubah kebiasaan lama `return` (melempar semua mati seketika), menjadi kata sakti **`yield` (Keluarkan 1 lalu beku tidur sementara)**.
+
+```python
+# Fungsi Generator (Memakai Yield)
+def keran_angka_miliaran():
+    angka = 1
+    while angka <= 3: # Kita buat 3 saja sebagai contoh
+        yield angka   # Semburkan SATU TITIK AIR lalu mesin dibekukan!
+        angka = angka + 1
+
+# Panggil Mesinnya (TIDAK ADA SATUPUN ANGKA YANG TERCETAK DI RAM!)
+air_selang = keran_angka_miliaran()
+
+print( next(air_selang) ) # Keran dibuka! Semprotan pertama: 1. (Lalu mesin mati beku sementara lagi)
+print("Aku bisa jalan bareng teman, main game dulu")
+print( next(air_selang) ) # Keran dibuka lagi! Air tumpah kedua: 2.
+print( next(air_selang) ) # Lanjut keluar angka 3.
+```
+Inilah mengapa The King Python sangat berjaya di dunia pengolahan Mega Data Sains (Machine Learning AI). Karena mesin Python bisa mencicil 50 Exabytes Data menggunakan selang `yield` milidetik demi milidetik tanpa merusak/membuat hang memori leptop yang paling menyedihkan sekalipun.
+
+---
+
+<Quiz 
+  question="Komponen Sintaks/Sihir sakti manakah yang Anda pakai jika Anda mempunya 1 Miliar data gambar, dan daripada menguras RAM untuk memasukkanya ke sebuah koper kotak `Tuple / List` sekaligus, Anda ingin 'meneteskannya' satu-satu (Laziness)?"
+  options={[
+    "Fitur Decorator Wrapper pakai lambang @",
+    "List Comprehension Mampat",
+    "Fungsi Generator yang menyemprotkan 'yield'",
+    "Definisi Inheritance Kakek Lanjut"
+  ]}
+  correctAnswer={2} 
+  explanation="Tepat 10.000 Persen! Fungsi Generator. Semprotan kata 'yield' menandakan bahwa blok kode itu bukan lagi lemparan mesin mati kuno ('Return' List), tapi berubah menjadi keran air. CPU akan menghafal titik nadir beku posisi baris terakhir secara efisien dan hanya menyuapkan RAM secuil-demi-secuil setiap di-push instruksi next()."
+/>

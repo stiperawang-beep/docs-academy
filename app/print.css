@@ -1,0 +1,55 @@
+/* Print styles for clean article printing */
+@media print {
+  /* Hide all non-article elements */
+  aside,
+  header,
+  nav,
+  footer,
+  [data-slot="scroll-progress"],
+  .fixed,
+  button {
+    display: none !important;
+  }
+
+  /* Make main content full width */
+  main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  article {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 2rem 0 !important;
+  }
+
+  /* Clean code blocks for print */
+  pre, code {
+    border: 1px solid #ddd !important;
+    background: #f8f8f8 !important;
+    color: #333 !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Ensure links are readable */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8rem;
+    color: #555;
+  }
+
+  /* Page breaks */
+  h2, h3 {
+    break-after: avoid;
+  }
+
+  pre, blockquote {
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 2cm;
+  }
+}

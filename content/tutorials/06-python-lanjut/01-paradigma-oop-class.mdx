@@ -1,0 +1,89 @@
+---
+title: "1. Paradigma Cerdas: OOP (Class dan Object)"
+description: "Mempelajari puncak kemegahan teknik bahasa Python yang merubah koding menjadi layaknya memahat wujud benda di dunia nyata (Object-Oriented Programming)."
+icon: "Cpu"
+order: 30
+---
+
+## Mental Logic: Cetakan Pabrik Kue Kering
+
+Selamat datang di ranah Ninja! Hingga saat ini, Anda sudah mahir mengetik rentetan mesin fungsi `def` yang bekerja baris per baris (*Procedural*). Tapi, apa jadinya bila Anda bekerja merancang *Role Playing Game* (RPG) besar yang punya 10.000 Karakter Musuh yang berjalan di peta secara independen? 
+
+Apakah mungkin Anda membuat 10.000 list terpisah bernama `darah_musuh_1`, `darah_musuh_2`, dst...? Tentu itu gila!
+
+Dalam tingkat *Advanced*, bahasa pemrograman modern termasuk Python memberikan kekuatan arsitektur *"Maha Pencipta"* bernama **OOP (Object-Oriented Programming)**.
+
+**Bagaimana kerjanya?**
+Kita tidak repot-repot memikirkan fisik koki tiap buat kue. 
+Alih-alih menyuruh tukang mengukir 1.000 loyang, **KITA CUKUP MERANCANG SATU BESI PLAT CETAKAN KUE NYA SAJA!**
+Setelah master Cetakan Kue Bintang tercipta, kita bisa memproduksi `Kue Bintang 1`, `Kue Bintang 2`, `Kue Bintang 10.000` dengan sifat yang persis tercetak identik namun masing-masing adalah tubuh mandiri.
+
+<VoiceNote src="/audio/python-oop-class.mp3" title="Analogi Bayi: Rahasia Cetakan Bintang Ajaib" />
+
+---
+
+### Perbedaan Sang Cetakan (Class) Vs Si Kue Fisik (Object)
+
+Di dimensi OOP:
+- Papan Besi Master Cetakan itu bernama: `<Glossary definition="Cetak biru atau master blueprint dari suatu benda (entitas) yang memegang aturan struktur kerangkanya.">Class</Glossary>`.
+- Kue matang siap dimakan yang jatuh dari panggangan oven itu dinamakan: `<Glossary definition="Wujud fisik independen hasil ciptaan replika dari sebuah Class yang telah dilahirkan di memori RAM dan punya identitas nyawa/memori sendiri.">Object (Instance)</Glossary>`.
+
+Mari kita lihat sintaksis magis menciptakan Class.
+
+```python
+# 1. MEMBUAT CETAKAN BESI DENGAN NAMA AWAL HURUF BESAR
+class Anjing:
+
+    # Fungsi khusus (Dunder) sebagai Jantung Pertama saat ia bernafas
+    # Sering disebut dengan nama Constructor / Pembangun
+    def __init__(self, nama_panggilan, warna_bulu):
+        self.nama = nama_panggilan
+        self.bulu = warna_bulu
+        self.suara_gonggongan = "Guk guk woof!"
+        
+    # Fungsi (Tindakan) ini hanya bisa dilakukan oleh ras Anjing pencetak kita!
+    def menggonggong(self):
+         print(self.nama, "sedang berteriak:", self.suara_gonggongan)
+
+# ========================================================
+
+# 2. SEKARANG MENGELUARKAN 2 EKOR ANJING FISIK (OBJECT) DARI CETAKAN
+anjing_budi = Anjing("Hachi", "Coklat")
+anjing_dina = Anjing("Luna", "Putih Emas")
+
+# Kedua hewan ini tidak saling terikat memori! Mereka mandiri.
+anjing_budi.menggonggong() # "Hachi sedang berteriak: Guk guk woof!"
+
+# Budi mengganti suaranya karena Hachi sakit leher
+anjing_budi.suara_gonggongan = "Ukh Ukh..."
+anjing_budi.menggonggong() # Cuma si Hachi yang suaranya batuk, si Luna tetap normal!
+```
+
+### Membedah Kata Sandi Gaib: `self`
+
+Kenapa setiap alat/mesin fungsi `def` di dalam cetakan anjing itu MENGHARUSKAN adanya *parameter* gaib bernama `self` padahal saat dipakai sepertinya tidak berguna?
+
+<Callout type="info">
+**Kutukan Indentitas Sang Kloning:**
+Karena mesin kue kita akan mencetak ribuan `Object` kue, mesin pabriknya butuh **cermin jiwa (Self)** agar saat kita menampar Kue A, mesin tidak sengaja melukai Kue B!  
+
+Kata kunci **`self`** secara harafiah berarti *"Bicarakan soal TUBUHKU SENDIRI, jangan pedulikan tubuh clone yang lain!"*.
+</Callout>
+
+### Keuntungan Memahat dengan OOP:
+1. **Lebih "Dunia Nyata"**: Tiba-tiba kode Anda bukan lagi rentetan baris mesin aneh, melainkan berubah berwujud interaksi karakter game (Kalkulator.hitung(), Mobil.naikGas(), Senjata.Tembak()).
+2. **Kerapihan Skala Mega**: Memastikan bahwa mesin penembak roket peluru *HANYA TERTUTUP* bisa diakses oleh cetakan Pesawat, dan mesin pencatat bank hanya milik cetakan Kasir. (Keterikatan fungsi + benda yang rapat rapi!).
+
+---
+
+<Quiz 
+  question="Di ranah Arsitektur OOP Modern Python (dan seluruh bahasa level tinggi), kata benda manakah yang paling pas mendeskripsikan 'Sepotong kue jadi yang bisa disentuh/dimakan dan diproduksi mandiri melalui proses cetakan pabrikan'?"
+  options={[
+    "Class",
+    "Self / Constructor",
+    "Inheritance",
+    "Object (Instance)"
+  ]}
+  correctAnswer={3} 
+  explanation="Kehebatan yang luar biasa! Wujud realita jadi dari rekaan kertas Blueprint (Class) dinamakan Object / Instansiasi (Instance). Ketika kita memanggil Class Anjing() dan masuk ke dalam wadah variabel, seonggok data memori fisik telah terekam dan sah bergelar sebagai Object kembar."
+/>

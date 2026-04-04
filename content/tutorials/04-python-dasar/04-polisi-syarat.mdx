@@ -1,0 +1,100 @@
+---
+title: "4. Polisi Syarat: If, Else, dan Elif"
+description: "Pelajaran logika pengambilan keputusan: Bagaimana program bisa berpikir bercabang secara otomatis dengan kondisi."
+icon: "GitBranch"
+order: 13
+---
+
+## Mental Logic: Satpam dan Pintu Diskotek
+
+Sebuah program yang tidak bisa mengambil keputusan sendiri adalah program bodoh. Untuk membuatnya "pintar", program harus bisa berkata: *"Jika kondisinya begini, lakukan A. Jika kondisinya begitu, lakukan B!"*
+
+Bayangkan Anda mendidik sebuah program komputer untuk menjadi <Glossary definition="Sebuah sistem pengecekan yang menilai apakah data lulus syarat (True) atau tidak lulus (False).">Satpam Pintu</Glossary>. 
+Sang Satpam diberi instruksi tegas dari bosnya:
+1. Jika tamu umurnya 18 tahun ke atas, boleh masuk.
+2. Jika tamunya pakai kartu VIP, boleh masuk tanpa dicek umurnya.
+3. Selain dari itu, diusir pulang!
+
+Di dalam Python, kita menggunakan 3 senjata rahasia untuk ini: `if` (JIKA), `elif` (TAPI JIKA), dan `else` (SELAIN ITU CUEKIN AJA).
+
+<VoiceNote src="/audio/python-if-else.mp3" title="Analogi Bayi: Konsep Gerbang Polisi" />
+
+---
+
+### 1. Menjaga Gerbang dengan `if` (Jika)
+
+```python
+umur = 15
+
+if umur >= 18:
+    print("Selamat datang di Club!")
+```
+
+Mari kita menggunakan mikroskop dan membaca kode di atas dengan gaya standar PEP 8 (Internasional):
+1. **Titik Dua (`:`):** Ingat bahwa setiap pernyataan `if` **wajib** diakhiri dengan lambang *titik dua*. Ini memberi tahu alat pengecek bahwa Anda *"akan membuka daftar tugas/syarat"*. 
+2. **Kekuatan Spasi/Indentation (Indentasi):** Perhatikan baris `print(...)` maju sebanyak **4 spasi** ke dalam. Mengapa? Karena `print` adalah milik/bawahan si instruksi `if` baris sebelumnya. Jika `if` bernilai salah, maka semua kalimat yang posisinya menjorok masuk setelahnya akan dilewati serentak!
+
+### 2. Mengatasi Penolakan dengan `else` (Selain itu)
+
+Mari tambahkan fitur jika pengunjungnya ternyata masih balita.
+
+```python
+umur = 15
+
+if umur >= 18:
+    print("Selamat datang di ruangan khusus dewasa!")
+else:
+    print("Hei bocah, cepat pulang kerjakan PR!")
+```
+`else` tidak pernah memakai syarat matematika tambahan. Kenapa? Karena ia bertugas bak dewa penyapu bersih: **Apapun yang tidak sesuai syarat `if` di atasnya, otomatis masuk ke lubang `else`.**
+
+### 3. Banyak Syarat Bercabang dengan `elif` (Else If / Tapi Jika)
+
+Terkadang, 2 kemungkinan (Boleh/Tidak) terlalu sedikit. Bagaimana kalau tamunya punya koneksi "orang dalam" (VIP)? 
+Di Python, bahasa "Else If" (Tapi Jika) itu disingkat lucu menjadi `elif`.
+
+```python
+umur = 15
+status = "VIP"
+
+if status == "VIP":
+    print("Selamat datang Tuan VIP! Silakan masuk jalur kiri.")
+elif umur >= 18:
+    print("Kamu cukup umur, masuk dari jalur reguler kanan.")
+else:
+    print("Maaf, kamu tidak boleh masuk.")
+```
+
+#### Aturan Matematis Logika "Sama Dengan"
+<Callout type="danger">
+**BAHAYA TERBESAR TINGKAT PEMULA:**
+1. Jika Anda mau **MEMASUKKAN ISI** stiker kardus, gunakan `=` (satu kali). Contoh `kucing = "oren"`.
+2. Jika Anda mau **MANANYAKAN SEBUAH PERNYATAAN / MEMBANDINGKAN (Polisi)**, gunakan `==` (dua kali!).
+Jika Anda memakai single `=` di dalam blok `if`, program Anda akan meledak saat dijalankan.
+</Callout>
+
+### Alat Cek Logika (Operator Pembanding)
+- `>` : Lebih besar dari.
+- `<` : Lebih kecil dari.
+- `>=` : Lebih besar atau sama dengan.
+- `<=` : Lebih kecil atau sama dengan.
+- `==` : Persis sama persis!
+- `!=` : Tidak sama (Tanda Seru berarti kebalikannya).
+
+---
+
+<Playground 
+  code={`uang = 5000\nharga_mie = 3000\n\nif uang >= harga_mie:\n    print("Asyik, aku bisa beli indomie!")\nelse:\n    print("Waduh, uangku kurang untuk beli mie...")`} 
+/>
+
+<Quiz 
+  question="Di bawah ini, manakah contoh penggunaan kondisi yang SALAH saat dicek oleh Python?"
+  options={[
+    "if sepatu == 38:",
+    "if nama = 'Prasakati':",
+    "if umur != 10:",
+    "if tabungan >= 1000:"
+  ]}
+  correctAnswer={1} 
+  explanation="Sangat Jenius! Kamu berhasil melihat jebakannya. Ingat, simbol ( = ) yang hanya diketik SATU KALI bertugas sebagai 'pengisi nilai ke kardus', bukan sebagai Polisi Pembanding. Jika sedang bertanya kondisi ke mesin dengan 'If', kita wajib mempergunakan EQUAL DUA KALI ( == ) ."
+/>

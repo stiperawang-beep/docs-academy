@@ -1,0 +1,97 @@
+---
+title: "2. Variabel: Kotak Penyimpanan Ajaib"
+description: "Bagaimana cara program mengingat data? Kenali Variabel sebagai stiker label untuk kotak memori."
+icon: "PackageOpen"
+order: 11
+---
+
+## Mental Logic: Toko Kelontong Komputer
+
+Bayangkan otak komputer (RAM) itu seperti sebuah gudang raksasa yang kosong melompong. Saat kita ingin Python mengingat sesuatu, seperti mengingat nama Anda atau umur Anda, Python harus menyimpannya di dalam **sebuah Kardus Kosong** yang ada di gudang tersebut.
+
+Masalahnya, gudang itu punya jutaan kardus yang bentuknya persis sama! Jika Python hanya memasukkannya begitu saja, ia tidak akan pernah menemukannya lagi. Solusinya? Kita tempelkan **Stiker Nama** di depan kardus tersebut. 
+
+Stiker nama itulah yang di dalam pemrograman disebut dengan <Glossary definition="Tempat di dalam memori komputer yang diberi nama khusus untuk menyimpan suatu nilai atau data sementara.">Variabel</Glossary>.
+
+<VoiceNote src="/audio/python-variabel.mp3" title="Analogi Bayi: Kardus dan Stiker" />
+
+### Memulai Membuat Stiker (Mendeklarasikan Variabel)
+
+Di Python, menempelkan stiker ke kardus sangatlah luar biasa mudah. Berbeda dengan bahasa lama seperti C++ atau Java (di mana kita harus pesan dulu jenis kardusnya ke tukang kayu), di Python kita langsung tempel stiker pakai tanda Sama Dengan (`=`).
+
+```python
+nama_lengkap = "Prasakati"
+umur = 15
+sudah_makan = True
+```
+
+Mari kita bedah artinya dalam bahasa manusia:
+1. `nama_lengkap` : Tempelkan stiker bertuliskan "nama_lengkap" ke kardus yang kosong!
+2. `=` (Katakan: "diisi dengan"): Tolong masukkan barang di sebelah kanan saya ke dalam kardus itu!
+3. `"Prasakati"` : Wah, barangnya berupa teks. Masukkan ke dalam!
+
+### Aturan Standar Internasional (Sintaks Variabel)
+
+Dalam menempelkan stiker, The Python Master Council punya standar resmi (PEP 8) yang disebut **Snake Case** (Gaya Ular).
+
+<Callout type="warning">
+**Aturan Resmi Membuat Nama Variabel:**
+1. **Harus nyambung, tanpa spasi**: Jika ada spasi, Python mengira itu adalah dua benda yang berbeda.
+2. **Pakai huruf kecil semua (Lower Case)**.
+3. **Jika lebih dari satu kata, sambung dengan garis bawah (`_`)**: Makanya disebut ular, merayap panjang. Contoh: `jumlah_apel_merah`.
+4. **Haram diawali angka**: `1_nama` itu dilarang. Harus diawali huruf (`nama_1` diperbolehkan).
+</Callout>
+
+Contoh penamaan yang **SALAH**:
+```python
+Nama Lengkap = "P" # Salah, ada spasi!
+1nama = "P"        # Salah, diawali angka!
+nama-lengkap = "P" # Salah, garis tengah (-) itu operator minus/kurang matematika!
+```
+
+---
+
+## Isi Kardusnya: Tipe Data Fundamental
+
+Setelah kardus diberi stiker nama, sekarang apa isi kardusnya? Python punya kemampuan otomatis meramal (menebak) wujud dari barang yang Anda masukkan. 
+
+### 1. Teks (String / `str`)
+Adalah apapun benda yang bertipe huruf, angka, atau simbol yang **harus** dikurung dalam tanda kutip tunggal (`''`) atau ganda (`""`).
+Contoh: `"Ini String"`, `"123 juga teks kalau di-str"`.
+
+### 2. Angka Bulat Utuh (Integer / `int`)
+Adalah angka asli yang bisa dipakai untuk matematika. **Tanpa tanda kutip**.
+Contoh: `15`, `-3`, `10000`.
+
+### 3. Angka Pecahan (Float / `float`)
+Sama seperti Integer, tapi punya desimal. Ingat, standar internasional desimal selalu menggunakan **titik (`.`)**, bukan koma.
+Contoh: `3.14`, `1.5`, `0.99`.
+
+### 4. Benar atau Salah (Boolean / `bool`)
+Tipe aneh ini ibarat sebuah cermin ajaib yang hanya bisa menampilkan 2 wajah: Ya atau Tidak, On atau Off. Di Python ini ditulis sebagai `True` dan `False` (Awas! Huruf pertamanya berhuruf T dan F besar).
+
+```python
+# Mari kita mainkan tipe data dicampur print()
+nama = "Prasakati"
+sepatu = 38.5
+sedang_belajar = True
+
+print(nama)
+print(sepatu)
+```
+
+<Playground 
+  code={`# Cobalah ganti usia dengan angka usiamu sekarang\nusia_sekarang = 10\nprint("Umurku adalah:")\nprint(usia_sekarang)`} 
+/>
+
+<Quiz 
+  question="Bagaimana gaya penulisan variabel (stiker nama) yang paling sesuai dengan Standar Internasional (PEP 8 Snake Case) dari pilihan di bawah ini?"
+  options={[
+    "jumlahMobil = 5",
+    "Jumlah Mobil = 5",
+    "jumlah-mobil = 5",
+    "jumlah_mobil = 5"
+  ]}
+  correctAnswer={3} 
+  explanation="Sempurna! Variabel 'jumlah_mobil' ditulis seluruhnya huruf kecil dan menggunakan garis bawah (_) untuk memisahkan kata, bukan karakter spasi, tidak diawali nomor, dan bukan dash (-). Ini dikenal sebagai Snake Case."
+/>

@@ -1,0 +1,102 @@
+---
+title: "1. Tas Ajaib: List, Tuple, Set, dan Dictionary"
+description: "Pelajaran Intermediate pertama: Memahami cara mengelola data yang sangat banyak sekaligus menggunakan struktur data built-in Python."
+icon: "Boxes"
+order: 20
+---
+
+## Kata Pengantar: Naik Level ke Tahap "Berlari"
+
+Selamat! Anda telah menguasai logika dasar "Bayi" Python. Kini Anda mengerti bagaimana variabel menyimpan satu nilai dan bagaimana mesin berputar (`for/while`). 
+
+Tapi bayangkan jika Anda bekerja diperusahaan e-commerce raksasa. Apakah logis jika Anda hendak menyimpan nama 10.000 pelanggan menggunakan 10.000 Variabel (Kardus) yang namanya dipisah-pisah manual dari `pelanggan1` sampai `pelanggan10000`? Tentu Anda akan sakit jiwa.
+
+Kita butuh kardus raksasa yang bisa dibagi mejadi laci kompartemen-kompartemen kecil. Dalam ilmu komputer tingkat menengah, ini disebut <Glossary definition="Sebuah format khusus untuk mengorganisasikan dan meletakkan data di memori komputer agar mudah diakses dengan logis.">Struktur Data</Glossary>.
+
+<VoiceNote src="/audio/python-datastructure.mp3" title="Analogi Bayi: Tas Ransel Doraemon" />
+
+Python telah membekali Anda 4 jenis *"Tas Ajaib Doraemon"* pabrikan *default*.
+
+### 1. Karung Bersekat: `List` (Daftar)
+
+`List` ditandai dengan **Kurung Siku `[]`**. Ia menyerupai koper yang punya banyak sekat laci, disusun secara berurut dari nomor laci ke-0, 1, 2, 3, dst (Ingat! Python sangat fanatik menghitung dari *index* 0).
+
+Bersahabat, fleksibel, Anda bisa mengganti bajunya dan membuang elemen kapanpun.
+
+```python
+# Sebuah koper bernama ransel_barang_anak
+# Index/Laci ke-  :     0        1         2
+ransel_barang = ["Buku", "Sepatu", "Sendok"]
+
+# Mengambil barang ke-2 (diketik angka 1)
+print("Saya mengambil:", ransel_barang[1]) 
+
+# Mengganti barang laci ke-0 (Buku -> Komik)
+ransel_barang[0] = "Komik"
+print(ransel_barang) # Hasil: ["Komik", "Sepatu", "Sendok"]
+
+# Menambah barang dadakan di laci paling ujung
+ransel_barang.append("Masker")
+```
+
+### 2. Kapsul Waktu Abadi: `Tuple` (Daftar Tetap)
+
+`Tuple` ditandai dengan **Kurung Biasa `()`**. Ia saudaraan dengan `List`, tapi sifat utamanya adalah **TIDAK BISA DIUBAH SIFATNYA SAMA SEKALI SETELAH DIBUAT (Immutable)**.
+
+Mengapa kita butuh *Tuple* yang kaku? Karena *Tuple* lebih irit memori dan mustahil secara tidak sengaja terhapus/berubah oleh _hacker_ atau kesalahan sistem.
+```python
+titik_posisi_gps = (-6.200000, 106.816666)
+
+# ERROR! Dilarang mengganti isinya!
+# titik_posisi_gps[0] = -7.00 
+```
+
+### 3. Keranjang Acak Anti Duplikat: `Set` (Himpunan)
+
+`Set` ditandai dengan **Kurung Kurawal `{}`**. Ia ajaib: Ia membenci barang kembar. Kalau Anda memasukkan 3 botol merk *Aqua* ke dalam tas Set, ia akan hancurkan dua botol tambahan dan **hanya menyisakan 1 jenis botol saja**. Ia juga tidak punya urutan hitung dari ke-Nol! (Berantakan di dalam).
+
+```python
+daftar_id_tamu = {"A01", "B20", "C99"}
+
+# Sengaja kita masukkan A01 lagi yang sudah pernah check-in
+daftar_id_tamu.add("A01")
+
+print(daftar_id_tamu) # A01 tetap ada satu buah saja
+```
+
+### 4. Lemari Buku Berlabel: `Dictionary` (Kamus Kunci)
+
+Alat raksasa paling OP (*Overpowered*) di Python. `Dictionary` (sering disingkat `dict`) menggunakan **Kurung Kurawal `{}` PLUS tanda Titik Dua `:` sebagai pemisah kunci-nilai**. 
+
+Bayangkan sebuah lemari laci, setiap ditarik laci bukan bertuliskan label nomor 0 atau 1, tapi bertuliskan stiker nama "nama", "umur", "kota". Ini mirip lemari arsip medis pasien.
+
+```python
+data_pasien = {
+    "nama": "Prasakati",
+    "umur": 15,
+    "alergi": "Kucing",
+    "is_sehat": True
+}
+
+# Tanya mesin: "Hei lemari, tolong tarik laci yang dilabeli 'alergi' dong!"
+print("Pasien B alergi:", data_pasien["alergi"])
+```
+
+<Callout type="info">
+**Mental Logic Standar Industri Backend:**
+Format struktur `Dictionary` ini **100% IDENTIK** dengan susunan format data **JSON** (JavaScript Object Notation) yang merupakan bahasa *konektor (Jembatan Data)* terkuat sedunia untuk API server di internet. Menguasai `dict` adalah tiket tol langsung menjadi *Backend Developer*.
+</Callout>
+
+---
+
+<Quiz 
+  question="Paket Struktur Data dalam Python mana yang wujudnya sangat kaku seperti batu prasasti sehingga TIDAK MUNGKIN isi elemennya diubah sedikitpun setelah deklarasi awal dilakukan?"
+  options={[
+    "List []",
+    "Set {}",
+    "Dictionary { }",
+    "Tuple ()"
+  ]}
+  correctAnswer={3} 
+  explanation="Luar Bisa Benar! Tuple (dengan lambang Kurung Biasa) memiliki gelar konsep sebagai Mutable-Error alias 'Immutable'. Setelah dideklarasikan, elemen di dalamnya tidak bisa direvisi dan sangat aman/berkualitas dipakai untuk memegang sesuatu yang vital seperti koordinat statis."
+/>

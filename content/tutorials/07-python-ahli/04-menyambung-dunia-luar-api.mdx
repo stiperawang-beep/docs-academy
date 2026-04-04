@@ -1,0 +1,93 @@
+---
+title: "4. Gerbang Antar Semesta: API & HTTP Requests"
+description: "Pelajaran Master pamungkas: Menyambung urat nadi kode lokal kita dengan lautan internet semesta raya menggunakan REST API."
+icon: "Globe"
+order: 43
+---
+
+## Kata Pengantar: Sang Ahli Sepenuhnya
+
+Tiba juga di puncak gunung Masterclass The King Python! Anda telah sangat jago mendirikan pabrik, mencetak robot (Object OOP), membersihkan ranjau, dan merangkum kertas JSON. Pertanyaan terakhir di dunia Programming Internasional adalah: **Lalu fungsi web kita yang jago ini buat apa misal tidak bisa memesan kopi di Gojek via koding?**
+
+Untuk menjadikan kode Anda Sang Ksatria Pemenang Hackathon di level Expert, mesin laptop memori Anda harus **Keluar Berenang Ke Internet Raya**, mengetuk mesin pintu Server Perusahaan/Website orang lain (seperti Tiket.com, Traveloka, MLBB API Bank), bertanya meminta Data mereka (atau melempar Data), lalu menutupnya kembali tanpa harus masuk pakai layar Browser Chrome!
+
+Cara komunikasi tanpa wujud Layar Browser visual (Interaksi murni Jantung ketemu Jantung Mesin) dinamakan <Glossary definition="Sebuah jembatan kasir pelayan (Application Programming Interface). Menu restoran yang menampilkan apa saja daftar komando yang bisa Anda pesan dari Sang Koki Server Utama.">API (Application Programming Interface)</Glossary>.
+
+<VoiceNote src="/audio/python-api.mp3" title="Analogi Bayi: Kurir Rantangan dan Tukang Warung Makan" />
+
+---
+
+## 1. Alat Transportasi Angkutan: Pustaka `requests`
+
+Di era The King Python, jutaan warga Expert selalu meremehkan buku manual jadul mesin konektor internet (`urllib`), dan The Master Council Python menyemah/sepakat memakai mesin dari pembuat ketiga yang terpopuler sakti mandraguna dengan nama Pustaka (Library) **Requests (Permintaan)**. 
+
+*(Biasanya kalau ini lingkungan bersih dari awal kita perlu masuk CMD/Terminal dan mengetik ajaib: `pip install requests` sebelum mesin bisa dipakai. Karena ini pustaka pihak ketiga!)*
+
+### Metode Perintah HTTP (Pesan di Kasir)
+Anggap Server Google sebagai Restoran Padang. Ada menu pesanannya:
+1. **GET (Mengambil Nasi Bungkus)**: Kita minta/mengambil sedot Data saja, tak ada maksud modifikasi merubah bumbu Dapur restoran.
+2. **POST (Menaruh Sayur Buatan Ke Dapur Nasi)**: Kita melemparkan Barang Data (Form Registrasi Login Ktp Facebook yang kita isi) yang dibalut ke server supaya diterima direkap meriam gudang mereka.
+3. PUT / PATCH / DELETE: Ini spesifik buat edit ganti nama sayuran atau menghapus dosa catatan mutlak kiamat (Hanya buat tingkat Admin Dapur).
+
+Mari kita Coba JURUS THE MASTER: **Mengintip Harga Bitcoin Terkini Dari Situs Saham Dunia Nyata API Secara GHAIB Tanpa Membuka Browser!**
+
+```python
+# Masukkan Kunci Buku Pustaka Dewa Kurir Requests
+import requests
+
+# Siapkan Alamat Web Kasir Tujuan (API URL)
+ALAMAT_KASIR = "https://api.coindesk.com/v1/bpi/currentprice.json"
+
+print("Kurir mulai berangkat menaiki awan internet...")
+
+try:
+    # 1. PUKULAN CEPAT JURUS TANYA GET!
+    hasil_respon = requests.get(ALAMAT_KASIR)
+    
+    # 2. STATUS POLISI - APAKAH RESTORANNYA BUKA ATO ERROR? (Angka 200 = Sukses OKE)
+    if hasil_respon.status_code == 200:
+        
+        print("Tiba di Kasir! Restoran Siaga!")
+        
+        # 3. KEKUATAN SUPER THE JSON (Melelehkan teks kaku asing API menjadi Laci Kuncian Dictionary Python!)
+        brankas_bitcoin = hasil_respon.json()
+        
+        # 4. MENGGALI SUSUNAN LEMARI MENDALAM
+        harga_dolar = brankas_bitcoin["bpi"]["USD"]["rate"]
+        waktu_saat_ini = brankas_bitcoin["time"]["updated"]
+        
+        print(f"HARGA BITCOIN DI DETIK INI ({waktu_saat_ini}):")
+        print(f">>> $ {harga_dolar} Milyar US Dollars! <<<")
+        
+    else:
+        print(f"Waduh! Restorannya Menolak Kehadiranku (Status Error Banned: {hasil_respon.status_code})")
+
+# Mencegah Jaring Internet Putus Mati Tanpa Memeluk Meledak Laptop
+except requests.exceptions.ConnectionError:
+    print("Kabel Wifi Internet milik Sang Master sedang tergigit Tikus!")
+```
+
+Lihatlah kekuatan *Magisterial* dari Kode di Atas! 
+Kita menerapkan ilmu `Try Except (Airbag)`, memakai ilmu `If/Else Polisi Logika`, mencabut buku ilmu luar `Import Manual Request` dan menggunakan `Pelelehan Pahat Json()` serta merambat turun memanggil gembok Laci lemari The `Dictionary List Tas Ajaib` ke dalam sebuah wadah rapi `Variable Stiker` pencetakan `Print`.
+
+SELURUH PERJALANAN LOGIKA BAYI ANDA TERCIPTAKAN DALAM 1 ARSITEKTUR KOMANDO EKSEKUSI INI!
+
+## Selamat, Anda Adalah Grandmaster Python
+
+Perjalanan mempelajari dasar hingga titik pamungkas *API Connection* adalah batu loncatan yang secara sah melantik Anda menjadi pengembang aplikasi backend, data science engineer, atau script hacking yang mampu menciptakan alam semesta logikanya menembus dimensi realitas. 
+
+Gunakan senjata ini di jalan damai ya! 🐍🔥
+
+---
+
+<Quiz 
+  question="Metode Transportasi Menu Restoran manakah yang Anda sebutkan di loket Kasir API jika misi Anda adalah melemparkan/mengirimkan surat Formulir Login panjang lebar masuk menuju dapur database mereka (Modifikasi Server luar)?"
+  options={[
+    "GET (Menghirup Oksigen Data)",
+    "OPTIONS (Intip Intip Siluman)",
+    "POST (Melemparkan Kotak Penuh Surat Ke Pintu Mereka)",
+    "JSON (Gaya Pakaian Bahasa Manusia)"
+  ]}
+  correctAnswer={2} 
+  explanation="Ketukan Palu Masterclass 100/100! 'POST' Action Method dalam hukum HTTP Internet ditujukan guna mengirimkan Paket Data Besar/Formulasi/Payload yang memutasi/mengepush informasi baru pada database Restoran lawan, bukan murni meminta/menyalin list menu (GET)."
+/>

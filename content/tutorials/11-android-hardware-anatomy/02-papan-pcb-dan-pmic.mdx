@@ -1,0 +1,74 @@
+---
+title: "2. Urat Darah Mesin: PCB & Skematik Logika PMIC"
+description: "SoC adalah otaknya, lalu siapakah yang memompa darah ke otaknya? Mempelajari anatomi Hardware Kelistrikan Papan Sirkuit (PCB) dan IC Power Management (PMIC)."
+icon: "CircuitBoard"
+order: 71
+---
+
+## Kata Pengantar: Peta Harta Karun Perangkat Keras
+
+Setelah kita membedah "Otak" (The SoC) pada bab sebelumnya, timbul satu pertanyaan besar di ranah kelistrikan: *Bagaimana otak mungil itu bisa tetap beroperasi hanya dengan daya dari balok baterai Lithium-ion yang voltasenya naik-turun seiring waktu pemakaian?*
+
+Jawabannya tergeletak datar di bawah SoC tersebut. Sebuah lembaran hijau kompleks yang kita kenal sebagai **Papan Sirkuit Cetak Utama (Motherboard / Main PCB)** dan penguasa arus listriknya, **PMIC (Power Management IC)**.
+
+Sebagai seorang _Hardware Engineer_ yang ingin me-reverse engineer kerusakan perangkat atau melakukan bypass hardware, kemampuan Anda membaca skematik (Schematic) dan _Boardview_ dari komponen-komponen ini adalah nyawa Anda.
+
+<VoiceNote src="/audio/android-hardware-pmic.mp3" title="Analogi Bayi: Kota dengan Saluran Pipa Pompa Darah" />
+
+---
+
+## 1. Papan PCB Dasar: Jalan Tol Tembaga
+
+**Printed Circuit Board (PCB)** pada HP Android modern bukanlah sebuah papan plastik satu lapis sederhana yang sering kita lihat di mainan listrik. PCB flagship modern (seperti standar HDI - *High Density Interconnect*) memiliki tumpukan **10 hingga 12 Lapis Lembaran Tembaga** (Layers) tipis yang dipress menjadi satu lempeng kaku.
+
+Jalur-jalur tembaga murni ini dibor menggunakan laser tingkat nano agar tiap lapisan bisa berkomunikasi satu sama lain menyalurkan paket data dan aliran darah elektronik.
+
+### The Holy Trinity Kelistrikan Pasif (SMD Components):
+Papan ini dipenuhi oleh miliaran "Batu Nisan" debu mikroskopis (_Surface-Mount Devices_ - SMD). Ada 3 penjaga gerbang tol listrik yang wajib Anda ketahui:
+
+- **1. Resistor (`R`) - Sang Rem Tangan:** Bertugas menghalangi dan "merem" arus listrik yang terlalu meluap tinggi agar chip NPU/CPU tidak terbakar. 
+- **2. Capacitor (`C`) - Sang Tandon Air Cadangan:** Berfungsi menampung sementara percikan aliran listrik. Bila mendadak SoC kekurangan listrik mikordetik, tandon ini yang meneteskan cadangan air voltasenya untuk menstabilkan sistem dan menyaring *noise* arus.
+- **3. Inductor (`L`) - Sang Kumparan Pegas Arus:** Seperti per kejut, menyerap hentakan kasar perubahan voltase dan memastikan aliran darah tetap linear mulus ke modul sensitif seperti Layar & Audio.
+
+<Callout type="warning">
+**The "Hardware Brick" Danger**
+
+Ketika Anda memodifikasi Kernel OS Android untuk memeras kecepatan Ekstrem (*Overclocking*), Anda sesungguhnya sedang memberi perintah *Software* untuk menyakiti *Hardware* secara perlahan. Dengan merubah file *Voltage Table* di Root, Anda mendobrak pintu batas `Resistor` sehingga arus melebihi ambang panasnya. Bila komponen gosong dan PCB meleleh, HP masuk ke mode "Hard Brick" (Mati Total Fisik tak tertolong).
+</Callout>
+
+---
+
+## 2. Sang Jantung Mekanis: PMIC (Power Management IC) Bekerja
+
+Tegangan baterai HP Anda penuh di `4.2 Volt`, tapi kosong menetes di `3.4 Volt`. 
+Sedangkan, prosesor raksasa SoC yang kita pelajari butuh asupan super akurat stabil murni di `0.85 Volt`. Layar sentuh AMOLED butuh `3.3 Volt` tanpa celah. Kamera butuh `2.8 Volt` murni.
+
+Siapa yang sanggup meracik tegangan baterai yang kacau ini menjadi lusinan jenis Voltase stabil tepat nan presisi dalam ukuran Microchip? Kenalkan: **Sang Jantung Kelistrikan, PMIC**.
+
+PMIC adalah sebuah IC (Chip Kotak Hitam sekunder) kedua terbesar di motherboard setelah SoC. Kinerjanya dikendalikan dan dinegosiasi langsung bersama SoC setiap detik. 
+
+**Proses Distribusi Logic PMIC (Buck & Boost Converters):**
+1. **Buck Converter (Penurun Tekanan):** Menendang dan menurunkan arus baterai `4V` menjadi arus lambat stabil `0.8V` pesanan Khusus untuk CPU Core agar stabil dan tidak panas.
+2. **Boost Converter (Penaik Tekanan):**  Menyihir voltase baterai 4V untuk dipompa meluap hingga mencapai `25 Volt` demi memecut daya LED Backlight Kaca Layar Ponsel hingga bersinar terang melawan matahari!
+
+## 3. Reverse Engineering Skematik Sirkuit
+
+Jika Anda ingin masuk ke _Level Dokter Bedah Reparasasi_, **Skematik Pabrik** dan alat lunak **Boardview (Peta Koordinasi Titik)** adalah injil suci Anda.
+
+Dengan skematik, Anda bisa mencari tahu: *"Oh, jalur VPH_PWR (Voltage Phone Power Master) yang dialirkan dari IC Charger ternyata melewati Kapasitor nomor C4312 dan Induktor L4090 sebelum masuk menyuapi IC PMIC di kaki PIN urutan AB7!"*
+
+Jika terjadi korsleting (Short Circuit) mati total. _Hardware Hacker_ bukan memperbaiki *Software*, ia akan menyuntikkan tegangan murni dengan **Power Supply Unit (PSU)** (Teknik *Voltage Injection*) ke papan sirkuit untuk mencari komponen SMD mikroskopis mana yang tiba-tiba "Panas / Mengeluarkan Asap" dengan kamera Thermal. Area yang melepuh itulah blok yang dijebol dan disolder paksa keluar!
+
+---
+
+<Quiz 
+  question="Komponen elektronika dasar mikroskopis manakah pada PCB yang memegang peranan hakiki layaknya sebuah 'Tandon Air', penyimpan dan penetes listrik darurat agar riak tegangan elektronik tetap terjaga stabil tanpa riuh (Noise) putus-putus?"
+  options={[
+    "Resistor (Pemutus Arus Berlebih)",
+    "SoC (System on Chip)",
+    "Induktor Kumparan (Peredam Kejut Arus)",
+    "Kapasitor (Toren Cadangan Daya)"
+  ]}
+  correctAnswer={3} 
+  explanation="Tangkapan logika kelas Dewa! Kapasitor (Capacitor/Condensator) adalah komponen tulang punggung paling dominan yang disebar luas di titik-titik krusial di sekeliling PMIC dan SoC khusus untuk menelan serpihan Noise listrik serta memastikan 'Supply Arus Air Listrik' tetap deras tanpa ada kemacetan tiba-tiba."
+/>

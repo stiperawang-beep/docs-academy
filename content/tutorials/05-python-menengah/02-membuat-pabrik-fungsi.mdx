@@ -1,0 +1,105 @@
+---
+title: "2. Membuat Pabrik Sendiri: Function / Def"
+description: "Meningkatkan kemampuan program dengan membuat sebuah tugas khusus berulang kali agar penulisan kode tidak merepotkan."
+icon: "Factory"
+order: 21
+---
+
+## Mental Logic: Cetak Biru Memasak Nasi Goreng
+
+Bayangkan jika setiap kali Anda ingin memasak "Nasi Goreng", Anda harus mengetik rumus panjang sepanjang 20 baris seperti *"Nasi keluar, telur diceplok, tuang kecap, aduk."* Lalu, bayangkan esok hari saat Anda ingin makan Nasi Goreng lagi, **Anda harus menulis 20 baris ulang rumus itu di kertas baru.** Melelahkan, kan?
+
+Bentuk program terburuk adalah kode program yang "menyalin (*Copy*)-menempel (*Paste*)" ratusan baris kembar berulang-ulang tanpa merangkumnya. Celah terbesar adalah saat instruksinya butuh revisi—(seumpama kecap yang digunakan kini dilarang BPOM, Anda harus mengubah resep itu di 100 baris yang berbeda).
+
+Oleh karena itu, lahirlah **Bagian Konsep Menengah Paling Krusial di Komputer:** <Glossary definition="Sebuah bungkus kotak raksasa yang tidak menampung Data, tetapi menampung 'Tindakan/Perintah' dan kita bisa memanggil tindakan itu berulang-ulang dengan satu nama panggilan.">Fungsi (Function)</Glossary>.
+
+Kita membungkus langkah membuat "Nasi Goreng" ke dalam alat mesin pencatak portabel bernama **Pabrik `def`**.
+
+<VoiceNote src="/audio/python-function.mp3" title="Analogi Bayi: Pabrik Mesin Penumbuk Kopi" />
+
+### Aturan Mengukir Nama di Pabrik Anda (Sintaks `def`)
+
+Dalam Python, kita memberikan nyawa/membuat pabrik mini kita dengan satu kata sakti berukuran tiga huruf: **`def`** (Singkatan dari *Define*/Tentukanlah).
+
+Ikuti aturan ketat ini:
+1. Ketik kata `def` lalu diikuti Spasi.
+2. Tulis nama pabriknya memakai standar *Snake Case* huruf kecil bergaris bawah. (Cth: `bikin_nasi_goreng`)
+3. **MANDAT WAJIB**: Berikan tanda kurung pembungkus `()`, lalu tutup gerbang akhirnya dengan Titik Dua `:`.
+4. Berikan ganjalan Jarak Indentation Spasi 4 ketuk pada baris bawahnya!
+
+```python
+# 1. TAHAP PEMBUATAN PABRIK KE DALAM BLUEPRINT/RANCANGAN
+def bikin_nasi_goreng():
+    print("Minyak dipanaskan")
+    print("Telur dan Nasi diaduk dengan bumbu rahasia")
+    print("Nasi Goreng sedap telah tersaji di Piring!")
+
+```
+*Jika Anda mengetik seperti di atas dan menekan play. Kenapa di Terminal tidak ada yang terjadi? Kenapa sepi?*
+Karena Anda **HANYA MEMBUAT cetak birunya (Blueprint)**! Mesin hanya berdiri berdebu, ia tidak bergetar kecuali ada Boss yang menyalakan tombol merah saklar dayanya!
+
+### Melesatkan Tombol Menyalakan Mesin
+
+Kita sebut proses penekanan tombol merah saklar pabrik ini dengan nama <Glossary definition="Tindakan mengeksekusi kotak Fungsi agar seluruh mesin di dalamnya menderu bekerja serentak. Ditandai dengan tanda kurung ( ) menempel">Call Function (Pemanggilan)</Glossary>.
+
+```python
+# 2. TAHAP PENYALAAN MESIN UTAMA 
+bikin_nasi_goreng()
+```
+
+Kini, jika Anda ingin makan nasi goreng 5 mangkok sebulan penuh, Anda hanya perlu mengetik 5 kalimat seruan kecil `bikin_nasi_goreng()`. Program Anda mengerucut turun dari 500 baris menjadi sisa 5 baris!
+
+---
+
+### Mesin Pabrik yang Meminta "Bahan Mentah" (Parameter)
+
+Sebuah mesin penepung akan menolak menyala jika tidak dimasukkan "biji" yang ingin ia tekan. Biji (Bahan Baku) itulah yang dinamakan *Parameter / Argument*.
+
+Sebuah Fungsi bisa didesain **Hanya menyala kalau diberi suatu argumen (data) mentah**. Argumen itu akan dicekik di dalam **Tanda Kurung `()`** nama mesinnya.
+
+```python
+def sapa_pembeli(nama_pelanggan):
+    # Menyambung string dapat memakai tanda Koma
+    print("Halo perkenalkan,", nama_pelanggan, "selamat datang di lapak kami")
+
+# Menjalankan Mesin sambil memberikan biji kacangnya!
+sapa_pembeli("Prasakati")
+sapa_pembeli("Jaka")
+```
+
+### Produk Buatan Pabrik yang Dilempar Keluar: `return`
+
+Fungsi sebelumnya hanya numpang mencetak ke layar (seperti corong Radio pengumuman). Namun bagaimana kalau pabrik kalkulator ingin ***menghasilkan barang matang fisik/data yang bisa disimpan lagi?***
+
+Kita butuh perlakuan khusus: `return` (Kembalikan data ini ke luar pintu gerbang!).
+Barang yang dilempar oleh instruksi `return`, dapat kita tangkap kembali menjadi kotak Variabel penyimpan!
+
+```python
+def pertambahan_sakti(angka1, angka2):
+    hasil_mentah = angka1 + angka2
+    # BARIS INI WAJIB AGAR DATA TIDAK MENGUAP PERCUMA DI DALAM PABRIK
+    return hasil_mentah  
+
+# --- Menangkap Kotak Mentahan Yang Terlempar ---
+stiker_ku = pertambahan_sakti(500, 30)
+print(stiker_ku) # Cetak isi stikernya: 530!
+```
+
+<Callout type="warning">
+**Rahasia Kematian Sebuah Fungsi**
+Sewaktu mesin Python bertemu tulisan `return`, fungsi mesin tersebut **Langsung meledak Mati total menghentikan baris bawahnya** tanpa pandang bulu untuk baris yang mengantri. Itulah terminal tujuan pamungkas (Garis Finish). Anda dilarang memberikan baris program apapun di luar *Indentation* yang masuk setelah baris `return`.
+</Callout>
+
+---
+
+<Quiz 
+  question="Di bawah ini ada sebutan barisan blok cetak biru (Blueprint) dari sebuah instruksi mandiri. Mana istilah yang tepat untuk menyebut kegiatan 'Memasukkan biji/data material mentah sesaat sebelum mesin dijalankan?'"
+  options={[
+    "Mendeklarasikan mesin (Def)",
+    "Membuang kembalian ke luar (Return)",
+    "Operator Indentation Khusus",
+    "Menyuntikkan Argument/Parameter pada Tanda Kurung ()"
+  ]}
+  correctAnswer={3} 
+  explanation="Yap TEPAT! Kotak tanda kurung () yang melengket dengan nama pabrik dioperasikan sebagai cerobong masukan; Di sinilah kita menjatuhkan nilai alias DATA Argument (Materi mentah seperti Angka, String, dsb) untuk diolah di dalam blok."
+/>

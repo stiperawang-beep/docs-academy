@@ -1,0 +1,80 @@
+---
+title: "4. Jaring Pengaman: Try & Except"
+description: "Pelajaran Intermediate terakhir: Bagaimana merancang program tahan banting yang tidak hancur meledak saat menemui data Error tak terduga."
+icon: "ShieldAlert"
+order: 23
+---
+
+## Mental Logic: Mobil Rem Blong vs Airbag
+
+Komputer itu sangat kaku dan emosional. Jika Anda memberinya perintah matematika untuk membagikan `10 / 0` (10 dibagi Nol), dia tidak akan diam dan bingung. Sebaliknya, Asisten Python akan langsung meledakkan program Anda, menghentikan seluruh sistem mesin layaknya kiamat, disertai dengan teriakan merah menakutkan berjudul **`ZeroDivisionError`**.
+
+Ini sangat fatal di dunia komersil/profesional. Bayangkan Anda sedang asyik bermain game PS5 lalu internet Anda mati sedetik, dan game itu langsung tertutup paksa alias *Force Close* ke menu awal! Mengesalkan bukan?
+
+Seharusnya, sebuah program yang dirancang profesional memiliki *Bantalan Airbag* (Jaring Sirkus) yang menangkap *error/kecalakaan* itu, mengabaikan kehancurannya, dan tetap terus lanjut bekerja (dan memberikan pesan mohon maaf secara halus). Bantalan pelindung jiwa di Python ini bernama <Glossary definition="Teknik yang membungkus kode rentan (sensitif) agar kalaupun kodanya salah, mesin Python tidak hancur meledak, namun melompat ke blok penyelamat.">Exception Handling</Glossary>.
+
+<VoiceNote src="/audio/python-trycatch.mp3" title="Analogi Bayi: Jaring Sirkus Trapezium" />
+
+### Aturan Menggelar Jaring: Try dan Except
+
+Di Python, ada kata ajaib pasangan (selalu berdua-duaan, tak bisa pisah) bernama `try` (Ayo, Mari Kita Coba!) dan `except` (Kecuali jika Gagal / Tabrakan, maka...).
+
+Mari kita buktikan.
+
+**KODE BURUK TANPA JARING ALIAS "BUNUH DIRI MASSAL"**
+```python
+angka_user = int(input("Masukkan sebuah angka: "))
+
+# JIKA USER MENGINPUT HURUF "TIGA" BUKAN ANGKA, PROGRAM MELEDAK
+# ERROR FATAL VALUE-ERROR. Baris di bawah tak akan hidup!
+print("Selesai")
+```
+
+**KODE PROFESIONAL MENGGUNAKAN JARING AIRBAG `TRY / EXCEPT`**
+```python
+try:
+    # 1. BUNGKUS KODE YANG DIANGGAP BAHAYA/KEMUNGKINAN MELEDAK DISINI
+    angka_user = int(input("Masukkan sebuah angka: "))
+    print("Oh angkanya bagus!")
+    
+except ValueError:
+    # 2. APA YANG HARUS DILAKUKAN MESIN JIKA BENAR-BENAR MELEDAK TAPI MAU DISELAMATKAN
+    print("Maaf, kamu tidak mengetik angka yang benar. Kamu ketik huruf ya?")
+
+# JARING INI MEMBUAT BARIS BAWAH TETAP BERTAHAN HIDUP DENGAN SEHAT
+print("Mesin Python masih menyala dengan sehat sentosa!")
+```
+
+### Klausa Bonus `finally` (Sang Petugas Pembersih)
+
+Seringkali, Anda ingin memastikan satu tindakan dieksekusi **APAPUN YANG TERJADI** (entah mesinnya berhasil hidup, entah jaringnya meledak dan tertangkap). Kita selipkan alat ketiga bernama `finally:` (Akhirnya).
+Apapun ceritanya, baris `finally:` akan terus dieksekusi paling akhir tanpa peduli berhasil lulus atau tertabrak jaring.
+
+```python
+try:
+    print(10/0)
+    
+except ZeroDivisionError:
+    print("Gawatt ada pembagian NOL BOSS!!")
+
+finally:
+    print("Saya petugas kebersihan, tidak peduli gagal atau tidak, saya harus membersihkan data sekarang.")
+```
+
+---
+
+<Playground 
+  code={`print("Mari kita coba menembus batas jaring!")\n\ntry:\n    # Sengaja merusak kode dengan memanggil variabel yang berlum lahir\n    print(nama_pacarku)\nexcept NameError:\n    print("Waduh, sistem mendeteksi kamu jomblo!")`} 
+/>
+
+<Quiz 
+  question="Di bawah ini, metode pasangan syntax pelindung jaring Error apa yang benar dan sah dipakai di bahasa Python Official?"
+  options={[
+    "Try / Catch",
+    "Try / Except",
+    "Do / Catch",
+    "Attempt / IfError"
+  ]}
+  correctAnswer={1} 
+  explanation="Ketelilitan Sempurna! Jika kamu migrasi dari Javascript mungkin kamu terbiasa dengan kata *Try/Catch*. Tapi di dunia Python yang sangat khusus, kata resmi yang sah dari sang kreator Guido van Rossum adalah pasangan 'try' berduet abadi dengan kata 'except'."
+/>

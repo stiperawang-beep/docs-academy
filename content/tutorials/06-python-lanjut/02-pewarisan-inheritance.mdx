@@ -1,0 +1,96 @@
+---
+title: "2. DNA Penurun Bakat: Inheritance (Pewarisan)"
+description: "Bagaimana sebuah object blueprint bisa melahirkan blueprint anak dengan segala kehebatan leluhurnya yang terwariskan."
+icon: "GitMerge"
+order: 31
+---
+
+## Kata Pengantar: Melanjutkan Tahta Sang Ayah
+
+Pelajaran kita sebelumnya membahas bagaimana *Class* bagaikan besi cetakan induk yang menelurkan ribuah object benda (Kue Kering).
+
+Nah, sebagai programmer jenius (atau pemalas yang cerdas), bagaimana jika Anda besok mendapat proyek membuat **"Cetakan Robot Perang Terbang"** dan **"Cetakan Robot Perang Penyelam"**?
+
+Programmer bodoh (Pendekatan Brutal) akan merekayasa pabrik Robot Terbang dari Nol (menulis 1.000 baris kode mesin roda, sendi, dan sayap). Lalu keesokan harinya ia membuat pabrik balu bernama Robot Penyelam dan menge-tik 1.000 baris kode rangka baja dan roda dasar *ulang secara persis dari awal!*.
+
+Programmer Ninja, ia paham konsep biologi genetik **Inheritance (Pewarisan Jiwa/Sub-Class)**.
+
+<VoiceNote src="/audio/python-inheritance.mp3" title="Analogi Bayi: Warisan Mutasi Superpower DNA" />
+
+### Membangun Kakek Leluhur (Parent Class / SuperClass)
+
+Daripada membuat 2 robot berbeda, Sang Ninja membuat satu **Cetakan Kakek Dasar yang Polos**:
+
+```python
+class RobotPrajurit:
+    def __init__(self, nama_seri):
+        self.nama = nama_seri
+        self.tangan_kiri = "Meriam Peluru"
+        self.tangan_kanan = "Tinju Besi"
+        
+    def maju_jalan(self):
+        print(self.nama, "berjalan 5 meter menembus puing bata!")
+        
+    def menembak(self):
+        print("Dorr!! 50 peluru dilontarkan dari", self.nama)
+```
+
+### Melahirkan Anak Super Menurunkan Sifat (Child-Class)
+
+Sekarang, kita buat cetakan `RobotTerbang`. Perhatikan jampi-jampinya di tanda kurung!
+
+```python
+# CUKUP MASUKKAN NAMA SANG KAKEK KE DALAM KURUNG () SETELAH NAMA CLASS!
+class RobotTerbang(RobotPrajurit):
+    
+    # Sang Anak bisa punya organ tambahan mandiri tanpa mengotori Kakeknya!
+    def hidupkan_sayap(self):
+         print(self.nama, "menyalakan 2 jet pendorong... Wussshhh Terbang!!")
+
+
+# MARI KITA UJI COBA MESIN KEMAMPUAN ANAK KITA
+robot_udara_01 = RobotTerbang("Eagle-X")
+
+# AJAIB!! robot_udara_01 lansung bisa menembak dan maju jalan!
+# Seluruh DNA Kakeknya tertanam ke jiwa tubuh anak ini walau kita tidak mengetik ulang 1 barispun kode def maju_jalan() pada cetakan RobotTerbang!
+robot_udara_01.maju_jalan() 
+robot_udara_01.hidupkan_sayap()
+```
+
+<Callout type="info">
+**Mental Logic "Hierarki": Kenapa harus ribet?**
+Semakin besar sebuah perusahaan perangkat lunak (contoh: Tokopedia yang punya sistem Pembeli, Penjual, Admin). Ketiga unsur itu hanyalah **Sub-Class** dari satu induk mahabesar bernama `User` (Sama-sama punya *email*, *password*, dan *avatar*). Jadi Tokopedia tidak capek membuat fitur Reset Password sebanyak 3 kali (1 untuk Pembeli, 1 untuk Penjual, 1 untuk admin). Cukup rakit fungsinya 1 kali menempel di DNA Kakek Dasar (`User`)! Seluruh Class Anak di belakangnya mutlak berhak menggunakan fasilitas itu! Sangat efisien, bukan?
+</Callout>
+
+### Pemberontakan Silsilah Anak (Polymorphism / Method Overriding)
+
+Pewarisan DNA tidak mutlak kaku seperti rezim otoriter. Sang Anak (Child) berhak **Merebut/Menimpa/Merevisi** sifat leluhurnya sesuai jalan hidupnya tanpa menghapus sifat sang Kakek pada adik-adik yang lain.
+
+Fenomena sang anak yang punya jurus gaya baru ini disebut konsep OOP tingkat tinggi yaitu `Polymorphism` dan `Overriding`!
+
+```python
+class RobotPenyelam(RobotPrajurit):
+    
+    # SANG ANAK MENG-HACK DAN MENIMPA OTOT KAKEKNYA SECARA PRIBADI
+    def maju_jalan(self):
+        print(self.nama, "tidak berjalan! Dia memutar baling-baling renang air!")
+
+# Mari uji jalan...
+aqua_bot = RobotPenyelam("Nautilus")
+aqua_bot.maju_jalan() 
+# Hasil yang keluar bukan "berjalan tembus puing", tapi "memutar baling-baling"!
+```
+
+---
+
+<Quiz 
+  question="Di ranah Sistem Kerajaan OOP, apa sebutan akurat bagi teknik di mana seorang Class Anak membuat/mendefinisikan Ulang fungsi dengan Nama Persis yang sudah dimiliki Induknya (guna mengubah kelakuan khas dari instruksi milik Kakeknya)?"
+  options={[
+    "Overloading Variables",
+    "Child Process Killing",
+    "Method Overriding",
+    "Dependency Injection"
+  ]}
+  correctAnswer={2} 
+  explanation="Ketepatan yang sempurna! Overriding secara definisi terjemahan berarti 'Menimpa Instruksi Di Atas Papan'. Sang Anak (Child Class) dengan sengaja mendeklarasikan kembali def fungsi dengan nama TEPAT IDENTIK milik sang Super Class agar saat ia dipanggil, yang menyertai Objectnya adalah mesin revisi miliknya pribadi!"
+/>

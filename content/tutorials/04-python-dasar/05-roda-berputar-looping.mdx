@@ -1,0 +1,93 @@
+---
+title: "5. Roda Berputar: Looping For & While"
+description: "Konsep perulangan/otomatisasi dalam Python yang membuat manusia tidak perlu mengetik sesuatu secara manual berulang kali."
+icon: "Repeat"
+order: 14
+---
+
+## Mental Logic: Kaset Rusak & Mesin Cuci
+
+Mengapa komputer sangat hebat? Karena komputer tidak pernah merasa bosan! Manusia akan mati kelelahan jika disuruh menyalin tulisan "Aku Janji Tidak Nakal Lagi" sampai 1000 kali. Tetapi komputer dan Python? Mereka bisa melakukannya kurang dari sedetik sambil tertawa bahagia.
+
+Teknik menyuruh Python bekerja layaknya orang kesurupan untuk melakukan hal secara berulang-ulang tanpa capek dinamakan sebagai <Glossary definition="Proses mengulang eksekusi/menjalankan sekumpulan blok kode instruksi selama syarat yang diberikan belum tercapai.">Looping (Perulangan)</Glossary>.  
+
+<VoiceNote src="/audio/python-looping.mp3" title="Analogi Bayi: Mesin Cuci Otomatis" />
+
+Di Python, kita kenali 2 mesin perulangan utama: Mesin **For** dan Mesin **While**.
+
+---
+
+### 1. Mesin Hitung Mundur Bertarget: `for`
+
+Mesin `for` (Untuk) adalah jenis mesin yang **sudah tahu kapan ia harus berhenti** sejak awal ia dijalankan. Ibarat Anda mengatakan kepada supir, *"Pak, tolong putar balik melewati jalan ini 5 kali lagi."* Sang supir sudah menggenggam target berhentinya dari awal (angka 5).
+
+Di Python, biasanya mesin `for` digabungkan dengan alat `range()` untuk mencetak angka atau mengulang secara urut.
+
+```python
+# Ingat: Titik dua (:) dan spasi menjorok (Indentation) itu sangat penting!
+
+for putaran in range(3):
+    print("Halo dunia, ini cetakan nomor", putaran)
+
+print("Saya sudah selesai memutar!")
+```
+
+<Callout type="info">
+**Mental Logic Rahasia `range(3)`**
+Asisten Python menghitung TIDAK dari angka 1. Ia seperti bayi yang baru melihat dunia: **semuanya selalu dihitung mulai dari angka 0!**
+Jadi, `range(3)` tidak melempar angka `1, 2, 3`. Tetapi ia melempar: `0, 1, 2`. Komputer selalu suka dengan elemen berwujud ke-Nol (Basis 0).
+</Callout>
+
+### 2. Mesin "Sampai Bensin Habis": `while`
+
+Mesin yang kedua bernama `while` (Selama/Sembari). Mesin ini ibarat orang keras kepala; karena ia tidak dibekali target khusus sejak awal, **ia akan terus berputar/bekerja selama syarat Polisi (`If`) di dalamnya MASIH BENAR (True)!**
+
+Jika Anda tidak hati-hati membuat rem untuknya, mesin `while` **tidak akan pernah berhenti seumur hidupnya** sampai baterai leptop Anda meledak (*Infinite Loop*).
+
+```python
+bensin = 5
+
+while bensin > 0:
+    print("Mobilnya jalan brmmm!")
+    
+    # KITA HARUS MENGURANGI BENSIN MANUALLY
+    # Jika baris ini terlewatkan, LOOPING INI AKAN JADI NERAKA KEKAL
+    bensin = bensin - 1 
+
+print("Mobil berhenti karena mogok (Bensin habis).")
+```
+
+### Rem Mendadak (Break) & Pedal Loncat (Continue)
+
+Bagaimana jika di tengah jalan Anda ingin sistem perulangannya di-rem mendadak (*Emergency Stop*)? Python punya tombol:
+1. `break` = Langsung tabrak tembok pemisah, hancurkan total putarannya, loncat keluar baris blok kode!
+2. `continue` = Terdapat rintangan di jalan ini? Abaikan pengerjaan jalan ini, **segera lompati langsung ke pendaftaran putaran angka selanjutnya.**
+
+```python
+for angka in range(5):
+    if angka == 2:
+        continue # Langsung loncat ke angka 3, cuekin print baris bawah.
+        
+    if angka == 4:
+        break    # Gawat, tabrakan!!! HENTIKAN SELURUH MESIN FOR.
+        
+    print("Angka yang diproses adalah", angka)
+```
+
+---
+
+<Playground 
+  code={`# Mari kita memutar dengan While Loop\njumlah_apel = 0\nwhile jumlah_apel < 4:\n    print("Menggigit apel ke-", jumlah_apel)\n    jumlah_apel = jumlah_apel + 1\n\nprint("Perutku kenyang!")`} 
+/>
+
+<Quiz 
+  question="Apa perbedaan filosofi paling mendasar antara kerja Loop 'For' dengan Loop 'While' dalam Python?"
+  options={[
+    "For digunakan untuk huruf, While digunakan untuk angka.",
+    "For digunakan saat kita tahu batas jumlah berputarnya (Target pasti), While digunakan untuk syarat kondisional (Sampai Sesuatu terjadi).",
+    "Kinerja For membuat program cepat hancur jika salah sedikit spasi.",
+    "While sama seperti perintah if biasa, dan diprioritaskan saat bekerja."
+  ]}
+  correctAnswer={1} 
+  explanation="Pengetahuan yang Matang! 'For' sangat cocok untuk sesuatu yang wujud batas ulang / datanya bisa dihitung pas (seperti mengelilingi lapangan 3 kali). 'While' sangat jago memegang syarat gaib: 'Selama langit cerah, jemur padi' (Entah sampai sore, atau sampai minggu depan, selama langit cerah dia akan bekerja tiada henti)."
+/>
