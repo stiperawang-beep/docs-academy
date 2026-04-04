@@ -11,9 +11,11 @@ export function proxy(request: NextRequest) {
   if (!isProtected) return NextResponse.next()
 
   const session = request.cookies.get(AUTH_COOKIE)
+
+  // Already authenticated — allow through
   if (session?.value === 'authenticated') return NextResponse.next()
 
-  // Redirect to login with next param
+  // Not authenticated — redirect to login exactly once
   const loginUrl = new URL('/login', request.url)
   loginUrl.searchParams.set('next', pathname)
   return NextResponse.redirect(loginUrl)
