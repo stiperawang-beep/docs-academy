@@ -1,0 +1,88 @@
+---
+title: "Interupsi! Mendengar Tangisan Keyboard"
+description: "Mempelajari The Interrupt Descriptor Table (IDT) untuk menangkap ketikan dari port I/O perangkat keras dan memberikan Driver The Keyboard Nyawa."
+icon: "Keyboard"
+order: 4
+---
+
+# Interrupt dan Driver: Menghentikan Dunia dengan Sebiji Tombol
+
+OS Kernel The C anda sudah menyala, dan dia bisa mem-print tulisan murni tanpa butuh siapapun. Tetapi ada tragedi besar: Ketika penguna menekan pencet tuts tombol *Space Bar* di Fisik The keyboard... CPU sama sekali **NGGAK PEDULI**. 
+The `kernel_mulai_hidup()` kita tadi terkunci abadi di dalam the Infinite `while(1){}` loop. 
+
+Bagaimana caranya tombol keyboard bisa sampai pada tangan Loop The C ini? Siapkan The Armor Ksatria Memori anda: Kita memanggil sistem **The Hardware Interrupt**.
+
+## 1. Menyadari Hantaman Listrik Interrupt (IRQ)
+
+Keyboard dicolok di dalam Motherboard. Chip kecil pengawas (The PIC - Programmable Interrupt Controller) ditanam OS murni disana.
+Ketika Anda meremukkan/mengetuk Huruf 'A', the keyboard menyetrum PIN listrik khusus The MotherBord yang kemudian meledakkan sirene keras ke Telingan The Processor CPU: *"Woy! GUA BERHENTI KERJA LOOP SESAAT! ADA HARDWARE MENJerit minta di Layani!"* (Hardware Interrupt / IRQ1).
+
+## 2. Table Hukum IDT (Interrupt Descriptor Table)
+
+Untuk merespon sirene kilat tadi, The Processor CPU secara kilat melihat sebuah Tabel Buku Murni Biner RAM bernama **The IDT**.
+Di Buku IDT Nomor Laman The Hardware 33 (IRQ1), akan tertulis "JIKA Keyboard berteriak, Lompat ke baris Pointer The OS Kernel C Milik-Mu di `Keyboard_Handler()`!".
+
+Kita sebagai penemu OS ini WAJIB mendeklarasikan the IDT Struct tersebut dan menyematkannya ke Memory RAM Puing Register CPU:
+
+```c
+// File The Struct Misteri Intel IDT Format Standard. (Hati-hati Penuh The Byte Padding!)
+
+struct idt_entry {
+    unsigned short offset_lowerbits; // The 16 bit Low dari the Pointer fungsi Handler kita.
+    unsigned short selector;         // The Kernel Segment 
+    unsigned char zero;              // Padding Mutlak C yg Tak terpakai!
+    unsigned char type_attr;         // Mode Proteksi/Ring (Pengamanan Anti user biasa membongkar)
+    unsigned short offset_higherbits;// The 16 bit atas Fungsi kita.
+} __attribute__((packed)); // MATIKAN COMPILER PADDING. The hardware intel menelan Raw tanpa bolong bit!
+
+// KITA CIPTAKAN ARRAY BUKU PENUH IDT KE RAM (Panjang Maxnya 256 Halaman Interupsi!)
+struct idt_entry buku_idt_raksasa[256];
+```
+
+## 3. Berkomunikasi dengan Port Ajaib (`inb` & `outb`)
+
+Lalu di The Fungsi Peringkat Tangkapan Keyboard kita, darimana kodenya bisa membaca the Scan Code Huruf 'A' The keyboard tadi? Kita harus membaca The "Motherboard Memory Ports".
+Ini bukan RAM Pointer standar! Ini gerbang Hardware di C memakai kode spesifik (membutuhkan pertolongan C in-line the Inline Assembly).
+
+Fungsi sakti ini: Membaca listrik mesin Murni melalui instruksi perunggu CPU yang disebut `IN` port hardware.
+
+```c
+// Membaca sebuah Byte (b) dari pelabuhan Port!
+static inline unsigned char the_port_membaca_byte_masuk(unsigned short port_target) {
+    unsigned char hasil_korsleting;
+    // INLINE ASSEMBLY The Sintax Khusus GCC. 
+    // ("Masuk the Value IN dari the Port Target ke variable the Return C Kita.")
+    __asm__ volatile("inb %1, %0" : "=a" (hasil_korsleting) : "Nd" (port_target));
+    return hasil_korsleting;
+}
+```
+
+## 4. Pelayanan Sang Keyboard Handler Sejati
+
+Sebuah keajaiban telah dibakukan sejark abad kegelapan PC Komputer the Keyboard Pelabuhan Mesin selalu berlokasi di **Port Nomor 0x60**!
+Sekarang ayo kita tangkap ledakkan pelayan itu yang akan melompat disaat Sirene bunyi:
+
+```c
+// The Driver Keyboard Super Sederhana 1:1
+void irq1_pelayan_keyboard_handler() {
+    
+    // BONGKAR GERBANG I/O MURNI BESI 0x60.
+    // DENGAR HURUF KODE "SCAN CODE" DARI KEYBBOARD YANG BARU DIPENCET HARDWARE.
+    unsigned char tombol_scan_mentahan = the_port_membaca_byte_masuk(0x60);
+    
+    // (Akan Mereturn "30" Angkat Mutlak Asli jika The Huruf A di teken di layar C!)
+    if (tombol_scan_mentahan == 0x1E) { 
+        the_print_layar("HURUF A BARUSAN DITEKAN!! ");
+    } 
+    else if (tombol_scan_mentahan == 0x1F) {
+         the_print_layar("HURUF S BARUSAN DITEKAN!! ");
+    }
+    // Dst Tabel translasi Panjang Ribuan Biner Scan-code the US-Keyboard Map.
+    
+    // Beri Sinyal ke PIC Motherbood "Makasi Kawan Chip. Sudah Aku Layani Interrupsinya".
+}
+```
+
+Sungguh tak terhindarkan! Program Anda berkedip liar mendikte layar Hitam hanya disaat The Fisik Keybord hancur ditekang the Penguna The PC!
+
+Wawasan C Anda sebagai Sang System Developer baru saja mendrobrak Ketinggian Mutlak The Dunia. Terakhir, Kita harus memutar Paging Otak Multi-CPU The RAM Scheduler. Keagungan Konsep Multi Tasking OS. Modul Penghakiman!

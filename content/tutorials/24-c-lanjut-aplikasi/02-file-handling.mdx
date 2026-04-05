@@ -1,0 +1,100 @@
+---
+title: "Bypass Hard-Drive: File Handling"
+description: "Meninggalkan The RAM dan berinteraksi secara murni langsung melempar arus bytes ke sekor I/O Piringan Hard-Disk (HDD/SSD)."
+icon: "FolderClosed"
+order: 2
+---
+
+# Manipulasi Disk: Berkotor Tangan dengan Sistem File
+
+Sampai sejauh ini, semua variabel Anda (terlepas ia berada di The Stack atau The Heap) akan musnah tak tersisa saat tegangan listrik komputer dihentikan (Komputer Restart). Untuk menggapai keabadian status di dalam "Save File Game" asli atau *Log Database Engine*, Anda membukukan aliran bytes (arus *Stream*) lurus menuju penyimpan fisik yang tak akan menguap—yaitu **Storage I/O Disk (File)**.
+
+Di dalam The Standard C, `stdio.h` tidak hanya menyimpan pemancar layar `printf`. Library ini adalah pengolah manipulasi absolut perantara Kernel Storage untuk membaca atau memahat blok ke piringan Hard-drive sekunder Anda.
+
+## 1. Menusuk Piringan Disk: The `FILE *` Abstrak
+
+C menggunakan representasi secarik aliran sungai (*A System The Stream*) yang terbungkus sebagai The Abstrak Mutlak dari sebuah File: **`FILE *`** (Bintang Pointer wajib).
+Setiap file diremote menelusuri penunjuk arus ini. Tidak peduli HDD, SSD lambat/cepat, semuanya dilayani lurus dengan perintah pembuka piringan: `fopen`.
+
+### Memahat String Murni (Opsi Write `w`)
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // 1. Meminta kernel menembus koordinat File Stream
+    FILE *pF = fopen("catatan_iblis.txt", "w");
+    
+    // Kebebasan C menuntut pengecekan mutlak gagalnya izin dari OS:
+    if (pF == NULL) {
+        printf("Sistem Operasi tidak mengizinkan akses (Permissions Denied)!\n");
+        return 1;
+    }
+    
+    // 2. Tembakkan tembakan teks biner dengan printf yang dipaksa menulis menekan Piringan I/O `fprintf`
+    fprintf(pF, "Baris satu kutukan memori terukir ke disk mati.\n");
+    fprintf(pF, "Dan tidak akan hilang meski Restart mati lampu.\n");
+    
+    // 3. MENGAMPUNI KERNEL FILE STREAM, HARUS DITUTUP.
+    // Jika tidak ditutup dengan fclose, Cache IO akan menggantung di OS menggila file terkunci Zombie
+    fclose(pF);
+    
+    printf("Sukses merobek SSD menyimpan catatan_iblis.txt\n");
+    return 0;
+}
+```
+
+Ragam opsi *mode buka* purba:
+- **`w` (Write)**: Barbarik. Jika file tidak ada, file diciptakan seketika. Tapi jika file SUDAH ADA, file lama **dihapus lebur rata** diganti paksa ke kosong file baru tanpa ragu ampun C.
+- **`a` (Append)**: Pasif. Jika sudah ada, penunjuk file ditempatkan merangkak di paling dasar paling pantat isinya siap memanjang lurus ke bawah menambah-nambah baru (Untuk Catatan Log Server).
+- **`r` (Read)**: Menikmati. Hanya bisa di intip dan dibaca pelan-pelan tanpa bisa dirubah.
+
+## 2. Membaca Ulang Ke Layar (Opsi `r`)
+
+Jika kita memutar fungsi di atas dan mengekstrak `catatan_iblis.txt` yang terekam masuk menuju otak layar Konsol `stdout`:
+
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *pF = fopen("catatan_iblis.txt", "r");
+    char buffer_penyerap_baris[255]; // Keranjang pembacaan per 1 baris
+    
+    if (pF == NULL) {
+        printf("File belum kamu buat ya!\n");
+        return 1;
+    }
+    
+    // fgets(ke_keranjang_mana, maksimal_huruf, dari_arus_disk_apa)
+    // LOOP TRAGENSI: Putar terus sampai isinya menembrak Dasar Paling Nol File EOF (End of File)
+    while (fgets(buffer_penyerap_baris, 255, pF) != NULL) {
+        // Keluarkan dengan printf layar murni:
+        printf("%s", buffer_penyerap_baris);
+    }
+    
+    fclose(pF); // (Keharusan mutlak keanggunan seorang C Engineer)
+    return 0;
+}
+```
+
+## 3. Pemahatan Level Tertinggi (The Raw Binary Stream)
+
+Inilah sihir di mana File Handling Python kalah telak di level bawah Engine terhadap The C. Anda bisa mem-Bypass semua format Teks Unicode/Ascii murni yang boros layar dan menyimpan wujud blok Struct Monster RAM berwujud Biner Mutlak (*Raw Binary Data*)! Mode opsi dibukan dengan menambahkan `b` yaitu Mode `wb` (Write Binary) atau `rb` (Read Binary).
+
+Mengapa memahat di formtat Raw Binary? Bayangkan Struktur struct C Data Rekor Player yang kompleks. Tidak perlu dikompres di format ".json" string rendahan yang panjang, melainkan blok RAM 64 Bytes disedot The Vacuum Pipa: `fwrite` dan ditempelkan mutlak utuh ke Hard Disk secara misterius wujud mesin bitwise!
+
+```c
+// [SEKILAS DARI MATA THE KERNEL DEVELOPER]
+// Contoh Menyedot Array Ratusan Float mentah masuk Binary Disk.
+
+float vertex_3D_engine[3] = { 0.443f, -1.2f, 0.98f };
+FILE *fbin = fopen("model_senjata.dat", "wb");
+
+// fwrite (alamatasli_yangdisorot, ukaranya_besarnya_objek_sekali, berapa_banyak_objeknya, file_disknya)
+fwrite(vertex_3D_engine, sizeof(float), 3, fbin); 
+
+fclose(fbin);
+// Menghasilkan `.dat` rahasia tak terbaca di Notepad ASCII manusia manapun (Gibberish Alien).
+// Sangat aman. Sangat Kencang! Hanya fread yang bisa menyerap kembali.
+```
+Menyelami OS File Descriptor ini, kita telah satu inchi masuk menuju the Dark Art of System Applications. Lanjutkan berlatih, kita akan menyentuh gerbang ajaib manipulasi Teks Skrip Compiler lewat `#define` The Preprocessor Macro!

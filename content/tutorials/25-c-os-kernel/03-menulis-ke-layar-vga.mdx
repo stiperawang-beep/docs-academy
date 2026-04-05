@@ -1,0 +1,101 @@
+---
+title: "Mengukir Cahaya Biner: Menembus Memori VGA"
+description: "Mencetak teks ke layar hitam dari nol absolut tanpa printf() dengan cara merobek koordinat memori video card VGA x86 secara paksa."
+icon: "Monitor"
+order: 3
+---
+
+# Menulis Pada Kegelapan: Membongkar The VGA Memory
+
+Tinggalkan memori soal `printf`. Sebagaimana layar monitor bekerja di arsitektur IBM PC lama atau QEMU standar, layar Terminal Hitam (Text Mode 80x25 Cel) tak lebih dari sebuah jajaran RAM khusus di dalam Video Card anda (VGA Memory).
+
+Jika Anda ingin huruf 'H' tercetak di pocok kiri atas layar monitor pengguna.. anda cukup mengirim biner huruf 'H' lurus-lurus menabrak Alamat Memory Card Latar Layar! 
+Dan tebak, berkat **Modul C 3 Soal Pointer**, Anda sudah tahu pasti senjata penembus Koordinat absolute tersebut! Bintang Pointer Dereferencing!
+
+## 1. Alamat Suci Layar Monitor: `0xB8000`
+
+Sejarah IBM PC membakukan peraturan kencang di level Silicon Hardware Hardware: RAM pada kisaran alamat Fisik mutlak **`0xB8000`** disambungkan dengan paksa secara sirkuit kabel emas langsung menuju Papan Video Layar Monitor (VGA VRAM Buffer).
+
+- 1 Karakter Huruf Membutuhkan 2 Byte dari RAM Layar ini:
+  - Byte[0] = Huruf ASCII-nya (Misal `65` untuk karakter 'A')
+  - Byte[1] = Buku Pewarnaannya (Atribut Warna: 4 bit background, 4 bit warna tulisan depan).
+
+Mari kita rancang Pointernya dalam koding The C Kernel:
+
+```c
+// File: kernel.c
+int warna_putih_atas_hitam = 0x0F; // 0=Hitam Backgroun, F(15)=Putih Teks Solid
+
+void kernel_mulai_hidup() {
+    
+    // PEMBUATAN SNIPER POINTER MENEMBUS KARTU VIDEO!
+    // Meminta pointer "char" menelan the koordinat layar keramat mutlak 0xB8000!
+    char *vga_video_memory = (char *) 0xB8000;
+    
+    // TEMBAK! 
+    // Isikan Byte 0: Karakter H
+    vga_video_memory[0] = 'H';  
+    // Isikan Byte 1: The Warna.
+    vga_video_memory[1] = warna_putih_atas_hitam;
+    
+    // Mengukir Huruf Selanjutnya di Kanan layar? +2 Bytes!
+    vga_video_memory[2] = 'A';
+    vga_video_memory[3] = warna_putih_atas_hitam;
+
+    vga_video_memory[4] = 'i';
+    vga_video_memory[5] = warna_putih_atas_hitam;
+
+    // THE INFINITE OS LOOP
+    while(1){
+      // (Berdiam tak bersuara melihat layarmu bercahaya ber-Huruf "HAi")
+    }
+}
+```
+
+Jika ini dijalankan, Layar The Monitor Komputer seketika menggoreskan sinar putih **HAi** di kiri atas the Frame Hitam. Anda Tlah Menciptakan Komunikasi Visual OS!.
+
+## 2. Abstraksi The OS: Membangun `print_layar()` Custom
+
+Tentu saja, mengisi satu per satu byte sungguh mengerikan. Anda—seorang Bapak Pendiri Windows Kernel baru—harus mengabstraksikan the C Function The `print_layar` sederhana anda!
+
+```c
+// BIKIN POINTER GLOBAL LAYARNYA
+volatile char *vga_video_memory = (volatile char *) 0xB8000; 
+
+// Menyimpan baris jejak letak the pen (Cursor x, y)
+int jejak_kursor = 0; 
+int warna_standar = 0x0F;
+
+void the_print_layar(const char *kalimat) {
+    int posisi_i = 0;
+
+    // Masuki loop The Nol Terimantor Modul Moderen:    
+    while( kalimat[posisi_i] != '\0' ) {
+            
+        // Masukan Hurufnya ke kordinat Video
+        // Jejak_Kursor harus di kali 2 (Karna 1 huruf memaka 2 slot byte)
+        vga_video_memory[jejak_kursor * 2] = kalimat[posisi_i];
+        
+        // Memasukan warna ke posisi Sebelahnya (+1) 
+        vga_video_memory[(jejak_kursor * 2) + 1] = warna_standar;
+
+        posisi_i++;     // huruf the string berikutnya
+        jejak_kursor++; // Kursor Layar monitor tergeser ke Kanan.
+    }
+}
+```
+
+Sekarang fungsi Main OS C Anda menjadi sangat The Cantik elegan luar biasa:
+
+```c
+void kernel_mulai_hidup() {
+    
+    the_print_layar("BONGKAR BOOTLOADER. ");
+    the_print_layar("KERNEL OS AKTIF MURNI DARI BARE METAL C C-PROGRAMING!\n");
+    the_print_layar("The Dunia Siap Dihancurkan...\n");
+
+    while(1){ }
+}
+```
+
+Pemandangan ini sungguh menegangkan jiwa the engineer peramu The Hardware sejati. Tapi komputer tidak sekedar Monitor bisu. Dia butuh Input anda! Di Bab selanjutnya, rasakan sensasi mengerikan saat kita menyadap Aliran Listrik Binar Keyboard yang masuk menginterupsi The Core of that CPU di dalam arsitektur the **IDT (Interrupt Descriptor Table)**.

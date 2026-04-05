@@ -1,0 +1,81 @@
+---
+title: "Array dan String: Skandal Kebohongan C"
+description: "Mengungkap ilusi kemanisam Array di C dan fakta nyata tentang The Null Terminator dari The String."
+icon: "LayoutList"
+order: 2
+---
+
+# Array dan String: Ilusi yang Melukai
+
+Ketika Anda sampai di bab *Array* dan *String* dalam bahasa pemrograman lain, Anda dipenuhi dengan fitur-fitur indah. Array dengan fitur `push()`, `len()`, atau String dengan fitur `toUpperCase()`.
+
+Di bahasa C, bersiaplah atas skandal terbesar: **Array tidak punya metode pelengkap**. Array bahkan tidak mengingat berapa panjang dirinya sendiri. Yang terparah? **Tipe data String itu tidak ada di C. Sama sekali tidak pernah eksis.**
+
+Mari kita bongkar semua tirai kebohongan ini mengunakan senjata utama yang baru kita dapatkan: **Senter Kertas Pointer**.
+
+## 1. Array Itu Tidak Ada; Dia adalah Pointer yang Menyamar.
+
+Sebuah Array biasa dideklarasikan seperti ini. Kita meminta lima ruangan kotak `int` secara berjejer untuk skor game:
+
+```c
+int skor[5] = {10, 20, 30, 40, 50};
+```
+
+Namun, tahukah Anda apa sebenarnya entitas kata `skor` tersebut di mata CPU compiler C?
+**`skor` di atas adalah sebuah POINTER (`int *`) yang diam-diam memegang koordinat memori dari kotak PERTAMA (yang bernilai 10).** 
+
+Fakta absolut memori:
+- Jika elemen pertama `skor[0]` ditaruh di alamat RAM `0x1000`, maka elemen kedua `skor[1]` BUKAN secara acak terlempar ke `0x9000`. 
+- C menjamin `skor[1]` ditaruh rapat *menempel berdampingan*! 
+- Karena sebuah Integer berukuran 4 Bytes, maka `skor[1]` mutlak berada di alamat `0x1004`. `skor[2]` di `0x1008`. Maju 4 blok demi 4 blok.
+
+### Array Pointer Arithmetic 
+
+Karena array murni adalah Pointer elemen pertama, kita bisa bermain **Matematika Pointer**. Kita melompat dari alamat pertama maju secara paksa:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int skor[5] = {10, 20, 30, 40, 50};
+    
+    // Secara normal, orang melihat kotak ke-3 (index 2) begini:
+    printf("Normies: %d\n", skor[2]); 
+    
+    // Hacker C memandang murni melewati manipulasi alamat koordinat mesin:
+    // "Ambil sekertas alamat skor (0x1000). Maju 2 blok (2 * 4 Bytes)! CONGKEL ISINYA (*)."
+    printf("C Master: %d\n", *(skor + 2)); 
+    
+    return 0;
+}
+```
+
+> [!WARNING] C Tidak Memiliki Perlindungan Tepi Jurang (Bounds Checking)
+> Jika Anda memiliki array `skor` sejumlah 5 elemen, lalu Anda iseng memanggil elemen kesepuluh: `skor[9]`... Di Java, Anda akan ditampar eror *Index Out of Bounds*. Di C? **C tetap akan membongkar letak RAM itu (walau isinya sudah beda aplikasi OS lain), mencetaknya murni menjadi sampah rasis, atau langsung C akan Meledak menembak kepalanya sendiri dengan Segmentation Fault.**
+
+## 2. Puncak Skandal: String dan The Null Terminator (`\0`)
+
+C tidak memiliki tipe benda yang bernama `string`. Jika anda ingin menuliskan nama "ANDI", anda harus membuat **Array Karakter (char)** berjejer!
+`char` pertama adalah 'A', kedua 'N', dan seterusnya.
+
+Masalah mematikannya adalah: Karena C tidak ingat berapa panjang Array tersebut yang telah kita peringatkan tadi di peringatan di atas—bagaiamana caranya `printf` tahu kapan dia harus berhenti mencetak barisan karakter itu?
+
+**Jawabannya adalah Pembunuh Mutlak: Null Terminator Karakter Asing (`\0`).**
+
+Sebuah string di C harus selalu diakhiri dengan Karakter Nol Biner Absolut (`\0`), supaya saat si fungsi `printf` membongkar satu persatu alamat dari 'A', 'N', 'D', 'I'.. nah, saat dia mendapati karakter hantu `\0`, `printf` langsung mengerem mendadak dan berhenti membaca lanjut RAM sebelahnya!
+
+```c
+// Cara sangat menyiksa (Manual):
+char manual[5] = {'A', 'N', 'D', 'I', '\0'}; 
+
+// Cara manis yang diciptakan standar C supaya kita tidak pusing:
+// (Kutipan ganda ("") SANGAT BERBEDA maknanya dengan kutip satu ('') di C.)
+// Kutip Ganda secara OTOMATIS dan gaib menempelkan \0 di bagian pantat array hurufnya.
+char manis[] = "ANDI"; 
+
+printf("%s\n", manis); // Kacamata pembaca String (%s) siap berhenti bekerja ketika ia menyenggol \0.
+```
+
+Banyak *Bug Error* di alat-alat medis berteknologi tahun 80-90an atau lubang kerentanan *Hack* di server Web jadul diakibatkan oleh String yang lupa diberikan `\0`. Bayangkan jika Anda lupa memberikannya: `printf` akan terus membaca memori sebelahnya, membongkar sandi password program di sebelahnya ke layar, sampai akhirnya menyenggol memori OS lalu meledak (*Buffer Overread/Overflow Attack*).
+
+Sekarang Anda memahami wujud murni C. Setelah bermain memori lurus, kita akan membentuk blok raksasa dengan The `Struct`.

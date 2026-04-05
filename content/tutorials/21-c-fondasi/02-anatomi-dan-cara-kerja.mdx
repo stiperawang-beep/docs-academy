@@ -1,0 +1,69 @@
+---
+title: "Anatomi dan Cara Kerja C"
+description: "Pahami siklus absolut di balik kompilasi dari kode sumber mentah menjadi instruksi biner CPU."
+icon: "Cpu"
+order: 2
+---
+
+# Anatomi dan Cara Kerja C: Dari Teks Menjadi Arus Listrik
+
+Bahasa tingkat tinggi seperti Python membaca kode Anda baris per baris secara "langsung" (Interpreter). Namun bahasa C memandang hal itu sebagai kemewahan gila yang lambat. C bekerja menggunakan arsitektur kompilasi (**Compiler**). C menghasilkan mesin asli (native machine code).
+
+Bagaimana sebenarnya kata-kata bahasa Inggris seperti `printf` dan `int` dapat dimengerti oleh sekumpulan transistor silicon CPU Anda? Mari bedah anatominya.
+
+## 1. Siklus Siksaan: 4 Tahap Kompilasi
+
+Saat Anda menulis file C, misalkan bernama `hello.c`, lalu Anda memerintahkan *compiler* (seperti `gcc` - GNU C Compiler) untuk membangunkannya, ia tidak sekadar menerjemahkan secara kilat. Proses ini melewati 4 siklus berdarah sebelum jadi program `.exe` (di Windows) atau berkas eksekusi biasa di Linux/Mac.
+
+### Tahap 1: Preprocessing (Prabaca)
+Sebelum kode Anda diterjemahkan, agen kecil bernama **Preprocessor** merazia file Anda.
+- Ia akan mencari teks yang berawalan `#`, seperti `#include <stdio.h>`.
+- Jika `#include`, preprocessor akan menyalin seluruh isi file `stdio.h` mentah-mentah ke kode Anda.
+- Jika ada komentar seperti `/* komentar */`, itu akan dihapus sepenuhnya. Preprocessor menghasilkan file intermedier berakhiran `.i`. File ini 100% masih teks C, hanya saja lebih gemuk tanpa komentar.
+
+### Tahap 2: Compiling (Penerjemahan Murni)
+Kode teks bersih tadi (file `.i`) akan dimakan oleh **Compiler**.
+Compiler akan melakukan pengecekan sintaks brutal. Gagal memberikan titik koma `;`? Ia langsung menjerit dan berhenti kerja. Jika tidak ada eror, compiler akan memuntahkan **Assembly Code** (berakhiran `.s`). Assembly ini sudah sangat spesifik—setiap baris teks mempresentasikan instruksi langsung kepada famili CPU tertentu (seperti x86 atau ARM).
+
+### Tahap 3: Assembling (Perakitan Biner)
+Assembly masih berbentuk teks yang bisa dibaca ("MOV EAX, 1"). Kemudian **Assembler** masuk ke ring. Ia mengubah baris Assembly menjadi angka biner absolut (`01010011...`). File ini sekarang bernama **Object file** (ekstensi `.o` di UNIX atau `.obj` di OS lawas). Berkas ini tidak lagi bisa dibaca mata manusia. Namun, file obj ini *belum* bisa di-run. Mengapa?
+
+### Tahap 4: Linking (Menyatukan Pecahan)
+Katakanlah kode Anda memanggil fungsi layar `printf()`. Program Anda di titik `.o` tidak tahu persis "di mana dan bagaimana" `printf` bekerja; ia hanya tahu bahwa `printf` itu ada *di suatu tempat* bernama Standard C Library ("libc").
+Sang **Linker** muncul menyatukan serpihan-serpihan dari beberapa file `.o` dan menggabungkannya dengan kode Library eksternal yang sudah di-compile sistem, barulah sebuah program matang tercapai (seperti `a.out` di Linux atau `hello.exe` di Windows). 
+
+> [!NOTE] Perbedaan Arsitektur 
+> Saat Linker mengekspor hasil akhirnya (.exe), ia mencetak struktur *header file* spesifik untuk Windows (PE Format) atau untuk Linux (ELF format). Karena itulah file `.exe` tidak bisa ditekan di klik ganda di Linux tanpa semacam emulasi.
+
+## 2. Struktur Anatomi File `main.c`
+
+Mari kita lihat struktur sel dasar sebuah kode bahasa C, `hello.c`:
+
+```c
+#include <stdio.h>  // 1. Direktif Preprocessor
+
+// 2. Titik masuk utama
+int main() {
+    
+    // 3. Badan logika
+    printf("Halo, Dunia Biner!\n");
+    
+    // 4. Syarat mutlak sukses
+    return 0;
+}
+```
+
+**Pembelahan Anatomi:**
+1. `#include <stdio.h>` : Anda memanggil preprocessor mengatakan, *"Tolong pinjamkan saya kamus bernama stdio (Standard Input Output) agar saya punya sihir untuk menulis sesuatu ke layar monitor."*
+2. `int main()` : Jantung mutlak dari seluruh kode C. Ketika program diklik dua kali oleh user, Operating System akan membongkar program untuk mencari di mana letak ruang yang menampung tanda masuk yang bernama **main**. Fungsi utama harus mengembalikan (`return`) sebuah angka tipe `int` (Integer).
+3. `printf(...)` : Di sinilah Anda memberikan instruksi, mencetak deretan string, diakhiri dengan `\n` untuk memencet *Enter*.
+4. `return 0;` : OS meminta laporan. Anda mengirimkan nilai angkat `0`. Di bahasa mesin, `0` artinya adalah "Sukses Mutlak". Kode apa pun di luar nol (misalkan `return 1;`) berarti sebuah kode kerusakan terjadi dan OS harus merespons. Jangan dilupakan!
+
+## Ekosistem Lingkungan C
+
+Sebagai programmer modern, kita tidak lagi merangkak mengetik `gcc hello.c` panjang-panjang tanpa henti di baris terminal setiap saat proyek mulai besar, ini ekosistem C yang sering dijumpai:
+- **Kompilator Utama**: GCC (GNU) dan Clang (LLVM).
+- **Sistem *Build***: **Make** (menggunakan naskah `.Makefile`), yang kemudian diabstraksi menjadi perangkat otomasi pintar dunia moderen: **CMake**.
+- **IDE Kesukaan**: Mulai dari Visual Studio, VSCode, CLion, atau terminal keras seperti Vim/Neovim bagi programmer petarung terminal.
+
+Sekarang kita mengerti dari mana asal C, ke mana perginya dan bagaimana jantungnya berdetak. Ambil nafas. Mulai modul berikutnya, kita langsung membedah partisi terdalam memori dengan Variabel.

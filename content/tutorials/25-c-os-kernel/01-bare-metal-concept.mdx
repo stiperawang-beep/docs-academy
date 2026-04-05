@@ -1,0 +1,41 @@
+---
+title: "The Bare Metal: Tanpa Sistem Operasi"
+description: "Menceburkan diri ke dasar terdalam The C. Menjalankan program tanpa Windows, tanpa Mac, tanpa Linux. Hanya Mesin dan Eksekusi Murni."
+icon: "Cpu"
+order: 1
+---
+
+# Menyelam Ke The Bare Metal: Hidup Tanpa Oksigen 
+
+Pernahkah Anda bertanya-tanya, ketika komputer pertama kali dihidupkan dengan tombol Power fisik... sebelum Animasi Bundar Loading Windows muncul, sebelum GRUB Linux tampil... kode apa yang sedang dieksekusi The CPU?
+
+CPU tidak pernah istirahat. CPU langsung bangun mencari instruksi pertama di alamat RAM terendah. 
+Pertanyaan terbesarnya: _"Bisakah KITA meletakkan program .c kita tepat di titik kebangunan The CPU itu, sehingga KOMPUTER MENJALANKAN PROGRAM KITA SEBAGAI SISTEM OPERASINYA SENDIRI?"_
+
+Jawabannya adalah **IYA**. Itulah area mutlak the **Bare Metal Programming (Kernel Development)**.
+
+## 1. Ilusi yang Hilang
+
+Saat kita berlatih di Modul 1 sampai 4, kita selalu memakai kemewahan `printf` atau memanggil `malloc`. 
+Jika Anda berada The Bare Metal kedinginan tanpa OS.. Anda menyadari kebenaran brutal ini:
+
+1. **The C Standard Library (`stdio.h`, `stdlib.h`) ITU SEMUANYA HILANG!**
+Anda tidak bisa memanggil `printf`. `printf` itu membutuhkan The File Stream System dari OS Linux atau Windows Kernel untuk menyalakan monitor. Di layar Bare Metal, Anda hanyalah menghadapi Matrix Hitam Gelap kosong.
+
+2. **Tidak ada `main()` yang dikawal!**
+Tidak ada `return 0` yang manis menyerahkan sisa kerja ke OS. Anda THE OS SEKARANG. Fungsi pertama anda bisa bernama apa saja, misalnya `kernel_mulai_bangkit()`. Dan jika fungsi itu selesai dan berhenti... The Komputer akan hancur dan membeku tak bernyawa (Triple Fault). 
+
+## 2. Persiapan Persenjataan: The Cross Compiler 
+
+Kompiler `gcc` bawaan OS Anda merakit `hello.exe` khusus untuk The Windows. Eksekusi file PE atau ELF butuh OS untuk berlari.
+
+Di bare metal, Anda membutuhkan tembakan biner "mentah yang liar" langsung jadi format arus Listrik Biner (Raw Flat Binary). Anda harus merakit/mengunduh senjata bernama **The GCC Cross-Compiler** (contoh: `i686-elf-gcc` atau `x86_64-elf-gcc`). Kompiler ini membenci Windows dan Linux, ia hanya tahu bagaimana menyuntik instruksi x86 murni ke The RAM.
+
+## 3. The QEMU Emulator: Mesin Uji Nyawa
+
+Kita tentu tidak ingin merusak Hard-drive master OS komputer harian kita setiap saat mengompile The Kernel baru. 
+Para perakit sistem operasi tingkat dewa bermain di dalam sebuah Ruang Gelas Kaca: **Mesin Virtual QEMU** atau **Bochs**.
+
+QEMU bertindak seperti komputer PC fisik virtual di atas layar kita. Ia memiliki RAM bohongan sendiri, Processor detektor bohongan sendiri. Jika Sistem Operasi C kita meledak The Segmentation fault dan membakar memori, yang mati dan meledak hanyalah jendela Windows QEMU itu, sistem asli kita aman tentram tertawa.
+
+Perjalanan ke zona tanpa Oksigen ini resmi dimulai. Mari kita masuk ke The Bootloader: Jembatan pertama The Assembly yang membuka karpet merah pemanggilan bahasa C pertama Anda di The Metal.

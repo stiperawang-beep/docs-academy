@@ -1,0 +1,69 @@
+---
+title: "Variabel dan Tipe Data: Logika Memori"
+description: "Melihat lebih dalam apa sebenarnya sebuah variabel. Memahami alokasi Byte mentah pada C yang kejam dan tak memaafkan."
+icon: "MemoryStick"
+order: 1
+---
+
+# Variabel dan Tipe Data: Mental Logic Sebuah Memori
+
+Di bahasa modern, Variabel dianggap seperti kotak gaib yang bebas menampung apa saja, angka, huruf, mobil, atau kucing. Di C, konsep "kotak ajaib" itu omong kosong.
+
+Bagi bahasa C, variabel adalah **Alamat absolut dari susunan laci bernama RAM**, sedangkan Tipe Data adalah ukuran presisi **berapa banyak ruang laci** yang dihabiskan laci variabel tersebut berserta penafsiran bentuk angkanya.
+
+Mari kita bongkar pemahaman ini secara mendalam ("Mental Logic").
+
+## 1. Deklarasi Mengunci Kapasitas (The Byte Size)
+
+Setiap sel di memori komputer Anda terdiri dari 8 Bit listrik, yang dikenal sebagai **1 Byte**. 
+
+Ketika Anda mengatakan pada bahasa C: "Berikan saya Variabel 'umur'!", compiler C akan membentak Anda: *"Ukuran perseginya berapa byte, heh!?"*
+
+Oleh karena itu, di bahasa C tipe data **SELALU** diucapkan lebih dulu dari pada nama variabel:
+```c
+int umur = 25;
+```
+Itu diterjemahkan pada tingkat bawah sistem sebagai: **"Carikan tempat kosong di RAM sebesar bentuk dasar integer. Kemudian di awal laci paling depan tempelkan stiker bertuliskan 'umur'. Lalu letakkan aliran listrik bermakna bilangan '25' di dalamnya."**
+
+## 2. Kelas Tipe Data Purba C
+
+Inilah material memori yang harus Anda hafalkan mati. Ukuran-ukuran ini mungkin bervariasi bergantung pad arsitektur hardware, tetapi secara standar modern (64-bit), logikanya adalah sebagai berikut:
+
+### The Box of Integers (Angka Utuh)
+- **`char`**: *1 Byte* (Laci super kecil). Nilai -128 hingga 127. Digunakan menyimpan kode karakter ASCII (Misal: Huruf 'A' adalah 65).
+- **`short`** (atau `short int`): *2 Bytes*. Nilai -32k hingga 32k.
+- **`int`**: *4 Bytes* (Tipe angku utuh default). Nilai kisaran -2.1 Miliar hingga 2.1 Miliar. 
+- **`long`** atau **`long long`**: *8 Bytes* (Monster Laci). Laci skala galaksi menyimpan hingga angka minus quintillions hingga plus quintillions. Biasanya untuk database ID, Time Epoch, astronomi.
+
+### The Fractional Float (Pecahan Kejam)
+Angka desimal membutuhkan aritmatika berat (Sistem *Floating Point* standard IEEE 754).
+- **`float`**: *4 Bytes*. Keakuratannya terpotong setelah rata-rata 6-7 angka desimal. Disumpahi karena ketidaktepannya, namun dicintai para perancang Game Engine karena lebih murah proses hardware-nya. Disuguhi imbuhan `f` di belakangnya (contoh: `3.14f`).
+- **`double`**: *8 Bytes*. Keakuratan ganda. Inilah standar wajib industri jika mengurusi perbankan ringan hingga data akurat sains.
+
+## 3. Format Specifiers: Cermin Pemandangan
+
+Pelajaran C paling kaku untuk pemula yaitu: ketika ingin mencetak layar si Variabel, Anda tidak bisa memanggilnya langsung memakai `printf(umur)`. **Tidak akan bekerja!** Fungsi C ini membutuhkan kacamata tipe. 
+
+Anda harus memberitahu `printf`: kacamata *format* (`%`) apa yang harus dipakai untuk membaca memori "umur".
+
+```c
+#include <stdio.h>
+
+int main() {
+    int gajian = 5000000;
+    float suhu = 37.5f;
+    char nilai_ujian = 'A'; // Ingat kutip satu (') untuk char!
+
+    // Perhatikan kacamata `%` nya.
+    printf("Gajian bulananku: %d Rupiah\n", gajian);       // %d for Decimal (int)
+    printf("Suhu badan saya: %.1f Derajat\n", suhu);       // %f for floating point, dengan batas 1 di belakang koma
+    printf("Nilai ujian teori C adalah: %c\n", nilai_ujian); // %c for char characters.
+    
+    return 0;
+}
+```
+
+> [!CAUTION] Kehancuran Integer Overflow
+> Hal yang sering menghancurkan Roket ESA Ariane 5 pada tahun 1996 adalah Overflow Variabel. Jika Anda meletakkan angka 3 miliar pada `int` berukuran 4 Bytes standar, laci akan **pecah** karena melebihi batas 2.1 miliar. Bukannya *error* merah di layar, C justru hanya membiarkannya tumpah dan membalikkan arusnya kembali ke angka raksasa yang MINUS (`-`). Selalu perhitungkan ukuran!
+
+Memahami *byte* di balik `int` dan `char` adalah persiapan esensial Anda mengemudikan "Pointer" nantinya. Lanjutkan berlatih logika mental Anda. Sekarang persiapkan diri memasuki medan gerbang logika matematika bits.

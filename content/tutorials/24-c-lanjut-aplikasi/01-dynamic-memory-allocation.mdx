@@ -1,0 +1,81 @@
+---
+title: "The Heap: Allocasi Memori Dinamis"
+description: "Meninggalkan The Stack yang sempit. Membangun dan meledakkan memory tak terbatas buatan sendiri menggunakan malloc() dan free()."
+icon: "Database"
+order: 1
+---
+
+# Lahan Abadi The Heap: malloc dan the Memory Leak
+
+Pada bab Fungsi sebelumnya, kita telah belajar betapa tragisnya zona memori lokal bernama ***The Stack***. Begitu sebuah fungsi (seperti *level_up_karakter*) usai tereksekusi, OS menurunkan kapaknya, menebas mati seluruh variabel yang pernah ada di dalam ruangan blok tersebut tanpa sisa arang dan abu.
+
+Jika kita mendevelop sebuah Database Engine skala raksasa yang membutuhkan variabel `Peta_Dunia_200MB` bertahan *hidup* dari awal main hingga berjam-jam ke depan walau ditransfer ke sana-sini, dari manakah C menemukan ladang penyimpanan yang **tidak disentuh Algojo OS?**
+
+Selamat datang di zona The Absolute Chaos of Power: **THE HEAP**.
+
+## 1. Misi Negosiasi: `#include <stdlib.h>`
+
+Di C, Anda tidak bisa sekadar berkata "`int arr[1000000];`". The Stack pasti meledak mati hancur kepenuhan (Stack Overflow). Untuk meletakkan data di The Heap (Tanah Bebas Berukuran GigaBytes Milik RAM), Anda harus bermohon atau bernegosiasi kepada Sistem Operasi, sang tuan tanah RAM.
+
+Senjata negosiasi RAM terletak murni di dalam library absolut Standard Library: **`malloc()`** (Memory Allocation).
+
+```c
+#include <stdio.h>
+#include <stdlib.h> // DI SINI TERSIMPAN MALLOC DAN KAWANANNYA
+
+int main() {
+    // 1. Persiapkan Pointer hampa (Siap menerkam target blok tanahnya)
+    int *p_array_horde = NULL;
+
+    // 2. NGEMIS MEMORI KE OS. "Tuan OS, berikan saya tanah HEAP!"
+    // Misal: Kita ingin menyimpan 100 musuh. 1 Musuh ukurannya seukuran 'int'.
+    p_array_horde = (int *)malloc(100 * sizeof(int));
+
+    // 3. Wajib: OS bisa miskin memori. Cek jika ia menolak kengerianmu!
+    if (p_array_horde == NULL) {
+        printf("CRASH: Sial, RAM komputer Tuan OS Penuh!\n");
+        return 1;
+    }
+
+    // Berhasil. Alamat dipegang p_array_horde sekarang abadi dan tidak terikat the Stack!
+    p_array_horde[0] = 500; // Pasukan 1 damage-nya 500
+    
+    // ...(bisa dikirim ke fungsi mana saja, takkan dihancur paksa karena ini Tanah Heap)...
+
+    return 0; // (Langkah paling fatal menanti..)
+}
+```
+
+## 2. Dosa Kematian: The Memory Leak (Pembunuh OS)
+
+Berbeda dengan bahasa Python atau Java yang memiliki Malaikat Pemetik Sampah bernama *Garbage Collector*, jika Python melepaskan sebuah kotak data, Malaikat ini turun menyapunya dalam senyap sehingga RAM kembali bernafas lega bertambah persentasenya.
+
+Bagaimana di C? **TIDAK ADA MALAIKAT PEMUNGUT SAMPAH. KOSONG.**
+Semua tanah `malloc` yang Anda beli dari OS di awal, **JIKA** sampai akhir program Anda menekan silang tidak Anda lepaskan.. Tanah itu akan **terkunci selamanya berlumut menjadi rongsokan berhantu selamanya memakan sisa energi RAM (Hingga PC di Reboot paksa)!** 
+
+Kekejaman murni akibat programmer gila asik `malloc` di The Heap berulang-ulang, ini mengakibatkan penumpukan fatal blok raksasa yang disebut THE MEMORY LEAK yang membunuh Server, membunuh PC secara paksa diam tanpa log merah di log monitor. Program melambat parah selama 30 jam, lalu Macet Mutlak Total.
+
+### Vaksin Leak: Senjata Pembunuhan `free()`
+
+Kekuatan `malloc()` WAJIB secara mutlak diiringi di mana pun ia berakhir dengan The Exterminator dewa kematian `free()`. Ia membawa kunci pembebas tanah dari OS:
+
+```c
+// ... setelah operasi selesai, HANCURKAM!
+free(p_array_horde); 
+
+// Aturan dewa: Begitu bloknya dihancurkan free, 
+// pointer kordinatnya masih memegang alamat palsu mayatnya! 
+// Supaya aman dari Hantu "Dangling Pointer", Setir kembali ke Titik NOL BINER:
+p_array_horde = NULL; 
+```
+
+> [!CAUTION] Dua Kali Eksekusi Mati (Double Free)
+> Begitu Anda memukul suatu alamat memori `free(ptr);`. **Jangan pernah iseng mengeksekusinya lagi dengan baris yang sama** `free(ptr)`. Di bahasa C modern, hal gila macam "Ngebunuh memori RAM secara Doubel" akan dideteksi oleh Perlindungan Mesin Intel dan langsung men-Trigger abort instan ledakan Segfault gila.
+
+### Varian Kekuasaan The Heap Lainnya
+- `calloc(jumlah_item, byte_per_item)`: Sama dengan malloc, tetapi jauh lebih bersih dan elit. calloc repot-repot menyemprotkan angka Nol Semu biner (`0`) di seluruh dataran laci RAM barunya, supaya sisa virus sampah aplikasi orang lain sebelumnya terhapus bersih. Sangat sering menelan CPU cycle lebih lambat.
+- `realloc(ptr, new_size)`: Memanjangkan tanah. Menghancurkan tanah yang sudah ada dan langsung membawa isi berharganya di migrasi ke tanah RAM yang lebih lebar dan lega. Digunakan di `std::vector` C++ dibalik layar pergerakannya.
+
+Mengatur Memory Management murni dengan tangan kososng memisahkan Programmer Skrip Bocah dengan *Software Engineer Sejati*. Di bahasan depan kita mulai menyentuh lapisan The Storage Harddrive (Level OS I/O File Paling Murni). 
+
+Siapkan Terminal anda. Kita mulai membakar byte murni ke OS.

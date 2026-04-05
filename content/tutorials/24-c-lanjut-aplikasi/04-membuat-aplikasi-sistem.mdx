@@ -1,0 +1,122 @@
+---
+title: "Proyek Lanjut: Membangun Database Key-Value"
+description: "Menggabungkan Modul 1 sampai Modul 4 untuk merakit the absolute power: Mesin Local NoSql Database layaknya Redis dari titik nol."
+icon: "DatabaseZap"
+order: 4
+---
+
+# Latihan Puncak Mutlak: The "C-Store" Database NoSQL
+
+Kita berjanji di bab pertama, bahasa C bukan digunakan membuat *The Front-End* perwajahan web manis seperti tombol animasi *Cart*. Bahasa C adalah mesin penyokong penggerak the Back-End The Database Systems yang buas dari planet bumi secara mutlak. (Tahu Redis dan SQLite? Keduanya dirakit murni The C).
+
+Mari satukan: *Struct*, *Pointer*, *File I/O*, dan The Dynamic Memory (Malloc) menjadi mesin The CLI lokal Key-Value NoSQL Store bernama the **"C-Store"**.
+
+## Peta Arsitektur Taktis
+
+Kita akan merakit basis data rahasia The Console yang menerima peritah seperti ini dari layar Teks:
+1. `SET nama "John Wick"` => (Tulis The String ke Disket Fisik)
+2. `GET nama` => (Bongkar Disk, Cocokkan Key, Keluarkan "John Wick" dari layar!)
+3. `EXIT` => Pembubaran Memori!
+
+## Kode Biner Penuh ("C-Store.c")
+
+Buatlah the `C-store.c` dan cobalah membedah baris pemanggil ini:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define LOKASI_DISK "cstore_data.db"
+#define MAX_BUFFER 256
+
+// 1. Struct Struktur Penyimpanan Mentah Murni: The Record Database.
+typedef struct {
+    char key[50];
+    char value[200];
+} Record;
+
+// 2. Fungsi the GET: Menyedot The Disk dan the Array C-String.
+void aksi_get(const char *key_input) {
+    FILE *pF = fopen(LOKASI_DISK, "rb"); // "rb": Read Binary Absolute
+    if (!pF) {
+        printf("[!] Database mati belum tercetak!\n");
+        return;
+    }
+
+    Record pencarian_sementara;
+    int the_ketemu = 0;
+
+    // Loop Menyedot Block per Block Bytes persis Seukuran The Struct "Record"
+    while (fread(&pencarian_sementara, sizeof(Record), 1, pF)) {
+        // Bandingkan The String murni di array-nya
+        if (strcmp(pencarian_sementara.key, key_input) == 0) {
+            printf("[HASIL]: => %s\n", pencarian_sementara.value);
+            the_ketemu = 1;
+            break;
+        }
+    }
+
+    if (!the_ketemu) printf("[HASIL]: Kosong. The Key tak tertemukan.\n");
+    
+    fclose(pF); // Bebaskan cengkeraman Disk
+}
+
+// 3. Fungsi the SET: Penekanan Mesin Array ke RAM Fisika Disk
+void aksi_set(const char *key_input, const char *value_input) {
+    FILE *pF = fopen(LOKASI_DISK, "ab");  // "ab": Append Binary - Memanjang Lurus The Byte Akhir
+
+    // Menerjunkan data pada cetak biru THE STRUCT PUSAT
+    Record rekor_baru;
+    strcpy(rekor_baru.key, key_input);
+    strcpy(rekor_baru.value, value_input);
+
+    // Tembakan Tunggal I/O Piringan Putar
+    fwrite(&rekor_baru, sizeof(Record), 1, pF);
+    
+    fclose(pF);
+    printf("[SUKSES] The '%s' terselamatkan the C-Store Core!\n", key_input);
+}
+
+// 4. THE MAIN LOOP INTERAKTIF SISTEM (Jantung Program Abadi)
+int main() {
+    printf("===== THE C-STORE DATABASE ENGINE =====\n");
+    printf("Ketik: SET <key> <value> | GET <key> | EXIT\n\n");
+
+    char buffer_terminal[MAX_BUFFER];
+    char komando[10], nama_key[50], string_value[200];
+
+    // Putaran Berdarah Keabadian
+    while (1) {
+        printf("C-Store> ");
+        
+        // Membaca Penuh Ke The String Array tanpa Overflow bahaya per \n Terminal
+        if (!fgets(buffer_terminal, sizeof(buffer_terminal), stdin)) break;
+
+        // Taktik The "sscanf" String Spliter ajaib
+        // "%s %s %[^\n]" (Ambil Kata ke1, ambil Kata ke2, ambl sisa rentetan huruf spasial sampai the Enter).
+        int tangkapan = sscanf(buffer_terminal, "%9s %49s %199[^\n]", komando, nama_key, string_value);
+
+        if (strcmp(komando, "EXIT") == 0 || strcmp(komando, "exit") == 0) {
+            printf("The Engine Dimatikan The OS. Goodbye.\n");
+            break;
+        } 
+        else if (strcmp(komando, "SET") == 0 && tangkapan >= 3) {
+            aksi_set(nama_key, string_value);
+        } 
+        else if (strcmp(komando, "GET") == 0 && tangkapan >= 2) {
+            aksi_get(nama_key);
+        } 
+        else {
+            printf("[!] Otoritas The Command Hancur/Salah Format!\n");
+        }
+    }
+
+    return 0; // Kembalikan ke 0 Sang Sistem Eksekusi Kesuksesan Rata!
+}
+```
+
+## Memasuki Era Ujung The The End Game
+Anda telah berlayar menaklukan Modul Modul 1-4. Kebanyakan manusia pemrogram di bumi berhenti disitu lalu pindah membangun game The C++. Tetapi kita the "Ahli C Panduan Standar Dunia" tidak merengkuk di situ.
+
+Ini bukan akhir. Tarik sisa The Oksigen The Parukan anda. Modul Terakhir akan meledakkan the Jendela Microsoft Windows dan The Linux OS dan menghentikan Semuanya. Kita akan mendesain The Absolute Core Bare Metal yang merdeka dari sang Operating System itu sendiri dan masuk langsung ke Layar Besi Hitam VGA murni the CPU: **The Kernel C Development Era.**

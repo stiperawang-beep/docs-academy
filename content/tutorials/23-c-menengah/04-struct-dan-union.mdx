@@ -1,0 +1,83 @@
+---
+title: "Data Custom: Struct dan Union"
+description: "Membentuk tipe data campuran sendiri dan memahami kekejaman Memory Alignment (Padding) pada arsitektur perangkat keras."
+icon: "Cuboid"
+order: 4
+---
+
+# Struct dan Union: Menempa Balok Data Anda Sendiri
+
+Sampai saat ini permainan kita terbilang kuno—hanya variabel tunggal berserakan. Sebuah *Game Development* atau Sistem Database SQL akan langsung berantakan jika entitas Pemain terpisah belah (Int darah, Float kecepatan berjalan, Char lambang baju).
+
+C tidak memiliki konsep `Class` elegan seperti anak emasnya C++, melainkan ia memiliki `struct` (Structure) yang secara absolut bertindak sebagai cetak biru pengepakan blok-bok memori yang tergabung secara utuh.
+
+## 1. Cetak Biru: Memperkenalkan `struct`
+
+Struct adalah penggabungan kejam: Anda meminta memori untuk merapatkan banyak laci kecil/besar di samping satu sama lain agar OS tidak mencerai-beraikannya.
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+// Menciptakan "Tipe Blok" baru (cetak biru)
+struct Senjata {
+    char nama[50];    // String buatan yang berjejer 50 kotak
+    int damage;       // 4 Bytes damage
+    float attack_spd; // 4 Bytes kecepatan float
+};
+
+int main() {
+    // 1. Memanggil tukang bangunan untuk mengaplikasikan cetak birunya di RAM Asli
+    struct Senjata pedang_api;
+
+    // 2. Merakit dan mengakses anggota dalam blok RAM dengan tanda titik (.)
+    pedang_api.damage = 75;
+    pedang_api.attack_spd = 1.2f;
+    strcpy(pedang_api.nama, "Excalibur"); // (Ingat, nama C string itu Array, harus dikloning dengan The String Copy)
+
+    printf("Serang memakai %s dengan %d Damage!\n", pedang_api.nama, pedang_api.damage);
+    return 0;
+}
+```
+
+> [!TIP] Jalan Pintas `typedef`
+> Kita membenci selalu harus memanggil penegasan `struct Senjata` setiap kalinya. Oleh karena itu sihir modifikasi *type definition* sering dipakai: 
+> `typedef struct { int x; int y; } Kordinat;`
+> Sehingga Anda bisa mendeklarasikan baloknya semudah memanggil int asli:
+> `Kordinat posisi_player;`
+
+## 2. Struktur Panah Tembus Jantung (`->`)
+
+Jika kita melempar *struct balok besar* (katakanlah balok pemain bergizi RAM sebesar 1MB) berulang kali ke dalam 5 fungsi lain... (Ingat materi sebelumnya?). C akan mem-FOTOKOPI 1MB utuh itu lima kali! OS Anda akan tercekik beban buang-buang waktu yang gila.
+
+Anda tahu solusinya: Gunakan Pointer untuk menunjuk 1 balok rahasia RAM aslinya.
+Tetapi, operator pelacak kotak standar `*` dan panah sifat anggota `.` sering bertarung posisi matematika konyol: `(*p_pedang).damage = 80;`. Ini sangat jelek.
+
+Karena itu C memberikan **Tombak Pembongkar (*The Arrow Operator* `->`)**. Ia menggabungkan *"dereferencing pointer sekaligus penetrasi anggota struktural"*. Penggunaan Tombak ini memenuhi lebih dari 70% barisan kode di dalam source core dasar The Linux Kernel dan Windows System:
+
+```c
+void tingkatkan_senjata(struct Senjata *p_item) {
+    // KITA SUDAH PEGANG ALAMAT POINTER.
+    // Tembak lurus ke letak atribut anggota di mesin RAM dan robek isinya!
+    p_item->damage += 15;        // Merubah data aslinya di tempat asalnya
+    p_item->attack_spd += 0.2f; 
+}
+// Hasilnya, memori tidak boros sama sekali.
+```
+
+## 3. Tragedi Hilangnya Lubang Memori (Struct Padding Alignment)
+
+Ini dia jebakan perangkat keras rahasia yang tidak pernah diajarkan untuk anak sekolah, namun ditanyakan di hampir seluruh Wawancara level The Senior Systems Engineer untuk OS: **Misteri struct lebih besar daripada isinya.**
+
+Coba anda jawab: Kalau di dalam struct ada `char a` (1 byte), dan `int b` (4 bytes). Berapa total bytes dihabiskan?
+Logika manusia berkata: "5 Bytes."
+C Compiler dan Prosesor berkata: **"8 BYTES, BUNG. DENGAN SENGAJA KUKOSONGKAN 3 BYTES PERCUMA DI TENGAH!"**
+
+Ini disebut **Struct Padding (Alignment)**. 
+CPU tidak bisa membaca RAM seenak jidat byte per byte. Processor menelan blok RAM dalam potong-potongan kelipatan genap (Word Size) misalnya lurus potong langsung 4 Bytes atau 8 Byte satu hisapan. Jika `int b` 4 byte diposisikan miring tidak sejajar menabrak patahan Word, CPU jatuh dalam kepanikan berakibat performa hardware rontok perlahan dan CPU siklus terbakar terpaksa harus diseret pelan.
+
+Jadi compiler secara rahasia memasukkan lubang angin (padding kosong tak bermakna) demi memuluskan jalannya mesin pembaca the CPU Core. Memory di-"waste" (dibuang sayang) demi menguasai Kecepatan.
+
+Ini filosofi Sistem Terpadu C. Segala efisiensi terkadang bertopeng pengorbanan kecil di tempat lain. Semuanya terkalkulasi secara matematis-arsitektural.
+
+Modul C Menengah Paling Brutal telah usai terselesaikan. Anda telah mempelajari dasar tumpukan. Kini sambutlah Modul C Lanjutan. Kita akan membuang memori "The Stack" terbatas ini dan bermain-main di zona tanpa aturuan tempat segalanya bermalam: "The Dynamic Heap Memory".

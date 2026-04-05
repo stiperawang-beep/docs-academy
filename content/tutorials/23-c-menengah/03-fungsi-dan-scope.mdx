@@ -1,0 +1,84 @@
+---
+title: "Fungsi dan Scope: Eksekusi Tumpukan Memori"
+description: "Mempelajari tumpukan (Stack) Call Frame ketika sebuah fungsi dipanggil dan kenapa Call-by-Value adalah kebohongan memori."
+icon: "FunctionSquare"
+order: 3
+---
+
+# Fungsi dan Scope: Stack Memori Berdarah
+
+Konsep fungsi (Function) pada C terlihat sangat mirip di semua bahasa pemrograman. Kita mendeklarasikan blok logika bernama, melemparkan parameter ke dalamnya, dan menangkap nilai balik (`return`) dari ujungnya.
+Namun C menyembunyikan pertarungan hebat di balik RAM ketika sebuah fungsi dipanggil. Konsep ini bernama The Call Stack (Tumpukan Pemanggilan). 
+
+## 1. Parameter adalah Kloning (Call-by-Value)
+
+> [!IMPORTANT] Kebenaran Absolut.
+> Variabel yang dilemparkan ke dalam sebuah fungsi di bahasa C, **TIDAK PERNAH BENAR-BENAR MASUK KE DALAM FUNGSI TERSEBUT!**
+
+Ketika Anda "melempar" angka uang senilai `int gold = 100` ke sebuah fungsi bernama `pajak(gold)`, Bahasa C TIDAK melempar kotak asli *gold* tersebut ke meja fungsi pajak. 
+Sebaliknya, **C memfotokopi (Kloning)** isi `gold` itu ke kotak baru sementara yang diletakkan di dalam kamar fungsi `pajak`.
+
+Ini memunculkan masalah jika kita ingin fungsi tersebut benar-benar *mengubah* isi kotak utama tempat original milik kita:
+
+```c
+#include <stdio.h>
+
+// FUNGSI GAGAL (Vampir tidak bisa masuk tanpa diundang)
+void rubah_palsu(int x) { // x ini HANYALAH Kloning (Fotokopi)!
+    x = x + 50;           // Membuang waktu mengubah kloning.
+    // LALU FUNGSI BERAKHIR, RUANG INI DIHANCURKAN
+}
+
+int main() {
+    int uang = 100;
+    
+    rubah_palsu(uang); // Melempar nilai.
+    
+    printf("Uang saya tetap: %d\n", uang); // TETAP 100!
+    return 0;
+}
+```
+
+## 2. Call-by-Reference: Menyusup Menggunakan Pointer
+
+Jika kalian tidak bisa memasukkan kotaknya, lalu Cuman bisa memfotokopinya, apa yang harus difotokopi supaya kita bisa tetap memengaruhi kotak uang aslinya?
+
+**FOTOKOPILAH KERTAS ALAMAT POINTER RUMAHNYA!**
+Jika C membuat duplikat secarik "kertas penunjuk alamat", si perampok (Fungsi luar) tetap akan diantar ke Rumah Master yang sama karena alamat fotokopinya tetap menuju `0x7...`. Metode sakral ini adalah The Call-by-Reference.
+
+```c
+// FUNGSI BERBAHAYA (Gunakan Pointer Bintang)
+void rubah_asli(int *p_uang) { 
+    // Diberi Kertas Pointer Alamat Koordinat!
+    
+    // Langsung mencongkel brankas pusat dari jarak jauh menelusuri koordinat:
+    *p_uang = *p_uang + 50; 
+}
+
+int main() {
+    int uang = 100;
+    
+    // Jangan lempar isinya, Lempar Alamatnya pakai Ampersand Agen Lokasi (&)
+    rubah_asli(&uang); 
+    
+    printf("Uang saya sukses bertambah: %d\n", uang); // BERUBAH JADI 150!
+    return 0;
+}
+```
+
+> [!CAUTION] Jantung Pertahanan `scanf`
+> Inilah alasan mengapa sejak hari pertama jika Anda ingin meminta input terminal keyboard user, anda terpaksa wajib memakai lambang dewa lokasi `scanf("%d", &umur)`. Fungsi OS Keyboard *scanf* itu butuh alamat ruang milik Anda, bukan duplikatnya!
+
+## 3. Wilayah The Stack Memory (Memory Berumur Pendek)
+
+Ketika sebuah fungsi dipanggil, di manakah letak variabel sementara yang difotokopi tadi disimpan di dalam RAM utama?
+RAM dibagi menjadi partisi arsitektural. Salah satunya The Stack (Tumpukan).
+
+Setiap kali pemanggilan fungsi terjadi, CPU menciptakan ruangan berbatas tajam ke bawah tumpukan (*Stack Frame*). Apapun variabel yang kamu cipatakan spesifik di dalam fungsi itu, mereka disebut *Local Variable*. 
+
+Begitu fungsi tersebut mencapai baris ujung `return`, kapak Algojo OS secara mutlak MENEBAS BERSH seluruh batas ruangan Tumpukan itu. RAM di sana diangkat dan dibakar, dilepas merdeka.
+
+Karena inilah, **JANGAN PERNAH SEKALI-KALI ME-RETURN SEBUAH ALAMAT POINTER DARI VARIABEL LOKAL SEBUAH FUNGSI KEPADA MAIN!**
+Kalau Anda melempar `&umur_lokal` keluar untuk ditangkap, pada saat kertas alamat itu diantarkan ke tujuan, *rumah variabel lokal umur* tersebut telah diratakan seisi desanya oleh The Stack Execution. Jika nekat mencongkel kembali ke koordinat sisa-sisa reruntuhan The Stack yang sudah mati, sebuah hantu (Dangling Pointer) atau Fatal Error (Segmentation Fault) akan menanti.
+
+Bagi mereka yang butuh Memory hidup abadi lintas fungsi, The Heap adalah kerajaannya. Nanti kita bahas raja memori itu. Sementara, bersantailah mendesain cetakan balok kustom bernama `struct`.

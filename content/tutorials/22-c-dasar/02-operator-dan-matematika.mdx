@@ -1,0 +1,82 @@
+---
+title: "Operator dan Matematika Bitwise"
+description: "Mempelajari aturan preseden matematika C dan memanipulasi arus logika di tingkat bitwise (hardware)."
+icon: "Calculator"
+order: 2
+---
+
+# Operator dan Matematika Logika: Mesin Giling Data
+
+Selain menyimpan data di Variabel, Anda akan membutuhkan gilingan untuk memproses angka-angka tersebut agar bekerja sesuai hasrat Anda. C memberikan perangkat gerbang logika operator yang sangat terstruktur, mulai dari matematika anak sekolah dasar hingga pemotongan setrum biner di skala mikroskopis.
+
+## 1. Artimatika Dasar dan Kebrutalan Pecahan
+
+C memiliki aritmatika klasik yang persis sama di Python atau matematika global:
+- `+` (Pertambahan)
+- `-` (Pengurangan)
+- `*` (Perkalian)
+- `/` (Pembagian)
+- `%` (Modulus: Sisa Hasil Bagi. Hanya bisa antar integer!)
+
+**Namun, waspadalah terhadap Pembagian Integer (Integer Division)!**
+
+Jika Anda melakukan pembagian angka desimal menggunakan tipe `int`, C akan otomatis memenggal (truncate), merobek pecahannya dari layar *tanpa kompromi dengan pembulatan*.
+```c
+int apel = 5;
+int orang = 2;
+// Seharusnya 2.5, kan?
+int hasil = apel / orang;  
+printf("Setiap orang dapat: %d", hasil); // OUTPUT: 2
+```
+Angka `0.5` dirobek secara brutal dan dibuang sebagai sampah. Anda HARUS mengkonversi (Type Casting) salah satu nilainya ke `float` jika Anda menginginkan hasil sisa `0.5` selamat.
+`float hasil = (float)apel / orang;`
+
+## 2. Pangkat Kedudukan (Precedence & Associativity)
+
+Dalam C, persamaan `5 + 10 * 2` bisa membuat manusia bingung, tapi bagi C, semuanya mengikuti papan **Precedence (Prioritas)** yang absolut.
+
+Hierarki Singkat (Terkuat hingga Terlemah):
+1. Tanda kurung putaran `()` -> Dewa dari Dewa matematika.
+2. Unary: Kenaikan/Penurunan `++`, `--`, Negatif `-`, Logical NOT `!`
+3. Multiplikatif: Perkalian `*`, Pembagian `/`, Modulus `%`
+4. Pertambahan `+` dan Pengurangan `-`
+5. Operator Relasional: Lebih besar `>`, Kurang dari `<`
+6. Persamaan / Kesamaan: `==`, `!=`
+7. Logical AND `&&` dan OR `||`
+8. Assignment `=` secara *associativity*, bergerak dari Kanan menyapu ke Kiri.
+
+Jika sama rata pada tingkatan (contoh `*` bersanding dengan `/`), arus baca disebut **Associativity** yang umumnya memindai dari Kiri ke Kanan.
+
+## 3. Gerbang Menuju Hardware: Bitwise Operators
+
+Ini hal yang C tawarkan di mana bahasa *high-level* sangat menderita: Kontrol listrik absolut di level Bit (angka `0` dan `1` tunggal pembentuk kehidupan digital). Operator Bitwise adalah alat sakti dari pengembang driver Kernel C yang wajib Anda mengerti dan hargai.
+
+Bitwise akan mengadu tipe data Int langsung menimpa representasi bitnya!
+
+### Pemotongan Biner
+Contoh Kasus Mental: Anda memiliki laci byte dengan nilai desimal 5 (Bentuk biner: `00000101`) dan 3 (`00000011`).
+
+- **Bitwise AND (`&`)**: "Bakar pin jika pin di bawahnya sama-sama 1". (Keduanya butuh kebenaran total).
+    ```txt
+      0101  (5)
+      0011  (3)
+      ---- &
+      0001  (Menjadi Nilai 1)
+    ```
+- **Bitwise OR (`|`)**: "Cukup satu saklar saja hidup (1), angkat pin hasilnya jadi hidup."
+- **Bitwise XOR (`^`)**: "Kalian harus berbeda untuk hidup. Kalau sama-sama 0, mati. Sama-sama 1, sirkuit pendek mati."
+- **Bitwise NOT (`~`)**: Balikkan semua listrik hidup jadi mati, dan yang mati dihidupkan (Inversion Memory).
+
+### Penggeseran Register Elektronik (Bit Shifts)
+
+Bit Shifts adalah rahasia terhebat pengoptimalan (Optimization) performa. Anda bisa menyapu dan menggeser angka bit ke utara atau ke selatan. Melakukan ini untuk perkalian jauh—sangat jauh—lebih kencang bagi CPU dibandingkan menggunakan operator aritmatika `*` dan `/`.
+
+- **Left Shift (`<<`)**: Membuang dan memindahkan sel bit ke Kiri—setiap pergeseran bernilai dikalikan $2^N$.
+    ```c
+    int angka = 3;            // Biner: 0000 0011
+    int tembakan = angka << 1; 
+    // Bergeser jadi 0000 0110 (Desimal 6). Seketika kalikan 2.
+    ```
+- **Right Shift (`>>`)**: Membuang nilai unit paling ringan ke Kanan. C secara instan membagi nilainya setengah secara integer division.
+
+Berbekal aritmatika dan gergaji mesin Bitwise ini, C menjadikan Anda tuhan atas laju logika dan efisiensi waktu komputasi murni. Langkah selanjutnya, kita susun arsitektur arus aliran kode: *Control Flow*.

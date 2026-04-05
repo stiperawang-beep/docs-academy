@@ -1,0 +1,84 @@
+---
+title: "The Bootsector: Perakitan Assembly dan C"
+description: "Pijakan awal The BIOS menuju The Bootloader untuk menjembatani Bahasa C ke Mode Terlindung (Protected Mode 32-bit)."
+icon: "Binary"
+order: 2
+---
+
+# The Bootloader: Pembangunan Jembatan Pertama
+
+Ketika prosesor (misalnya The Intel x86) menyala dari listrik mati, dia bangun dalam keadaan *"cacat massal ingatan"* layaknya era 1980-an: ia berada dalam **16-bit Real Mode**. 
+Pada The Mode Rendahan ini, The CPU hanya bisa melihat mentok maksimal **1 Megabyte** Memory RAM! Biarpun anda colok RAM Corsair RGB 32 GB, prosesor tertidur dan hanya melihat sisa The 1MB sejarah kelam itu.
+
+Tugas pertama The OS Developer yang gila adalah: Membangun pemicu kecil (The Bootloader) untuk MENAMPAR prosesor x86 agar berevolusi menjadi raksasa **32-Bit/64-Bit Protected Mode** di mana RAM Raksasa terbuka penuh! Barulah saat itu, The Compiler Bahasa C bisa diizinkan untuk disuntik masuk beraksi.
+
+## 1. Perakitan Assembly: `boot.asm`
+
+Kita memerlukan *The Assembler* (Nasm) untuk ini. The BIOS System dari Motherboard akan mencari murni ke baris blok `0x7C00` Sector ke 1 (The MBR) di dalam Harddisk Anda untuk mencari tanda tangan sakti The Bootable `0xAA55`.
+
+```nasm
+; file: boot.asm
+; -----------------------------------------------
+; INI TERLALU RENDAHAN, JADI BAHASA C BELUM BISA HIDUP DI SINI.
+; HARUS PAKAI ASSEMBLY NASM MURNI!
+; -----------------------------------------------
+
+[BITS 16]         ; Bangun di era kuno 16-bit
+[ORG 0x7C00]      ; BIOS selalu melempar file ini ke RAM alamat mistis ini.
+
+start:
+    ; ... (Di sini the kode ajaib ratusan baris GDT "Global Descriptor Table" akan diload ...)
+    ; ... (Terjadi Tamparan paksa melompat ke 32 bit Mode!)
+    
+    jmp 0x08:Mode_32_Bit_Selamat_Datang
+
+[BITS 32]         ; KITA TELAH MENGEMBANGKAN THE CPU KE MODERN MODE!
+Mode_32_Bit_Selamat_Datang:
+    ; Persiapkan area memori The Stack yang lega buat Bahasa C!
+    mov esp, 0x90000 
+    
+    ; WAKTUNYA MEMANGGIL DEWA BAHASA C.
+    [EXTERN kernel_mulai_hidup]   ; The Linker akan mencarikan alamat file The C nanti!
+    call kernel_mulai_hidup      ; MELEMPAR EKSEKUSI KE C KERNEL MILIK KITA!
+
+    ; Jaga-jaga the C OS mati, buat CPU berputar mati tak bereaksi.
+    jmp $ 
+
+; -------------
+; BUKTI TANDA TANGAN IBLIS BIOS BAHWA INI BUKAN VIRUS, TAPI THE OS MASTER!
+times 510-($-$$) db 0
+dw 0xAA55
+```
+
+## 2. Menyambung Napas The C: `kernel.c`
+
+Sang File Assembly sakti di atas akan dilink dan melempar eksekusinya menerobos masuk memanggil sebuah label fungsi the `kernel_mulai_hidup()`.
+Sekarang kita persiapkan file penangkapnya. Eksekusi ini akan dieksekusi 100% menggunakan the **Bare Metal The C** tanpa bantuan sihir sistem apa pun.
+
+```c
+// file: kernel.c
+// -----------------------------------------------
+// SELAMAT DATANG DI ERA OSE KERNEL. C TELAH BERKUASA!
+// -----------------------------------------------
+
+void kernel_mulai_hidup() {
+    
+    // THE KERNEL NYALA!
+    // Tapi kita belum tahu cara bicara kepada Papan VGA Monitor Layar.
+    // Jika kita compile dan masukan ke Qemu, Layar masih Hitam murni!
+
+    // The Sistem Operasi adalah the Kekekalan Putaran (The Infinite God Loop)
+    // Jangan pernah biarkan the Loop ini berhenti, biarkan CPU berdetak tenang.
+    while(1) {
+        // ... mesin OS abadi ..
+    }
+}
+```
+
+Ketika dirangkai lewat _Linker_ (dengan file _Linker Script_ khusus seperti `link.ld`), baris biner `boot.o` dan `kernel.o` akan dijahit mati menjadi satu wajud raksasa iblis The Biner OS: The `myOS.bin`.
+
+```bash
+# (Dalam pikiran the Compilation)
+ld -T link.ld -o myOS.bin boot.o kernel.o --oformat binary
+```
+Itu dia! `myOS.bin` jika disuntikan ke FD/Flashdisk dengan Rufus dan di-Reboto di PC anda, The Komputer tidak akan membuka Windows, dia akan masuk ke Keabadian the Loop C anda! Layarnya masih kosong sehitam malam. Di Modul selanjutnya kita robek memori The VGA secara mistis.

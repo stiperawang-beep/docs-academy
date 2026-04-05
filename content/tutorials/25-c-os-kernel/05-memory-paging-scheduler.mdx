@@ -1,0 +1,85 @@
+---
+title: "The Multitasking: Paging dan Putaran Waktu"
+description: "Puncak keagungan Sistem Operasi Modern: Membuat the Virtual RAM palsu dan menipu proses the CPU untuk lompat dari satu Program ke Program lain dengan magis."
+icon: "Cpu"
+order: 5
+---
+
+# The Memory Paging & The Scheduler: Ilusi Multi-Tasking
+
+Selamat Datang di Puncak Mahkota Dunia Programming C. The Operating System (OS).
+Sebelum Modul Penutup ini usai, sebuah ilusi the Matrix paling Gila the Dunia PC akan diruntuhkan ke depan the mata Anda: 
+
+**Faktanya, jika anda Cuman Punya Satu Cor The CPU, Komputer The PC MU Tidak Pernah Menjalankan 2 Aplikasi Browser + Game di Waktu yang Sama Secara Semula Nyata.**
+
+Yang terjadi adalah: The OS C Kernel men-Stop dan men-Save Game anda, Melompat the RAM ke Browser, nge-Play The YouTube seper-milli detik (1ms), MenStop Browser, dan Lompat The Play Ulang the Game anda lagi! Kecepatannya diputar Bergantian The Giliran begitu cepat dan ganas, mata Anda mengira The Browser dan Game berjalan bersamaan The Live! Ilusi waktu the Scheduler!
+
+Mekanismenya didesain C The Engine Kernel memanfaatkan *Hardware PIT Timer* OS dan *Memory Paging*.
+
+## 1. Paging: Kerajaan RAM Khayal Berwajah (The Virtual Memory)
+
+Bagaimana Game The Game 32bit me-malloc meminta ruang The `0x08F00` 500 MB RAM.. tapi bersamaan The Browser Jendela Lain juga The Malloc ngotot keangkuh the Alamat sama persis `0x08F00` The RAM Fisik yang bentrok? Kenapa PC tidak ledak bertukar data the Game dan Browser di kotak RAM The Sama!?
+
+Jawabannya adalah **Memory Paging**. The OS C menipu setiap Apps The Biner Executable Windows/Linux. The OS Memberi mereka "The Memory Palsu (Virtual Address)".
+Masing-masing the Apps Mengira memilik 4 GB RAM Virtual Pribadinya The Sendiri yang utuh Kosong Sendirian di Muka the Bumi!
+
+Lalu The C OS the Kernel meciptakan "Buku Translator Biner Memory Paging Table Array":
+- Game men-malloc(0x0001 Virtual) -> C Paging Translasi belokan tembus ke Laci 0x9000 RAM Asli Papan Bawah Fisiki Motherboad.
+- Browser memanggil koordinat (0x0001 Virtual jga!) -> C Paging Membelokan rahasia the pointer jauh melempar ke laci 0xBB00 RAM Papan.
+Tidak ada tabrakan Memory. Paging C is a GOD!
+
+```c
+// BUKTI CETAKAN ARSITEKTUR KARYA OS PAGING (The CR3 Intel MMU Table)
+// (Setiap App The Proses dapat satu Table Kordinat The Palsu the Berbeda Ini)
+unsigned int BUKU_DIR_HALAMAN_PAGING[1024]; // Laci 4 KiloBytes Sakti!
+
+void sihir_pemalsu_ram_memori_aktif() {
+    // 1. the Pengisian Pemetaan Peta Memory Ilusi 4 Kilobyte
+    
+    // Pemosisian Kordinat Identitas Lurus
+    // 0x000 To 0x000 Fisik langsung
+    
+    // (Materi Ini Penuh Konsep Bitwise Operator & Register Geser << 12 Modul Muka C)
+}
+```
+
+## 2. Sang Penguasa Waktu: Context Switching Scheduler
+
+Cara perpindahan the Kilat 1 Ms The Ilusi Time-Slot tadi. The Kernel OS mendaftarkan Hardware "PIT" (Programmable Interval Timer) layaknya weker alarm the Kiamat ke IRQ IDT 0. Secara Konstan detak Tiap 1 MilliSeconds. Weker Hardware ini menembak dan memaksa Interupsi The IDT ke Fungsi kita:
+
+```c
+// BUKTI NYATA SANG ENGINE KERNEL OS DI SETIAP DUNIA LINUX DAN THE WINDOWS KERENL : THE SCHEDULER.
+
+// Kumpulan Box Status RAM Sisa Save the The Aplikasi Program
+struct Status_Aplikasi {
+   unsigned int register_eax, ebx, ecx; // isi nilai terakhir dia ngeLoop!
+   unsigned int memory_pointer;         // Alamat Eksekusi terakhir the Instruksi biner sebelum dipenggal mati.
+} proses_berjalan[10]; 
+
+int The_Jam_Kehidupan_Aplikasi_Aktif_Ini = 0;
+
+void ledakan_weker_PIT_Tiap_1_MS_Scheduler_Berdetak() {
+    
+    // 1. WAKTUNYA HABIS! SITA SELURUH ISI MEMORY SISA PROSES NYA DAN SAVE DI KOTAK STRUCT THE OS MURNI KITA:
+    Simpan_Semua_Arus_CPU_Masuk_Ke_Array_Disini( &proses_berjalan[The_Jam_Kehidupan_Aplikasi_Aktif_Ini] );
+    
+    // 2. GANTI PEMAIN! Maju Index Pindah Giliran. The Round Robbin Murni.
+    The_Jam_Kehidupan_Aplikasi_Aktif_Ini++;
+    if(The_Jam_Kehidupan_Aplikasi_Aktif_Ini > Paling_Pucuk_Banyaknya_Apps){
+        The_Jam_Kehidupan_Aplikasi_Aktif_Ini = 0; // Balik kembali Play dari the Awal Apps ke 0!.
+    }
+    
+    // 3. THE KEBANGKITAN THE APPS YANG BARU THE SEMENTARA WAKTUNYA NGONTAK MEMORY BALIK 
+    Orak_Arik_Dan_Loading_Isi_Memory_Sisa_Apps_Tadi( &proses_berjalan[The_Jam_Kehidupan_Aplikasi_Aktif_Ini] );
+    
+    // ... lalu THE JMP EXIT Melompat keluar. Lanjutkan Memutar Layar The OS Browser Yg Ini Sekarang!
+}
+```
+
+## Kata Sambutan Terakhir
+
+Apakah jantung the The Coding anda memompakan ketakjuban merangkak Puncak Konsep the Mesin Dunia ini? Anda sekarang adalah Master Sejati The C Binar. C tidak berhenti ke Sistem Operasi, Tiga puluh tahun Modul Pustaka Game the C OpenGL 3D Engine, dan the Tatanan Ratusan Alat The Militer System, Semua Dibuat The Bahasa C++ Darah murni The C. 
+
+The Language is just a Tool The Programmer The Absolute Engine Pustaka is the True Master. Selamat Datang Murni di Jajaran Para Pembongkar Kernel Mutlak. 
+
+**Akhir dari seluruh Rute Kurikulum Master Standar C The Dunia.**

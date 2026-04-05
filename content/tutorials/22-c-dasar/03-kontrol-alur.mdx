@@ -1,0 +1,99 @@
+---
+title: "Polisi Skenario: Kontrol Alur Eksekusi"
+description: "Mengontrol sekuens berantai pengeksekusian instruksi pada mesin C menggunakan if, switch, dan siklus loop C murni."
+icon: "GitBranch"
+order: 3
+---
+
+# Kontrol Alur: Mengendalikan Jantung GOTO
+
+Di level prosesor paling rendah (assembly), komputer tidak mengerti apa itu "jika" (`if`) atau "ulangi" (`while`). Komputer murni hanya memiliki sebuah alamat jarum jam eksekusi yang terus turun ke bawah secara membabi buta. Jika ingin membuat percabangan, Komputer menggunakan sebuah sihir yang dinamakan instruksi `JMP` (Jump - Melompat paksa ke alamat lain di baris program).
+
+C menyembunyikan instruksi lompatan Assembly liar itu melalui Polisi Skenario (Control Flow): Percabangan dan Putaran (Loops).
+
+## 1. Percabangan Biner Sejati (Polisi Syarat)
+
+Syarat pertama dari percabangan `if` di dalam bahasa C adalah: tidak ada entitas ber-nama sejati *Boolean* yang tertanam dari sananya (sebelum standar modern C99 yang merilis paket tambahan `stdbool.h`).
+
+Dengan demikian, mentalitas Anda dalam memandang kalimat *True* (Benar) dan *False* (Salah) jika sedang berada di dalam C sangatlah berbeda dengan di Python:
+- **`0`**: Di C, Mutlak berarti **SALAH (False)**. Kosong tak bernyawa.
+- **Angka apa pun SELAIN `0` (seperti `1`, `5000`, atau `-14`)**: Dianggap **BENAR (True)**. Listrik mengalir!
+
+### Anatomi `if`, `else if`, dan `else`
+
+Sintaks ini membutuhkan blok `{ ... }` untuk menyalurkan jalur mana kode yang harusnya tereksekusi.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int peluru = 0; // Kosong. False!
+    
+    // Apakah peluru memiliki nilai listrik apa pun selain 0?
+    if (peluru) {
+        printf("Tembak target!\n");
+    } else {
+        printf("Reload senjatamu, Nak!\n"); // Tentu saja eksekusi melompat ke sini
+    }
+    
+    return 0;
+}
+```
+
+> [!CAUTION] Tragedi Terbesar di `if` Statement
+> Pemula sering terjebak memakai satu tanda sama dengan (`=`) di dalam evaluasi, seperti ini: `if (a = 5)`. Kode itu TIDAK AKAN EROR, namun dampaknya mengerikan. Bukannya mengecek "apakah a sama dengan 5?", kode itu malah **menimpa paksa** varibel a dengan `5`, kemudian karena nilai kembaliannya bukan 0, maka blok `if` itu otomatis terpukul menjadi Mutlak `True`! 
+> Gunakan `==` untuk membandingkan kesamaan kondisi. Jangan pernah lupakan. 
+
+### Percabangan Serentak: `switch`
+
+Gunakan struktur ringkas `switch` kalau percabangan `if-else` Anda terlalu menggila panjangnya hingga turun layar dan berulang-ulang menyiksa siklus CPU yang sama.
+`switch` sangat cepat jika dieksekusi di belakang panggung mesin (berubah menjadi Array Tabel Lompatan langsung di dalam Assembly!).
+
+```c
+char grade = 'A';
+
+switch (grade) {
+    case 'A':
+        printf("Kamu dewa ujian.\n");
+        break; // BREAK PENTING: Memaksa kabel eksekusi keluar seketika.
+    case 'B':
+        printf("Kamu pintar.\n");
+        break;
+    default: // Kasus akhir kalau syarat tidak ada yang cocok.
+        printf("Belajar lagi sana.\n");
+}
+```
+
+## 2. Putaran Roda Keabadian (Loops)
+
+Semua bentuk loop (perulangan) pada akhirnya akan diubah ke struktur instruksi "lompat mundur kembali" (`JMP_BACK` di Assembly).
+
+### A. Pola Tetap - `for` loop
+Sebuah pabrik mekanis berjalan yang butuh 3 komponen mutlak di rangkanya: `(1. Deklarator; 2. Kondisi Bertahan; 3. Angka Pelangkah)`:
+
+```c
+// Hitung maju dari 0 sampai 9 (Total 10 kali putaran).
+for (int i = 0; i < 10; i++) {
+    printf("Jalan ke: %d\n", i);
+}
+```
+
+### B. Si Penunggu Putaran Berbahaya- `while` loop
+Digunakan saat Anda tidak peduli berapa kali angka harus maju. Anda hanya memedulikan: "Apakah syaratnya masih belum 0 (masih true)? Kalau masih true, **Hajar Putar Terus!**".
+Ini adalah teknik utama pembuatan "Game Engine Loop", "Server Pendengar Jaringan", atau Sistem Operasi dengan Infinite Loop `while(1) { ... }`.
+
+```c
+int musuh_hidup = 5;
+
+// Musuh_hidup tidak 0? Bertingkah true. Kurangi terus (--) 
+while (musuh_hidup > 0) {
+    printf("Musuh tersisa: %d. Tembak!!\n", musuh_hidup);
+    musuh_hidup--; // Penting! Jika ini dilupakan, akan Infinite Loop neraka.
+}
+```
+
+### C. Putaran Sambar Dahulu - `do-while`
+Loop ini menjamin, bahwa **Setidaknya, minimal satu kali** putaran akan dijalankan bodoh-bodoh saja tanpa di-cek kondisinya, baru ia mencegat polisi syaratnya di batas pagar terbawah. Bergunan untuk menu Interaktif Terminal di mana Anda harus menayangkan menunya sekali ke pengguna sebelum ia disuruh memilih mau *exit* atau tidak.
+
+---
+Pemahaman variabel bit hingga percabangan IF ini telah membawakan bekal kepada Anda. Modul depan adalah modul terkeras, terbrutal, tersulit, namun termanis dari C. Menguasai hal selanjutnya berarti mendobrak tembok batasan manusia dan banting setir menjadi *Neo di The Matrix*: **POINTER ABSOLUT.**
