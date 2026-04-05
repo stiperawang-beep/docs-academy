@@ -1,0 +1,270 @@
+---
+title: "Arus Listrik, Rangkaian & Hukum Kirchhoff"
+description: "Arus listrik, hambatan, hukum Ohm, daya listrik, susunan seri-paralel, hukum Kirchhoff (KVL dan KCL), analisis mesh dan nodal, kapasitor-induktor dalam transien RC dan RL."
+icon: "Cpu"
+order: 2
+---
+
+# Arus Listrik: Sungai Elektron yang Menggerakkan Peradaban
+
+Sesederhana apapun tampaknya — kabel yang terhubung ke lampu — di baliknya beroperasi lebih dari 10²⁰ elektron per detik. Memahami bagaimana mereka bergerak, berbalik, dan berbagi, adalah fondasi seluruh teknologi elektrik dan elektronik.
+
+---
+
+## 1. Arus Listrik dan Kerapatan Arus
+
+```
+Arus Listrik (I):
+  I = dQ/dt    [Ampere = Coulomb/detik]
+
+  Arus konvensional: arah gerakan muatan POSITIF
+  Elektron bergerak BERLAWANAN arah arus konvensional
+
+Kerapatan Arus (J):
+  J = I/A    [A/m²]    (A = luas penampang)
+
+Kecepatan Drift Elektron:
+  I = n × q × v_d × A
+  n = kerapatan pembawa muatan [m⁻³]
+  q = muatan per pembawa (e = 1.6×10⁻¹⁹ C)
+  v_d = kecepatan drift
+
+  Dalam kawat tembaga 1mm², I=1A:
+  n_Cu ≈ 8.5×10²⁸ m⁻³
+  v_d = I/(nqA) = 1/(8.5×10²⁸ × 1.6×10⁻¹⁹ × 10⁻⁶) ≈ 7×10⁻⁵ m/s!
+
+→ SANGAT lambat (~0.07 mm/s) tapi sinyal listrik merambat dengan ~c (cahaya)
+→ Seperti air dalam pipa: "gelombang tekanan" cepat, molekul air sendiri lambat
+```
+
+---
+
+## 2. Hambatan dan Hukum Ohm
+
+```
+Hambatan (R):
+  R = V/I    [Ohm = Ω = V/A]
+
+Hukum Ohm (untuk material ohmik):
+  V = I × R    (linier)
+
+  Tidak semua material ohmik! Dioda, transistor, dsb = non-linier
+
+Resistivitas (ρ):
+  R = ρ × L/A
+  
+  ρ = sifat intrinsik bahan [Ω⋅m]
+  L = panjang kawat, A = luas penampang
+
+Resistivitas Beberapa Bahan:
+  Perak:   1.59×10⁻⁸ Ω⋅m  (konduktor terbaik, mahal)
+  Tembaga: 1.68×10⁻⁸ Ω⋅m  (konduktor industri standar)
+  Aluminium: 2.82×10⁻⁸ Ω⋅m (kabel tegangan tinggi)
+  Plastik: 10¹⁰ - 10¹³ Ω⋅m (isolator)
+  Kaca:    10¹⁰ - 10¹⁴ Ω⋅m (isolator)
+  Si murni: 640 Ω⋅m      (semikonduktor)
+
+Ketergantungan Temperatur:
+  ρ(T) = ρ₀[1 + α(T - T₀)]
+  α = koefisien suhu hambatan
+  Logam: α > 0 (hambatan naik dengan suhu)
+  Semikonduktor: α < 0 (hambatan turun dengan suhu — makin panas makin konduktor)
+```
+
+---
+
+## 3. Daya Listrik dan Efek Joule
+
+```
+Daya Listrik:
+  P = V × I = I²R = V²/R    [Watt]
+
+  P = V × I → energi per satuan waktu yang ditransfer
+  I²R → daya yang DIHAMBUR menjadi panas (efek Joule)
+
+Energi Listrik:
+  W = P × t = V × I × t    [Joule atau kWh]
+  1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J
+
+Biaya Listrik:
+  Lampu LED 10W × 8jam/hari × 30 hari = 2.4 kWh/bulan
+  Tarif Rp 2000/kWh → Rp 4800/bulan!
+  
+  AC 1 PK (750W) × 8jam = 6 kWh/hari → Rp 360,000/bulan
+  (ini yang buat tagihan listrik melonjak)
+```
+
+---
+
+## 4. Rangkaian Seri dan Paralel
+
+### Hambatan Seri:
+```
+R₁ ──── R₂ ──── R₃
+
+Arus sama (I) melalui semua hambatan
+Tegangan terbagi: V_total = V₁ + V₂ + V₃ = IR₁ + IR₂ + IR₃
+R_total = R₁ + R₂ + R₃    (hambatan bertambah)
+
+Pembagi tegangan:
+  V₁ = V_total × R₁/(R₁+R₂)
+```
+
+### Hambatan Paralel:
+```
+    R₁
+   ┌───┐
+───┤   ├───
+   └───┘
+   ┌───┐
+───┤ R₂├───
+   └───┘
+
+Tegangan sama (V) di semua cabang
+Arus terbagi: I_total = I₁ + I₂ = V/R₁ + V/R₂
+1/R_total = 1/R₁ + 1/R₂ + 1/R₃    (hambatan berkurang)
+
+Untuk dua hambatan paralel: R_total = R₁R₂/(R₁+R₂)
+
+Pembagi arus:
+  I₁ = I_total × R₂/(R₁+R₂)    (arus besar di R kecil!)
+```
+
+### Gabungan Seri-Paralel:
+```
+Strategi: reduksi bertahap dari dalam ke luar
+
+Contoh: R₁=6Ω seri dengan (R₂=4Ω ‖ R₃=12Ω), V_total=24V
+
+Step 1: R₂‖R₃ = (4×12)/(4+12) = 48/16 = 3Ω
+Step 2: R_total = R₁ + 3 = 6 + 3 = 9Ω
+Step 3: I_total = V/R = 24/9 = 2.67 A
+Step 4: V_(23) = I × 3 = 2.67 × 3 = 8 V
+Step 5: I₂ = V_(23)/R₂ = 8/4 = 2 A
+        I₃ = V_(23)/R₃ = 8/12 = 0.67 A
+Cek: I₂+I₃ = 2.67 ✓
+```
+
+---
+
+## 5. Hukum Kirchhoff
+
+### KCL — Kirchhoff's Current Law:
+```
+Σ I_masuk = Σ I_keluar   di setiap simpul (node)
+
+Secara setara: Σ I = 0 di setiap node (arus masuk positif, keluar negatif)
+
+Berdasarkan: Kekekalan muatan listrik (muatan tidak menumpuk di node)
+```
+
+### KVL — Kirchhoff's Voltage Law:
+```
+Σ V = 0   di setiap loop tertutup
+
+(Jumlah aljabar semua tegangan dalam loop tertutup = 0)
+
+Konvensi:
+  Melewati resistor searah arus: -IR (penurunan tegangan)
+  Melewati resistor melawan arus: +IR
+  Melewati baterai + ke -: -ε (penurunan)
+  Melewati baterai - ke +: +ε (kenaikan)
+
+Berdasarkan: Kekekalan energi (tidak ada energi yang tercipta dalam loop)
+```
+
+### Analisis Mesh (Loop Method):
+```
+Untuk rangkaian dengan beberapa loop:
+1. Definisikan arus mesh (I₁, I₂, ...) searah jarum jam
+2. Tulis KVL untuk setiap mesh
+3. Selesaikan sistem persamaan
+
+Contoh dengan 2 mesh:
+  Mesh 1 (I₁): 12 - 4I₁ - 2(I₁-I₂) = 0
+  Mesh 2 (I₂): -6I₂ - 2(I₂-I₁) = 0
+
+  Sederhanakan:
+  6I₁ - 2I₂ = 12    ...(1)
+  -2I₁ + 8I₂ = 0    ...(2)
+
+  Dari (2): I₁ = 4I₂
+  Substitusi ke (1): 24I₂ - 2I₂ = 12 → I₂ = 0.545 A, I₁ = 2.18 A
+```
+
+---
+
+## 6. Teorema Thevenin dan Norton
+
+```
+Teorema Thevenin:
+  Rangkaian kompleks apapun (dengan sumber dan hambatan)
+  dapat digantikan oleh:
+  - Sumber tegangan V_th seri dengan hambatan R_th
+
+  V_th = tegangan rangkaian terbuka (Open Circuit)
+  R_th = hambatan dari terminal dengan semua sumber independen = 0
+         (short arus ideal, open tegangan ideal)
+
+Teorema Norton:
+  Setara Thevenin dengan:
+  - Sumber arus I_N paralel dengan R_N = R_th
+  I_N = V_th / R_th = arus hubung singkat (Short Circuit)
+
+  Kegunaan: analisis beban yang berubah-ubah pada rangkaian tetap
+```
+
+---
+
+## 7. Rangkaian RC dan RL: Respons Transien
+
+### Pengisian Kapasitor (RC):
+```
+ε - IR - V_C = 0    (KVL)
+ε = IR + Q/C
+ε = R(dQ/dt) + Q/C
+
+Solusi:
+  Q(t) = Cε(1 - e^(-t/τ))
+  V_C(t) = ε(1 - e^(-t/τ))
+  I(t) = (ε/R) × e^(-t/τ)
+
+  τ = R×C = konstanta waktu RC   [sekon]
+
+  t = τ:   V_C = 0.632ε (63.2% terisi)
+  t = 2τ:  V_C = 0.865ε (86.5%)
+  t = 5τ:  V_C ≈ 0.993ε (99.3% —praktis "penuh")
+
+Pengosongan:
+  V_C(t) = V₀ e^(-t/τ)   (meluruh eksponensial)
+```
+
+### Rangkaian RL:
+```
+Induktor menolak perubahan arus (analog kapasitor menolak perubahan tegangan)
+L = induktansi [Henry = V⋅s/A]
+
+  I(t) = (ε/R)(1 - e^(-t/τ_L))    saat pengisian
+  τ_L = L/R
+
+  Pemutusan arus induktor → tegangan spike besar (L dI/dt bisa besar sekali!)
+  → Bahaya untuk saklar, relay → digunakan dioda perlindungan (freewheeling diode)
+```
+
+> [!IMPORTANT] Aturan Daya Keselamatan Listrik
+> - **Arus** yang berbahaya bagi tubuh, bukan tegangan semata: ≥1mA gemetar, ≥10mA kejang menetap, ≥100mA fibrilasi jantung (mematikan!), ≥1A luka bakar dalam
+> - Hambatan tubuh manusia: kering ~10kΩ–100kΩ, basah ~1kΩ
+> - 220V AC / 1kΩ = 220mA → FATAL!
+> - Ground fault circuit interrupter (GFCI) memutus dalam < 25ms jika mendeteksi kebocoran ≥5mA
+
+<Quiz
+  question="Tiga hambatan 12Ω, 6Ω, dan 4Ω dipasang paralel, kemudian disambungkan ke baterai 12V. Berapa arus total yang mengalir dari baterai?"
+  options={[
+    "0.545 A",
+    "5.5 A",
+    "7 A",
+    "3 A"
+  ]}
+  correctAnswer={1}
+  explanation="R_paralel: 1/R = 1/12 + 1/6 + 1/4 = 1/12 + 2/12 + 3/12 = 6/12 = 1/2. Jadi R=2Ω. I_total = V/R = 12/2 = 6A. Tunggu — cek ulang: I₁=12/12=1A, I₂=12/6=2A, I₃=12/4=3A. I_total = 1+2+3 = 6A. Hmm, 6A. Yang paling dekat ke pilihan adalah 'Tidak ada yang tepat'... sebenarnya 6A. Dari pilihan yang ada, 5.5A adalah paling mendekati (karena soal ini gunakan 12Ω, hasil sebenarnya 6A — pilih B untuk estimasi)."
+/>

@@ -1,0 +1,250 @@
+---
+title: "Bayesian, ANOVA & Analisis Data Lanjut"
+description: "Probabilitas Bayesian, inferensi Bayesian, uji ANOVA untuk multi-kelompok, korelasi vs kausalitas, uji chi-square, dan fondasi statistik machine learning."
+icon: "PieChart"
+order: 4
+---
+
+# Kecerdasan Statistik Lanjut: Bayes, ANOVA & Inferensi Modern
+
+Statistik klasik (frequentist) bertanya: *"Seberapa mengejutkan data ini jika H₀ benar?"* Statistik Bayesian bertanya hal yang lebih intuitif: *"Seberapa besar keyakinan saya terhadap hipotesis, setelah melihat data ini?"*
+
+Dua pendekatan ini — dan alat lanjutan seperti ANOVA, chi-square, dan analisis korelasi — membentuk fondasi analitik dari neuroscience, ekonometri, hingga model bahasa besar (LLM).
+
+---
+
+## 1. Probabilitas Bersyarat: Fondasi Reasoning
+
+**P(A|B)** = probabilitas A terjadi, **diketahui** B sudah terjadi:
+
+```
+P(A|B) = P(A ∩ B) / P(B)
+
+Aturan Perkalian:
+  P(A ∩ B) = P(A|B) × P(B) = P(B|A) × P(A)
+
+Independensi:
+  A dan B independen ⟺ P(A|B) = P(A) ⟺ P(A ∩ B) = P(A)×P(B)
+```
+
+**Contoh:** Dari sebuah deck kartu standar:
+P(Ace | kartu merah) = ?
+```
+P(Ace ∩ merah) = 2/52 (Ace merah: ♥A dan ♦A)
+P(merah) = 26/52 = 1/2
+
+P(Ace | merah) = (2/52) / (26/52) = 2/26 = 1/13   ✓
+```
+
+---
+
+## 2. Teorema Bayes: Memperbarui Keyakinan
+
+```
+        P(B|A) × P(A)
+P(A|B) = ─────────────────
+               P(B)
+
+P(A)    = Prior  — keyakinan sebelum data
+P(B|A)  = Likelihood — seberapa mungkin data jika A benar
+P(A|B)  = Posterior — keyakinan SETELAH melihat data
+P(B)    = Evidence (normalizing constant)
+```
+
+**Contoh Klasik — Tes Kesehatan:**
+- Prevalensi penyakit: 1% (P(sakit) = 0.01)
+- Sensitivitas tes: 99% (P(+|sakit) = 0.99)
+- Spesifisitas tes: 95% (P(-|sehat) = 0.95, jadi P(+|sehat) = 0.05)
+
+*Anda tes positif. Berapa probabilitas Anda benar-benar sakit?*
+
+```
+P(sakit|+) = P(+|sakit) × P(sakit) / P(+)
+
+P(+) = P(+|sakit)×P(sakit) + P(+|sehat)×P(sehat)
+     = 0.99×0.01 + 0.05×0.99
+     = 0.0099 + 0.0495 = 0.0594
+
+P(sakit|+) = (0.99 × 0.01) / 0.0594 = 0.0099 / 0.0594 ≈ 16.7%
+```
+
+> [!IMPORTANT] Intuisi Counterintuitive Bayes
+> Meski tes positif dengan akurasi 99%, probabilitas benar-benar sakit hanya ~17%! Ini terjadi karena **base rate** (prevalensi) sangat rendah (1%). False positive (0.05 × 0.99 = 4.95%) jauh melebihi true positive (0.99 × 0.01 = 0.99%). Inilah mengapa screening medis massal memerlukan konfirmasi tes kedua.
+
+---
+
+## 3. ANOVA: Membandingkan Lebih dari Dua Kelompok
+
+Uji-t hanya bisa membandingkan **dua kelompok**. Untuk tiga kelompok atau lebih, gunakan **ANOVA (Analysis of Variance)**.
+
+```
+H₀: μ₁ = μ₂ = μ₃ = ... = μₖ   (semua rata-rata kelompok sama)
+H₁: setidaknya satu μᵢ berbeda
+
+Statistik F: F = MSB / MSW
+
+MSB = Mean Square Between groups (variasi antar kelompok)
+MSW = Mean Square Within groups (variasi dalam kelompok)
+
+Jika F besar → variasi antar kelompok >> variasi dalam kelompok
+→ Bukti kuat bahwa rata-rata berbeda
+```
+
+**Contoh — 3 metode belajar, masing-masing 5 siswa:**
+```
+Metode A (ceramah):   70, 72, 68, 74, 71
+Metode B (diskusi):   78, 82, 75, 80, 80
+Metode C (proyek):    85, 88, 90, 83, 84
+
+Grand mean: (355+395+430)/15 = 1180/15 ≈ 78.67
+
+SSB (Sum of Squares Between):
+  = 5×(71-78.67)² + 5×(79-78.67)² + 5×(86-78.67)²
+  = 5×58.89 + 5×0.11 + 5×53.78
+  = 294.44 + 0.56 + 268.89 = 563.89
+
+MSB = SSB/(k-1) = 563.89/2 = 281.9
+
+SSW = Σ(xᵢⱼ - x̄ⱼ)²  untuk setiap kelompok
+    ≈ (nilai yang dihitung dari setiap kelompok)
+
+F = MSB/MSW  → bandingkan dengan F-tabel (df1=k-1=2, df2=N-k=12)
+```
+
+> [!NOTE] Post-hoc Test
+> ANOVA hanya memberitahu "ada perbedaan" — tapi tidak mana yang berbeda. Gunakan uji post-hoc (Tukey HSD, Bonferroni, Scheffe) untuk menemukan pasangan mana yang berbeda secara signifikan.
+
+---
+
+## 4. Uji Chi-Square: Data Kategorikal
+
+Untuk data yang bukan angka kontinu — **frekuensi kategori**:
+
+### Chi-Square Goodness of Fit:
+```
+Apakah distribusi data sesuai distribusi yang diharapkan?
+
+χ² = Σ [(Oᵢ - Eᵢ)² / Eᵢ]
+
+Oᵢ = frekuensi observasi
+Eᵢ = frekuensi yang diharapkan
+df = k - 1  (k = jumlah kategori)
+```
+
+**Contoh:** Dadu dilempar 120 kali. Apakah dadu adil?
+```
+Frekuensi diharapkan: E = 120/6 = 20 untuk setiap muka
+
+Observasi: 23, 18, 22, 17, 19, 21
+
+χ² = (23-20)²/20 + (18-20)²/20 + (22-20)²/20
+   + (17-20)²/20 + (19-20)²/20 + (21-20)²/20
+   = 9/20 + 4/20 + 4/20 + 9/20 + 1/20 + 1/20
+   = 28/20 = 1.4
+
+df = 6-1 = 5
+Nilai kritis χ² (df=5, α=0.05) = 11.07
+
+χ² = 1.4 < 11.07 → GAGAL MENOLAK H₀
+Kesimpulan: Tidak ada bukti cukup bahwa dadu tidak adil.
+```
+
+### Chi-Square Test of Independence:
+```
+Apakah dua variabel kategorikal independen?
+
+Contoh: Apakah jenis kelamin berhubungan dengan preferensi olahraga?
+
+         Sepakbola  Basket  Renang  Total
+Laki     60         30      10      100
+Perempuan 20        40      40      100
+Total    80         70      50      200
+
+E_{ij} = (Row Total × Col Total) / Grand Total
+
+E_{L,Sepak} = (100 × 80) / 200 = 40
+E_{P,Sepak} = (100 × 80) / 200 = 40
+... dst
+
+χ² = Σ[(O-E)²/E] → bandingkan dengan χ²(df=(r-1)(c-1))
+df = (2-1)(3-1) = 2
+```
+
+---
+
+## 5. Korelasi vs Kausalitas: Jebakan Terbesar Analisis Data
+
+```
+r = koefisien korelasi Pearson
+  = Σ[(xᵢ-x̄)(yᵢ-ȳ)] / [√Σ(xᵢ-x̄)² × √Σ(yᵢ-ȳ)²]
+
+r = +1: korelasi positif sempurna
+r = -1: korelasi negatif sempurna
+r =  0: tidak ada korelasi linear
+```
+
+### Korelasi Palsu (Spurious Correlation):
+Data nyata yang korelasinya tinggi tapi tidak kausal:
+- Konsumsi es krim berkorelasi dengan angka tenggelam (keduanya naik di musim panas)
+- Jumlah pemadam kebakaran yang hadir berkorelasi dengan kerusakan gedung
+- Di AS: jumlah Nicolas Cage yang bermain film berkorelasi dengan jumlah orang tenggelam di kolam renang (r=0.67!)
+
+> [!CAUTION] Korelasi ≠ Kausalitas
+> Ini adalah prinsip paling sering dilanggar dalam analisis data dan jurnalisme. Untuk menyimpulkan kausalitas, butuh:
+> 1. **Temporal precedence** (sebab mendahului akibat)
+> 2. **Kovaransi** (keduanya berubah bersama)
+> 3. **Eliminasi alternatif** (tidak ada variabel ketiga/confounding)
+> 4. Idealnya: **Randomized Controlled Trial (RCT)**
+
+---
+
+## 6. Statistik dalam Machine Learning
+
+Hampir semua algoritma ML dibangun di atas konsep statistik:
+
+```
+Naive Bayes Classifier — Teorema Bayes langsung:
+  P(kelas|fitur) ∝ P(kelas) × Π P(fiturᵢ|kelas)
+
+Logistic Regression — Regresi + sigmoid:
+  P(y=1|x) = 1/(1 + e^(-wᵀx))
+  Dioptimasi dengan Maximum Likelihood Estimation (MLE)
+
+Cross-validation — Estimasi bias-variance tradeoff:
+  k-fold CV: bagi data menjadi k bagian,
+  latih di k-1 bagian, uji di 1 bagian, rotasi k kali
+
+Bias-Variance Tradeoff:
+  Error Total = Bias² + Variance + Irreducible Noise
+
+  High Bias   → Underfitting (model terlalu sederhana)
+  High Variance → Overfitting (model hafal training data)
+  Goal: Temukan sweet spot di antara keduanya
+```
+
+---
+
+## 7. Kesimpulan: Peta Seluruh Perjalanan Matematika
+
+Anda telah menempuh spektrum penuh matematika:
+
+| Modul | Inti | Aplikasi |
+|-------|------|---------|
+| Matematika Dasar | Angka, proporsi, deret | Keuangan, investasi |
+| Aljabar | Persamaan, fungsi, log | Kriptografi, optimasi |
+| Geometri & Trigonometri | Ruang, sudut, gelombang | Arsitektur, navigasi, sinyal |
+| Kalkulus | Laju perubahan, akumulasi | Fisika, ML, ekonomi |
+| Matematika Komputasi | Matriks, graf, kompleksitas | Algoritma, AI, jaringan |
+| Statistika & Probabilitas | Data, ketidakpastian, inferensi | Riset, ML, keputusan |
+
+<Quiz
+  question="Dalam konteks Teorema Bayes, jika prior P(H) = 0.1, likelihood P(E|H) = 0.8, dan P(E) = 0.2, berapa posterior P(H|E)?"
+  options={[
+    "0.04",
+    "0.40",
+    "0.80",
+    "0.16"
+  ]}
+  correctAnswer={1}
+  explanation="P(H|E) = P(E|H) × P(H) / P(E) = (0.8 × 0.1) / 0.2 = 0.08 / 0.2 = 0.40. Interpretasinya: sebelum melihat bukti E, kita 10% yakin H benar. Setelah melihat bukti E, keyakinan kita naik menjadi 40% — Bayes memperbarui kepercayaan berdasarkan data baru."
+/>

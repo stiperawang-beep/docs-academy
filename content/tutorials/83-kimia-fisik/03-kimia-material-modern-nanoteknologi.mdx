@@ -1,0 +1,250 @@
+---
+title: "Kimia Material Modern & Nanoteknologi"
+description: "Kimia koordinasi dan logam transisi, material fungsional (graphene, MOF, zeolite, perovskite), nanomaterial, kimia permukaan, polimer, dan kimia komputasi (DFT, MD Simulation)."
+icon: "Layers"
+order: 3
+---
+
+# Kimia Material: Merancang Materi Masa Depan
+
+Dari layar OLED di ponsel Anda, baterai lithium yang menggerakkannya, katalis yang memurnikan bensin, membran yang menurunkan air laut menjadi air minum — semua adalah produk **kimia material** modern.
+
+Di bab ini kita menyelami perbatasan terdepan sains — tempat kimia, fisika, dan rekayasa bertemu untuk menciptakan materi dengan properti yang belum pernah ada di alam.
+
+---
+
+## 1. Kimia Koordinasi: Logam Transisi dan Kompleks
+
+```
+Logam transisi = elemen blok d (Grup 3-12)
+  Konfigurasi: [Gas mulia] (n-1)d^x ns^y
+  Ciri khas: elektron d yang tak penuh → sifat kimia dan fisika unik
+
+Kompleks Koordinasi:
+  Ion logam (Lewis acid) + ligan (Lewis base, donor pasangan elektron)
+  
+  [Co(NH₃)₆]³⁺: Co³⁺ dengan 6 ligan NH₃ oktahedral
+  [Cu(H₂O)₄]²⁺: Cu²⁺ dengan 4 air planar persegi (biru dalam larutan)
+  [FeCl₄]⁻:     Fe³⁺ dengan 4 Cl⁻ tetrahedral
+
+Bilangan Koordinasi:
+  2: Linear  [Ag(NH₃)₂]⁺ (argentum diamin)
+  4: Tetrahedral atau Square Planar
+  6: Oktahedral — paling umum
+
+Ligan berdasarkan "denticity" (gigi):
+  Monodentate: 1 donor (NH₃, H₂O, Cl⁻, CN⁻)
+  Bidentate: 2 donor (en=ethylenediamine, ox²⁻=oxalate)
+  Polydentate: EDTA (6-dentate) = chelat! khelat lebih stabil dari monodentate
+```
+
+### Field Splitting dan Warna:
+
+```
+Crystal Field Theory:
+  Elektron d terpisah menjadi dua set dalam medan ligan:
+  
+  Oktahedral: d split menjadi eg (↑) dan t₂g (↓)
+  Δ_oct = perbedaan energi (bergantung kekuatan ligan)
+
+  Kekuatan ligan (Spectrochemical Series):
+  I⁻ < Br⁻ < S²⁻< Cl⁻ < F⁻ < OH⁻ < H₂O < en < NH₃ < CO < CN⁻
+  (Ligan lemah → Δ kecil → Spin Tinggi; Ligan kuat → Δ besar → Spin Rendah)
+
+Mengapa kompleks berwarna?:
+  Foton diserap untuk promosi elektron d→d (E_foton = hν = Δ)
+  Warna yang terlihat = komplementer dari warna yang diserap
+  
+  [Ti(H₂O)₆]³⁺: menyerap hijau (λ~500nm) → tampak UNGU-MERAH
+  [Cu(H₂O)₄]²⁺: menyerap merah (λ~800nm) → tampak BIRU
+
+Aplikasi Kimia Koordinasi:
+  Hemoglobin: Fe²⁺ + porfirin + histidin + O₂ (membawa oksigen!)
+  Klorofil: Mg²⁺ + porfirin (menangkap cahaya matahari!)
+  Cisplatin Pt(NH₃)₂Cl₂: obat kemoterapi (berikatan dengan DNA)
+  EDTA: chelating agent untuk keracunan logam berat
+```
+
+---
+
+## 2. Graphene dan Material Dua Dimensi
+
+```
+Graphene:
+  Lapisan tunggal atom karbon dalam kisi heksagonal (sp²)
+  Ditemukan Geim & Novoselov (2010 Nobel) dengan scotch tape!
+
+Properti luar biasa:
+  Konduktivitas listrik: >10⁶ S/m (lebih baik dari tembaga)
+  Kekuatan mekanik: ~130 GPa (200× lebih kuat dari baja!)
+  Transparansi: 97.7% (hampir transparan sempurna)
+  Konduktivitas termal: ~5000 W/(m⋅K) (lebih baik dari intan!)
+  Impermeabel: tidak ada atom/molekul yang bisa menembus (bahkan He!)
+
+Mengapa konduktivitas tinggi?:
+  Elektron dalam graphene bersifat quasipartikel Dirac (massa nol efektif!)
+  Bergerak seperti foton — tidak bisa dihentikan oleh impuritas normal
+  → Efek Hall kuantum pada suhu kamar
+
+Aplikasi (masih berkembang):
+  Transistor graphene (lebih cepat dari Si, tapi bandgap=0 jadi sulit)
+  Layar sentuh fleksibel (transparan, konduktif, fleksibel)
+  Nanokomposit (tambah 0.1% graphene → material 50% lebih kuat)
+  Filter air dan membrane (pemisah ion selektif berdasarkan ukuran)
+  Sensor (satu molekul gas bisa terdeteksi!)
+
+Material 2D Lainnya:
+  hBN (hexagonal boron nitride): insulator, "scotch tape" layering
+  MoS₂, WSe₂: semikonduktor 2D dengan bandgap, transistor tipis atom!
+  Black phosphorus: anisotropik, konduktivitas arah-bergantung
+```
+
+---
+
+## 3. Metal-Organic Frameworks (MOF): Padatan Paling Berpori
+
+```
+MOF = jaringan kristalin dari ion logam dihubungkan oleh ligan organik (linker)
+
+Luas permukaan internal LUAR BIASA:
+  MOF-177: 4500 m²/g   (1 gram menyimpan luas selama 2 lapangan sepakbola!)
+  NU-110 (record 2024): ~7000 m²/g
+
+Topologi dan Porositas Tertuneable:
+  Pori bisa dirancang dari <1 nm hingga >5 nm
+  Pilih ion logam + pilih linker = properti pori sesuai kebutuhan
+
+Aplikasi:
+  Penyimpanan gas H₂: MOF-5 menyimpan H₂ jauh lebih efisien dari silinder biasa!
+  Penangkapan CO₂: dari emisi pabrik (CCS — Carbon Capture and Storage)
+  Pemisahan gas: N₂ dari O₂, CO₂ dari CH₄
+  Drug delivery: obat dimuat dalam pori, dilepas pada pH/suhu target
+  Katalisis: site aktif dalam pori yang terdefinisi → selektif dan efisien
+  Pemurni air: adsorpsi logam berat, pewarna, pestisida
+```
+
+---
+
+## 4. Perovskite: Material Fotovoltaik Revolusioner
+
+```
+Struktur Perovskite: ABX₃
+  A = kation besar (MA+ = CH₃NH₃+, FA+ = HCOONH₃+, Cs+)
+  B = kation logam (Pb²⁺, Sn²⁺)
+  X = halida (I⁻, Br⁻, Cl⁻)
+
+Contoh: MAPbI₃ (methylammonium lead triiodide)
+
+Mengapa revolusioner untuk solar cell?:
+  Bangap optimal (~1.5-1.7 eV): sesuai untuk konversi cahaya matahari
+  Panjang difusi pembawa (difusion length): panjang → rekombinasi rendah
+  Kemudahan fabrikasi: bisa dibuat dengan spin-coating (MURAH!)
+  
+Kemajuan Efisiensi PCE (Power Conversion Efficiency):
+  2009: 3.8%    (pertama kali dilaporkan)
+  2012: 10%     (terobosan besar)
+  2015: 20%     (lebih baik dari Si polikristal!)
+  2024: ~33.7%  (tandem Si-Perovskite, record keseluruhan)
+
+Tantangan:
+  Stabilitas: terdegradasi oleh kelembaban, O₂, dan cahaya UV
+  Toksisitas timbal Pb (menggantikan dengan Sn, tapi efisiensi turun)
+  Skalabilitas: deposisi area besar mempertahankan kualitas
+```
+
+---
+
+## 5. Polimer: Makromolekul Sehari-Hari
+
+```
+Polimer = rantai panjang monomer berulang n kali
+
+Klasifikasi:
+  Polimer sintetis: PE, PP, PS, PVC, PTFE, Nylon, PET
+  Polimer alami: selulosa, pati, protein, DNA, karet (cis-polyisoprene)
+
+Tipe Polimerisasi:
+  Adisi: monomer tidak jenuh (alkena) bergabung tanpa produk samping
+    PE: n CH₂=CH₂ → [-CH₂CH₂-]ₙ  (Polietilena)
+    PP: n CH₂=CHCH₃ → Polipropilena (stereotaktik atau ataktik)
+    PS: Polistirena (busa styrofoam)
+    PTFE: Teflon® — sangat inert (tidak ada yang menempel!)
+
+  Kondensasi: dua monomer bifungsional bereaksi, melepas molekul kecil
+    Nylon 6,6: diamine (H₂N-R-NH₂) + diacid (HOOC-R'-COOH) → amida + H₂O
+    PET: ethylene glycol + asam tereftalat → air dilepas → botol plastik/polyester
+
+Massa Molar Polimer:
+  Distribusi massa molar (bukan nilai tunggal!)
+  Mw/Mn = PDI (Polydispersity Index) — 1 = sempurna monodispers
+  Menentukan sifat mekanik, viskositas, kekuatan tarikan
+
+Taktisitas (untuk vinil polimer):
+  Isotaktik: semua substituen di sisi yang sama → kristalin, titik leleh tinggi
+  Sindiotaktik: bergantian → semi-kristalin
+  Ataktik: acak → amorf, lebih lunak
+
+Polimer Berperforma Tinggi:
+  Kevlar: serat aramid (poliamida aromatik) → 5× lebih kuat dari baja per massa!
+  PEEK: polieterketone → tahan suhu 300°C, aerospace
+  UHMWPE: densitas ikatan sangat tinggi → prostetis sendi, body armor
+  Polimer konduksi (PEDOT, polianilisi): untuk OLED, sel surya organik
+```
+
+---
+
+## 6. Kimia Komputasi: Simulasi Menggantikan Lab
+
+```
+Density Functional Theory (DFT):
+  Metode quantum chemistry paling umum digunakan
+  Basis: teorema Hohenberg-Kohn (1964)
+  "Energi total sistem = functional dari densitas elektron saja"
+
+  Persamaan Kohn-Sham: Ĥ_KS ψᵢ = εᵢ ψᵢ
+
+  Kelebihan: akurasi tinggi, skalabel lebih baik dari HF tradisional
+  Kelemahan: memilih functional yang tepat (B3LYP, PBE, M06-2X, dll)
+
+Aplikasi DFT:
+  Prediksi geometri optimum dan energi molekul
+  Sifat spektroskopi (IR, NMR, UV) sebelum sintesis
+  Reaksi mekanisme — menghitung energi TS tanpa isolasi
+  Desain material: graphene, MOF, perovskite — screen ribuan komposisi!
+
+Molecular Dynamics (MD) Simulation:
+  Simulasi gerak atom berdasarkan gaya Newton + force field
+  → Amati lipatan protein, dinamika membran, difusi air
+
+  Waktu skala: fs (10⁻¹⁵ s) sampai μs untuk sistem besar
+  Ruang skala: nm sampai μm
+
+  Force field: AMBER (protein), CHARMM (protein+lipid), GROMACS (umum)
+
+AlphaFold 2 (DeepMind, 2020):
+  AI prediksi struktur 3D protein dari sekuens asam amino
+  Akurasi setara resolusi eksperimen X-ray kristalografi
+  Database 200 juta+ struktur protein gratis tersedia!
+  Nobel Kimia 2024 (Jumper, Hassabis, Baker)
+  → Revolusi desain obat dan enzim
+```
+
+> [!IMPORTANT] Frontier 2026: Kimia Kuantum & Material
+> Tren terdepan kimia material 2026:
+> 1. **Katalisis enzimatik buatan** — enzim didesain komputer (Baker lab) untuk reaksi industri
+> 2. **Perovskite tandem** — solar cell >35% efisiensi komersial dalam 5 tahun
+> 3. **Solid electrolyte** — baterai solid-state untuk EV generasi berikutnya
+> 4. **MOF untuk Net-Zero** — penangkapan CO₂ direct air capture (DAC)
+> 5. **Polimer biodegradable** — menggantikan plastik konvensional dalam kemasan
+
+<Quiz
+  question="Graphene memiliki hibridisasi sp² pada setiap karbon, dengan elektron di orbital p yang membentuk sistem π terkonjugasi. Mengapa graphene sangat konduktif meski 'hanya' karbon?"
+  options={[
+    "Karena sp² hybrid memiliki lebih banyak elektron dari sp³",
+    "Elektron π dalam sistem terkonjugasi graphene berlaku sebagai quasipartikel Dirac dengan massa efektif ~0, bergerak hampir tanpa hamburan",
+    "Graphene memiliki banyak elektron valensi bebas seperti logam",
+    "Ikatan C-C dalam graphene lebih kuat dari logam sehingga konduksi lebih baik"
+  ]}
+  correctAnswer={1}
+  explanation="Dalam graphene, elektron π terdelokalisasi dalam pita konduksi 2D. Di titik K (Dirac points) dalam zona Brillouin, pita konduksi dan valensi bertemu, dan dispersi energi bersifat linier (E ∝ k), bukan kuadratik seperti elektron biasa. Ini menyebabkan elektron graphene berlaku seperti partikel relativistik tanpa massa (quasipartikel Dirac), dengan kecepatan Fermi ~10⁶ m/s dan hamburan sangat kecil. Itulah mengapa konduktivitas graphene jauh melampaui logam biasa."
+/>

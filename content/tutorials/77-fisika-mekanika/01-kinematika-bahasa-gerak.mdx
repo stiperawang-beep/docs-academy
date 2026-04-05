@@ -1,0 +1,305 @@
+---
+title: "Kinematika: Bahasa Gerak Semesta"
+description: "Fondasi mekanika klasik — posisi, perpindahan, kecepatan, percepatan dalam 1D, 2D, dan 3D. Gerak dengan percepatan konstan, gerak parabola, analisis vektor, dan referensi kerangka acuan."
+icon: "Navigation"
+order: 1
+---
+
+# Kinematika: Membaca Bahasa Gerak Alam Semesta
+
+Sebelum Newton lahir, alam semesta tampak kacau — planet bergerak aneh, benda jatuh dengan cara misterius, dan tidak ada yang bisa memprediksi gerakan secara tepat. Galileo Galilei mengubah segalanya dengan satu revolusi mental sederhana: **ukur, jangan hanya amati**.
+
+Dari eksperimen bola rolling di bidang miring Galileo hingga persamaan gerak roket SpaceX — semuanya bermula dari satu pertanyaan mendasar: *Bagaimana cara menggambarkan gerak secara matematis?*
+
+Itulah **kinematika** — deskripsi gerak tanpa peduli mengapa benda bergerak.
+
+---
+
+## 1. Besaran Dasar Gerak
+
+### Posisi dan Perpindahan
+
+```
+Posisi (r⃗): vektor yang menunjukkan lokasi benda dari titik acuan
+Perpindahan (Δr⃗ = r⃗_akhir - r⃗_awal): vektor perubahan posisi
+
+⚠️ PENTING: Perpindahan ≠ Jarak!
+   Perpindahan = vektor (punya arah), bisa negatif
+   Jarak       = skalar (selalu positif), total lintasan
+
+Contoh:
+  Berjalan 5m ke utara lalu 5m ke selatan:
+  Jarak       = 5 + 5 = 10m
+  Perpindahan = 0m (kembali ke posisi asal)
+```
+
+### Kecepatan: Laju Perubahan Posisi
+
+```
+Kecepatan Rata-rata:
+  v⃗_avg = Δr⃗/Δt = (r⃗₂ - r⃗₁)/(t₂ - t₁)    [m/s]
+
+Kecepatan Sesaat (definisi kalkulus):
+  v⃗(t) = lim(Δt→0) Δr⃗/Δt = dr⃗/dt
+
+  vₓ = dx/dt    (komponen x)
+  vᵧ = dy/dt    (komponen y)
+  v_z = dz/dt   (komponen z)
+
+Besar kecepatan (laju/speed):
+  |v⃗| = √(vₓ² + vᵧ² + v_z²)
+```
+
+### Percepatan: Laju Perubahan Kecepatan
+
+```
+Percepatan Rata-rata:
+  a⃗_avg = Δv⃗/Δt    [m/s²]
+
+Percepatan Sesaat:
+  a⃗(t) = dv⃗/dt = d²r⃗/dt²
+
+Catatan: Percepatan bisa terjadi meskipun kelajuan konstan
+         (jika arah berubah) → gerak melingkar!
+```
+
+> [!IMPORTANT] Tiga Cara Mendeskripsikan Gerak
+> Gerak bisa ditinjau melalui tiga representasi yang saling berhubungan:
+> - **Grafik r-t**: kemiringan (gradient) = kecepatan
+> - **Grafik v-t**: kemiringan = percepatan, luas di bawah kurva = perpindahan
+> - **Grafik a-t**: luas di bawah kurva = perubahan kecepatan
+
+---
+
+## 2. Gerak Lurus Beraturan (GLB) dan GLBB
+
+### GLB — Kecepatan Konstan (Percepatan Nol):
+
+```
+x(t) = x₀ + v × t
+v = konstan
+a = 0
+
+Grafik x-t: garis lurus (gradien = v)
+Grafik v-t: garis horizontal
+```
+
+### GLBB — Percepatan Konstan (Gerak Jatuh, Peluru, dst):
+
+```
+Empat Persamaan GLBB (pilih sesuai besaran yang diketahui):
+
+1. v = v₀ + at                           (tidak pakai x)
+2. x = x₀ + v₀t + ½at²                  (tidak pakai v)
+3. v² = v₀² + 2a(x - x₀)               (tidak pakai t)
+4. x = x₀ + ½(v₀ + v)t                  (tidak pakai a)
+
+v₀ = kecepatan awal, v = kecepatan akhir
+a  = percepatan (konstan), t = waktu
+x₀ = posisi awal, x = posisi akhir
+```
+
+**Contoh — Rem Darurat:**
+Mobil kecepatan 72 km/jam = 20 m/s. Diberi rem darurat dengan perlambatan 8 m/s². Berapa jarak berhenti?
+```
+v₀ = 20 m/s,  v = 0,  a = -8 m/s²
+
+v² = v₀² + 2a×Δx
+0  = 400 + 2(-8)Δx
+16Δx = 400
+Δx = 25 meter
+```
+
+---
+
+## 3. Gerak Jatuh Bebas: Gravitasi Galileo
+
+Di dekat permukaan Bumi, semua benda jatuh dengan percepatan **g = 9.8 m/s²** (tanpa hambatan udara) — terlepas dari massanya. Ini adalah penemuan revolusioner Galileo yang menentang Aristoteles selama ~2000 tahun.
+
+```
+Gerak jatuh bebas = GLBB dengan a = -g (ke bawah = negatif)
+
+Pilih koordinat: y positif ke atas
+
+y(t)  = y₀ + v₀t - ½gt²
+v(t)  = v₀ - gt
+v²    = v₀² - 2g(y - y₀)
+```
+
+**Contoh — Batu Dilempar ke Atas:**
+Batu dilempar ke atas dengan v₀ = 30 m/s. (g = 10 m/s²)
+```
+Ketinggian maksimum (v = 0):
+  0 = 30 - 10t → t = 3 s
+  y_max = 30(3) - ½(10)(9) = 90 - 45 = 45 m
+
+Waktu kembali ke titik lempar (y = 0):
+  0 = 30t - 5t² = t(30 - 5t) → t = 0 atau t = 6 s
+  Waktu total = 6 s (simetris!)
+
+Kecepatan saat kembali = -30 m/s (sama besar, arah berlawanan ✓)
+```
+
+> [!TIP] Simetri Gerak Parabola Vertikal
+> Jika hambatan udara diabaikan, gerakan naik dan turun adalah **simetris sempurna**:
+> - Waktu naik = Waktu turun
+> - Kecepatan di ketinggian h saat naik = Kecepatan di h saat turun (tapi berlawanan arah)
+> - Di titik tertinggi: v = 0, tapi a = -g ≠ 0 (benda tidak pernah "berhenti berakselerasi"!)
+
+---
+
+## 4. Gerak Dua Dimensi: Vektor dan Komponen
+
+Kunci gerak 2D adalah dekomposisi vektor:
+```
+r⃗ = xî + yĵ
+v⃗ = vₓî + vᵧĵ
+a⃗ = aₓî + aᵧĵ
+
+Setiap komponen bergerak INDEPENDEN satu sama lain.
+Komponen x tidak memengaruhi komponen y!
+```
+
+### Gerak Parabola (Projectile Motion):
+
+Benda dilempar dengan kecepatan awal v₀ pada sudut θ:
+```
+Komponen awal:
+  v₀ₓ = v₀ cos θ    (horizontal — konstan sepanjang penerbangan)
+  v₀ᵧ = v₀ sin θ    (vertikal — diperlambat gravitasi)
+
+Persamaan gerak:
+  x(t) = v₀ₓ × t                (gerak horizontal = GLB)
+  y(t) = v₀ᵧ × t - ½gt²        (gerak vertikal  = GLBB)
+  vₓ(t) = v₀ₓ                   (konstan)
+  vᵧ(t) = v₀ᵧ - gt
+```
+
+**Rumus penting gerak parabola** (dari permukaan datar ke datar):
+```
+Waktu terbang:   T = 2v₀ sin θ / g
+Jangkauan max:   R = v₀² sin(2θ) / g    ← maksimum saat θ = 45°!
+Ketinggian max:  H = v₀² sin²θ / (2g)
+```
+
+**Contoh Nyata — Peluru Meriam:**
+v₀ = 50 m/s, θ = 37° (sin37°=0.6, cos37°=0.8), g=10 m/s²
+```
+T = 2×50×0.6/10 = 6 s
+R = 50²×sin74°/10 = 2500×0.96/10 = 240 m
+H = 50²×0.36/(2×10) = 900/20 = 45 m
+```
+
+---
+
+## 5. Gerak Melingkar: Percepatan Tanpa Mengubah Laju
+
+Benda bergerak melingkar dengan laju konstan (kelajuan konstan, kecepatan **berubah arah**):
+
+```
+Percepatan sentripetal (mengarah ke pusat lingkaran):
+  aₛ = v²/r = ω²r    [m/s²]
+
+Hubungan antara besaran sudut dan linear:
+  v = ωr            (kecepatan linear vs anguler)
+  a = αr            (percepatan linear vs anguler)
+  s = θr            (panjang busur vs sudut radian)
+
+Frekuensi, Periode, Kecepatan Sudut:
+  T = 2πr/v = 2π/ω       [periode, detik/putaran]
+  f = 1/T                 [frekuensi, Hertz]
+  ω = 2πf = 2π/T          [kecepatan sudut, rad/s]
+```
+
+**Contoh — Bumi Mengelilingi Matahari:**
+```
+R_orbit = 1.496 × 10¹¹ m
+T = 365.25 hari = 3.156 × 10⁷ s
+
+v = 2πR/T = 2π × 1.496×10¹¹ / 3.156×10⁷ ≈ 29,800 m/s = 29.8 km/s
+
+a = v²/R = (29800)²/(1.496×10¹¹) = 8.87×10⁸/1.496×10¹¹ ≈ 5.93×10⁻³ m/s²
+```
+
+---
+
+## 6. Kerangka Acuan: Relativitas Galileo
+
+Gerak **selalu relatif** terhadap kerangka acuan pengamat:
+
+```
+Transformasi Galileo (kecepatan jauh lebih kecil dari cahaya):
+  Kerangka S dan S' (S' bergerak dengan v terhadap S)
+
+  Posisi:    x' = x - vt
+  Waktu:     t' = t   (sama untuk semua kerangka — asumsi Galileo)
+  Kecepatan: u'ₓ = uₓ - v   (hukum penjumlahan kecepatan Galileo)
+
+Contoh:
+  Anda di kereta (v = 100 km/jam).
+  Melempar bola ke depan dengan u' = 20 km/jam (relatif terhadap kereta).
+  Pengamat diam melihat bola bergerak: u = 100 + 20 = 120 km/jam
+```
+
+> [!NOTE] Batas Berlaku Kinematika Klasik
+> Transformasi Galileo mulai meleset saat kecepatan mendekati kecepatan cahaya (c = 3×10⁸ m/s). Einstein memperbaikinya dengan Transformasi Lorentz dalam Teori Relativitas Khusus — panjang menyusut, waktu melambat, massa bertambah. (Dibahas di modul Fisika Modern)
+
+---
+
+## 7. Analisis Dimensi: Alat Cek Persamaan
+
+Setiap persamaan fisika harus **dimensionally consistent** — semua suku harus punya dimensi yang sama:
+
+```
+Besaran Dasar SI:
+  [M] = massa (kg)
+  [L] = panjang (m)
+  [T] = waktu (s)
+  [I] = arus listrik (A)
+  [θ] = suhu (K)
+
+Contoh — Cek persamaan v² = v₀² + 2ax:
+  [v²]  = (m/s)² = m²s⁻²
+  [v₀²] = m²s⁻²
+  [2ax] = (m/s²)(m) = m²s⁻²
+
+  Semua sama → dimensi konsisten ✓
+
+Manfaat: Analisis dimensi dapat MENURUNKAN persamaan tanpa fisika!
+  Gaya gravitasi bergantung m₁, m₂, r:
+  [F] = kg×m×s⁻²  →  F ∝ m₁m₂/r²  (persis hukum Newton!)
+```
+
+---
+
+## 8. Fisika Modern Kinematika: Ultra-High Speed
+
+Saat kecepatan mendekati cahaya, transformasi Galileo gagal:
+
+```
+Transformasi Lorentz (Relativitas Khusus Einstein):
+
+  γ (faktor Lorentz) = 1/√(1 - v²/c²)
+
+  x' = γ(x - vt)
+  t' = γ(t - vx/c²)   ← WAKTU BERUBAH! (time dilation)
+
+Penjumlahan Kecepatan Relativistik:
+  u' = (u - v) / (1 - uv/c²)
+
+  Contoh: Kapal di 0.6c melempar bola ke depan dg 0.8c (relatif kapal):
+  u = (0.6c + 0.8c)/(1 + 0.6×0.8) = 1.4c/1.48 = 0.946c   (bukan 1.4c!)
+  → Tidak ada yang bisa melampaui kecepatan cahaya!
+```
+
+<Quiz
+  question="Sebuah bola dilempar horizontal dari ketinggian 45m dengan kecepatan awal 20 m/s. Berapa waktu bola menyentuh tanah dan berapa jarak horizontalnya? (g = 10 m/s²)"
+  options={[
+    "t = 3s, x = 60m",
+    "t = 3s, x = 60m",
+    "t = 9s, x = 180m",
+    "t = 4.5s, x = 90m"
+  ]}
+  correctAnswer={0}
+  explanation="Vertikal: y = ½gt² → 45 = ½×10×t² → t² = 9 → t = 3s. Horizontal: x = v₀ₓ×t = 20×3 = 60m. Kunci: gerak horizontal (v₀=20m/s, a=0) dan vertikal (v₀=0, a=g) sepenuhnya independen!"
+/>

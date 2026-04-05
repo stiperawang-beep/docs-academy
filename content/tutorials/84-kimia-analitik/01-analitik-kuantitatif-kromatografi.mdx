@@ -1,0 +1,286 @@
+---
+title: "Kimia Analitik: Mengukur dan Mengidentifikasi Materi"
+description: "Analisis kuantitatif dan kualitatif, akurasi dan presisi, teknik pemisahan (kromatografi HPLC/GC), analisis volumetri (titrasi asam-basa, redoks), gravimetri, dan kimia analitik lingkungan."
+icon: "Search"
+order: 1
+---
+
+# Kimia Analitik: Seni dan Sains Menentukan Apa dan Berapa
+
+"Seorang kimiawan tanpa kimia analitik adalah seperti dokter tanpa diagnosis." Sebelum ada terapi, harus ada diagnosis yang tepat. Demikian juga sebelum ada sintesis, harus ada konfirmasi produk yang tepat.
+
+Kimia analitik adalah pondasi semua keputusan berbasis data dalam sains — dari diagnosa medis, kontrol kualitas industri, pemantauan lingkungan, hingga forensik kriminal.
+
+---
+
+## 1. Fondasi: Akurasi, Presisi, dan Signifikansi
+
+```
+Akurasi: seberapa dekat pengukuran dengan nilai BENAR
+Presisi: seberapa konsisten pengukuran berulang (reproduksi)
+
+         ● ●●    vs   ●     vs   ● ●
+        ● ● ●         ●●●        ●
+       ● ●  ●         ●●         ●●
+       Presisi        Akurat     Tidak
+       tinggi,        & presisi  keduanya
+       tidak akurat   tinggi
+       
+Kesalahan:
+  Systematic error: memengaruhi akurasi, bisa dikoreksi
+    (contoh: neraca tidak terkalibrasi, impuritas dalam standar)
+  Random error: memengaruhi presisi, statistikal
+    (fluktuasi suhu, vibasi, variasi baca)
+  Gross error: blunder (baca salah, tumpah, kontaminasi)
+
+Angka Bermakna (Significant Figures):
+  Aturan: catat semua digit yang pasti + 1 yang tidak pasti
+  
+  Penjumlahan/Pengurangan: ikuti desimal terkecil
+  Perkalian/Pembagian: ikuti angka significan terkecil
+  
+  12.34g + 5.2g = 17.5g (bukan 17.54g!)
+  4.256 × 1.2 = 5.1 (bukan 5.1072!)
+```
+
+### Statistik Analitik:
+
+```
+Mean (rata-rata): x̄ = Σxᵢ/n
+
+Standar Deviasi: s = √[Σ(xᵢ-x̄)²/(n-1)]
+
+Relative Standard Deviation (RSD) atau CV:
+  %RSD = (s/x̄) × 100%
+  Baik bila < 2% (quantitative), < 5% (trace analysis)
+
+Confidence interval:
+  x̄ ± t × s/√n   (k = n-1 derajat kebebasan)
+  t = faktor Student  (t_{0.95, k=4} = 2.132 untuk 95% CI, 5 pengukuran)
+
+LOD (Limit of Detection):
+  LOD = 3 × S_blank / sensitivity    (signal = 3× noise)
+
+LOQ (Limit of Quantification):
+  LOQ = 10 × S_blank / sensitivity   (signal = 10× noise)
+```
+
+---
+
+## 2. Titrimetri: Mengukur dengan Volume
+
+### Titrasi Asam-Basa:
+```
+Alat: Buret (0.01 mL presisi), erlenmeyer, indikator
+
+Kurva Titrasi NaOH ke HCl (strong acid-strong base):
+  Sebelum ekuivalen: pH dari HCl berlebih
+  Titik ekuivalen: pH = 7.00 (garam netral)
+  Setelah ekuivalen: pH dari NaOH berlebih
+
+  Kurva berbentuk S, infleksi tajam di titik ekuivalen
+
+Titrasi asam lemah (CH₃COOH) dengan basa kuat:
+  Midpoint (setengah titrasi): pH = pKa (Henderson-Hasselbalch)
+  Titik ekuivalen: pH > 7 (basa konjugat hidrolisis!)
+  → Gunakan phenolphthalein (berubah pH 8.3-10): lebih cocok dari BTB
+
+Indikator Asam-Basa:
+  Methyl orange: 3.1-4.4 (merah→kuning) — HCl vs NaOH
+  Bromothymol blue: 6.0-7.6 (kuning→biru)
+  Phenolphthalein: 8.3-10.0 (tidak berwarna→merah) — asam lemah vs basa
+  Congo red: 3.0-5.0 merah→biru
+```
+
+### Titrasi Redoks:
+```
+Permanganat (MnO₄⁻) sebagai titran:
+  MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O   E° = +1.51V
+  Indikaor sendiri! Ungu → tidak berwarna saat titik ekuivalen
+
+  Contoh: Titrasi Fe²⁺ dengan KMnO₄:
+  MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O
+  n_MnO₄⁻ × 5 = n_Fe²⁺
+
+Dikromat (Cr₂O₇²⁻):
+  Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O   E° = +1.33V
+  Digunakan dalam analisis alkohol (breathalyzer!)
+
+Iodometri:
+  I₂ sebagai titran: dapat dideteksi dengan amilum (biru tua)
+  I₂ + starchu → biru intensif; I⁻ → tidak berwarna
+  
+  Analisis SO₂, vitamin C (asam askorbat), H₂O₂:
+  C₆H₈O₆ + I₂ → C₆H₆O₆ + 2HI   (vitamin C mereduksi I₂)
+```
+
+### Titrasi Kompleksometri:
+```
+EDTA (H₄Y) = chelating agent hexadentate
+  Bereaksi dengan hampir semua ion logam dalam rasio 1:1:
+  M^n+ + Y⁴⁻ → [MY]^(n-4)    K_stabilitas sangat besar
+
+Titrasi Kesadahan Air:
+  Ca²⁺ + Mg²⁺ → penyebab "hard water" (kerak logam, sabun tidak berbusa)
+  
+  Indikator: Eriochrome Black T (EBT)
+  Sebelum EP: biru → EBT kompleks merah dengan Ca²⁺/Mg²⁺
+  Setelah EP: biru (EDTA "mencuri" logam dari EBT)
+
+  CaCO₃ equivalen:
+  1 ppm hardness = 1 mg CaCO₃ / L
+  Air keras: > 300 ppm  Air lunak: < 75 ppm
+```
+
+---
+
+## 3. Kromatografi: Memisahkan Komponen Campuran
+
+```
+Prinsip: komponen terdistribusi antara fase stasioner dan fase gerak
+  Komponen berbeda → interaksi berbeda → bergerak berbeda → terpisah!
+
+Faktor Pemisahan:
+  Retention factor: k = (t_R - t_M) / t_M
+  t_R = waktu retensi komponen
+  t_M = waktu mati (waktu fase gerak tanpa interaksi)
+
+  Resolution: Rs = 2(t_R2 - t_R1) / (w₁ + w₂)
+  Rs > 1.5 = baseline separation!
+```
+
+### HPLC (High Performance Liquid Chromatography):
+```
+Fase gerak: pelarut cair (air, metanol, asetonitril) dipompa tekanan tinggi (100-400 bar)
+Fase stasioner: silika termodifikasi (C18 — paling umum), ion exchange, dll
+
+Reversed Phase HPLC (RP-HPLC) — paling umum:
+  Stasioner: non-polar (C18 = oktadesil silika)
+  Fase gerak: polar (air+organik)
+  Elusi: polar keluar dahulu, non-polar terakhir
+
+Detektor HPLC:
+  UV-Vis: universal, mendeteksi senyawa yang menyerap
+  DAD (Diode Array): spektrum UV lengkap untuk setiap puncak!
+  Fluorescence: sangat sensitif, selektif
+  Refractive Index: untuk polimer, gula (tidak ada kromofor)
+  MS: mengidentifikasi SEKURANG massa eksak → HPLC-MS adalah gold standard!
+
+Analisis Kuantitatif:
+  Metode kalibrasi eksternal: buat kurva kalibrasi, interpolasi
+  Metode standar internal: tambah IS dengan konsentrasi diketahui
+  Area puncak ∝ konsentrasi (Hukum Beer-Lambert untuk kromatograf)
+```
+
+### GC (Gas Chromatography):
+```
+Fase gerak: gas pembawa (He, N₂, H₂)
+Fase stasioner: lapisan cair atau padat di dalam kolon kapiler
+
+Ideal untuk: senyawa volatil (BP < 400°C), stabil termal
+
+Detektor GC:
+  FID (Flame Ionization): universal untuk senyawa organik, sensitif
+  TCD (Thermal Conductivity): universal termasuk gas anorganik
+  ECD (Electron Capture): sensitif untuk halokarbon, pestisida
+  MS: identifikasi struktur → GC-MS = alat analitik paling powerful untuk organik!
+
+Split vs Splitless Injection:
+  Split: sampel 1:100 disuntikkan → konsentrasi tinggi atau senyawa kompleks
+  Splitless: semua disuntikkan → untuk trace analysis
+
+GC-MS dalam Forensik:
+  Residu obat dalam darah, urin
+  Identifikasi akseleran dalam kebakaran yang disengaja
+  Analisis doping atlet (WADA protocol)
+  Identifikasi zat peledak
+```
+
+### LC-MS/MS (liquid chromatography tandem mass spectrometry):
+```
+Triple quadrupole MS: MRM (Multiple Reaction Monitoring)
+  Q1 → memilih ion induk [M+H]⁺
+  Q2 → fragmentasi (collision induced dissociation, CID)
+  Q3 → memilih ion produk spesifik
+
+Keunggulan:
+  SANGAT selektif (dua tahap pemilihan massa)
+  Sangat sensitif (pg/mL dalam plasma, bahkan fg/mL)
+  Gold standard untuk: farmakokinetik, doping, forensik, lingkungan
+```
+
+---
+
+## 4. Gravimetri dan Teknik Klasik
+
+```
+Gravimetri: analit diendapkan, disaring, dikeringkan, ditimbang
+
+Persyaratan endapan gravimetric:
+  - Kelarutan rendah (Ksp kecil)
+  - Tidak mengkontaminasi dengan reagen lain
+  - Bisa disaring (partikel cukup besar — coloid bermasalah)
+  - Komposisi tetap setelah pengeringan
+
+Contoh — Menentukan % SO₄²⁻:
+  SO₄²⁻ + BaCl₂ → BaSO₄↓ (sangat tidak larut, Ksp=1.1×10⁻¹⁰)
+  Saring, keringkan, timbang BaSO₄
+  
+  Konversi: massa SO₄²⁻ = massa BaSO₄ × (96.06/233.39)
+  (MW SO₄²⁻/MW BaSO₄ = gravimetric factor)
+
+Koreksi faktor endapan (contamination):
+  Coprecipitation: ion lain terbawa dalam endapan → systematic error!
+  Digestion (ripening): pemanasan → ikatan kristalin lebih teratur, lebih murni
+```
+
+---
+
+## 5. Kimia Analitik Lingkungan
+
+```
+Parameter Air (WHO Guidelines 2022):
+  pH: 6.5-8.5
+  Conductivity < 2500 μS/cm
+  Turbidity < 5 NTU
+  Total Dissolved Solids < 1000 mg/L
+  Nitrate < 50 mg/L   (menginduksi methemoglobinemia pada bayi!)
+  Lead < 10 μg/L      (neurotoksisitas)
+  Arsenic < 10 μg/L   (karsinogenik)
+  Mercury < 6 μg/L
+
+Teknik Analisis Logam Berat:
+  AAS (Atomic Absorption Spectroscopy):
+    Sampel diatomisasi dalam nyala api (flame) atau furnace (GFAAS)
+    LOD: μg/L (ppb) untuk flame, pg/mL untuk GFAAS
+  
+  ICP-MS (Inductively Coupled Plasma MS):
+    Plasma argon 6000K mengionisasi sampel
+    MS memisahkan berdasarkan m/z
+    LOD: sub-ppb untuk hampir semua logam sekaligus!
+    Matrix effects harus dikoreksi dengan standar internal
+
+Analisis Pestisida:
+  Teknik: GC-ECD, GC-MS/MS, LC-MS/MS
+  Extraction: QuEChERS (Quick, Easy, Cheap, Effective, Rugged, Safe)
+  LOD: sub-ppb dalam tanah, air, makanan
+
+Polutan Udara:
+  SO₂, NOₓ: chemiluminescence, fluorescence
+  O₃: UV photometric, wet-chemistry iodometric
+  PM2.5, PM10: gravimetric, optical particle counter
+  VOC: GC-FID, DOAS (Differential Optical Absorption Spectroscopy)
+  Merkuri: AFS (Atomic Fluorescence Spectroscopy)
+```
+
+<Quiz
+  question="Dalam titrasi 50.0 mL NaOH tidak diketahui konsentrasinya dengan HCl 0.1000 M sebagai standar. Titik ekuivalen dicapai pada 31.5 mL HCl. Berapa konsentrasi NaOH?"
+  options={[
+    "0.0630 M",
+    "0.1587 M",
+    "0.3150 M",
+    "0.0315 M"
+  ]}
+  correctAnswer={0}
+  explanation="NaOH + HCl → NaCl + H₂O (ratio 1:1). mol HCl = 0.1000 M × 0.0315 L = 0.003150 mol. mol NaOH = mol HCl = 0.003150 mol (karena ratio 1:1). [NaOH] = 0.003150 mol / 0.0500 L = 0.0630 M. Kunci: gunakan mol, bukan langsung perbandingan volume, dan pastikan koefisien stoikiometri dipertimbangkan (di sini 1:1 jadi sama)."
+/>

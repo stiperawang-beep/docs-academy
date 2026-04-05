@@ -1,0 +1,294 @@
+---
+title: "Fisika Inti, Partikel & Kosmologi"
+description: "Fisika inti atom — radioaktivitas, peluruhan alfa/beta/gamma, reaksi fisi dan fusi. Fisika partikel — Model Standar, quarks, lepton, boson. Kosmologi — Big Bang, inflasi, materi gelap, dan masa depan alam semesta."
+icon: "Globe"
+order: 3
+---
+
+# Fisika Inti, Partikel & Asal-Usul Alam Semesta
+
+Kita telah turun dari dunia makro (mekanika Newton) ke skala atom (mekanika kuantum). Kini kita menyelam lebih dalam lagi — ke inti atom, ke quark dan lepton, dan akhirnya ke pertanyaan paling fundamental: *Dari mana alam semesta berasal, dan ke mana ia pergi?*
+
+---
+
+## 1. Struktur Inti Atom
+
+```
+Inti atom = proton + neutron (nukleon)
+  Massa proton: mp = 1.6726 × 10⁻²⁷ kg = 938.3 MeV/c²
+  Massa neutron: mn = 1.6749 × 10⁻²⁷ kg = 939.6 MeV/c²
+
+  Nukleon 1836× lebih berat dari elektron!
+
+Ukuran inti:
+  r = r₀ A^(1/3)    r₀ = 1.2 fm = 1.2 × 10⁻¹⁵ m
+  A = nomor massa
+
+  Inti U-238: r = 1.2 × 238^(1/3) = 1.2 × 6.2 = 7.44 fm
+  (Sangat padat: ρ_inti ≈ 2.3 × 10¹⁷ kg/m³ = 1 sendok teh berat 1 miliar ton!)
+```
+
+### Energi Ikat Inti (Binding Energy):
+
+```
+Massa inti < massa proton + neutron terpisahnya!
+
+Defek massa: Δm = Z×mp + N×mn - M_inti
+
+Energi Ikat: BE = Δm × c²    [MeV]
+Energi ikat per nukleon: BE/A (puncak di Fe-56 = 8.79 MeV/nukleon)
+
+Formula Weizäcker (Semi-empirical mass formula):
+  BE = aᵥA - aₛA^(2/3) - aC Z²/A^(1/3) - aₐ(A-2Z)²/A ± δ
+
+  aᵥ = 15.75 MeV  (volume — interaksi nuklir)
+  aₛ = 17.8  MeV  (permukaan — nuklon di tepi kurang terikat)
+  aC = 0.711 MeV  (Coulomb — proton tolak-menolak)
+  aₐ = 23.7  MeV  (asimetri — N≠Z kurang stabil)
+  δ  = ±33.5 MeV (pairing — pasangan N-N dan P-P lebih stabil)
+
+Grafik BE/A:
+  Naik dari H ke Fe/Ni (~8.8 MeV/nucleon)   ← fusi menghasilkan energi!
+  Turun dari Fe ke U (~7.6 MeV/nucleon)     ← fisi menghasilkan energi!
+  Fe-56 = inti paling stabil di alam!
+```
+
+---
+
+## 2. Radioaktivitas: Peluruhan Spontan Inti
+
+```
+Hukum Peluruhan Radioaktif (statistikal):
+  N(t) = N₀ × e^(-λt)    (eksponensial murni)
+
+  λ = konstanta peluruhan [s⁻¹]
+  N₀ = jumlah awal nuklida
+  N(t) = jumlah pada waktu t
+
+Waktu paruh (t₁/₂):
+  t₁/₂ = ln(2)/λ = 0.693/λ
+
+  Setelah t₁/₂: N = N₀/2
+  Setelah 2t₁/₂: N = N₀/4
+  Setelah n×t₁/₂: N = N₀/2ⁿ
+```
+
+### Tiga Jenis Peluruhan:
+
+```
+α (Alpha) — Emisi He-4 (²⁴He):
+  ²³⁸₉₂U → ²³⁴₉₀Th + ⁴₂He + energi
+  Daya ionisasi tinggi, jarak pendek (cm di udara)
+  Berbahaya jika masuk tubuh (merokok/radon)
+  t₁/₂ U-238 = 4.47 × 10⁹ tahun (≈ usia Bumi)
+
+β⁻ (Beta minus) — Emisi elektron + antineutrino:
+  ¹⁴₆C → ¹⁴₇N + e⁻ + ν̄ₑ
+  Neutron → proton di dalam inti
+  t₁/₂ C-14 = 5730 tahun → digunakan PENANGGALAN RADIOKARBON!
+
+β⁺ (Beta plus) — Emisi positron + neutrino:
+  ¹¹₆C → ¹¹₅B + e⁺ + νₑ
+  Proton → neutron di dalam inti
+
+γ (Gamma) — Emisi foton energi tinggi:
+  Inti berpindah dari keadaan tereksitasi ke ground state
+  Tidak mengubah Z atau A — hanya melepas energi berlebih
+  Penetrasi sangat dalam (membutuhkan timbal/beton tebal)
+
+Electron Capture:
+  ¹²⁵₅₃I + e⁻ → ¹²⁵₅₂Te + νₑ
+  Proton + elektron dalam → neutron + neutrino
+```
+
+### Penanggalan Radiokarbon:
+```
+¹⁴C terus diproduksi di atmosfer (sinar kosmis + N-14)
+Semua makhluk hidup: rasio ¹⁴C/¹²C konstan (sama dengan atmosfer)
+Setelah mati: ¹⁴C meluruh, ¹²C stabil
+
+Usia = t₁/₂ × log₂(N₀/N) = (5730/0.693) × ln(N₀/N)
+
+Contoh: kayu kuno dengan aktivitas 60% dari kayu hidup:
+  0.6 = e^(-λt) → -λt = ln(0.6) = -0.511
+  t = 0.511/λ = 0.511 × t₁/₂/0.693 = 0.511 × 8267 = 4229 tahun
+  → Kayu ini dipotong ~4229 tahun lalu!
+
+Batas akurasi: ~50,000 tahun (hanya ~0.1% ¹⁴C yang tersisa)
+Untuk lebih tua: U-Pb, K-Ar, atau Rb-Sr dating
+```
+
+---
+
+## 3. Reaksi Fisi dan Fusi Nuklir
+
+### Fisi (Splitting):
+```
+U-235 + n (lambat) → U-236* → Ba-141 + Kr-92 + 3n + 200 MeV
+
+3 neutron dari satu fisi → bisa memicu 3 fisi lagi → 9 fisi → ...
+→ REAKSI BERANTAI (chain reaction)
+
+Massa kritis (critical mass): massa minimum untuk reaksi berantai berkelanjutan
+  U-235 murni: ~52 kg (bola diameter 17cm)
+  Dengan reflektor neutron: bisa < 15 kg
+
+  Bom Hiroshima (Little Boy): ~ 64 kg U-235, efisiensi fisi ~1.5%
+  Energi = 15 kiloton TNT = 6.3 × 10¹³ J
+
+PLTN: Reaksi terkontrol — 1 neutron per fisi menghasilkan 1 fisi berikutnya (k=1)
+  k < 1: subcritical (reaksi memelan)
+  k = 1: critical (reaksi stabil)
+  k > 1: supercritical (reaksi meningkat → bom!)
+```
+
+### Fusi (Merging):
+```
+Reaksi bintang dan matahari:
+  ²₁H + ³₁H → ⁴₂He + n + 17.6 MeV
+
+  Kepadatan energi: jauh lebih besar dari fisi!
+  1 kg D+T → energi setara 8000 ton batubara
+
+Tantangan fusi:
+  Butuh T > 150 juta K untuk mengatasi tolakan Coulomb proton-proton
+  Plasma harus dimampatkan dan dipanaskan cukup lama
+
+Tokamak (Magnetic Confinement):
+  Plasma terkungkung dalam medan magnet torus
+  ITER (France, 2035): 500 MW output dari 50 MW input!
+  Proyek fusi pertama dengan Q > 1
+
+Laser Fusion (NIF, Livermore):
+  192 laser 1.9 MJ diarahkan ke pelet D-T 2mm
+  Desember 2022: NET ENERGY GAIN pertama kali dalam sejarah! (Q=1.5)
+```
+
+---
+
+## 4. Model Standar Fisika Partikel
+
+```
+Partikel fundamental menurut Model Standar (2024):
+
+FERMION (materi, spin ½):
+  Quark (6 jenis):
+    up (u), down (d) — penyusun proton dan neutron
+    charm (c), strange (s) — partikel lebih berat
+    top (t), bottom (b) — sangat berat, tidak stabil
+
+  Proton = uud   (charge: 2/3+2/3-1/3 = +1) ✓
+  Neutron = udd  (charge: 2/3-1/3-1/3 = 0) ✓
+
+  Lepton (6 jenis):
+    Elektron (e⁻), muon (μ⁻), tau (τ⁻)
+    Neutrino elektron (νₑ), neutrino muon (νμ), neutrino tau (ντ)
+
+BOSON (gaya pembawa, spin 1):
+  Foton (γ): gaya elektromagnetik → jangkauan tak hingga, massa=0
+  Gluon (g): gaya kuat (8 jenis) → mengikat quark, massa=0
+  W±, Z⁰: gaya lemah → peluruhan beta, massa ~80-91 GeV/c²
+  Graviton (G): gravitasi → belum ditemukan, jangkauan tak hingga
+
+  Higgs Boson (H): medan Higgs memberi massa semua partikel
+  Ditemukan di LHC CERN tahun 2012! (Nobel 2013 untuk Higgs & Englert)
+
+Gaya Fundamental:
+  Gravitasi: sangat lemah, jangkauan tak hingga, graviton (?)
+  EM: elektro, jangkauan tak hingga, foton
+  Lemah: radioaktivitas, jangkauan ~10⁻¹⁸ m, W±Z⁰
+  Kuat: mengikat quark, jangkauan ~10⁻¹⁵ m, gluon
+```
+
+---
+
+## 5. Kosmologi: Big Bang dan Alam Semesta
+
+```
+Bukti Big Bang:
+  1. Galaksi menjauh (Hubble, 1929): v = H₀ × d (Hukum Hubble)
+     H₀ ≈ 70 km/s/Mpc
+     → Ekstrapolasi ke belakang: semua matter di satu titik ~13.8 Myr lalu!
+
+  2. Radiasi Latar Belakang Kosmis (CMB, Penzias & Wilson 1965):
+     Sisa panas Big Bang — suhu seragam 2.725 K ke seluruh langit
+     Fluktuasi kecil (~10⁻⁵) = "benih" struktur kosmis
+
+  3. Nukleosentesis primordial: rasio H:He:Li = 75%:24%:0.01%
+     Cocok dengan prediksi Big Bang!
+
+Timeline Kosmik:
+  t=0              Big Bang (singularitas?)
+  t=10⁻⁴³ s       Planck epoch (gravitasi terpisah)
+  t=10⁻³⁵ s       Inflasi (ekspansi 10⁶⁰× dalam 10⁻³³ s!)
+  t=10⁻⁶ s        Quark → hadron (proton, neutron terbentuk)
+  t=3 menit        Nukleosentesis (H, He, Li terbentuk)
+  t=380,000 tahun  Rekombinasi (atom netral, CMB dipancarkan)
+  t=100 juta tahun Bintang pertama (Pop III, sangat masif, 0 metal)
+  t=13.8 miliar tahun Sekarang
+```
+
+### Energi Gelap dan Materi Gelap:
+
+```
+Komposisi Alam Semesta (2024):
+  Materi biasa (baryon): 5%   ← SEMUA yang kita kenal!
+  Materi Gelap: 27%  ← tidak berinteraksi elektromagnetik, hanya gravitasi
+  Energi Gelap: 68%  ← menyebabkan akselerasi ekspansi alam semesta
+
+Materi Gelap:
+  Kurva rotasi galaksi: bintang di tepi berputar SAMA CEPAT dengan bintang dekat pusat
+  → Harus ada massa tak terlihat yang menahan mereka
+  Kandidat: WIMPs, axion, sterile neutrino, primordial black holes
+  Belum terdeteksi langsung meskipun ribuan percobaan!
+
+Energi Gelap:
+  Saul Perlmutter, Brian Schmidt, Adam Riess (Nobel 2011):
+  Supernova tipe Ia lebih DIM dari yang diharapkan → galaksinya lebih jauh!
+  → Ekspansi alam semesta DIPERCEPAT (bukan melambat seperti ekspektasi!)
+  Konstanta kosmologis Λ Einstein (yang ia anggap "kesalahan terbesarnya") → BENAR!
+
+  w = P/(ρc²) = -1 untuk vakum energi murni (Cosmological Constant)
+  Jika w ≠ -1: "quintessence" atau "phantom energy"
+```
+
+### Masa Depan Alam Semesta:
+
+```
+Skenario bergantung pada densitas alam semesta dan sifat energi gelap:
+
+Big Freeze (Heat Death) — paling mungkin:
+  Ekspansi berlanjut, bintang padam, lubang hitam menguap (Hawking radiation)
+  Alam semesta mencapai entropi maksimum dalam ~10¹⁰⁰ tahun
+
+Big Rip:
+  Jika energi gelap semakin kuat (w < -1)
+  Ekspansi merobek galaksi, bintang, planet, atom → t ~20 miliar tahun ke depan
+
+Big Crunch:
+  Jika densitas total > densitas kritis → kolaps balik
+  Tidak mungkin dengan data observasi terkini
+
+Big Bounce:
+  Siklus Big Bang → Big Crunch → Big Bang lagi
+  Terhubung dengan Loop Quantum Gravity dan Cyclic Cosmology (Penrose)
+```
+
+> [!NOTE] Batas Pengetahuan Manusia (2026)
+> Empat pertanyaan terbesar fisika modern:
+> 1. **Penyatuan gravitasi dan mekanika kuantum** — Teori Gravitasi Kuantum (String Theory? Loop QG?)
+> 2. **Identitas materi gelap** — WIMPs? Axion? Sesuatu yang belum terduga?
+> 3. **Sifat energi gelap** — Konstanta? Berubah?
+> 4. **Baryogenesis** — Mengapa ada lebih banyak materi dari antimateri? (kita tidak seharusnya ada!)
+
+<Quiz
+  question="Isotop radioaktif memiliki waktu paruh 8 hari. Setelah 32 hari, berapa persen isotop yang tersisa?"
+  options={[
+    "25%",
+    "12.5%",
+    "6.25%",
+    "3.125%"
+  ]}
+  correctAnswer={2}
+  explanation="32 hari / 8 hari = 4 waktu paruh. Setelah n waktu paruh, tersisa (1/2)ⁿ. Setelah 4 waktu paruh: (1/2)⁴ = 1/16 = 6.25%. Rincian: Awal=100% → 8 hari=50% → 16 hari=25% → 24 hari=12.5% → 32 hari=6.25%. Ini adalah radioaktivitas I-131 yang digunakan dalam terapi tiroid cancer!"
+/>

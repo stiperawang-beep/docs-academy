@@ -1,0 +1,286 @@
+---
+title: "2. Anatomi CPU: Register, ALU, dan Orkestra Silikon"
+description: "Membedah isi kepala prosesor Intel/AMD — memahami setiap register sebagai 'tangan kerja' CPU, bagaimana ALU berhitung, dan bagaimana siklus Fetch-Decode-Execute mengalirkan instruksi Assembly layaknya orkestra."
+icon: "CircuitBoard"
+order: 2
+---
+
+# Anatomi CPU: Register, ALU, dan Orkestra Silikon
+
+Kita masuk ke dalam chip.
+
+Bayangkan Anda menyusut hingga seukuran atom dan melangkah masuk ke dalam prosesor Intel Core i9 Anda. Di hadapan Anda bukan lautan sirkuit yang acak — melainkan sebuah **kota yang terorganisir secara luar biasa**, dengan jalur data yang bergerak pada kecepatan cahaya, gudang penyimpanan sementara yang sangat kecil namun sangat cepat, dan sebuah pabrik aritmetika yang tidak pernah berhenti bekerja.
+
+Inilah dunia dalam CPU — dan Assembly adalah bahasa yang Anda gunakan untuk **memerintah kota ini**.
+
+---
+
+## 1. Tiga Komponen Utama dalam CPU
+
+Sebelum masuk ke detail, pahami tiga pemain utama di dalam CPU:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     CPU (Prosesor)                       │
+│                                                          │
+│  ┌─────────────┐    ┌──────────────┐    ┌────────────┐  │
+│  │   REGISTER  │◄──►│     ALU      │◄──►│  Control   │  │
+│  │  (Gudang    │    │ (Pabrik      │    │    Unit    │  │
+│  │   Cepat)    │    │  Hitung)     │    │ (Direktur) │  │
+│  └─────────────┘    └──────────────┘    └────────────┘  │
+│         ▲                  ▲                   ▲         │
+│         └──────────────────┴───────────────────┘         │
+│                     Internal Bus                          │
+└─────────────────────────────────────────────────────────┘
+         ▲
+         │ External Bus (FSB / PCIe)
+         ▼
+┌──────────────────────────────────────────────────────────┐
+│              RAM, SSD, GPU, I/O Devices                  │
+└──────────────────────────────────────────────────────────┘
+```
+
+| Komponen | Analogi | Fungsi di Assembly |
+|---|---|---|
+| **Register** | Meja kerja (bisa langsung disentuh) | Tempat data yang sedang diproses |
+| **ALU** | Kalkulator super cepat | Melakukan operasi matematika & logika |
+| **Control Unit** | Direktur pabrik | Membaca dan mendekode instruksi Assembly |
+| **Cache L1/L2** | Laci di samping meja | Menyimpan data yang sering diakses |
+| **RAM** | Gudang besar di luar ruangan | Menyimpan program dan data utama |
+
+---
+
+## 2. Register: Tangan Kerja CPU
+
+Register adalah **variabel yang tersimpan langsung di dalam chip CPU**, bukan di RAM. Kecepatan aksesnya hampir **instan** — mengakses register ~1 clock cycle, sementara mengakses RAM bisa membutuhkan 100-300 clock cycles.
+
+Dalam arsitektur x86-64 modern, ada **16 register general-purpose** utama:
+
+### 2.1 Register General-Purpose (64-bit)
+
+```
+63                              31          15      7   0
+├────────────────────────────────┼───────────┼───────┼───┤
+│              RAX               │    EAX    │  AX   │AL │  ← Accumulator
+│              RBX               │    EBX    │  BX   │BL │  ← Base Register
+│              RCX               │    ECX    │  CX   │CL │  ← Counter
+│              RDX               │    EDX    │  DX   │DL │  ← Data Register
+│              RSI               │    ESI    │  SI   │   │  ← Source Index
+│              RDI               │    EDI    │  DI   │   │  ← Destination Index
+│              RSP               │    ESP    │  SP   │   │  ← Stack Pointer ⚠️
+│              RBP               │    EBP    │  BP   │   │  ← Base Pointer
+│              R8                │    R8D    │  R8W  │R8B│  ← Extended Reg 8
+│              R9                │    R9D    │  R9W  │R9B│  ← Extended Reg 9
+│             ...                │   ...     │  ...  │...│
+│              R15               │    R15D   │  R15W │R15B│ ← Extended Reg 15
+└────────────────────────────────┴───────────┴───────┴───┘
+     64-bit (8 byte)           32-bit    16-bit  8-bit
+```
+
+> [!IMPORTANT] Backward Compatibility yang Brilian
+> Ini adalah warisan dari sejarah 46 tahun! Ketika Intel merilis chip 64-bit, mereka tidak membuang register 32-bit (EAX) atau 16-bit (AX). Mereka hanya **meluaskan** register yang sama. `RAX` adalah versi 64-bit dari `EAX`, yang merupakan versi 32-bit dari `AX`. Satu register, empat nama, empat ukuran berbeda.
+
+### 2.2 Register Khusus yang Tidak Boleh Sembarangan Disentuh
+
+```nasm
+; Register Khusus:
+RIP  ; Instruction Pointer - menunjuk ke instruksi BERIKUTNYA yang akan dieksekusi
+RFLAGS ; Menyimpan hasil perbandingan (Zero Flag, Carry Flag, Sign Flag, dll)
+```
+
+**RIP (Instruction Pointer)** adalah register paling kritis. Ia selalu menunjuk ke lokasi memori di mana instruksi Assembly berikutnya berada. Ketika CPU selesai mengeksekusi satu instruksi, RIP otomatis melompat ke instruksi berikutnya.
+
+> [!CAUTION] RIP adalah Mahkota Kejahatan
+> Hampir semua teknik exploit tingkat lanjut (buffer overflow, ROP chains) bertujuan untuk **mengontrol register RIP**. Jika seorang penyerang bisa mengarahkan RIP ke kode jahat miliknya, ia menguasai program Anda sepenuhnya. Inilah mengapa pemahaman Assembly sangat penting dalam keamanan siber.
+
+### 2.3 RFLAGS: Register yang Menyimpan "Perasaan" CPU
+
+Setelah setiap operasi matematika atau perbandingan, CPU menyimpan "hasilnya" di register RFLAGS:
+
+```
+RFLAGS Register (64-bit):
+Bit 0:  CF (Carry Flag)     → Set jika ada overflow dari unsigned addition
+Bit 2:  PF (Parity Flag)    → Set jika hasil memiliki jumlah bit genap
+Bit 4:  AF (Adjust Flag)    → Digunakan untuk BCD arithmetic
+Bit 6:  ZF (Zero Flag)      → Set jika hasil operasi = 0 (sangat penting!)
+Bit 7:  SF (Sign Flag)      → Set jika hasil negatif (bit tertinggi = 1)
+Bit 8:  TF (Trap Flag)      → Untuk debugging (single-step mode)
+Bit 9:  IF (Interrupt Flag)  → Mengaktifkan/menonaktifkan hardware interrupt
+Bit 11: OF (Overflow Flag)  → Set jika ada overflow dari signed operation
+```
+
+Flags ini adalah yang membuat `if/else` bisa berjalan di Assembly! Ketika Anda menulis:
+```c
+// C code
+if (a == b) { ... }
+```
+
+Kompiler menterjemahkannya menjadi:
+```nasm
+; Assembly equivalent
+cmp rax, rbx    ; Bandingkan RAX dengan RBX (RAX - RBX, tapi hanya set flags)
+je  label_true  ; Jump ke label_true HANYA JIKA Zero Flag = 1 (artinya sama!)
+; ... kode jika tidak sama ...
+jmp label_end
+label_true:
+; ... kode jika sama ...
+label_end:
+```
+
+---
+
+## 3. ALU: Pabrik Aritmetika dan Logika
+
+**Arithmetic Logic Unit (ALU)** adalah jantung perhitungan CPU. Ia hanya bisa melakukan dua jenis operasi:
+
+### Operasi Aritmetika
+```nasm
+add rax, rbx    ; RAX = RAX + RBX
+sub rax, rbx    ; RAX = RAX - RBX
+mul rbx         ; RDX:RAX = RAX * RBX (hasil 128-bit!)
+div rbx         ; RAX = RDX:RAX / RBX, RDX = sisa bagi
+imul rax, rbx   ; RAX = RAX * RBX (signed multiplication)
+```
+
+### Operasi Logika (Bitwise)
+```nasm
+and rax, rbx    ; RAX = RAX AND RBX  (per-bit)
+or  rax, rbx    ; RAX = RAX OR RBX
+xor rax, rbx    ; RAX = RAX XOR RBX (trik: xor rax,rax = set RAX ke 0!)
+not rax         ; RAX = NOT RAX (flip semua bit)
+shl rax, 1      ; RAX = RAX << 1 (shift left = multiply by 2)
+shr rax, 1      ; RAX = RAX >> 1 (shift right = divide by 2)
+```
+
+> [!TIP] Trik XOR untuk Zero
+> `xor rax, rax` adalah cara paling efisien untuk mengset register ke 0 di x86. Kenapa? Karena `X XOR X = 0` secara matematis, dan instruksi ini menghasilkan opcode yang lebih kecil (2 byte) dibanding `mov rax, 0` (7 byte). Kompiler C selalu menggunakan trik ini!
+
+---
+
+## 4. Siklus Fetch-Decode-Execute: Detak Jantung Komputer
+
+Ini adalah siklus yang terjadi **miliaran kali per detik** di CPU Anda. Pahami ini, dan Anda memahami esensi dari semua komputasi:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                    SIKLUS CPU (Clock Cycle)                       │
+│                                                                    │
+│  ┌───────┐      ┌────────┐      ┌─────────┐      ┌──────────┐    │
+│  │ FETCH │ ───► │ DECODE │ ───► │ EXECUTE │ ───► │WRITEBACK │    │
+│  └───────┘      └────────┘      └─────────┘      └──────────┘    │
+│      │               │               │                │            │
+│  Ambil instruksi  Terjemahkan     Jalankan di    Simpan hasil    │
+│  dari memori    opcode menjadi    ALU/FPU/dll    ke register     │
+│  (RIP → RAM)    sinyal kontrol                  atau memori      │
+│                                                                    │
+│  Kemudian RIP otomatis maju ke instruksi berikutnya              │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Contoh Nyata: `add rax, rbx`
+
+Mari ikuti satu instruksi Assembly dari awal sampai akhir:
+
+**Fase 1: FETCH**
+```
+RIP = 0x400100  → CPU membaca bytes di alamat memori 0x400100
+Bytes yang dibaca: 48 01 D8  (ini adalah opcode untuk "add rax, rbx")
+RIP sekarang maju ke 0x400103 (instruksi selanjutnya)
+```
+
+**Fase 2: DECODE**
+```
+Control Unit membaca 48 01 D8:
+48    = REX prefix (menandakan operasi 64-bit)
+01    = ADD opcode (tambahkan register ke register)
+D8    = ModRM byte (tentukan operan: RBX ke RAX)
+```
+
+**Fase 3: EXECUTE**
+```
+ALU mengambil nilai dari RAX dan RBX
+ALU melakukan penjumlahan
+RFLAGS diupdate (ZF, CF, OF, dll)
+```
+
+**Fase 4: WRITEBACK**
+```
+Hasil penjumlahan disimpan kembali ke register RAX
+```
+
+---
+
+## 5. Cache Hierarchy: Sistem Pos Kilat CPU
+
+RAM itu lambat dibanding CPU. Untuk menjembatani perbedaan kecepatan ini, CPU memiliki sistem cache berlapis:
+
+```
+┌─────────────────────────────────────────────────┐
+│                  CPU DIE                         │
+│                                                  │
+│  ┌──────────────┐  Kecepatan: ~1 ns             │
+│  │  Register    │  Kapasitas: ~100 register      │
+│  │  (0-1 cycle) │  (< 1 KB total)               │
+│  └──────┬───────┘                               │
+│         ▼                                        │
+│  ┌──────────────┐  Kecepatan: ~1-4 ns           │
+│  │  Cache L1    │  Kapasitas: 32-64 KB          │
+│  │  (1-4 cycle) │  Per core                     │
+│  └──────┬───────┘                               │
+│         ▼                                        │
+│  ┌──────────────┐  Kecepatan: ~4-12 ns          │
+│  │  Cache L2    │  Kapasitas: 256KB - 4MB       │
+│  │ (4-12 cycle) │  Per core                     │
+│  └──────┬───────┘                               │
+│         ▼                                        │
+│  ┌──────────────┐  Kecepatan: ~12-40 ns         │
+│  │  Cache L3    │  Kapasitas: 8-64 MB           │
+│  │(12-40 cycle) │  Shared antar core            │
+│  └──────┬───────┘                               │
+└─────────┼───────────────────────────────────────┘
+          ▼
+  ┌───────────────┐  Kecepatan: ~60-100 ns
+  │     RAM       │  Kapasitas: 8-128 GB
+  │  (60-100 cyc) │
+  └───────┬───────┘
+          ▼
+  ┌───────────────┐  Kecepatan: ~100,000 ns (0.1ms)
+  │   SSD/HDD     │  Kapasitas: 256GB - 8TB
+  └───────────────┘
+```
+
+> [!NOTE] Implikasi untuk Assembly
+> Ketika Anda mengakses data yang ada di register, hampir instan (1 cycle). Ketika Anda mengakses RAM, CPU mungkin harus menunggu 100+ cycle. Inilah mengapa programmer Assembly yang baik selalu berusaha **menyimpan data penting di register** selama mungkin, dan mengakses memori sesedikit mungkin.
+
+---
+
+## 6. Koneksi Fisik: Bagaimana CPU Berbicara ke Dunia Luar
+
+CPU tidak bekerja sendirian. Ia terhubung ke dunia luar melalui sistem bus:
+
+```
+CPU ──[Front Side Bus / QPI / PCIe]──► Memory Controller ──► RAM
+CPU ──[DMI / PCIe]────────────────────► PCH Chipset ──────► HDD/SSD
+CPU ──[PCIe x16]──────────────────────────────────────────► GPU
+CPU ──[PCIe / DMI]────────────────────► USB Controller ──► Keyboard/Mouse
+```
+
+Dalam Assembly, Anda berkomunikasi dengan perangkat ini melalui dua mekanisme:
+1. **Memory-mapped I/O**: Perangkat "terlihat" sebagai alamat memori
+2. **Port I/O**: Instruksi khusus `in` dan `out` untuk berkomunikasi dengan port
+
+Kita akan eksplorasi ini lebih mendalam di Bab 5.
+
+---
+
+<Quiz
+  question="Mengapa instruksi `xor rax, rax` lebih disukai compiler C daripada `mov rax, 0` untuk mengosongkan register?"
+  options={[
+    "Karena XOR lebih mudah dibaca dan dipahami programmer",
+    "Karena `xor rax, rax` menghasilkan opcode lebih kecil (2 byte vs 7 byte) dan lebih cepat dieksekusi",
+    "Karena `mov rax, 0` tidak valid di sintaks x86-64",
+    "Karena XOR adalah satu-satunya cara untuk mengakses register RAX"
+  ]}
+  correctAnswer={1}
+  explanation="Benar! Ini adalah optimasi klasik x86. `xor rax, rax` menghasilkan 2 byte opcode sementara `mov rax, 0` menghasilkan 7 byte. Ukuran yang lebih kecil berarti lebih cepat di-fetch dari cache instruksi, dan CPU modern bahkan memiliki penanganan khusus untuk xor-zeroing yang melewati tahap eksekusi ALU sepenuhnya (zero-idiom recognition)."
+/>

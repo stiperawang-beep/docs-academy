@@ -1,0 +1,224 @@
+---
+title: "Dimensi Solid: Volume dan Geometri 3D"
+description: "Penetrasi ke dimensi ketiga — menghitung volume kubus, balok, bola, silinder, kerucut, dan prisma. Beserta aplikasinya di arsitektur, teknik sipil, dan pemodelan 3D komputer."
+icon: "Box"
+order: 4
+---
+
+# Menembus Dimensi Ketiga: Geometri Solid dan Volume
+
+Geometri dua dimensi hanyalah bayangan tipis dari realita sejati alam semesta. Sebuah papan tulis dua dimensi tidak bisa menampung segelas air — karena air membutuhkan **volume**: dimensi ketiga yang memberikan ruang bagi materi untuk benar-benar *ada*.
+
+Dari arsitek yang merancang gedung pencakar langit, insinyur sipil yang menghitung kapasitas bendungan, hingga developer game yang membangun dunia virtual dengan engine 3D — semua bersandar pada **Geometri Ruang (Solid Geometry)**.
+
+---
+
+## 1. Dimensi Ketiga: Menambahkan Kedalaman pada Dunia Datar
+
+Dunia 2D memiliki **panjang × lebar**. Saat kita menambahkan **tinggi (atau kedalaman)**, lahirlah bangun ruang:
+
+```
+2D → 3D:
+  Persegi  → Kubus
+  Persegi Panjang → Balok (Rectangular Prism)
+  Lingkaran → Silinder / Bola
+  Segitiga → Kerucut / Prisma Segitiga
+```
+
+Untuk bangun ruang, kita menghitung dua hal utama:
+- **Volume (V)**: Berapa banyak ruang yang "dikurung" di dalamnya (satuan: cm³, m³, liter)
+- **Luas Permukaan (LP)**: Total luas seluruh sisi luar (satuan: cm², m²)
+
+---
+
+## 2. Kubus dan Balok: Arsitek Kotak Semesta
+
+### Kubus (semua sisi sama)
+```
+Volume Kubus         V  = s³
+Luas Permukaan Kubus LP = 6s²
+Diagonal Ruang Kubus d  = s√3
+
+s = panjang sisi
+```
+
+**Contoh:** Kubus dengan sisi 5 cm:
+```
+V  = 5³ = 125 cm³
+LP = 6 × 5² = 150 cm²
+d  = 5√3 ≈ 8.66 cm
+```
+
+### Balok (panjang, lebar, tinggi berbeda)
+```
+Volume Balok         V  = p × l × t
+Luas Permukaan Balok LP = 2(pl + pt + lt)
+Diagonal Ruang Balok d  = √(p² + l² + t²)
+
+p = panjang, l = lebar, t = tinggi
+```
+
+**Contoh:** Kontainer pengiriman ukuran 12m × 2.4m × 2.6m:
+```
+V  = 12 × 2.4 × 2.6 = 74.88 m³ = 74,880 liter
+LP = 2(12×2.4 + 12×2.6 + 2.4×2.6)
+   = 2(28.8 + 31.2 + 6.24)
+   = 2(66.24) = 132.48 m²
+```
+
+---
+
+## 3. Silinder: Roda Mesin Industri
+
+Silinder adalah "lingkaran yang digelindingkan ke atas" — lingkaran identik ditumpuk tak hingga hingga membentuk kolom tegak.
+
+```
+Volume Silinder         V  = πr²t
+Luas Permukaan Silinder LP = 2πr² + 2πrt = 2πr(r + t)
+
+r = jari-jari alas, t = tinggi (panjang)
+```
+
+**Contoh nyata — tangki bahan bakar silinder:**
+- Jari-jari: 2 meter, tinggi: 8 meter
+```
+V  = π × 2² × 8 = 32π ≈ 100.53 m³ (= 100,530 liter!)
+LP = 2π × 2 × (2 + 8) = 4π × 10 = 40π ≈ 125.66 m²
+```
+
+> [!TIP] Silinder Miring (Oblique Cylinder)
+> Jika silinder miring (bukan tegak lurus), volumenya **tetap sama**: V = πr²t, di mana t adalah **tinggi tegak** (bukan panjang sisi miring). Luas permukaannya berbeda dan lebih kompleks untuk dihitung.
+
+---
+
+## 4. Kerucut: Gunung dan Menara Lancip
+
+```
+Volume Kerucut         V  = (1/3)πr²t
+Luas Permukaan Kerucut LP = πr² + πrl
+Apotema (garis miring)  l = √(r² + t²)
+
+r = jari-jari alas, t = tinggi tegak, l = apotema/slant height
+```
+
+**Bayangkan:** Gunung berbentuk kerucut sempurna, jari-jari alas 5 km, tinggi 3 km:
+```
+l = √(5² + 3²) = √34 ≈ 5.83 km
+V = (1/3) × π × 25 × 3 = 25π ≈ 78.54 km³
+```
+
+> [!NOTE] Mengapa Volume Kerucut = 1/3 Volume Silinder?
+> Isi tepat 3 kerucut ke dalam silinder dengan ukuran sama (jari-jari dan tinggi identik) — ketiganya akan mengisi silinder tersebut hingga penuh. Ini bisa dibuktikan secara formal dengan integral kalkulus, atau demonstrasi fisik menggunakan pasir/air.
+
+---
+
+## 5. Bola (Sphere): Bentuk Paling Efisien di Alam
+
+Bola adalah bangun ruang paling "ekonomis" — untuk jumlah volume tertentu, bola membutuhkan **luas permukaan paling kecil** di antara semua bangun ruang. Itulah mengapa tetesan air, buah, planet, dan bintang cenderung berbentuk bulat.
+
+```
+Volume Bola          V  = (4/3)πr³
+Luas Permukaan Bola  LP = 4πr²
+
+r = jari-jari
+```
+
+**Perbandingan Menakjubkan:**
+Luas permukaan bola = **4 × luas lingkaran besar** (dengan jari-jari sama)
+```
+LP_bola = 4πr² = 4 × (πr²) = 4 × Luas lingkaran
+```
+
+**Contoh — Bumi:**
+- Jari-jari rata-rata Bumi: r ≈ 6,371 km
+```
+LP_Bumi = 4π × 6371² ≈ 510,064,472 km² ≈ 510 juta km²
+V_Bumi  = (4/3)π × 6371³ ≈ 1,083,206,917,000 km³
+```
+
+---
+
+## 6. Prisma dan Limas: Bangun Bebas
+
+### Prisma (alas bisa bentuk apapun)
+```
+Volume Prisma     V  = Luas Alas × Tinggi
+Luas Permukaan    LP = 2 × Luas Alas + (Keliling Alas × Tinggi)
+```
+
+Prisma segitiga dengan alas siku-siku (a=3, b=4, c=5), tinggi 10:
+```
+Luas alas = (1/2) × 3 × 4 = 6 cm²
+V  = 6 × 10 = 60 cm³
+LP = 2×6 + (3+4+5)×10 = 12 + 120 = 132 cm²
+```
+
+### Limas (alas bisa bentuk apapun, mengerucut ke satu titik)
+```
+Volume Limas: V = (1/3) × Luas Alas × Tinggi
+```
+
+**Piramida Giza (perkiraan):** Alas persegi 230m × 230m, tinggi 146m:
+```
+V = (1/3) × (230 × 230) × 146
+  = (1/3) × 52,900 × 146
+  ≈ 2,574,667 m³ ≈ 2.57 juta m³
+```
+
+---
+
+## 7. Tabel Ringkas Seluruh Rumus Volume & Luas Permukaan
+
+| Bangun | Volume (V) | Luas Permukaan (LP) |
+|--------|-----------|---------------------|
+| Kubus (s) | s³ | 6s² |
+| Balok (p,l,t) | p×l×t | 2(pl+pt+lt) |
+| Silinder (r,t) | πr²t | 2πr(r+t) |
+| Kerucut (r,t) | ⅓πr²t | πr(r+l), l=√(r²+t²) |
+| Bola (r) | ⁴⁄₃πr³ | 4πr² |
+| Prisma | Luas_alas × t | 2×L_alas + K_alas×t |
+| Limas | ⅓×Luas_alas × t | L_alas + ½×K_alas×l_apotema |
+
+---
+
+## 8. Geometri 3D di Dunia Digital: Mesh dan Ray Tracing
+
+Di game dan animasi 3D, semua benda kompleks dibangun dari ribuan **segitiga kecil** yang membentuk "mesh" — dan perhitungan render dilakukan dengan rumus geometri:
+
+```
+Ray-Sphere Intersection (untuk rendering visual):
+Ray: P(t) = Origin + t × Direction
+Sphere: |P - Center|² = r²
+
+Substitusi:
+|Origin + t×Dir - Center|² = r²
+
+Misalkan oc = Origin - Center:
+(t×Dir + oc)² = r²
+t²(Dir·Dir) + 2t(Dir·oc) + (oc·oc - r²) = 0
+
+Selesaikan persamaan kuadrat dalam t:
+  a = Dir·Dir
+  b = 2(Dir·oc)
+  c = oc·oc - r²
+  discriminant = b² - 4ac
+
+  jika discriminant < 0: tidak ada perpotongan (ray meleset)
+  jika discriminant = 0: ray menyentuh tepi bola  
+  jika discriminant > 0: ray menembus bola di 2 titik
+```
+
+> [!NOTE] Satu Rumus, Jutaan Pixel
+> Kode di atas dijalankan **jutaan kali per frame** untuk setiap pixel di layar — itulah mengapa GPU (Graphics Processing Unit) didesain khusus untuk komputasi geometris paralel masif. RTX 4090 bisa menjalankan 82 teraFLOPS — 82 triliun operasi floating-point per detik — semua untuk geometri dan cahaya.
+
+<Quiz
+  question="Sebuah kaleng minuman silindris memiliki jari-jari 3.5 cm dan tinggi 12 cm. Berapa volume isinya dalam mililiter? (π ≈ 3.14159)"
+  options={[
+    "132 mL",
+    "263 mL",
+    "461 mL",
+    "923 mL"
+  ]}
+  correctAnswer={2}
+  explanation="V = πr²t = 3.14159 × (3.5)² × 12 = 3.14159 × 12.25 × 12 = 3.14159 × 147 ≈ 461.8 cm³ = 461.8 mL. Kaleng minuman standar 330mL memiliki dimensi berbeda karena dioptimalkan untuk efisiensi material (rasio LP/V minimum dicapai saat tinggi = 2×jari-jari, tapi kaleng nyata tidak mengikuti ini karena pertimbangan ergonomi dan mesin produksi)."
+/>

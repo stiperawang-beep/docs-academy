@@ -1,0 +1,313 @@
+---
+title: "Stoikiometri: Matematika Reaksi Kimia"
+description: "Hukum-hukum gas dan kinetik, mol dan massa molar, stoikiometri reaksi, pereaksi pembatas, persentase yield, reaksi dalam larutan, dan konsentrasi molar dalam laboratorium riil."
+icon: "FlaskConical"
+order: 3
+---
+
+# Stoikiometri: Bahasa Matematik Reaksi Kimia
+
+Seorang chef mengetahui resep — berapa gram tepung, berapa liter susu — untuk menghasilkan kue yang sempurna. Seorang insinyur kimia melakukan hal yang sama: menghitung dengan tepat berapa gram reaktan, berapa liter gas yang dihasilkan, berapa persentase hasil yang diperoleh.
+
+Ini adalah **stoikiometri** — akuntansi presisi dari kimia.
+
+---
+
+## 1. Mol: Jembatan antara Atom dan Gram
+
+```
+Satuan mol menghubungkan dunia atom (sangat kecil) dengan laboratorium:
+
+1 mol = 6.022 × 10²³ partikel   (Bilangan Avogadro, N_A)
+
+Mengapa 6.022×10²³?
+  Didefinisikan agar: 1 mol ¹²C = tepat 12 gram
+  Artinya: massa molar (g/mol) = massa atom relatif (amu)
+
+Massa Molar (M):
+  H:   1.008 g/mol    C:  12.011 g/mol
+  O:  15.999 g/mol    N:  14.007 g/mol
+  Na: 22.990 g/mol    Cl: 35.453 g/mol
+  Fe: 55.845 g/mol    Cu: 63.546 g/mol
+
+Konversi:
+  Mol → gram:  m = n × M
+  Gram → mol:  n = m / M
+  Mol → partikel: N = n × N_A
+  Partikel → mol: n = N / N_A
+```
+
+**Contoh — Berapa atom Fe dalam 100 gram besi?**
+```
+n = m/M = 100/55.845 = 1.791 mol
+N = n × N_A = 1.791 × 6.022×10²³ = 1.078 × 10²⁴ atom Fe
+```
+
+---
+
+## 2. Rumus Kimia dan Komposisi Massa
+
+```
+Rumus Empiris: rasio atom paling sederhana (bilangan bulat terkecil)
+Rumus Molekul: jumlah atom sebenarnya (kelipatan dari empiris)
+
+CH₂O (empiris) → bisa C₆H₁₂O₆ (glukosa), C₂H₄O₂ (asam asetat), dll
+
+Persen Komposisi:
+  %X = (massa X dalam 1 mol senyawa / massa molar senyawa) × 100%
+
+Contoh — % C dalam C₁₂H₂₂O₁₁ (sukrosa, MM=342.3 g/mol):
+  %C = (12×12.011/342.3) × 100% = (144.132/342.3) × 100% = 42.10%
+  %H = (22×1.008/342.3) × 100% = 6.48%
+  %O = (11×15.999/342.3) × 100% = 51.42%
+  Total = 100% ✓
+```
+
+### Menentukan Rumus Empiris dari Data:
+
+```
+Proses:
+1. Cari mol setiap unsur dari % (anggap 100g total)
+2. Bagi semua dengan mol terkecil
+3. Bulatkan ke bilangan bulat terdekat
+
+Contoh: Senyawa X mengandung 40.0%C, 6.72%H, 53.3%O
+
+Asumsikan 100g:
+  n_C = 40.0/12.011 = 3.330 mol
+  n_H = 6.72/1.008 = 6.667 mol
+  n_O = 53.3/15.999 = 3.331 mol
+
+Bagi dengan terkecil (3.330):
+  C: 3.330/3.330 = 1.00
+  H: 6.667/3.330 = 2.00
+  O: 3.331/3.330 = 1.00
+
+Rumus empiris: CH₂O
+Jika MM diketahui = 180 g/mol:
+  (CH₂O)_n = 180 → n × (12+2+16) = 180 → n = 6
+Rumus molekul: C₆H₁₂O₆ (Glukosa!) ✓
+```
+
+---
+
+## 3. Persamaan Kimia dan Penyetaraan
+
+```
+Persamaan kimia menyatakan:
+  Reaktan → Produk
+  Koefisien = perbandingan mol
+
+Contoh pembakaran metana:
+  CH₄ + 2O₂ → CO₂ + 2H₂O
+
+Artinya:
+  1 mol CH₄ + 2 mol O₂ → 1 mol CO₂ + 2 mol H₂O
+  16g CH₄ + 64g O₂ → 44g CO₂ + 36g H₂O   (total kg terjaga!)
+
+Hukum Kekekalan Massa:
+  144g reaktan = 80g produk — SALAH! Cek lagi: 16+64=80, 44+36=80 ✓
+
+Penyetaraan dengan metode setengah reaksi (redoks):
+  Untuk reaksi redoks rumit, pisahkan ke setengah reaksi oksidasi dan reduksi
+```
+
+---
+
+## 4. Pereaksi Pembatas dan Persentase Yield
+
+```
+Pereaksi Pembatas (Limiting Reactant): habis lebih dulu,
+menentukan berapa produk yang terbentuk.
+
+Pereaksi Berlebih (Excess Reactant): masih tersisa setelah reaksi.
+
+Langkah menentukan pereaksi pembatas:
+1. Ubah semua reaktan ke mol
+2. Bagi mol masing-masing dengan koefisiennya
+3. Yang menghasilkan nilai terkecil = pereaksi pembatas!
+```
+
+**Contoh:**
+N₂ + 3H₂ → 2NH₃ (Proses Haber-Bosch, produksi pupuk!)
+
+Tersedia: 28g N₂ dan 12g H₂. Berapa gram NH₃ yang terbentuk?
+
+```
+n_N₂ = 28/28 = 1 mol
+n_H₂ = 12/2 = 6 mol
+
+Perbandingan koefisien: N₂:H₂ = 1:3
+  Untuk 1 mol N₂ butuh 3 mol H₂
+  Untuk 6 mol H₂ butuh 6/3 = 2 mol N₂
+
+Punya N₂: 1 mol (butuh 2 mol) → N₂ HABIS DULUAN →Pereaksi PEMBATAS!
+
+Banyak NH₃ dari 1 mol N₂:
+  1 mol N₂ × (2 mol NH₃/1 mol N₂) = 2 mol NH₃
+  = 2 × 17 = 34 gram NH₃ (teoritis)
+
+Sisa H₂: 6 mol awal - 3 mol terpakai = 3 mol H₂ sisa
+```
+
+### Persentase Yield (% Rendemen):
+```
+% Yield = (Yield Aktual / Yield Teoritis) × 100%
+
+Jika hanya 30 gram NH₃ yang diperoleh dari 34g teoritis:
+% Yield = (30/34) × 100% = 88.2%
+
+Mengapa < 100%?
+  - Reaksi tidak sempurna (kesetimbangan)
+  - Reaksi samping mengkonsumsi reaktan
+  - Kehilangan fisik dalam transfer/penyaringan
+  - Produk tidak stabil terurai kembali
+```
+
+---
+
+## 5. Hukum Gas: Perilaku Gas Ideal
+
+### Lima Variabel Gas:
+
+```
+P = tekanan     [Pa, atm, mmHg]
+V = volume      [L, m³]
+T = suhu        [K — SELALU Kelvin!]   T(K) = T(°C) + 273.15
+n = mol gas     [mol]
+R = 8.314 J/(mol·K) = 0.08206 L·atm/(mol·K)
+```
+
+### Hukum-Hukum Gas:
+
+```
+Boyle (T konstan):    P₁V₁ = P₂V₂
+Charles (P konstan):  V₁/T₁ = V₂/T₂
+Gay-Lussac (V konstan): P₁/T₁ = P₂/T₂
+Avogadro (T,P konstan): V₁/n₁ = V₂/n₂
+
+Gabungan:     P₁V₁/T₁ = P₂V₂/T₂
+IDEAL:        PV = nRT   ← Persamaan Gas Ideal
+```
+
+**Volume Molar STP (0°C = 273 K, 1 atm):**
+```
+V = nRT/P = 1 × 0.08206 × 273 / 1 = 22.4 L/mol
+→ 1 mol gas ideal apapun = 22.4 Liter di STP
+```
+
+**Kapan Gas TIDAK Ideal?**
+```
+Van der Waals (gas nyata):
+  (P + an²/V²)(V - nb) = nRT
+
+  a = faktor koreksi interaksi antarmolekul (atraksi)
+  b = faktor koreksi volume molekul sendiri (ekslusi)
+
+  Gas mendekati ideal saat: T tinggi + P rendah
+  Gas berbeda dari ideal saat: T rendah + P tinggi (kondensasi!)
+```
+
+---
+
+## 6. Campuran Gas dan Tekanan Parsial
+
+```
+Hukum Dalton: P_total = ΣP_i (jumlah tekanan parsial)
+
+  P_i = n_i × RT/V = χ_i × P_total
+
+  χ_i = n_i/n_total = fraksi mol komponen i
+
+Contoh: Udara kering (N₂=78%, O₂=21%, Ar=1%, P=1 atm)
+  P_N₂ = 0.78 × 1 = 0.78 atm
+  P_O₂ = 0.21 × 1 = 0.21 atm
+  P_Ar = 0.01 × 1 = 0.01 atm
+
+Tekanan uap air:
+  Udara lembab: P_total = P_gas_kering + P_H₂O
+  Pada 25°C: P_H₂O = 23.8 mmHg (tekanan uap air jenuh)
+```
+
+---
+
+## 7. Teori Kinetik Gas: Kecepatan Molekul Rata-rata
+
+```
+Asumsi gas ideal:
+  1. Molekul berukuran sangat kecil (titik)
+  2. Gerak acak semua arah
+  3. Tumbukan elastik sempurna
+  4. Tidak ada interaksi antarmolekul kecuali saat tumbukan
+
+Kecepatan RMS (root mean square):
+  v_rms = √(3RT/M)   atau   √(3kT/m)
+
+  k = konstanta Boltzmann = R/N_A = 1.381 × 10⁻²³ J/K
+  M = massa molar (kg/mol)
+  m = massa satu molekul (kg)
+
+Kecepatan rata-rata:
+  v_avg = √(8RT/πM)
+
+Kecepatan paling mungkin (most probable):
+  v_mp = √(2RT/M)
+
+Hubungan: v_mp < v_avg < v_rms
+
+Distribusi Maxwell-Boltzmann:
+  f(v) = 4π(M/2πRT)^(3/2) × v² × e^(-Mv²/2RT)
+  → kurva tidak simetri, ekor panjang ke kanan (kecepatan tinggi)
+```
+
+**Contoh:**
+```
+v_rms O₂ pada 25°C (298 K), M = 0.032 kg/mol:
+  v_rms = √(3 × 8.314 × 298 / 0.032)
+        = √(232,800) ≈ 482 m/s = 1736 km/jam!
+
+Molekul gas bergerak dengan kecepatan pesawat jet!
+Mengapa bau tidak langsung menyebar? → Tumbukan dengan molekul lain
+   λ (mean free path) ≈ 70 nm pada kondisi normal
+   Jarak antar tumbukan sangat pendek!
+```
+
+---
+
+## 8. Stoikiometri Larutan
+
+```
+Konsentrasi Molar (Molaritas):
+  M = n/V     [mol/L = M]
+  n = M × V   (mol = molaritas × volume dalam L)
+
+Pengenceran:
+  M₁V₁ = M₂V₂   ← jumlah mol TIDAK BERUBAH saat diencerkan
+
+Titrasi Asam-Basa:
+  Titik ekivalen: mol asam = mol basa (untuk reaksi 1:1)
+  n_asam = n_basa: M_asam × V_asam = M_basa × V_basa
+```
+
+**Contoh — Titrasi NaOH:**
+25.0 mL H₂SO₄ 0.150 M dititrasi dengan NaOH 0.200 M. Berapa volume NaOH?
+```
+Reaksi: H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O
+
+mol H₂SO₄ = 0.150 × 0.025 = 0.00375 mol
+mol NaOH yang dibutuhkan = 2 × 0.00375 = 0.0075 mol
+
+V_NaOH = n/M = 0.0075/0.200 = 0.0375 L = 37.5 mL
+```
+
+<Quiz
+  question="Pada suhu dan tekanan tetap, berapa liter CO₂ (STP) yang dihasilkan dari pembakaran 5.6 gram CO? (2CO + O₂ → 2CO₂)"
+  options={[
+    "2.24 L",
+    "4.48 L",
+    "11.2 L",
+    "22.4 L"
+  ]}
+  correctAnswer={1}
+  explanation="n_CO = 5.6g / 28g/mol = 0.2 mol CO. Rasio CO:CO₂ dalam persamaan adalah 2:2 = 1:1. Jadi n_CO₂ = 0.2 mol. Volume di STP = 0.2 mol × 22.4 L/mol = 4.48 L. Kunci: selalu ubah gram ke mol dulu, gunakan koefisien persamaan sebagai rasio mol, baru konversi ke volume."
+/>

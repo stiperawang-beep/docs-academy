@@ -1,0 +1,246 @@
+---
+title: "Termodinamika Kimia: Energi Bebas & Spontanitas"
+description: "Entalpi pembentukan standar, Hukum Hess, Energi Bebas Gibbs, kaitan ΔG dengan Keq, termodinamika larutan, koligatif, dan penerapan di elektrokimia dan baterai modern."
+icon: "Flame"
+order: 1
+---
+
+# Termodinamika Kimia: Mengapa Reaksi Terjadi Secara Spontan?
+
+Besi berkarat, tapi karat tidak bisa kembali menjadi besi sendirinya. Es mencair di ruangan hangat, tapi air tidak membeku di ruangan 25°C. Bahan bakar terbakar menghasilkan CO₂ dan air — tapi CO₂ dan air tidak kan membentuk bahan bakar sendirinya.
+
+Semua ini bukan kebetulan. Ada dua kekuatan yang menentukan arah reaksi kimia: **keinginan mencapai energi terendah** (entalpi) dan **keinginan mencapai ketidakteraturan maksimum** (entropi). Fungsi Gibbs menggabungkan keduanya dalam satu persamaan.
+
+---
+
+## 1. Entalpi Pembentukan Standar dan Hukum Hess
+
+```
+Entalpi Pembentukan Standar (ΔHf°):
+  Entalpi pembentukan 1 mol senyawa dari unsur-unsur dalam keadaan standar
+  Keadaan standar: 25°C (298 K), 1 atm (1 bar), aktivitas = 1
+  
+  ΔHf° unsur dalam keadaan standar = 0  (definisi)
+  H₂(g) = 0, O₂(g) = 0, C(grafit) = 0, Na(s) = 0, dsb
+
+  Contoh:
+  H₂(g) + ½O₂(g) → H₂O(l)      ΔHf° = -285.8 kJ/mol
+  C(grafit) + O₂(g) → CO₂(g)    ΔHf° = -393.5 kJ/mol
+  N₂(g) + 3H₂(g) → 2NH₃(g)     ΔHf° = -92.4 kJ/mol (per 2 mol NH₃)
+```
+
+### Hukum Hess:
+```
+ΔH reaksi = TIDAK bergantung pada jalur — hanya bergantung keadaan awal dan akhir
+(karena H adalah state function)
+
+ΔH°_rxn = Σ ΔHf°(produk) - Σ ΔHf°(reaktan)
+
+Contoh — Pembakaran propana C₃H₈:
+  C₃H₈(g) + 5O₂(g) → 3CO₂(g) + 4H₂O(l)
+
+  ΔHf°: C₃H₈ = -103.8, O₂ = 0, CO₂ = -393.5, H₂O(l) = -285.8
+
+  ΔH°_rxn = [3(-393.5) + 4(-285.8)] - [(-103.8) + 5(0)]
+           = [-1180.5 + (-1143.2)] - [-103.8]
+           = -2323.7 + 103.8
+           = -2219.9 kJ/mol  (sangat eksotermik!)
+
+  (Ini yang membuat gas elpiji begitu efektif sebagai bahan bakar)
+```
+
+---
+
+## 2. Energi Bebas Gibbs: Kriteria Spontanitas
+
+```
+Kriteria spontanitas pada T, P konstan:
+  ΔG = ΔH - TΔS    [Joule]
+
+  ΔG < 0: SPONTAN (reaksi berjalan ke depan)
+  ΔG > 0: NON-SPONTAN (butuh energi masuk, reaksi ke balik)
+  ΔG = 0: KESETIMBANGAN (tidak ada arah yang disukai)
+
+Empat Kombinasi:
+
+  ΔH  | ΔS  | ΔG = ΔH - TΔS | Spontanitas
+  ─────┼─────┼────────────────┼──────────────────────
+  -    |  +  | Selalu -       | Spontan semua suhu  ← "Win-win"
+  +    |  -  | Selalu +       | Tidak pernah spontan ← "Lose-lose"
+  -    |  -  | - saat T kecil | Spontan suhu RENDAH
+  +    |  +  | - saat T besar | Spontan suhu TINGGI   ← "Entropy driven"
+
+Contoh:
+  Es mencair: ΔH=+6.01kJ (endotermik), ΔS=+22J/K
+  ΔG = 6010 - T(22)
+  T < 273K: ΔG > 0 → tidak spontan (es tidak mencair sendirinya di bawah 0°C ✓)
+  T > 273K: ΔG < 0 → spontan (es mencair di atas 0°C ✓)
+  T = 273K: ΔG = 0 → kesetimbangan (titik leleh 0°C ✓)
+```
+
+---
+
+## 3. Hubungan ΔG° dengan Konstanta Kesetimbangan
+
+```
+ΔG°_rxn = -RT ln(Keq)
+
+R = 8.314 J/(mol·K)
+T = suhu Kelvin
+Keq = konstanta kesetimbangan
+
+Atau: Keq = e^(-ΔG°/RT)
+
+Interpretasi:
+  ΔG° < 0 → ln(Keq) > 0 → Keq > 1 → produk lebih dominan
+  ΔG° > 0 → ln(Keq) < 0 → Keq < 1 → reaktan lebih dominan
+  ΔG° = 0 → Keq = 1 → setara
+
+Reaksi Non-Standar (Kondisi Nyata):
+  ΔG = ΔG° + RT ln(Q)
+
+  Q = reaction quotient (seperti K tapi pada kondisi apapun)
+  
+  ΔG < 0 (Q < K): reaksi spontan maju ke depan
+  ΔG > 0 (Q > K): reaksi spontan ke belakang
+  ΔG = 0 (Q = K): kesetimbangan tercapai
+
+Contoh — ATP Hidrolisis (motor biokimia kehidupan):
+  ATP + H₂O → ADP + Pi    ΔG° = -30.5 kJ/mol
+  Keq = e^(30500/(8.314×310)) = e^(11.85) = 1.4 × 10⁵
+
+  Dalam sel: ΔG aktual ≈ -50 kJ/mol (kondisi sel berbeda dari standar)
+  → Setiap ATP yang terhidrolisis memberikan ~50 kJ energi untuk kerja biologis
+  → Sel manusia menghasilkan ~40 kg ATP per hari! (massa Anda!)
+```
+
+---
+
+## 4. Termodinamika Larutan
+
+### Tekanan Uap dan Raoult's Law:
+```
+Tekanan Uap (P°): tekanan uap pelarut murni pada T tertentu
+H₂O pada 25°C: P° = 23.8 mmHg = 3.17kPa
+
+Hukum Raoult (larutan ideal):
+  P_A = χ_A × P°_A
+
+  χ_A = fraksi mol pelarut A
+  P_A = tekanan uap pelarut di atas larutan
+
+  Larutan lebih encer (χ_A → 1): P_A → P°_A (limit pelarut murni)
+  Penambahan solut (χ_A < 1): P_A < P°_A (tekanan uap turun)
+```
+
+### Sifat Koligatif:
+```
+Sifat yang bergantung HANYA pada JUMLAH partikel solut, bukan identitasnya:
+
+1. Penurunan Tekanan Uap (ΔP):
+   ΔP = χ_solut × P°   (tekanan turun proporsional fraksi mol solut)
+
+2. Kenaikan Titik Didih (ΔTb):
+   ΔTb = Kb × m
+   m = molalitas (mol solut/kg pelarut), Kb = 0.512°C/m untuk air
+
+3. Penurunan Titik Beku (ΔTf):
+   ΔTf = Kf × m
+   Kf = 1.86°C/m untuk air
+
+4. Tekanan Osmotik (π):
+   π = MRT    (M = molaritas, R = 8.314 J/(mol·K), T = Kelvin)
+   π = nRT/V
+
+Contoh — Garam es (antifreezing):
+  1 mol NaCl terdisosiasi menjadi Na⁺ + Cl⁻ = 2 partikel
+  ΔTf = Kf × m × i    (i = faktor van't Hoff, i_NaCl ≈ 1.9)
+
+  1 molal NaCl:
+  ΔTf = 1.86 × 1 × 1.9 = 3.53°C
+  Titik beku = 0 - 3.53 = -3.53°C
+  
+  Antifreeze (etilen glikol 50%):
+  m ≈ 17.8 m, i = 1 (non-elektrolit)
+  ΔTf = 1.86 × 17.8 = 33.1°C → Titik beku = -33°C!
+```
+
+---
+
+## 5. Elektrokimia: Kimia dan Listrik
+
+### Reaksi Redoks:
+```
+Oksidasi: melepas elektron (bilangan oksidasi naik)
+Reduksi: menerima elektron (bilangan oksidasi turun)
+"LEO says GER" atau "OIL RIG"
+
+Bilangan Oksidasi (boks):
+  Unsur murni: boks = 0
+  Ion monoatomik: boks = muatan ion
+  F dalam senyawa: selalu -1
+  O dalam senyawa: -2 (kecuali peroksida -1, superoksida -1/2)
+  H dalam senyawa: +1 (kecuali hidrida logam: -1)
+  Jumlah total = muatan senyawa
+
+Fe₂O₃ + 3CO → 2Fe + 3CO₂   (produksi besi dari bijih besi)
+  Fe: +3 → 0 (direduksi oleh CO)
+  C: +2 → +4 (dioksidasi)
+```
+
+### Sel Elektrokimia:
+```
+Sel Galvanik / Volta (menghasilkan listrik dari reaksi kimia):
+  Anoda (-): OKSIDASI (oksidasi naik, elektroda terurai)
+  Katoda (+): REDUKSI (reduksi turun, elektroda bertambah)
+  
+  Contoh: Sel Daniell (Zn-Cu)
+  Anoda:  Zn(s) → Zn²⁺(aq) + 2e⁻   E° = +0.76V (oksidasi = -(reduksi))
+  Katoda: Cu²⁺(aq) + 2e⁻ → Cu(s)    E° = +0.34V (reduksi)
+  
+  E°_sel = E°_katoda - E°_anoda (reduksi) = +0.34 - (-0.76) = +1.10V
+
+Hubungan ΔG dan E°:
+  ΔG° = -nFE°    [F = 96485 C/mol = Faraday constant]
+  
+  Untuk sel Daniell (n=2):
+  ΔG° = -2 × 96485 × 1.10 = -212,267 J = -212.3 kJ/mol
+  Keq = e^(-ΔG°/RT) = e^(212300/(8.314×298)) = e^85.7 ≈ 1.5×10³⁷   
+```
+
+### Baterai Lithium-Ion (Baterai Modern):
+```
+Sel LiCoO₂/Grafit (baterai smartphone standar):
+
+  Anoda saat charge (Li masuk ke grafit):
+    Li⁺ + e⁻ + 6C → LiC₆       E ≈ -3V (vs Li/Li⁺)
+
+  Katoda saat charge (Li keluar dari LiCoO₂):
+    LiCoO₂ → Li₁₋ₓCoO₂ + xLi⁺ + xe⁻   E ≈ +1V
+
+  Tegangan nominal: ~3.6-4.2V
+  Densitas energi: 150-200 Wh/kg
+
+  Masa depan:
+  Solid-state Li (2025+): densitas ~400 Wh/kg, lebih aman
+  Li-S: teoritis 2600 Wh/kg (masih diteliti)
+  Li-air: teoritis 11680 Wh/kg (setara bahan bakar bensin!)
+```
+
+> [!IMPORTANT] Termodinamika vs Kinetika
+> ΔG < 0 hanya berarti reaksi **termodinamis memungkinkan** — tidak berarti akan berlangsung CEPAT.
+> - Kayu di udara: ΔG pembakaran &lt;&lt; 0 (sangat spontan secara termodinamik)
+> - Tapi kayu tidak terbakar sendirinya! (Ea sangat tinggi, kinetika lambat)
+> - Termodinamika menentukan **apakah** bisa terjadi, kinetika menentukan **seberapa cepat**
+
+<Quiz
+  question="Reaksi A → B memiliki ΔH = +50 kJ/mol dan ΔS = +200 J/(mol·K). Di atas suhu berapa reaksi menjadi spontan?"
+  options={[
+    "Di bawah 250 K (-23°C)",
+    "Di atas 250 K (-23°C)",
+    "Selalu tidak spontan",
+    "Selalu spontan"
+  ]}
+  correctAnswer={1}
+  explanation="ΔG = ΔH - TΔS < 0 untuk spontan. +50000 - T(+200) < 0. T > 50000/200 = 250 K. Jadi di atas 250 K (≈ -23°C), ΔG < 0 dan reaksi spontan! Ini adalah contoh 'entropy-driven': meskipun reaksi endotermik (ΔH>0), entropi yang besar pada T tinggi menjadi pendorong. Contoh nyata: pelelehan es di atas 0°C, atau denaturasi protein di T tinggi."
+/>

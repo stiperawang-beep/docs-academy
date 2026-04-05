@@ -1,0 +1,244 @@
+---
+title: "Deret Taylor, Limit, & Kalkulus Multivariabel"
+description: "Materi kalkulus tingkat lanjut: deret Taylor dan Maclaurin untuk aproksimasi fungsi, L'Hôpital untuk limit tak tentu, turunan parsial, gradient, dan optimasi multivariabel."
+icon: "Activity"
+order: 4
+---
+
+# Puncak Kalkulus: Taylor, Multivariabel & Optimasi
+
+Kita telah menguasai kalkulus satu variabel. Tapi dunia nyata jarang memiliki hanya **satu** variabel — suhu bergantung pada posisi (x, y, z) dan waktu (t). Tekanan bergantung pada volume dan temperatur. Keuntungan bergantung pada harga, kuantitas, dan biaya.
+
+Di bab ini kita mendaki ke puncak kalkulus — tempat di mana IDE ML, simulasi fisika, dan mesin pencari Google benar-benar hidup.
+
+---
+
+## 1. Limit Tak Tentu dan L'Hôpital
+
+Beberapa limit menghasilkan bentuk tak tentu seperti **0/0** atau **∞/∞**:
+
+```
+lim(x→0) sin(x)/x = 0/0   ← tak tentu!
+```
+
+**Aturan L'Hôpital:** Jika lim f(x)/g(x) = 0/0 atau ∞/∞, maka:
+```
+lim f(x)/g(x) = lim f'(x)/g'(x)
+```
+(ambil turunan pembilang dan penyebut secara terpisah, lalu evaluasi)
+
+**Contoh 1:** `lim(x→0) sin(x)/x`
+```
+= lim(x→0) cos(x)/1    ← turunan sin(x)=cos(x), turunan x=1
+= cos(0)/1 = 1/1 = 1   ✓ (hasil terkenal dalam matematika)
+```
+
+**Contoh 2:** `lim(x→∞) x²/eˣ`  (bentuk ∞/∞)
+```
+= lim(x→∞) 2x/eˣ       ← L'Hôpital 1: 2x/eˣ masih ∞/∞
+= lim(x→∞) 2/eˣ         ← L'Hôpital 2
+= 0                      (eˣ tumbuh jauh lebih cepat dari x²)
+```
+
+### Bentuk Tak Tentu Lainnya:
+```
+0 × ∞  → ubah ke 0/0 atau ∞/∞ dulu
+0⁰     → ambil ln: lim ln(f) = lim [g × ln(f)]
+1^∞    → sama, ambil ln
+∞ - ∞  → cari ekspresi bersama (common expression)
+```
+
+---
+
+## 2. Deret Taylor: Aproksimasi Fungsi dengan Polinomial
+
+**Deret Taylor** adalah cara mendekati fungsi apapun dengan **jumlahan polinomial tak hingga** di sekitar titik x = a:
+
+```
+f(x) = f(a) + f'(a)(x-a)/1! + f''(a)(x-a)²/2! + f'''(a)(x-a)³/3! + ...
+
+     = Σ [f⁽ⁿ⁾(a) / n!] × (x-a)ⁿ   (n dari 0 ke ∞)
+```
+
+**Deret Maclaurin** adalah kasus khusus a = 0:
+```
+f(x) = f(0) + f'(0)x/1! + f''(0)x²/2! + f'''(0)x³/3! + ...
+```
+
+### Deret Maclaurin Paling Penting:
+
+```
+eˣ    = 1 + x + x²/2! + x³/3! + x⁴/4! + ...  (semua x)
+
+sin(x) = x - x³/3! + x⁵/5! - x⁷/7! + ...     (semua x, dalam radian)
+
+cos(x) = 1 - x²/2! + x⁴/4! - x⁶/6! + ...     (semua x)
+
+ln(1+x) = x - x²/2 + x³/3 - x⁴/4 + ...        (|x| ≤ 1)
+
+1/(1-x) = 1 + x + x² + x³ + ...                (|x| < 1)
+```
+
+### Mengapa Ini Revolusioner?
+
+CPU dan kalkulator tidak bisa menghitung sin(0.5) secara langsung — mereka menggunakan aproksimasi polinomial Taylor!
+
+```
+sin(0.5) ≈ 0.5 - (0.5)³/6 + (0.5)⁵/120 - (0.5)⁷/5040
+         = 0.5 - 0.02083 + 0.000260 - 0.00000155
+         ≈ 0.47943                  ← vs nilai eksak: 0.47943 ✓
+```
+
+### Identitas Euler — Persamaan Terindah dalam Matematika:
+
+Dari deret Taylor eˣ, sin(x), dan cos(x):
+```
+eˣ   = 1 + x + x²/2! + x³/3! + ...
+e^(ix) = 1 + ix + (ix)²/2! + (ix)³/3! + (ix)⁴/4! + ...
+       = 1 + ix - x²/2! - ix³/3! + x⁴/4! + ix⁵/5! - ...
+       = (1 - x²/2! + x⁴/4! - ...) + i(x - x³/3! + x⁵/5! - ...)
+       = cos(x) + i×sin(x)
+
+Untuk x = π:
+  e^(iπ) = cos(π) + i×sin(π) = -1 + 0
+
+∴  e^(iπ) + 1 = 0
+```
+
+> [!NOTE] Mengapa e^(iπ) + 1 = 0 Disebut "Paling Indah"?
+> Satu persamaan menyatukan lima konstanta matematika paling fundamental: **e** (basis logaritma natural), **i** (unit imajiner), **π** (rasio keliling), **1** (identitas perkalian), **0** (identitas penjumlahan). Ini bukan kebetulan — ini adalah struktur tersembunyi alam semesta matematika yang terungkap.
+
+---
+
+## 3. Turunan Parsial: Kalkulus Dunia Multi-Dimensi
+
+Jika f(x, y) bergantung pada dua variabel, **turunan parsial** mengukur laju perubahan terhadap **satu variabel** sementara variabel lain dianggap konstan:
+
+```
+∂f/∂x  : turunan f terhadap x (anggap y konstan)
+∂f/∂y  : turunan f terhadap y (anggap x konstan)
+```
+
+**Contoh:** f(x, y) = x²y + 3xy² - 5y
+```
+∂f/∂x = 2xy + 3y²             (y dianggap konstanta)
+∂f/∂y = x² + 6xy - 5          (x dianggap konstanta)
+```
+
+### Turunan Parsial Orde Dua:
+```
+∂²f/∂x²  = ∂/∂x(∂f/∂x)   ← turunkan ∂f/∂x terhadap x lagi
+∂²f/∂y²  = ∂/∂y(∂f/∂y)
+∂²f/∂x∂y = ∂/∂x(∂f/∂y)   ← turunan campuran (mixed partial)
+
+Teorema Clairaut: ∂²f/∂x∂y = ∂²f/∂y∂x  (untuk fungsi kontinu)
+```
+
+---
+
+## 4. Gradien: Vektor Arah Naik Tercuram
+
+**Gradien** adalah vektor yang menunjuk ke arah **kenaikan paling cepat** suatu fungsi:
+
+```
+∇f = (∂f/∂x, ∂f/∂y)              ← 2D
+∇f = (∂f/∂x, ∂f/∂y, ∂f/∂z)      ← 3D
+
+Contoh: f(x, y) = x² + 2y²
+∂f/∂x = 2x
+∂f/∂y = 4y
+∇f    = (2x, 4y)
+
+Di titik (1, 1): ∇f = (2, 4)
+→ Fungsi naik paling cepat ke arah vektor (2, 4)
+→ Fungsi turun paling cepat ke arah (-2, -4)
+```
+
+### Gradient Descent: Mesin di Balik AI
+
+Ini adalah algoritma paling penting dalam **machine learning**:
+
+```
+Tujuan: Minimasi fungsi loss L(θ)
+        (θ = parameter model neural network, bisa jutaan dimensi)
+
+Gradient Descent Update:
+  θ_baru = θ_lama - α × ∇L(θ)
+
+  α = learning rate (seberapa besar langkah)
+  ∇L = gradien loss (arah naik paling cepat)
+  -∇L = arah turun paling cepat → kita mau turun!
+
+Analogi: Bayangkan Anda berdiri di pegunungan berkabut.
+  ∇L = arah gunung yang menanjak dari titik Anda berdiri
+  -∇L = arah yang menurun dari titik Anda
+  α   = panjang langkah per iterasi
+  Loop: ambil langkah kecil ke bawah, ulangi sampai di lembah
+```
+
+---
+
+## 5. Nilai Ekstrem Fungsi Dua Variabel
+
+Untuk mencari maksimum/minimum lokal f(x, y):
+
+```
+Langkah 1: Cari titik kritis — selesaikan ∂f/∂x = 0 dan ∂f/∂y = 0 serentak
+
+Langkah 2: Hitung Hessian determinan:
+  D = (∂²f/∂x²)(∂²f/∂y²) - (∂²f/∂x∂y)²
+
+Langkah 3: Klasifikasi:
+  D > 0 dan ∂²f/∂x² > 0  → Minimum Lokal
+  D > 0 dan ∂²f/∂x² < 0  → Maksimum Lokal
+  D < 0                   → Titik Pelana (Saddle Point)
+  D = 0                   → Tak dapat ditentukan (perlu analisis lebih)
+```
+
+**Contoh:** Cari ekstrem f(x, y) = x² + y² - 2x - 4y + 5
+```
+∂f/∂x = 2x - 2 = 0  →  x = 1
+∂f/∂y = 2y - 4 = 0  →  y = 2
+
+Titik kritis: (1, 2)
+
+∂²f/∂x² = 2,  ∂²f/∂y² = 2,  ∂²f/∂x∂y = 0
+
+D = 2×2 - 0² = 4 > 0,  ∂²f/∂x² = 2 > 0
+→ MINIMUM LOKAL di (1, 2)
+
+f(1, 2) = 1 + 4 - 2 - 8 + 5 = 0   ← nilai minimum adalah 0
+```
+
+---
+
+## 6. Integral Ganda: Volume di Bawah Permukaan
+
+Perpanjangan integral ke dua dimensi — menghitung **volume di bawah permukaan z = f(x,y)**:
+
+```
+∬_R f(x,y) dA = ∫ₐᵇ ∫_c^d f(x,y) dy dx
+
+Fubini's Theorem: urutan integrasi bisa dibalik (untuk fungsi kontinu)
+```
+
+**Contoh:** Volume di bawah z = xy, untuk 0≤x≤2, 0≤y≤3:
+```
+∫₀² ∫₀³ xy dy dx
+= ∫₀² [xy²/2]₀³ dx
+= ∫₀² (9x/2) dx
+= [9x²/4]₀²
+= 9×4/4 - 0 = 9   ✓
+```
+
+<Quiz
+  question="Deret Maclaurin eˣ dipotong pada suku ke-3: eˣ ≈ 1 + x + x²/2. Berapa perkiraan e^0.1 menggunakan aproksimasi ini?"
+  options={[
+    "1.100",
+    "1.105",
+    "1.110",
+    "1.115"
+  ]}
+  correctAnswer={1}
+  explanation="e^0.1 ≈ 1 + 0.1 + (0.1)²/2 = 1 + 0.1 + 0.01/2 = 1 + 0.1 + 0.005 = 1.105. Nilai eksak e^0.1 = 1.10517... sehingga error aproksimasi hanya 0.015% — sangat akurat hanya dengan 3 suku! Inilah kekuatan deret Taylor."
+/>

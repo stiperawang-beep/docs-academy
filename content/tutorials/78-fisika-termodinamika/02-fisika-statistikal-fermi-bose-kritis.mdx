@@ -1,0 +1,249 @@
+---
+title: "Termodinamika II: Gas Statistikal & Fisika Batas"
+description: "Fisika statistik Boltzmann, fungsi partisi, entropi gugus panas, ensemble statistik, distribusi Maxwell-Boltzmann/Fermi-Dirac/Bose-Einstein, dan fenomena fase kritis."
+icon: "Sigma"
+order: 2
+---
+
+# Termodinamika Statistikal: Jembatan Antara Atom dan Dunia Makroskopik
+
+Bagaimana sifat makroskopik seperti suhu, tekanan, dan entropi muncul dari gerakan acak triliunan atom mikroskopik? Ini adalah pertanyaan yang dijawab oleh **mekanika statistikal** — teori yang mengintegrasikan mekanika klasik/kuantum dengan termodinamika.
+
+Ludwig Boltzmann membangun jembatan ini pada akhir abad 19, dengan biaya yang sangat mahal: ia diejek oleh komunitas ilmiah yang meragukan keberadaan atom, dan akhirnya meninggal karena bunuh diri pada 1906 — setahun sebelum eksperimen Brown membuktikan bahwa ia benar.
+
+---
+
+## 1. Fungsi Partisi: Jantung Mekanika Statistikal
+
+```
+Ensemble kanonik: sistem di suhu T tetap (bersentuhan dengan reservoir)
+
+Fungsi Partisi (Z):
+  Z = Σᵢ e^(-εᵢ/kT) = Σᵢ gᵢ × e^(-εᵢ/kT)
+
+  εᵢ = energi keadaan i
+  gᵢ = degeneracy (jumlah keadaan dengan energi εᵢ)
+  k  = Boltzmann constant
+
+  Z "menghitung semua keadaan yang dapat dicapai, dibobot Boltzmann"
+
+Dari Z, SEMUA sifat termodinamik dapat diturunkan:
+
+  Energi rata-rata: ⟨E⟩ = -∂lnZ/∂β    β = 1/(kT)
+  Tekanan: P = kT × (∂lnZ/∂V)_T
+  Entropi: S = k(lnZ + β⟨E⟩)
+  Helmholtz: A = -kT lnZ
+  Heat capacity: Cv = ∂⟨E⟩/∂T
+```
+
+### Fungsi Partisi Gas Ideal:
+
+```
+Satu partikel bebas (transliasi):
+  Z₁ = (2πmkT/h²)^(3/2) × V = (V/λ³)    λ = de Broglie thermal wavelength
+
+  λ = h/√(2πmkT)     (thermal de Broglie wavelength)
+
+  Untuk N partikel identical (bisa dipertukarkan → N! faktor):
+  Z_N = Z₁ᴺ/N!
+
+  Energi: ⟨E⟩ = -∂lnZ_N/∂β = (3/2)NkT  ✓ (cocok dengan teori kinetik!)
+  Tekanan: P = NkT/V  ✓ (gas ideal equation PV=NkT terbukti!)
+  Entropi: Sackur-Tetrode equation (entropi absolut gas ideal!)
+
+Perbandingan panjang gelombang de Broglie thermal (λ) dengan jarak antar partikel (d):
+  d = (V/N)^(1/3)
+  
+  λ << d: partikel classicaly distinguishable → classical statistics (aman)
+  λ ≈ d: quantum effects PENTING (suhu sangat rendah atau kerapatan tinggi)
+```
+
+---
+
+## 2. Tiga Distribusi Statistik
+
+```
+Bergantung pada sifat partikel:
+
+Maxwell-Boltzmann (Partikel Klasik — Distinguishable):
+  fMB(ε) = A × e^(-ε/kT)
+  
+  Gas dan padatan pada T normal → sesuai
+  Distribusi kecepatan Maxwell: f(v) = 4π(m/2πkT)^(3/2) v² e^(-mv²/2kT)
+  v_mp = √(2kT/m), v_avg = √(8kT/πm), v_rms = √(3kT/m)
+
+Fermi-Dirac (Fermion — spin ½: elektron, proton, neutron):
+  "Tidak ada dua fermion di keadaan kuantum yang sama" (Prinsip Pauli)
+  
+  fFD(ε) = 1 / (e^((ε-μ)/kT) + 1)
+  
+  μ = potensial kimia (Fermi level pada T=0)
+  fFD(ε) = 0 atau 1 (tidak pernah >1! Pauli principle)
+  
+  Pada T=0: semua keadaan di bawah μ=EF terisi, di atas kosong (step function)
+  Pada T kecil: sedikit "smearing" di sekitar EF (lebar ~kT ~ 0.025 eV pada 300K!)
+  
+  Energi Fermi EF: tinggi energi tertinggi yang terisi pada T=0
+  Cu: EF = 7 eV >> kT (300K) = 0.025 eV
+  → Elektron dalam metal tetap "dingin" meskipun T kamar!
+
+Bose-Einstein (Boson — spin bulat: foton, ⁴He, Cooper pairs):
+  "Banyak boson boleh di keadaan yang sama" (tidak ada Pauli exclusion)
+  
+  fBE(ε) = 1 / (e^((ε-μ)/kT) - 1)
+  
+  Bisa > 1 (bahkan tak terbatas — banyak boson di satu keadaan!)
+```
+
+---
+
+## 3. Bose-Einstein Condensation dan Superfluiditas
+
+```
+Jika T turun cukup rendah: gelombang de Broglie mengambil ukuran jarak antar-atom
+→ Semua boson "jatuh" ke keadaan ground state yang SAMA!
+→ BOSE-EINSTEIN CONDENSATE (BEC)!
+
+Suhu transisi BEC:
+  T_c = (h²/2πmk)(n/ζ(3/2))^(2/3)
+  ζ(3/2) = 2.612 = Riemann zeta function
+  n = kerapatan partikel
+
+  ⁸⁷Rb atom (Einstein–Bose condensate pertama, JILA-Boulder 1995):
+  T_c ≈ 170 nK = 170 × 10⁻⁹ K (!!!)
+  Nobel 2001: Carl Wieman, Eric Cornell, Wolfgang Ketterle
+
+Superfluiditas ⁴He:
+  Di bawah 2.17 K (λ-point): ⁴He menjadi SUPERFLUIDA!
+  ⁴He = boson (4 = even nucleons) → BEC-like
+  Viskositas = 0 (persis nol!) → merembes melalui lubang terkecil
+  "Creep up container wall", "fountain effect", "second sound"
+
+Superfluiditas ³He:
+  ³He = fermion (3 = odd nucleons) → harus ber-"pair" dulu
+  Cooper pairs analog → superfluida di T<2mK (bukan T<2K!)
+```
+
+---
+
+## 4. Energi Internal Padatan: Model Einstein dan Debye
+
+### Model Einstein (1907):
+```
+Asumsi: semua osilator harmonis bergetar di frekuensi sama ωE
+
+Cv = 3Nk × (ℏωE/kT)² × e^(ℏωE/kT) / (e^(ℏωE/kT) - 1)²
+
+  T >> Θ_E: Cv → 3Nk = 3R (Hukum Dulong-Petit!)  ✓
+  T << Θ_E: Cv → 0 (tidak ada eksitasi) ✓
+
+  Gagal: mendekati nol terlalu cepat vs data eksperimen
+```
+
+### Model Debye (1912):
+```
+Asumsi: distribusi frekuensi kontinu dari ω=0 hingga ωD (Debye cutoff)
+
+Cv = 9R(T/Θ_D)³ ∫₀^(Θ_D/T) x⁴eˣ/(eˣ-1)² dx
+
+  Θ_D = ℏωD/k = Debye temperature
+
+  T >> Θ_D: Cv → 3R (Dulong-Petit) ✓
+  T << Θ_D: Cv ∝ T³  ← "Debye T³ law" ← diverifikasi untuk semua isolator!
+
+  Θ_D beberapa material:
+  Intan: 2230 K (sangat keras → frekuensi tinggi)
+  Si:    640 K
+  Ge:    374 K
+  Cu:    343 K
+  Pb:    105 K (lunak → frekuensi rendah)
+
+Elektronik Cv (Sommerfeld, 1928):
+  Elektron hanya yang di dekat EF mengalami eksitasi termal!
+  Cv_elekronik = (π²/3)k²T N/EF = γT   (linier dalam T!)
+  
+  Total Cv padatan = γT + AT³  (elektronik + fonik)
+  γ besar → banyak elektron di EF → logam normal
+  γ sangat besar → heavy fermion materials!
+```
+
+---
+
+## 5. Transisi Fasa dan Fenomena Kritis
+
+```
+Transisi fasa = perubahan kemabli struktur/simetri materi
+
+Orde Transisi Fasa (Ehrenfest):
+  Orde pertama: diskontinuitas dalam H (entalpi) dan V pada titik transisi
+    → Panas laten (kalor terpendam)!
+    → Es/air (melting), cair/gas (evaporasi)
+    
+  Orde Kedua (Kontinu): diskontinuitas dalam C_p, χ, dll tapi bukan H, V
+    → Tidak ada panas laten!
+    → Transisi magnetik pada T_Curie, superkonduktor normal→SC
+
+Titik Kritis:
+  Dalam diagram P-T: titik di mana fase cair dan gas TIDAK BISA DIBEDAKAN
+  di atas titik kritis = "supercritical fluid" (C untuk fase tunggal)
+  
+  Air: T_c = 647 K, P_c = 22.1 MPa = 218 atm
+  CO₂: T_c = 304 K (31°C!), P_c = 73.8 bar
+
+  Supercritical CO₂ (scCO₂):
+  Viskositas seperti gas, densitas seperti cairan
+  Pelarut hijau untuk ekstraksi kafein di kopi decaf!
+  Juga untuk dry cleaning premium, impregnasi polimer, kromatografi SF
+
+Perilaku Kritis (Critical Exponents):
+  Di dekat titik kritis, sifat berperilaku sebagai power law:
+  Kapasitas panas: Cv ~ |T-Tc|^(-α)
+  Magnetisasi: M ~ |T-Tc|^β
+  Korelasi: ξ ~ |T-Tc|^(-ν) (panjang korelasi diverge → fluktuasi semua skala!)
+  
+  Pemasalahan paling menarik: semua sistem kritis yang berbeda memiliki
+  EKSPONEN YANG SAMA (universality class)!
+  → Hanya bergantung pada dimensi dan simetri, tidak pada detail!
+```
+
+---
+
+## 6. Entropi Informasi dan Koneksi ke Termodinamika
+
+```
+Shannon (1948): Entropi Informasi
+  H = -Σ pᵢ log₂(pᵢ)    [bits]
+  
+  H = 0: pasti (tidak ada informasi)
+  H maksimum: distribusi seragam (informasi maksimum)
+
+Koneksi ke Boltzmann:
+  S = k × ln(W) = k_B × N × H × ln2   (jika outcome equiprobable)
+
+  Boltzmann dan Shannon mengukur HAL YANG SAMA — ketidakpastian/ketidaktahuan!
+
+Paradoks Maxwell's Demon:
+  Demon di antara dua kotak gas → membuka/menutup sekat berdasarkan kecepatan molekul
+  → Gas panas di sisi kiri, dingin di kanan → MELANGGAR HUKUM KEDUA?!
+  
+  Resolusi (Landauer, 1961): Demon harus mengingat info untuk memilih
+  → Saat memory dihapus (diperlukan untuk reset) → k_BT ln2 energi dilepas per bit!
+  
+  Landauer's Principle: S_termodinamik = S_informasi × k_B ln2
+  "Menghapus satu bit informasi = melepas k_BT ln2 panas ke lingkungan"
+  
+  Implikasi komputasi: komputasi reversibel (tanpa menghapus info) = tidak disipasi!
+  → Inspirasi untuk quantum computing dan reversible computing
+```
+
+<Quiz
+  question="Elektron dalam tembaga memiliki energi Fermi EF = 7 eV. Berapa prosentase elektron yang tereksitasi termal di suhu kamar T=300K?"
+  options={[
+    "~0.3% (sekitar kT/EF)",
+    "~5%",
+    "~50%",
+    "~100% (semua tereksitasi)"
+  ]}
+  correctAnswer={0}
+  explanation="Pada T=300K, kT = 0.026 eV. Hanya elektron dalam rentang kT di sekitar EF yang bisa tereksitasi termal. Fraksi tereksitasi ≈ kT/EF = 0.026/7 ≈ 0.37% << 1. Ini menunjukkan mengapa elektron konduksi logam bersifat 'dingin' secara efektif meski pada T kamar — distribusi Fermi-Dirac 'step function' hanya sedikit 'kabur' di sekitar EF. Inilah mengapa teori klasik Maxwell-Boltzmann gagal untuk elektron metal (memprediksi Cv elektronik terlalu besar)."
+/>

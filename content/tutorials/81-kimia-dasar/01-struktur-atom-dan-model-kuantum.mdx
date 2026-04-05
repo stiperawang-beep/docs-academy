@@ -1,0 +1,318 @@
+---
+title: "Struktur Atom: Dari Democritus ke Mekanika Kuantum"
+description: "Perjalanan sejarah konsep atom — dari teori Greek kuno, Thomson, Rutherford, Bohr, hingga model orbital kuantum modern. Struktur elektron, konfigurasi, dan tabel periodik."
+icon: "Atom"
+order: 1
+---
+
+# Atom: Unit Terkecil yang Menyusun Realita
+
+Pada abad ke-5 SM, filsuf Yunani Democritus mengajukan ide yang paling berani dalam sejarah pemikiran manusia: *Jika Anda terus memotong materi menjadi potongan yang lebih kecil, pada akhirnya Anda akan mencapai partikel yang tidak bisa dipotong lagi.* Ia menyebutnya **atomos** — "yang tidak dapat dibagi."
+
+Selama lebih dari 2000 tahun, ide ini dianggap filsafat belaka. Kemudian datanglah era eksperimen, dan segalanya berubah. Hari ini kita tahu bahwa atom bisa dibagi — dan di dalamnya tersembunyi dunia yang jauh lebih aneh dari imajinasi siapapun.
+
+---
+
+## 1. Evolusi Model Atom: Perjalanan 2500 Tahun
+
+### Model Dalton (1803) — Bola Padat
+```
+Postulat John Dalton:
+1. Semua materi terdiri dari atom yang tidak dapat dibagi
+2. Atom dari unsur yang sama identik
+3. Atom dari unsur berbeda memiliki massa berbeda
+4. Senyawa terbentuk dari kombinasi atom dalam rasio bilangan bulat
+5. Reaksi kimia = penataan ulang atom (bukan penciptaan/pemusnahan)
+
+Berhasil menjelaskan: Hukum kekekalan massa, hukum perbandingan tetap
+Gagal: Tidak menjelaskan listrik dan spektrum atom
+```
+
+### Model Thomson (1897) — Roti Kismis (Plum Pudding)
+```
+J.J. Thomson menemukan ELEKTRON melalui tabung katoda:
+  Sinar katoda dibelokkan oleh medan listrik dan magnet
+  → Partikel bermuatan negatif, jauh lebih ringan dari atom
+
+Model Thomson:
+  Atom = muatan positif tersebar merata (seperti adonan roti)
+  Elektron tersebar di dalamnya (seperti kismis)
+
+e/m elektron = 1.76 × 10¹¹ C/kg (terukur Thomson)
+
+Berhasil: Menjelaskan keberadaan partikel bermuatan dalam atom
+Gagal: Eksperimen hamburan Rutherford membuktikan model ini salah
+```
+
+### Model Rutherford (1911) — Model Planet
+```
+Percobaan Geiger-Marsden (Gold Foil Experiment):
+  Tembakkan partikel alfa (He²⁺) ke lembaran emas tipis
+  
+Hasil Mengejutkan:
+  - Sebagian besar partikel lolos lurus → atom sebagian besar ruang kosong
+  - Sebagian kecil dibelokkan besar, bahkan memantul → ada "inti padat" kecil
+
+Model Rutherford:
+  - Inti kecil (+), berisi hampir semua massa atom
+  - Elektron berorbital di sekitar inti, seperti planet mengelilingi matahari
+  - Ruang di antara = hampa
+
+Ukuran:
+  r_atom ~ 10⁻¹⁰ m = 1 Å (Angstrom)
+  r_inti ~ 10⁻¹⁵ m = 1 fm (femtometer / fermi)
+  Perbandingan: seperti kelereng di tengah lapangan sepakbola!
+
+Masalah fatal (fisika klasik):
+  Elektron yang mengorbit → mengalami percepatan sentripetal
+  → Muatan yang dipercepat memancarkan energi (radiasi EM)
+  → Elektron kehilangan energi → spiral ke inti dalam ~10⁻⁸ detik!
+  → Tapi atom stable! Ada yang salah dengan fisika klasik...
+```
+
+### Model Bohr (1913) — Orbit Kuantisasi
+```
+Niels Bohr memperkenalkan postulat revolusioner:
+
+1. Elektron hanya boleh mengorbit pada jari-jari tertentu (orbit stasioner)
+2. Pada orbit stasioner, elektron TIDAK memancarkan energi
+3. Elektron hanya memancarkan/menyerap energi saat berpindah orbit
+
+Kondisi kuantisasi angular momentum:
+  mvr = nℏ   (n = 1,2,3,... bilangan kuantum utama)
+  ℏ = h/(2π) = konstanta Planck tereduksi
+
+Untuk atom hidrogen:
+  Jari-jari orbit:  rₙ = n² × a₀    (a₀ = 0.529 Å = Bohr radius)
+  Energi:           Eₙ = -13.6/n²  eV
+
+  n=1: E₁ = -13.6 eV  (ground state, paling stabil)
+  n=2: E₂ = -3.4 eV
+  n=3: E₃ = -1.51 eV
+  n=∞: E∞ = 0         (elektron bebas, atom terionisasi)
+
+Energi foton yang dipancarkan:
+  ΔE = Eₙ₂ - Eₙ₁ = hf
+  1/λ = R_H (1/n₁² - 1/n₂²)   ← Rumus Rydberg
+  R_H = 1.097 × 10⁷ m⁻¹ (Konstanta Rydberg)
+
+Deret spektrum Hidrogen:
+  Lyman   (n₁=1): UV
+  Balmer  (n₁=2): Cahaya tampak (merah=656nm, biru=486nm, ungu=434nm)
+  Paschen (n₁=3): IR dekat
+  Brackett(n₁=4): IR jauh
+```
+
+> [!NOTE] Keunggulan dan Batas Model Bohr
+> Model Bohr berhasil menjelaskan spektrum hidrogen dengan akurasi luar biasa. Namun ia gagal untuk atom lebih dari 1 elektron, tidak menjelaskan intensitas spektral, dan efek Zeeman (pembelahan garis dalam medan magnet). Dibutuhkan teori yang lebih fundamental — mekanika kuantum.
+
+---
+
+## 2. Model Kuantum Modern: Orbital Bukan Orbit
+
+Pada 1926, Erwin Schrödinger merumuskan persamaan gelombang yang menggantikan orbit Bohr dengan **orbital** — fungsi gelombang yang menggambarkan **probabilitas menemukan elektron**:
+
+```
+Ĥψ = Eψ   (Persamaan Schrödinger, dibahas di modul Fisika Kuantum)
+
+ψ = fungsi gelombang (wave function)
+|ψ|² = densitas probabilitas — seberapa mungkin elektron di sini
+
+Empat Bilangan Kuantum:
+  n = bilangan kuantum utama    (1, 2, 3, ...)
+      ukuran dan energi orbital
+      
+  l = bilangan kuantum azimuth  (0, 1, 2, ..., n-1)
+      bentuk orbital
+      l=0: orbital s (spheris)
+      l=1: orbital p (dumbbell, 3 orientasi)
+      l=2: orbital d (kompleks, 5 orientasi)
+      l=3: orbital f (sangat kompleks, 7 orientasi)
+      
+  mₗ = bilangan kuantum magnetik (-l, ..., 0, ..., +l)
+       orientasi orbital dalam ruang
+       
+  ms = bilangan kuantum spin    (±½)
+       spin intrinsik elektron
+```
+
+### Bentuk Orbital:
+
+```
+Orbital s (l=0): berbentuk BOLA simetris
+  1s: bola kecil, 2s: bola lebih besar dengan node
+
+Orbital p (l=1): berbentuk DUMBBELL (barbel)
+  pₓ, pᵧ, p_z: orientasi sepanjang sumbu x, y, z
+
+Orbital d (l=2): 5 bentuk berbeda
+  dₓᵧ, dₓ_z, d_yz, dₓ²₋ᵧ², d_z²
+
+Orbital f (l=3): 7 bentuk sangat kompleks
+  Penting untuk unsur lantanida dan aktinida
+```
+
+---
+
+## 3. Prinsip-Prinsip Pengisian Elektron
+
+### Prinsip Aufbau (Membangun):
+Elektron mengisi orbital dari energi terendah ke tertinggi:
+```
+Urutan energi: 1s < 2s < 2p < 3s < 3p < 4s < 3d < 4p < 5s < 4d < 5p < 6s < 4f < 5d < 6p < 7s < 5f < 6d < 7p
+
+Trik hafalan diagonal:
+    1s
+    2s  2p
+    3s  3p  3d
+    4s  4p  4d  4f
+    5s  5p  5d  5f
+    ...
+Baca diagonal dari kanan atas ke kiri bawah: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, ...
+```
+
+### Prinsip Larangan Pauli:
+```
+Setiap orbital hanya bisa ditempati MAKSIMAL 2 elektron
+dengan spin berlawanan (↑↓)
+
+Tidak ada dua elektron dalam satu atom yang memiliki
+keempat bilangan kuantum yang sama
+```
+
+### Aturan Hund:
+```
+Saat mengisi orbital degenerate (energi sama, misal 2pₓ, 2pᵧ, 2p_z),
+elektron pertama-tama mengisi SENDIRI-SENDIRI (spin paralel ↑↑↑)
+sebelum berpasangan
+
+Alasan: Elektron dengan spin paralel cenderung menghindari satu sama lain
+        → Repulsi elektron-elektron lebih kecil → lebih stabil
+```
+
+---
+
+## 4. Konfigurasi Elektron: Alamat Setiap Elektron
+
+```
+Hidrogen    (Z=1):   1s¹
+Helium      (Z=2):   1s²
+Litium      (Z=3):   1s² 2s¹              [He] 2s¹
+Berilium    (Z=4):   1s² 2s²              [He] 2s²
+Boron       (Z=5):   1s² 2s² 2p¹         [He] 2s² 2p¹
+Karbon      (Z=6):   1s² 2s² 2p²         [He] 2s² 2p² (Hund: ↑↑)
+Nitrogen    (Z=7):   1s² 2s² 2p³         [He] 2s² 2p³ (Hund: ↑↑↑)
+Oksigen     (Z=8):   1s² 2s² 2p⁴         [He] 2s² 2p⁴ (↑↓ ↑ ↑)
+Fluorin     (Z=9):   1s² 2s² 2p⁵         [He] 2s² 2p⁵
+Neon        (Z=10):  1s² 2s² 2p⁶         [He] 2s² 2p⁶  ← gas mulia, stabil!
+Natrium     (Z=11):  [Ne] 3s¹             ← seperti litium, satu e⁻ di luar!
+Magnesium   (Z=12):  [Ne] 3s²
+Aluminium   (Z=13):  [Ne] 3s² 3p¹
+
+Besi (Z=26):   [Ar] 3d⁶ 4s²   ← transisi: 3d belum penuh
+Tembaga (Z=29): [Ar] 3d¹⁰ 4s¹  ← pengecualian! d¹⁰ lebih stabil dari d⁹4s²
+```
+
+> [!TIP] Pengecualian Konfigurasi Elektron
+> Beberapa unsur seperti **Cu** ([Ar] 3d¹⁰4s¹ bukan 3d⁹4s²) dan **Cr** ([Ar] 3d⁵4s¹ bukan 3d⁴4s²) melanggar aturan Aufbau karena orbital d penuh (d¹⁰) atau separuh penuh (d⁵) memiliki stabilitas ekstra akibat exchange energy yang maksimum.
+
+---
+
+## 5. Tabel Periodik: Peta Sistem Unsur
+
+```
+Struktur Tabel Periodik:
+  Periode (baris) = jumlah kulit elektron
+  Golongan (kolom) = jumlah elektron valensi → sifat kimia serupa
+
+  Blok s (Gol. 1-2): mengisi orbital s (logam alkali & alkali tanah)
+  Blok p (Gol. 13-18): mengisi orbital p (nonlogam, metalloid, gas mulia)
+  Blok d (Gol. 3-12): mengisi orbital d (logam transisi)
+  Blok f (lantanida, aktinida): mengisi orbital f
+
+Tren Periodik:
+                     ←─────────── Golongan ───────────→
+              ↑  Jari-jari atom             Turun  ↓
+              │  Energi ionisasi           Naik   ↑
+              │  Elektronegativitas        Naik   ↑
+         Periode  Afinitas elektron        Naik   ↑
+              ↓  Keelektronegatifan       Turun  ↓
+```
+
+### Sifat Periodik Detail:
+
+**Jari-jari Atom:**
+```
+Dalam satu periode (→): bertambah muatan inti, tarik elektron lebih kuat → jari-jari MENGECIL
+Dalam satu golongan (↓): kulit elektron bertambah → jari-jari MEMBESAR
+
+Terkecil: He (31 pm)
+Terbesar: Cs (298 pm)
+```
+
+**Energi Ionisasi (IE):**
+```
+IE₁ = energi untuk melepas elektron pertama (dari atom neutral)
+IE₂ = untuk melepas elektron kedua (dari ion 1+)
+
+Pola: IE₁ < IE₂ < IE₃ < ...
+Lompatan besar IE menunjukkan batas kulit: Na (IE₁=496, IE₂=4562 kJ/mol)
+→ Elektron ke-2 Na sangat sulit dilepas (core electron)
+```
+
+**Elektronegativitas (Pauling Scale):**
+```
+F = 4.0 (tertinggi)  →  Fr = 0.7 (terendah)
+Mengukur kemampuan atom menarik elektron dalam ikatan kimia
+```
+
+---
+
+## 6. Isotop, Ion, dan Inti Atom
+
+```
+Notasi Inti:  ᴬ_Z X
+  A = nomor massa (jumlah proton + neutron)
+  Z = nomor atom (jumlah proton) = identitas unsur!
+  N = A - Z = jumlah neutron
+
+Isotop: atom unsur yang sama (Z sama), neutron berbeda (A berbeda)
+  ¹H (protium): 1p, 0n   → 99.98% hidrogen alam
+  ²H (deuterium): 1p, 1n → 0.018%
+  ³H (tritium): 1p, 2n   → radioaktif, sangat jarang
+
+Ion: atom yang kehilangan atau mendapat elektron
+  Kation (+): kehilangan e⁻ → Na⁺, Ca²⁺, Al³⁺
+  Anion (-):  mendapat  e⁻ → Cl⁻, O²⁻, N³⁻
+```
+
+### Gaya-Gaya di Dalam Inti:
+
+```
+Di dalam inti terdapat persaingan dua gaya:
+
+Gaya Coulomb (elektrostatis):
+  → Proton saling TOLAK (muatan + dengan +)
+  → Skala jangkauan: panjang (menurun dengan 1/r²)
+
+Gaya Nuklir Kuat (Strong Nuclear Force):
+  → Mengikat proton dan neutron bersama
+  → Sangat kuat tapi jangkauan sangat pendek (~10⁻¹⁵ m)
+  → Lebih kuat antara n-n dan p-n daripada p-p
+
+Untuk inti ringan (Z < 20): N ≈ Z untuk stabil
+Untuk inti berat: perlu lebih banyak neutron untuk menstabilkan
+  Pb-208 (Z=82): 82 proton, 126 neutron (N/Z = 1.54)
+```
+
+<Quiz
+  question="Konfigurasi elektron Cl⁻ (Z=17 untuk Cl) sama dengan konfigurasi elektron atom mulia yang mana?"
+  options={[
+    "Ne (Z=10)",
+    "Ar (Z=18)",
+    "Kr (Z=36)",
+    "Cl netral juga, tidak berubah"
+  ]}
+  correctAnswer={1}
+  explanation="Cl netral memiliki 17 elektron: [Ne] 3s² 3p⁵. Saat menjadi Cl⁻, ia mendapat 1 elektron → 18 elektron total: [Ne] 3s² 3p⁶ = [Ar]. Jadi Cl⁻ isoelektronik dengan Ar (Z=18). Ini menjelaskan mengapa ion cenderung mencapai konfigurasi gas mulia terdekat — konfigurasi paling stabil!"
+/>

@@ -1,0 +1,401 @@
+---
+title: "Bioteknologi & Genomik Modern"
+description: "Rekayasa genetika, kloning gen, PCR dan teknik molecular biology, sequencing generasi berikutnya (NGS), genomik komparatif, proteomik, bioinformatika, dan aplikasi bioteknologi dalam kedokteran dan industri."
+icon: "FlaskConical"
+order: 6
+---
+
+# Bioteknologi & Genomik: Menulis Ulang Kode Kehidupan
+
+Jika abad ke-20 adalah era fisika (bom atom, transistor, laser), maka abad ke-21 adalah era biologi. Kita tidak lagi hanya mengamati kehidupan — kita merancangnya, memodifikasinya, mensintesisnya.
+
+Pada 2003, Proyek Genom Manusia selesai setelah 13 tahun dan $3 miliar. Pada 2024, satu lab bisa sequencing seluruh genom manusia dalam 24 jam dengan biaya $200. Apa yang berubah?
+
+---
+
+## 1. Alat Dasar Biologi Molekuler
+
+```
+PCR (Polymerase Chain Reaction) — "Mesin Fotokopi DNA":
+  Kary Mullis, 1983 (Nobel 1993) — penemuan paling penting dalam biologi molekuler abad 20!
+  
+  Komponen:
+    Template DNA: sumber DNA yang dicopy
+    Primer (2): oligonukleotida 18-25 bp, mengenal dan flanking target
+    Taq DNA polymerase: dari bakteri Thermus aquaticus (tahan 95°C!)
+    dNTPs (dATP, dCTP, dGTP, dTTP): "bahan baku" DNA baru
+    MgCl₂: kofaktor Taq polymerase
+  
+  Siklus thermal:
+    95°C Denaturation: untai ganda terpisah
+    55-65°C Annealing: primer menempel ke template spesifik
+    72°C Extension: Taq polymerase extends 3' end (1 kb/min)
+    25-40 siklus → 2^n kopi (n = siklus)
+  
+  Desain Primer (Tm):
+    Tm = 4°C×(G+C) + 2°C×(A+T)  [untuk oligomer pendek]
+    Annealing: 5°C di bawah Tm
+    Panjang: 18-22 nt, GC content: 40-60%
+    No self-complementarity, no primer dimer!
+  
+  Variantnya:
+    RT-PCR: RNA → cDNA (reverse transkriptase) → PCR
+    qPCR / Real-time PCR: SYBR Green atau TaqMan probe → kuantifikasi real-time
+    dPCR: droplet digital PCR → kuantifikasi absolute
+    Multiplex PCR: banyak primer sekaligus (STR forensik, panel patogen)
+    LAMP (Loop-mediated Amplification): isothermal, cepat, no thermal cycler!
+
+Elektroforesis Gel Agarose:
+  DNA (negatif) bergerak dari - ke + melalui gel agarose
+  Friksi gel: molekul besar → lebih lambat → posisi berbeda = size separation!
+  
+  Ethidium Bromide (EtBr) atau SYBR Safe: pewarna interkalasi → visualisasi UV
+  100 bp ladder: penanda ukuran → estimasi ukuran pita target
+  
+  Preparatif: potong + purify pita dari gel → kloning
+
+ENZYME RESTRICTION (Restriksi/Enzim RE):
+  Mengenali urutan DNA spesifik (4-8 bp palindrom) → memotong!
+  
+  EcoRI:  5'-G↓AATTC-3'  (cuts antara G dan AATTC → sticky ends 5' overhang)
+  BamHI:  5'-G↓GATCC-3'  (sticky ends 5' overhang)
+  SmaI:   5'-CCC↓GGG-3'  (blunt ends)
+  
+  Sticky ends → lebih efisien untuk kloning!
+  Ligasi: DNA ligase menggabungkan ujung yang kompatibel → rekombinasi DNA in vitro
+
+Kloning Molekuler:
+  Vector: plasmid, fage, BAC, YAC, AAV
+  Insert: fragmen DNA yang dipotong dengan RE
+  Ligasi: insert + vector → rekombinant plasmid
+  Transformasi: masukkan plasmid ke bakteri (E. coli) → koloni yang tumbuh = klona!
+  Seleksi: antibiotika resistance (dari vektor) + blue-white screening (lacZ)
+  Ekspansi + harvest: kultur → isolasi plasmid → sequencing konfirmasi
+```
+
+---
+
+## 2. DNA Sequencing
+
+```
+Sanger Sequencing — Generasi 1 (1977, Fred Sanger, Nobel 1980):
+  
+  Chain termination dengan ddNTP (dideoxynucleotide triphosphate):
+  ddNTP tidak punya 3'-OH → setelah incorporasi, chain elongation BERHENTI!
+  
+  4 reaksi: ddATP, ddTTP, ddGTP, ddCTP
+  Setiap reaksi menghasilkan fragmen berbeda panjang yang terminal di basa itu
+  Separasi gel → baca dari kecil ke besar → urutan!
+  
+  Modern: 4 warna dye berbeda (ddA=green, ddT=red, ddG=black, ddC=blue)
+          Deteksi laser dalam kapiler gel elektroforesis otomatis
+  Panjang baca: ~800-1000 bp
+  Akurasi: >99.99%
+  Throughput rendah (singel reaksi ~16 jam)
+
+Next-Generation Sequencing (NGS) — Generasi 2 (2005+):
+  
+  Illumina Sequencing (Sequencing by Synthesis):
+    Preparasi: fragment library (300-600 bp) + adapter ligation
+    Cluster amplification: fragmen terikat flowcell → amplifikasi bridge
+    Sequencing: siklus incorporasi fluorescent dNTP reversible terminator → imaging
+    Setiap siklus: tambah 1 nukleotida, baca warna, lepas terminator, ulang
+    
+    Output: 150-300 bp reads, throughput hingga 6 TB per run (NovaSeq X)!
+    Cost per Gb: turun dari $1000/Mb (2001) → $0.01/Mb (2024)!
+    
+  Aplikasi NGS:
+    WGS (Whole Genome Sequencing): seluruh 3.2 Gb genom manusia
+    WES (Whole Exome Sequencing): hanya ekson (~1% genom tapi 85% mutasi penyakit)
+    RNA-seq: profil transkriptome (semua mRNA yang diekspresikan)
+    ChIP-seq: ikatan protein-DNA genome-wide
+    ATAC-seq: aksesibilitas kromatin (daerah terbuka = aktif transkripsi)
+    Single-cell RNA-seq (scRNA-seq): profil setiap sel satu per satu → revolusioner!
+
+Long-Read Sequencing — Generasi 3 (2010+):
+  
+  PacBio SMRT (Single Molecule Real-Time):
+    Polymerase + template + fluorescent dNTP → ZMW (Zero-Mode Waveguide)
+    Baca satu molekul DNA secara real-time → reads 10-100 kb!
+    Error rate lebih tinggi per read, tapi circular consensus (CCS) → akurasi sangat baik
+  
+  Oxford Nanopore (ONT):
+    DNA/RNA protein nanopore (MspA atau CsgG) → ion current mengalir
+    Saat nukleotida melewati pore → gangguan ionic current spesifik per basa!
+    MinION: ukuran USB drive! → sequencing di lapangan (Ebola, COVID)
+    Ultra-long reads: >2 Mb dalam satu read (cromatin scaffolding!)
+    
+  Revolusi Long-Read:
+    Full assembly tanpa gap (CHM13 T2T genome 2022 — pertama benar-benar complete!)
+    Repeat-rich regions: sebelumnya "blind" dengan short reads
+    Epigenomics: deteksi metilasi dari nanopore signal langsung!
+```
+
+---
+
+## 3. Genomik Komparatif dan Fungsional
+
+```
+Human Genome Project (HGP):
+  1990-2003: 13 tahun, $3 miliar, konsorsium internasional
+  Draft 2001 (Collins + Venter): 90% selesai, banyak gap
+  "Finished" 2003: ~92% (banyak centroeteric heterokcromatin tidak bisa diselesaikan)
+  
+  BENAR-BENAR SELESAI (2022): T2T consortium — pertama kali TANPA GAP!
+  Ditemukan: ~20,000-25,000 gen pengkode protein
+  Mengejutkan: hanya ~1.5% coding! Sisanya = regulatorik, repetitif, non-coding
+  
+Perbandingan Ukuran Genom:
+  Bakteri (E. coli): 4.6 Mb, ~4,300 gen
+  Ragi (S. cerevisiae): 12 Mb, ~6,000 gen
+  Worm (C. elegans): 100 Mb, ~20,000 gen
+  Lalat buah (D. melanogaster): 140 Mb, ~14,000 gen
+  MANUSIA: 3,200 Mb, ~20,000-25,000 gen!
+  Wheat (Triticum): 16,000 Mb! (5x manusia!) — repetitive!
+  
+  Paradoks C: jumlah DNA ≠ kompleksitas! (Paris japonica: 150 Gb!)
+
+Genomik Komparatif:
+  
+  Manusia vs Simpanse: ~98.7% identik!
+    1.2% base pair differences, beberapa inversions, copy number variations
+    Pengkoda: ~99% mirip, non-koding lebih berbeda
+    Tapi: kita sangat berbeda fenotipik → regulasi ekspresi gen!
+  
+  Neanderthal Genomik (Pääbo, Nobel 2022):
+    Ekstraksi DNA dari tulang 40,000 tahun → sequencing Neandertal genome!
+    Bukti: 2-4% gen modern non-Afrika adalah Neanderthal
+    dan 1-6% gen populasi Melanesia adalah Denisova!
+    Gene flow antara H. sapiens dan archaic humans → sangat penting untuk adaptasi!
+
+ENCODE Project:
+  Encyclopedia of DNA Elements
+  Kesimpulan (2012): ~80% genom manusia "biokimiawi fungsional"!
+  ~20% berinteraksi dengan protein (faktor transkripsi, modifikasi histon)
+  Kontroversi: apakah "fungsional" secara biokimia = bermakna biologis?
+  
+  Banyak noncoding RNA, regulatory elements → ENCODE memetakan semuanya
+
+GWAS (Genome-Wide Association Study):
+  Scan jutaan SNP di ribuan orang sakit + kontrol → cari asosiasi!
+  
+  Manhattan plot: sumbu x = posisi kromosom, sumbu y = -log₁₀(p-value)
+  p < 5×10⁻⁸ = genome-wide significance (koreksi Bonferroni)
+  
+  Contoh hasil GWAS:
+    BMI: 800+ loci, tapi semua dengan OR kecil (1.1-1.3) → polygenic!
+    Schizophrenia: 270+ loci → complex genetic architecture
+    Macular degeneration: CFH variant → OR yang sangat besar (6.3!)
+  
+  Poligenik Skor (PGS/PRS): jumlah semua varian → prediksi risiko individu
+    PRS kanker payudara, penyakit jantung → mulai digunakan klinik!
+```
+
+---
+
+## 4. Proteomik dan Metabolomik
+
+```
+PROTEOMIK — Studi seluruh protein dalam sel/organisme:
+
+Teknik Utama:
+  2D Gel Electrophoresis: pisah protein berdasarkan pI (IEF) + MW (SDS-PAGE)
+  → Ribuan protein terlihat sebagai "peta" bintik
+  
+  Mass Spectrometry (LC-MS/MS):
+    Protein → dicerna trypsin (cut R, K) → peptida
+    Peptida → HPLC → MS/MS → identifikasi via database search
+    
+    nLC-Orbitrap: identifikasi 10,000+ protein dalam satu run!
+    
+  Label-Free Quantification (LFQ): bandingkan intensitas tanpa label
+  TMT/iTRAQ: stable isotope label → multiplex 6-18 sampel sekaligus
+
+Protein Interactome:
+  BioID/TurboID: enzim BirA* atau TurboID biotinilasi protein terdekat → identifikasi
+
+PROTEIN FOLDING REVOLUTION:
+  AlphaFold2 (DeepMind, 2020/2021):
+    Memprediksi struktur protein 3D dari urutan asam amino saja!
+    Akurasi setara kristalografi sinar-X (GDT > 90 untuk banyak protein)
+    AlphaFold Protein Structure Database: 200 juta struktur! (2022)
+    → Dampak: drug discovery dipercepat, understanidng protein function
+    
+  Equivalent: RoseTTAFold (University of Washington), ESMFold (Meta)
+
+CRYO-EM (Cryo-Electron Microscopy):
+  Protein divitrifikasi (dibekukan sangat cepat) → tidak ada kristal
+  Beam elektron → ribuan gambar dari sudut berbeda → reconstruction 3D
+  Revolusi: resolusi atom (1.2-3Å) tanpa kristalisasi!
+  Nobel 2017 (Jacques Dubochet, Joachim Frank, Richard Henderson)
+  
+  2020-2024: struktur ribosom, spike protein SARS-CoV-2, ion channel, ATP synthase
+  → Era "resolution revolution" dalam struktural biologi
+
+METABOLOMIK:
+  Profil semua metabolit (<1500 Da) dalam sel/sampel biologis
+  Platform: ¹H NMR (kuantitatif, no prep) atau LC-MS (sensitif, coverage luas)
+  
+  Manfaat klinik:
+    Biomarker diabetes: peningkatan branched-chain amino acids
+    Kanker: Warburg effect (aerobic glycolysis) - produksi laktat meningkat
+    Microbiome metabolites: SCFA (short-chain fatty acids) dari fermentasi usus
+```
+
+---
+
+## 5. Bioinformatika
+
+```
+Basis Data Biologis:
+  GenBank/NCBI: DNA/RNA sequences
+  UniProt/SwissProt: protein sequences + annotasi
+  PDB (Protein Data Bank): struktur protein 3D
+  Ensembl: anotasi gen eukariot (human, mouse, zebrafish, dll)
+  STRING: protein interaction networks
+  OMIM: gen + penyakit genetik manusia
+
+BLAST (Basic Local Alignment Search Tool):
+  Cari sekuens mirip di database
+  E-value: expected number of hits by chance
+  E < 10⁻⁵ : signifikan
+  E < 10⁻³⁰: sangat signifikan (homolog sejati)
+  
+  blastn: DNA vs DNA
+  blastp: protein vs protein
+  blastx: DNA (translated) vs protein
+  tblastx: DNA vs DNA (both translated)
+
+Multiple Sequence Alignment (MSA):
+  Clustalω, MAFFT, MUSCLE → align banyak sekuens
+  Identifikasi conserved residue → biasanya fungsional/struktural
+  Phylogenetic analysis dari MSA
+
+Analisis RNA-seq:
+  
+  Raw reads → QC (FastQC) → Trimming (Trim Galore) → Mapping (STAR/HISAT2)
+  → Count (featureCounts/HTSeq) → Normalization (DESeq2/edgeR) →
+  Differential Expression Analysis (DEG)
+  
+  Normalization: RPKM/FPKM atau TPM (per gene, sample)
+  
+  Analisis jalur: Gene Ontology (GO), KEGG pathway analysis
+  Heatmap: cluster genes dan samples → visualisasi pola ekspresi
+  Volcano plot: fold change vs p-value → identifikasi signifikan DEG
+
+Machine Learning dalam Bioinformatika:
+  
+  CNN (Convolutional Neural Network):
+    DeepVariant: variant calling dari sequencing data, akurasi > manusia!
+    DeepBind: prediksi binding site protein-DNA
+  
+  RNN / Transformers:
+    DNABERT: language model untuk DNA sequence
+    ProtTrans (ESM): protein language model → embedding → property prediction
+  
+  AlphaFold2 itself: Graph Neural Network + attention → structure prediction
+  
+  Tantangan bioinformatik modern:
+    FAIR data: Findable, Accessible, Interoperable, Reusable
+    Reproducibility crisis: workflow + environment harus reproducible!
+    Docker/Singularity containers + Snakemake/Nextflow workflows
+```
+
+---
+
+## 6. Aplikasi Bioteknologi
+
+```
+TANAMAN REKAYASA GENETIKA (GMO):
+  
+  Agrobacterium tumefaciens: bakteri tanah yang alami mentransfer DNA ke tanaman!
+  Ti plasmid: T-DNA terintegrasi ke kromosom tanaman
+  → Dimodifikasi sebagai vektor untuk transgene apa pun!
+  
+  Biolistic (gene gun): partikel emas dilapisi DNA ditembakkan ke jaringan tanaman
+  
+  Produk GE:
+    Bt corn/cotton: gen Bacillus thuringiensis Cry toxin → insektisidal
+    Herbicide-tolerant soybean (Roundup Ready): gen EPSPS dari bakteri
+    Golden Rice: β-carotene biosynthesis → Vitamin A deficiency
+    Virus-resistant papaya (ringspot) → menyelamatkan industri pepaya Hawaii!
+  
+  CRISPR GMO (Regulasi berbeda di banyak negara):
+    Tidak ada foreign DNA! → hanya edit endogenous gene
+    Jepang: CRISPR crops dibebaskan dari regulasi GMO
+    Tomat Sicilian Rouge High GABA: CRISPR → GABA tinggi, antihipertensi
+
+BIOPHARMACEUTICALS:
+  
+  Insulin: PERTAMA! (1982) — gen insulin manusia di E. coli (Genentech/Lilly)
+  Growth Hormone: IGF-1 deficiency treatment
+  Erythropoietin (EPO): anemia terapi (dan doping kontroversial!)
+  Interferon: Hepatitis B, C, multiple sclerosis
+  
+  Monoclonal Antibodies (mAbs): industri terbesar!
+    Hibridoma teknik (Kohler & Milstein, 1975): fusi sel B + myeloma → immortal
+    Chimeric → humanized → fully human mAb (phage display, transgenic mice)
+    
+    Top 10 obat terlaris dunia kebanyakan adalah mAb!
+    Trastuzumab (Herceptin): anti-HER2, kanker payudara
+    Adalimumab (Humira): anti-TNF, RA, psoriasis, Crohn's
+    Dupilumab (Dupixent): anti-IL-4Rα, asma, eksim, rhinosinusitis
+    Pembrolizumab (Keytruda): anti-PD-1, banyak kanker
+  
+  Enzyme Replacement Therapy:
+    Gaucher's disease (glucocerebrosidase), Fabry (α-galactosidase A)
+    → Enzim lisosomal diproduksi rekombinan → infus IV → masuk sel via M6P receptor
+
+STEM CELL DAN REGENERATIVE MEDICINE:
+  
+  Embryonic Stem Cells (ESC): pluripoten, dari inner cell mass blastokista
+  Induced Pluripotent Stem Cells (iPSC):
+    Yamanaka, 2006 (Nobel 2012): 4 faktor (Oct4, Sox2, Klf4, c-Myc) → reprogram sel dewasa
+    Ethically less controversial → no embryo destruction!
+    iPSC from patient → differentiate → organ spesifik untuk modeling penyakit
+    
+  Organoids:
+    Mini-organ 3D yang tumbuh dari stem cell!
+    Intestinal organoids, brain organoids, liver, kidney, dll
+    "Tumor organoids" dari biopsi pasien: tes sensitivitas obat personal!
+    
+  CAR-T (lihat Bab Imunologi)
+  
+  Xenotransplantation:
+    Pig organs → human? (pigs mirip manusia secara anatomis)
+    CRISPR pig: remove 3 pig antigen genes + add human transgene → "humanized pig"
+    2022: pertama kali jantung babi CRISPR ditransplantasi ke manusia → 60 hari!
+    Tantangan: banyak penghalang imunologis dan fisiologis
+
+SYNTHETIC BIOLOGY:
+  
+  Prinsip: buat sistem biologis baru berdasarkan prinsip engineering (modular, standard)
+  
+  Yeast metabolic engineering:
+    Artemisinic acid (prekursor artemisin, antimalarial) dari yeast!
+    Opioid dari yeast (morphine biosynthesis 23 langkah!)
+    Vanillin (vanilla) dari ferulic acid via yeast
+  
+  Genetic circuits:
+    Toggle switch, oscillator, logic gates → implementasi dalam sel bakteri
+    
+  Minimal genome:
+    Craig Venter 2016: synthetic minimal bacterial cell (JCVI-Syn 3.0)
+    Only 473 genes! Tapi masih bisa tumbuh...
+    
+  Cell-free systems:
+    mRNA vaccine produksi
+    Rapid prototyping tanpa perlu hidup (in vitro transcription/translation)
+```
+
+<Quiz
+  question="Kenapa teknik CRISPR-Cas9 lebih unggul dibandingkan teknik rekayasa genetika sebelumnya (seperti zinc-finger nuclease atau TALEN) dari sisi kemudahan desain?"
+  options={[
+    "Karena Cas9 memiliki aktivitas endonuklease yang jauh lebih kuat dan membuat DSB lebih banyak",
+    "Karena CRISPR-Cas9 menggunakan sgRNA (single guide RNA) yang sangat mudah didesain dan disintesis — cukup ganti 20 nt urutan guide RNA untuk menarget lokus manapun, berbeda dengan ZFN/TALEN yang membutuhkan rekayasa protein spesifik per target (mahal dan butuh keahlian khusus)",
+    "Karena CRISPR bekerja lebih baik di sel mamalia dibandingkan ZFN yang hanya efektif di bakteri",
+    "Karena CRISPR tidak membutuhkan sel hidup — bisa dilakukan secara in vitro menggunakan DNA template saja"
+  ]}
+  correctAnswer={1}
+  explanation="Keunggulan utama CRISPR-Cas9 adalah KEMUDAHAN DESAIN: untuk menarget urutan DNA baru, peneliti hanya perlu mendesain dan memesan sgRNA 20 nukleotida (mudah, cepat, murah ~$10-50 per sgRNA! dan bisa dilakukan dalam beberapa hari). Sedangkan ZFN (Zinc Finger Nuclease) dan TALEN membutuhkan protein engineering khusus: setiap ZFN atau TALEN harus didesain ulang per-target menggunakan modular protein domains — proses yang memakan waktu berbulan-bulan, mahal ($5,000-50,000 per target!), dan membutuhkan keahlian protein engineering yang tidak semua lab punya. Semua nuclease (CRISPR, ZFN, TALEN) membuat DSB (double-strand break); perbedaannya adalah cara menentukan target. CRISPR = RNA-guided, sangat programmable."
+/>

@@ -1,0 +1,278 @@
+---
+title: "Asam, Basa & Kesetimbangan Kimia"
+description: "Teori asam-basa Arrhenius, Brønsted-Lowry, dan Lewis. Autoionisasi air, pH, pOH, pKa, pKb, buffer, titrasi, hidrolisis garam, dan prinsip Le Chatelier dalam kesetimbangan kimia."
+icon: "Droplets"
+order: 4
+---
+
+# Asam dan Basa: Kimia Kehidupan yang Paling Fundamental
+
+pH = 7.4 — angka sederhana ini adalah perbedaan antara hidup dan mati. Darah manusia harus dijaga dalam rentang pH 7.35–7.45. Keluar dari rentang ini bahkan 0.1 unit bisa fatal. Ginjal, paru-paru, dan sistem buffer darah bekerja tanpa henti mempertahankan nilai ini.
+
+Asam dan basa bukan sekadar konsep kimia — mereka adalah bahasa di mana kehidupan berbicara.
+
+---
+
+## 1. Tiga Definisi Asam-Basa
+
+### Arrhenius (1884) — Paling Sempit:
+```
+Asam Arrhenius: menghasilkan H⁺ dalam air
+  HCl → H⁺ + Cl⁻
+  H₂SO₄ → 2H⁺ + SO₄²⁻
+
+Basa Arrhenius: menghasilkan OH⁻ dalam air
+  NaOH → Na⁺ + OH⁻
+  Ca(OH)₂ → Ca²⁺ + 2OH⁻
+
+Keterbatasan: Hanya berlaku dalam larutan air (aqueous)
+  NH₃ basa (Brønsted) tapi bukan Arrhenius yang ketat
+```
+
+### Brønsted-Lowry (1923) — Paling Berguna:
+```
+Asam: Donor proton (H⁺)
+Basa: Akseptor proton (H⁺)
+
+HCl + H₂O → H₃O⁺ + Cl⁻
+  HCl = asam (donor H⁺)
+  H₂O = basa (akseptor H⁺)
+  H₃O⁺ = asam konjugat dari H₂O
+  Cl⁻  = basa konjugat dari HCl
+
+Pasangan asam-basa konjugat:
+  HCl / Cl⁻    asam kuat → basa konjugat sangat lemah
+  CH₃COOH / CH₃COO⁻   asam lemah → basa konjugat medium
+  H₂O / OH⁻   amfoter (bisa asam DAN basa)
+  NH₃ / NH₄⁺  basa / asam konjugat
+```
+
+### Lewis (1923) — Paling Luas:
+```
+Asam Lewis: Akseptor pasangan elektron (Lewis Acid)
+Basa Lewis: Donor pasangan elektron (Lewis Base)
+
+BF₃ + NH₃ → F₃B-NH₃
+  BF₃ = asam Lewis (orbital p kosong di B)
+  NH₃ = basa Lewis (lone pair di N)
+
+Penting untuk kimia koordinasi (logam transisi):
+  Fe³⁺ + 6H₂O → [Fe(H₂O)₆]³⁺
+  Fe³⁺ = asam Lewis, H₂O = basa Lewis (lone pair O)
+
+Mencakup semua reaksi Brønsted-Lowry:
+  H⁺ = asam Lewis (akseptor lone pair) ✓
+```
+
+---
+
+## 2. Kekuatan Asam dan Basa: Ka, Kb, pKa, pKb
+
+```
+Asam Kuat (terionisasi sempurna dalam air):
+  HCl, HBr, HI, H₂SO₄, HNO₃, HClO₄, HClO₃
+
+Asam Lemah (ionisasi parsial):
+  CH₃COOH ⇌ CH₃COO⁻ + H⁺
+  K_a = [CH₃COO⁻][H⁺] / [CH₃COOH]
+
+  K_a untuk CH₃COOH = 1.8 × 10⁻⁵ (pada 25°C)
+
+pKa = -log₁₀(Ka)
+  Ka = 1.8×10⁻⁵ → pKa = 4.74
+
+  Makin kecil pKa → asam makin kuat:
+  HF: pKa=3.17    CH₃COOH: pKa=4.74    H₂CO₃: pKa=6.35
+  NH₄⁺: pKa=9.25  H₂O: pKa=15.74
+
+Basa Lemah:
+  NH₃ + H₂O ⇌ NH₄⁺ + OH⁻
+  K_b = [NH₄⁺][OH⁻] / [NH₃] = 1.8 × 10⁻⁵
+
+Hubungan penting:
+  Ka × Kb = Kw = 1.0 × 10⁻¹⁴ (25°C)
+  pKa + pKb = pKw = 14
+```
+
+---
+
+## 3. Autoionisasi Air dan Skala pH
+
+```
+Air berautoionisasi:
+  H₂O + H₂O ⇌ H₃O⁺ + OH⁻
+
+  Kw = [H₃O⁺][OH⁻] = 1.0 × 10⁻¹⁴ (pada 25°C)
+  (bergantung T: Kw=10⁻¹³·⁸ pada 37°C)
+
+Dalam air murni: [H₃O⁺] = [OH⁻] = 10⁻⁷ M
+
+Skala pH:
+  pH  = -log₁₀[H₃O⁺]
+  pOH = -log₁₀[OH⁻]
+  pH + pOH = pKw = 14.00 (pada 25°C)
+
+Rentang pH:
+  0     1     2     3     4     5     6    7    8    9    10   11   12   13   14
+  |━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|
+  ←─────────────── ASAM ────────────── NETRAL ──────────────── BASA ───────────────→
+  Asam baterai   Jus lemon   Cuka    Kopi   Air  Darah  NaHCO₃   Amonia  NaOH
+  pH 0           pH 2        pH 2.9  pH 5   pH 7  pH7.4  pH 8.3   pH 11   pH 13
+
+Beberapa pH objek nyata:
+  Asam lambung: 1.0-2.0
+  Jeruk lemon: 2.2
+  Cuka: 2.4
+  Jus tomat: 4.2
+  Kopi: 5.0
+  Urin: 4.6-8 (bervariasi)
+  Air hujan "bersih": 5.6 (CO₂ terlarut)
+  Hujan asam: <5.0
+  Darah: 7.35-7.45 (sangat dikontrol!)
+  Air laut: 8.1
+  Soda kue: 8.3
+  Amonia rumah tangga: 11.5
+  ```
+
+---
+
+## 4. Menghitung pH Berbagai Larutan
+
+### Asam Kuat:
+```
+[HCl] = 0.05 M → terionisasi sempurna → [H⁺] = 0.05 M
+pH = -log(0.05) = -log(5×10⁻²) = 2 - log5 = 2 - 0.699 = 1.30
+```
+
+### Asam Lemah:
+```
+CH₃COOH 0.10 M, Ka = 1.8 × 10⁻⁵
+
+CH₃COOH ⇌ CH₃COO⁻ + H⁺
+Awal:    0.10         0      0
+Perubahan: -x        +x     +x
+Setim:   0.10-x      x      x
+
+Ka = x²/(0.10-x) ≈ x²/0.10   (asumsi x << 0.10)
+x² = 1.8×10⁻⁶
+x = 1.34×10⁻³ M = [H⁺]
+
+Cek: 1.34×10⁻³/0.10 = 1.34% < 5% → Asumsi valid! ✓
+pH = -log(1.34×10⁻³) = 2.87
+
+% ionisasi = 1.34%  (asam lemah, ionisasi parsial)
+```
+
+### Basa Lemah:
+```
+NH₃ 0.20 M, Kb = 1.8 × 10⁻⁵
+
+NH₃ + H₂O ⇌ NH₄⁺ + OH⁻
+  0.20           0     0
+  -x             +x    +x
+
+Kb = x²/0.20 → x = √(1.8×10⁻⁵ × 0.20) = √(3.6×10⁻⁶) = 1.90×10⁻³ M = [OH⁻]
+pOH = -log(1.90×10⁻³) = 2.72
+pH = 14 - 2.72 = 11.28
+```
+
+---
+
+## 5. Larutan Buffer: Pelindung pH
+
+```
+Buffer = sistem yang menahan perubahan pH saat asam/basa ditambahkan
+
+Komponen: asam lemah + basa konjugatnya (atau kebalikannya)
+
+Persamaan Henderson-Hasselbalch:
+  pH = pKa + log([A⁻]/[HA])
+  pH = pKa + log([basa konjugat]/[asam])
+
+Contoh — Buffer asetat (CH₃COOH/CH₃COO⁻):
+  0.10 mol CH₃COOH + 0.10 mol CH₃COO⁻ dalam 1L
+  pKa CH₃COOH = 4.74
+  
+  pH = 4.74 + log(0.10/0.10) = 4.74 + 0 = 4.74
+  (Ketika [asam]=[basa konjugat], pH = pKa → titik setengah netralisasi)
+
+Saat ditambah 0.01 mol HCl kuat:
+  HCl + CH₃COO⁻ → CH₃COOH + Cl⁻
+  [CH₃COOH] = 0.10+0.01 = 0.11 M
+  [CH₃COO⁻] = 0.10-0.01 = 0.09 M
+  pH = 4.74 + log(0.09/0.11) = 4.74 + (-0.087) = 4.65
+  → ΔpH = hanya 0.09! (tanpa buffer: pH turun drastis menjadi ~2)
+```
+
+### Kapasitas Buffer:
+```
+Kapasitas buffer maksimum saat [asam] = [basa konjugat] → pH = pKa
+Rentang buffer efektif: pH = pKa ± 1
+
+Buffer darah (H₂CO₃/HCO₃⁻):
+  pKa H₂CO₃ = 6.35
+  Mengapa mengontrol pH darah 7.4? (jauh dari pKa!)
+  
+  Karena rasio [HCO₃⁻]/[H₂CO₃] dijaga = 20:1 oleh paru-paru dan ginjal
+  pH = 6.35 + log(20) = 6.35 + 1.30 = 7.65 → terlalu tinggi (alkालosis)
+  Tapi CO₂ terlarut ↔ H₂CO₃, dan tekanan CO₂ diatur paru-paru
+  pH aktual = 6.1 + log([HCO₃⁻]/[CO₂_terlarut]) ≈ 7.4 ✓
+```
+
+---
+
+## 6. Kesetimbangan Kimia dan Konstanta Kesetimbangan
+
+```
+Untuk reaksi: aA + bB ⇌ cC + dD
+
+Konstanta Kesetimbangan:
+  Kc = [C]^c[D]^d / [A]^a[B]^b    (dalam konsentrasi molar)
+  Kp = P_C^c × P_D^d / P_A^a × P_B^b   (dalam tekanan parsial)
+
+  Kp = Kc(RT)^Δn    Δn = (c+d) - (a+b)
+
+Interpretasi K:
+  K >> 1: kesetimbangan ke kanan (produk dominan)
+  K << 1: kesetimbangan ke kiri (reaktan dominan)
+  K = 1:  campuran sama banyak reaktan dan produk
+```
+
+### Prinsip Le Chatelier:
+```
+"Jika sistem dalam kesetimbangan mengalami gangguan,
+ sistem akan bergeser untuk meminimalkan gangguan tersebut"
+
+Pergeseran karena penambahan reaktan/produk:
+  + Reaktan → bergeser ke kanan (produk lebih banyak)
+  + Produk  → bergeser ke kiri
+
+Pergeseran karena perubahan tekanan (reaksi gas):
+  ↑ P → bergeser ke sisi dengan mol gas lebih SEDIKIT
+  ↓ P → bergeser ke sisi dengan mol gas lebih BANYAK
+
+Pergeseran karena perubahan suhu:
+  ↑ T → bergeser ke arah ENDOTERMIK (menyerap panas)
+  ↓ T → bergeser ke arah EKSOTERMIK
+
+Katalis: TIDAK menggeser kesetimbangan (hanya mempercepat mencapainya)
+
+Contoh — Proses Haber N₂ + 3H₂ ⇌ 2NH₃   ΔH = -92 kJ (eksotermik)
+  P tinggi (150-300 atm) → lebih banyak NH₃ (4 mol gas → 2 mol)
+  T rendah → lebih banyak NH₃ (eksotermik)
+  Tapi T rendah membuat reaksi SANGAT LAMBAT!
+  Kompromi: T=400-500°C (cukup cepat, tidak terlalu kanan)
+  Katalis Fe = kunci ekonomi proses ini
+```
+
+<Quiz
+  question="Buffer asam format (HCOOH, pKa=3.74) terdiri dari 0.30 M HCOOH dan 0.15 M HCOONa. Berapa pH buffer ini?"
+  options={[
+    "3.74",
+    "3.44",
+    "4.04",
+    "7.48"
+  ]}
+  correctAnswer={1}
+  explanation="Henderson-Hasselbalch: pH = pKa + log([HCOO⁻]/[HCOOH]) = 3.74 + log(0.15/0.30) = 3.74 + log(0.5) = 3.74 + (-0.301) = 3.44. Karena lebih banyak asam dari basa konjugat, pH < pKa — sistem lebih asam dari titik setengah netralisasi."
+/>

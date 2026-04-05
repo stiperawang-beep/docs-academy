@@ -1,0 +1,275 @@
+---
+title: "Distribusi Statistik & Uji Hipotesis"
+description: "Menguasai distribusi normal (kurva lonceng), distribusi binomial, uji-t, p-value, interval kepercayaan, dan regresi linear — fondasi analisis data modern dan machine learning."
+icon: "BarChart2"
+order: 3
+---
+
+# Navigasi Ketidakpastian: Distribusi & Uji Hipotesis
+
+Tidak ada pengukuran yang sempurna. Setiap survei, setiap eksperimen, setiap dataset membawa **variasi dan ketidakpastian** yang inheren. Statistik adalah seni dan ilmu **membuat keputusan bermakna dari data yang tidak sempurna**.
+
+Dari uji klinis vaksin COVID-19, analisis polling pemilu, hingga A/B testing fitur aplikasi — semua bergantung pada fondasi yang akan kita bangun di bab ini.
+
+---
+
+## 1. Distribusi Probabilitas: Peta Kejadian Acak
+
+**Distribusi probabilitas** adalah fungsi yang memetakan setiap kemungkinan nilai ke probabilitasnya.
+
+### Distribusi Binomial: Percobaan Sukses/Gagal
+
+Untuk `n` percobaan independen, masing-masing dengan probabilitas sukses `p`:
+
+```
+P(X = k) = C(n,k) × pᵏ × (1-p)ⁿ⁻ᵏ
+
+Mean: μ = np
+Variance: σ² = np(1-p)
+Std Dev: σ = √[np(1-p)]
+```
+
+**Contoh:** Lempar koin adil 10 kali. P(tepat 6 kepala)?
+```
+n=10, k=6, p=0.5
+
+P(X=6) = C(10,6) × (0.5)⁶ × (0.5)⁴
+        = 210 × 0.015625 × 0.0625
+        = 210 × 0.000977
+        ≈ 0.2051 ≈ 20.5%
+```
+
+---
+
+## 2. Distribusi Normal: Kurva Lonceng yang Menguasai Alam
+
+Distribusi paling penting dalam statistik — muncul di mana-mana karena **Central Limit Theorem**:
+
+```
+f(x) = (1/σ√2π) × e^[-(x-μ)²/(2σ²)]
+
+μ = mean (rata-rata) → pusat kurva
+σ = standar deviasi → lebar kurva
+
+Aturan 68-95-99.7 (Empirical Rule):
+  68% data berada dalam μ ± 1σ
+  95% data berada dalam μ ± 2σ
+  99.7% data berada dalam μ ± 3σ
+
+          ┌───────────────────┐
+          │  68%              │
+          │ ┌─────────────┐   │
+          │ │    95%      │   │
+          │ │ ┌─────────┐ │   │
+          │ │ │  99.7%  │ │   │
+     ─────┼─┼─┼─────────┼─┼─┼─────
+       -3σ -2σ -1σ  μ  +1σ +2σ +3σ
+```
+
+### Standardisasi (Z-score):
+
+```
+Z = (X - μ) / σ
+
+Z-score = berapa standar deviasi nilai X dari mean
+Distribusi Normal Standar: N(0, 1) — mean=0, std=1
+```
+
+**Contoh:** Tinggi badan mahasiswa berdistribusi normal, μ=170cm, σ=8cm:
+
+```
+P(tinggi > 186cm) = ?
+
+Z = (186 - 170) / 8 = 16/8 = 2.0
+
+P(Z > 2.0) = 1 - P(Z ≤ 2.0)
+           = 1 - 0.9772
+           = 0.0228 ≈ 2.28%
+
+Hanya 2.28% mahasiswa yang lebih tinggi dari 186cm.
+```
+
+### Tabel Z Kritis yang Sering Digunakan:
+
+| Z | Area kiri (kumulatif) |
+|---|----------------------|
+| -2.576 | 0.005 (0.5%) |
+| -1.960 | 0.025 (2.5%) |
+| -1.645 | 0.050 (5%) |
+| 0 | 0.500 (50%) |
+| 1.645 | 0.950 (95%) |
+| 1.960 | 0.975 (97.5%) |
+| 2.576 | 0.995 (99.5%) |
+
+---
+
+## 3. Central Limit Theorem (CLT): Hukum Ajaib Statistik
+
+> **CLT:** Jika Anda mengambil sampel berukuran n yang cukup besar dari distribusi apapun (apapun bentuknya), maka distribusi rata-rata sampel tersebut akan mendekati distribusi **Normal**.
+
+```
+Jika X₁, X₂, ..., Xₙ adalah sampel independen dari distribusi
+dengan mean μ dan standar deviasi σ, maka:
+
+X̄ (rata-rata sampel) ~ N(μ, σ/√n)
+
+Standard Error: SE = σ/√n
+(Makin besar sampel, makin kecil standar error)
+```
+
+**Implikasi praktis:**
+- Kita tidak perlu tahu distribusi populasi aslinya
+- Hanya perlu sampel cukup besar (biasanya n ≥ 30)
+- Ini yang membuat statistik inferensial bekerja!
+
+---
+
+## 4. Interval Kepercayaan (Confidence Interval)
+
+Bukan hanya rata-rata — kita ingin tahu **rentang yang kemungkinan berisi nilai populasi**:
+
+```
+CI = X̄ ± z* × (σ/√n)
+
+z* = nilai kritis Z:
+  90% CI: z* = 1.645
+  95% CI: z* = 1.960
+  99% CI: z* = 2.576
+```
+
+**Contoh:** Survei kepuasan pelanggan: 200 responden, rata-rata skor = 7.2, σ = 1.5. Buat 95% CI:
+
+```
+SE = σ/√n = 1.5/√200 = 1.5/14.14 ≈ 0.106
+
+95% CI = 7.2 ± 1.960 × 0.106
+       = 7.2 ± 0.208
+       = (6.992, 7.408)
+
+Interpretasi: Kita 95% yakin bahwa rata-rata kepuasan populasi
+berada antara 6.99 dan 7.41.
+```
+
+> [!WARNING] Salah Tafsir CI yang Umum
+> CI 95% **BUKAN** berarti "95% data ada di rentang ini." Yang benar: jika kita ulangi eksperimen 100 kali dan hitung 100 CI, sekitar 95 dari mereka akan berisi nilai populasi asli. Interval yang kita hitung bisa jadi yang 95 itu — atau yang 5 yang meleset.
+
+---
+
+## 5. Uji Hipotesis: Membuat Keputusan dari Data
+
+**Framework Uji Hipotesis:**
+
+```
+H₀ (Hipotesis Null):    "Tidak ada efek/perbedaan"
+H₁ (Hipotesis Alternatif): "Ada efek/perbedaan"
+
+Langkah:
+1. Nyatakan H₀ dan H₁
+2. Tentukan significance level α (biasanya 0.05)
+3. Hitung statistik uji (Z, t, F, χ²)
+4. Hitung p-value
+5. Tolak H₀ jika p-value < α
+```
+
+### Uji-t Satu Sampel:
+
+```
+t = (X̄ - μ₀) / (s/√n)
+
+μ₀ = nilai yang diuji (dari H₀)
+s  = standar deviasi sampel
+n  = ukuran sampel
+
+Derajat kebebasan: df = n - 1
+```
+
+**Contoh:** Klaim: rata-rata berat kemasan 500g. Sampel 25 kemasan: X̄=496g, s=8g. Apakah klaim benar? (α=0.05)
+
+```
+H₀: μ = 500    H₁: μ ≠ 500  (uji dua arah)
+
+t = (496 - 500) / (8/√25)
+  = -4 / (8/5)
+  = -4 / 1.6
+  = -2.5
+
+df = 24
+Nilai kritis t₀.₀₂₅ (two-tailed, df=24) ≈ ±2.064
+
+|t| = 2.5 > 2.064 → TOLAK H₀
+
+Kesimpulan: Ada bukti cukup bahwa rata-rata berat bukan 500g.
+p-value ≈ 0.020 < 0.05 → signifikan!
+```
+
+---
+
+## 6. P-Value: Ukuran Kejutan Data
+
+```
+P-value = P(mendapat data seekstrem ini | H₀ benar)
+
+Kecil (< α=0.05): Data sangat tidak mungkin jika H₀ benar
+                  → kuat menolak H₀
+Besar (> α=0.05): Data cukup mungkin meskipun H₀ benar
+                  → tidak cukup bukti menolak H₀
+```
+
+> [!IMPORTANT] P-value BUKAN Probabilitas H₀ Benar
+> P-value sering disalahpahami. P-value = 0.03 **BUKAN** berarti "probabilitas H₀ benar adalah 3%." Artinya: "Jika H₀ benar, probabilitas mendapat data seekstrem ini adalah 3%." Dua hal yang SANGAT berbeda!
+
+---
+
+## 7. Regresi Linear: Menemukan Tren di Data
+
+**Regresi Linear Sederhana** mencari garis terbaik yang meminimalkan jumlah kuadrat error:
+
+```
+ŷ = a + bx
+
+b (slope)     = [Σ(xᵢ-x̄)(yᵢ-ȳ)] / Σ(xᵢ-x̄)²
+             = Cov(X,Y) / Var(X)           
+             = r × (sy/sx)
+
+a (intercept) = ȳ - b×x̄
+
+r (korelasi)  = Cov(X,Y) / (sx × sy)
+
+R² = r²  ← koefisien determinasi
+   = proporsi variasi Y yang dijelaskan oleh X
+   = 1 berarti fit sempurna, 0 berarti tidak ada hubungan linear
+```
+
+**Contoh:** Data jam belajar (x) vs nilai ujian (y):
+
+| x | 2 | 3 | 5 | 6 | 8 |
+|---|---|---|---|---|---|
+| y | 55 | 65 | 70 | 80 | 90 |
+
+```
+x̄ = 4.8,  ȳ = 72
+
+Σ(xᵢ-x̄)(yᵢ-ȳ) = (-2.8)(-17) + (-1.8)(-7) + (0.2)(-2) + (1.2)(8) + (3.2)(18)
+                = 47.6 + 12.6 - 0.4 + 9.6 + 57.6 = 127
+
+Σ(xᵢ-x̄)² = 7.84 + 3.24 + 0.04 + 1.44 + 10.24 = 22.8
+
+b = 127/22.8 ≈ 5.57
+a = 72 - 5.57×4.8 = 72 - 26.7 ≈ 45.3
+
+Persamaan: ŷ = 45.3 + 5.57x
+
+Prediksi untuk 7 jam belajar: ŷ = 45.3 + 5.57×7 ≈ 84 nilai
+```
+
+<Quiz
+  question="Dalam uji hipotesis, p-value = 0.03 dengan significance level α = 0.05. Apa keputusan yang tepat?"
+  options={[
+    "Gagal menolak H₀ karena p-value > 0",
+    "Tolak H₀ karena p-value < α = 0.05",
+    "Terima H₁ dengan keyakinan 97%",
+    "Tidak dapat membuat keputusan karena p-value terlalu kecil"
+  ]}
+  correctAnswer={1}
+  explanation="Aturan keputusan: Tolak H₀ jika p-value < α. Karena 0.03 < 0.05, kita TOLAK H₀. Perhatian: kita 'menolak H₀' bukan 'menerima H₁' — perbedaan halus tapi penting. Dan p-value = 0.03 TIDAK berarti kita 97% yakin H₁ benar — itu salah tafsir klasik."
+/>

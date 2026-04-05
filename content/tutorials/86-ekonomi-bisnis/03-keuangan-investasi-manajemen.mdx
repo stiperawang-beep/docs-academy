@@ -1,0 +1,410 @@
+---
+title: "Keuangan, Investasi, dan Manajemen Bisnis"
+description: "Konsep nilai waktu uang, NPV dan IRR, penilaian saham dan obligasi, CAPM dan diversifikasi portofolio, laporan keuangan, analisis fundamental dan teknikal, manajemen risiko keuangan, dan keuangan korporasi."
+icon: "DollarSign"
+order: 3
+---
+
+# Keuangan & Investasi: Uang yang Bekerja Keras untuk Anda
+
+"Rule No. 1: Never lose money. Rule No. 2: Never forget Rule No. 1." — Warren Buffett
+
+Namun tentu saja ini bukan sekadar menjaga uang — ini tentang memahami nilai waktu uang, risiko dan imbal hasil, dan bagaimana pasar modal mengalokasikan kapital secara efisien. Keuangan bukan intuisi — ia adalah sains yang memiliki matematika yang presisi.
+
+---
+
+## 1. Nilai Waktu Uang (Time Value of Money)
+
+```
+Konsep Kunci: Rp 1 hari ini lebih berharga dari Rp 1 tahun depan!
+Mengapa?
+  1. Inflasi: daya beli berkurang
+  2. Opportunity cost: bisa diinvestasikan dan tumbuh
+  3. Risiko: masa depan tidak pasti
+
+FUTURE VALUE (FV):
+  FV = PV × (1 + r)^n
+  PV = Present Value (nilai sekarang)
+  r = suku bunga per periode
+  n = jumlah periode
+  
+  Contoh: investasi Rp 100 juta dengan return 10%/tahun selama 5 tahun:
+  FV = 100 × (1.10)^5 = 100 × 1.6105 = Rp 161.05 juta
+  
+  Compound interest (bunga majemuk):
+  "8th Wonder of the World" — Einstein (mungkin apokrif, tapi benar!)
+  Rp 1 juta pada 8% selama 40 tahun: 1 × (1.08)^40 = 21.7 juta!!
+  
+  Aturan 72: waktu dobel ≈ 72 / r%
+  8% per tahun → dobel dalam ≈ 9 tahun
+
+PRESENT VALUE (PV):
+  PV = FV / (1 + r)^n
+  
+  Discount rate (r): biaya modal, tingkat bunga pasar, opportunity cost
+  PV factor: 1/(1+r)^n  → lihat tabel atau hitung langsung
+  
+  Contoh: menerima Rp 161 juta dalam 5 tahun dengan r = 10%:
+  PV = 161 / (1.10)^5 = 161 / 1.6105 = Rp 100 juta
+
+ANNUITY (Anuitas):
+  Pembayaran tetap per periode
+  
+  PV of annuity = PMT × [1 - (1+r)^(-n)] / r
+  FV of annuity = PMT × [(1+r)^n - 1] / r
+  
+  Contoh: kredit KPR Rp 500 juta, 20 tahun, r = 11%/tahun:
+  PMT = 500 × r / [1 - (1+r)^(-n)]
+      = 500 × 0.11/12 / [1 - (1+0.11/12)^(-240)]
+      = 500 × 0.00917 / [1 - 0.1120]
+      = 500 × 0.00917 / 0.888
+      = 5.16 juta/bulan
+  
+  Total dibayar: 5.16 × 240 = Rp 1,238 juta (vs pokok Rp 500 juta = bunga Rp 738 juta!)
+
+PERPETUITY:
+  Anuitas tanpa batas waktu (selamanya)
+  PV = PMT / r
+  Contoh: "Konsol" obligasi Inggris yang membayar £50/tahun selamanya, r = 5%:
+  PV = £50 / 0.05 = £1,000
+  
+  Valuation saham dengan DDM (Dividend Discount Model — tidak tumbuh):
+  P = D / r  [D = dividen, r = required return]
+```
+
+---
+
+## 2. Penilaian Proyek Investasi
+
+```
+NPV (Net Present Value):
+  NPV = Σ [CF_t / (1+r)^t] - Initial Investment
+      = PV of all future cash flows - Cost of investment
+  
+  If NPV > 0: invest! (akan menambah nilai perusahaan)
+  If NPV < 0: tolak! (merusak nilai)
+  If NPV = 0: indiferent (tepat memenuhi required return)
+  
+  Contoh proyek mesin baru:
+  Cost awal: Rp 1 milyar
+  CF tahun 1-5: Rp 300 juta/tahun
+  r = 12%
+  
+  NPV = 300/(1.12) + 300/(1.12)² + ... + 300/(1.12)^5 - 1000
+      = 300 × PV annuity factor (12%, 5 tahun) - 1000
+      = 300 × 3.6048 - 1000
+      = 1081.43 - 1000
+      = +Rp 81.43 juta
+  → ACCEPT! NPV positif
+
+IRR (Internal Rate of Return):
+  Suku bunga r yang membuat NPV = 0
+  Solve: 0 = Σ [CF_t / (1+IRR)^t] - C₀
+  
+  Tidak bisa diselesaikan secara analitis untuk lebih dari 2 periode → trial and error / Excel IRR()
+  
+  Decision rule: Jika IRR > Cost of Capital (WACC) → accept
+  
+  Masalah dengan IRR:
+  - Multiple IRR jika cash flows berganti tanda lebih dari sekali!
+  - Tidak cocok untuk mutually exclusive projects dengan skala berbeda
+  - Asumsi reinvestment rate = IRR (tidak realistis untuk IRR tinggi)
+  
+  → NPV LEBIH SUPERIOR dalam teori, tapi IRR lebih intuitif (%) bagi manajer non-keuangan
+
+MIRR (Modified IRR):
+  Tangani masalah IRR: asumsikan CF positif direinvest pada WACC, CF negatif di-finance pada r_f
+  
+Payback Period:
+  Berapa tahun sampai investasi balik modal?
+  Sederhana tapi MENGABAIKAN time value of money!
+  
+  Discounted Payback: payback menggunakan PV cash flows → lebih baik
+  
+  Digunakan sebagai secondary metric, bukan primary decision tool
+
+Profitability Index (PI):
+  PI = PV of future CF / Initial Investment
+  PI > 1 → accept (sama dengan NPV > 0)
+  Berguna untuk capital rationing: ranked projects berdasarkan PI per rupiah investasi
+```
+
+---
+
+## 3. Penilaian Saham dan Obligasi
+
+```
+OBLIGASI (Bond):
+
+Struktur:
+  Par/Face Value (F): nilai nominal (Rp 1 juta, $1,000)
+  Coupon Rate: bunga tahunan dibayar periodik (misal 8% → Rp 80,000/tahun dari Rp 1 juta)
+  Maturity: jatuh tempo (5, 10, 30 tahun)
+  Yield to Maturity (YTM): return jika dipegang sampai jatuh tempo
+
+Harga Obligasi:
+  P = C × [1-(1+y)^(-n)] / y + F / (1+y)^n
+  C = kupon periodik, y = YTM, n = periode, F = face value
+  
+  Hubungan harga-yield: INVERSE!
+  Yield naik → harga turun (dan sebaliknya)
+  
+  Ketika suku bunga pasar naik:
+  Obligasi lama yang kuponnya lebih rendah jadi kurang menarik → harganya turun!
+  
+  Duration: sensitivitas harga obligasi terhadap perubahan yield
+  Duration tinggi (obligasi jangka panjang / kupon rendah) → lebih sensitif terhadap perubahan suku bunga
+  Investor obligasi sangat memperhatikan duration untuk manajemen risiko suku bunga!
+
+SAHAM (Equity):
+
+Dividend Discount Model (DDM):
+  P₀ = D₁ / (r - g)   [Gordon Growth Model]
+  D₁ = dividen tahun depan
+  r = required return on equity
+  g = growth rate dividen yang konstan
+  
+  Syarat: r > g (tidak bisa ada pertumbuhan lebih cepat dari discount rate selamanya!)
+  
+  Contoh: P&G dividen $3.65/share, r = 10%, g = 5%:
+  P₀ = $3.65 / (0.10 - 0.05) = $3.65 / 0.05 = $73
+
+Price Multiples:
+  
+  P/E (Price-to-Earnings):
+  P/E = Harga Saham / EPS (Earnings Per Share)
+  P/E rendah → "cheap" relative to earnings (potensially undervalued)
+  P/E tinggi → growth expectations atau overvalued
+  
+  S&P 500 average P/E ~ 15-20 (historical); 2021: ~30 (overvalued?)
+  
+  EV/EBITDA: Enterprise Value / Earnings Before Interest, Tax, Depreciation, & Amortization
+  Lebih baik dari P/E untuk membandingkan perusahaan dengan struktur modal berbeda
+  
+  P/B (Price-to-Book):
+  P/B = Harga / Book Value per share (net assets)
+  Berguna untuk perusahaan keuangan, asuransi, real estate
+  
+  DCF (Discounted Cash Flow) Valuation:
+  Paling akurat secara teoritis
+  Hitung FCF (Free Cash Flow) untuk 5-10 tahun → terminal value → PV semua
+  Sangat sensitif terhadap asumsi terminal growth rate dan discount rate!
+  "Garbage in, garbage out"
+```
+
+---
+
+## 4. Risiko dan Return — CAPM
+
+```
+Return dan Risiko:
+  Expected Return: E(r) = Σ [p_i × r_i]
+  Variance: σ² = Σ [p_i × (r_i - E(r))²]
+  Standard Deviation: σ = √Variance
+  
+  Sharpe Ratio = (E(r) - r_f) / σ  [excess return per unit risk]
+  Makin tinggi Sharpe Ratio, makin efisien portofolio!
+
+Diversifikasi Portofolio (Markowitz, 1952 — Nobel 1990):
+  Gabungkan aset dengan korelasi < 1 → risiko portofolio TURUN
+  Rumus varians portofolio 2 aset:
+  
+  σ_p² = w_A²σ_A² + w_B²σ_B² + 2 w_A w_B σ_A σ_B ρ_AB
+  ρ_AB = koefisien korelasi antara A dan B
+  
+  Jika ρ = -1 (perfectly negative correlated) → σ_p bisa = 0!
+  Jika ρ = +1 → tidak ada manfaat diversifikasi
+  
+  Efficient Frontier: set portofolio dengan expected return maksimum untuk setiap tingkat risiko
+  Capital Market Line (CML): tambahkan aset bebas risiko → set optimal menjadi garis lurus!
+
+Systematic vs Unsystematic Risk:
+  Systematic (market risk): tidak bisa diversifikasi (resesi, inflasi, suku bunga naik)
+  Unsystematic (firm-specific): bisa diversifikasi! (CEO resign, lawsuit satu perusahaan)
+  
+  Dengan diversifikasi cukup (~20-30 saham random) → unsystematic tereliminasi!
+  Yang tersisa: systematic risk saja → yang BENAR-BENAR harus dikompensasi
+
+Beta (β) — Ukuran Systematic Risk:
+  β = Cov(r_i, r_m) / Var(r_m)
+  r_i = return aset, r_m = return market
+  
+  β = 1: bergerak sama persis dengan pasar
+  β > 1: lebih volatile dari pasar (tech stocks, startup)
+  β < 1: lebih stabil dari pasar (utilities, consumer staples)
+  β = 0: tidak berhubungan dengan pasar (T-bills)
+  β < 0: berlawanan dengan pasar (gold, VIX ETF) — rare!
+
+CAPM (Capital Asset Pricing Model — Sharpe 1964, Treynor):
+  E(r_i) = r_f + β_i × [E(r_m) - r_f]
+  
+  r_f = risk-free rate (T-bill atau obligasi pemerintah)
+  E(r_m) - r_f = market risk premium (equity risk premium): historis ~5-7% per tahun
+  β_i × [E(r_m) - r_f] = risk premium untuk systematic risk
+  
+  Contoh: β = 1.5, r_f = 5%, market premium = 6%:
+  E(r) = 5% + 1.5 × 6% = 5% + 9% = 14%
+  → Investor butuh 14% return dari saham ini untuk mau berinvestasi!
+  
+  Jika expected return aktual < 14% → saham OVERVALUED (jual)
+  Jika expected return aktual > 14% → saham UNDERVALUED (beli)
+  
+  Security Market Line (SML): grafik CAPM (β di X-axis, E(r) di Y-axis)
+  Alpha (α): return di atas SML → kemampuan manajer mengalahkan pasar!
+
+Efficient Market Hypothesis (EMH) — Fama 1970, Nobel 2013:
+  Weak form: harga mencerminkan semua informasi historis → analisis teknikal tidak berguna
+  Semi-strong: harga mencerminkan semua informasi publik → analisis fundamental tidak berguna
+  Strong form: termasuk informasi privat → insider trading pun tidak memberikan return berlebih
+  
+  Implikasi: sulit "mengalahkan pasar" secara konsisten → index investing!
+  Counter: Warren Buffett, Renaissance Technologies... tapi survivor bias? atau anomaly?
+  
+  Market anomalies: momentum, value premium, small-cap premium → Fama-French 3-factor + 5-factor model
+```
+
+---
+
+## 5. Laporan Keuangan Perusahaan
+
+```
+BALANCE SHEET (Neraca):
+  Assets = Liabilities + Equity   (persamaan akuntansi dasar!)
+  
+  Assets:
+    Current Assets: kas, piutang, persediaan (< 1 tahun)
+    Non-current: aset tetap (properti, mesin), intangible (goodwill, merek), investasi jangka panjang
+  
+  Liabilities:
+    Current: utang dagang, utang bank jangka pendek (< 1 tahun)
+    Non-current: obligasi, pinjaman jangka panjang (> 1 tahun)
+  
+  Equity: modal disetor, retained earnings (laba ditahan), treasury stock
+
+INCOME STATEMENT (Laporan Laba Rugi):
+  Revenue (Pendapatan)
+  - Cost of Goods Sold (COGS/HPP)
+  = Gross Profit (Laba Kotor)
+  - Operating Expenses (OPEX): SGA, R&D, Marketing
+  = EBIT (Earnings Before Interest and Tax) = Operating Income
+  - Interest Expense
+  = EBT (Earnings Before Tax)
+  - Tax
+  = Net Income (Laba Bersih)
+  
+  Margin analysis:
+  Gross margin = Gross Profit / Revenue
+  Operating margin = EBIT / Revenue
+  Net margin = Net Income / Revenue
+  
+  EBITDA = EBIT + Depreciation + Amortization
+  → Proxy untuk operating cash flow, digunakan dalam valuation
+
+CASH FLOW STATEMENT (Laporan Arus Kas):
+  CFO (Operating): kas dari operasi bisnis inti
+  CFI (Investing): kas dari beli/jual aset, investasi
+  CFF (Financing): kas dari utang, ekuitas, dividen
+  
+  Net change in cash = CFO + CFI + CFF
+  
+  Perusahaan dengan Net Income positif tapi CFO negatif → WARNING!
+  (Mungkin acrual terlalu agresif atau cash conversion problems)
+  
+  Free Cash Flow (FCF) = CFO - Capital Expenditure (CAPEX)
+  → "Kas yang benar-benar tersedia untuk investor"!
+
+Rasio Keuangan:
+
+  Profitabilitas:
+  ROE = Net Income / Equity   (return on equity)
+  ROA = Net Income / Total Assets   (return on assets)
+  ROIC = NOPAT / Invested Capital   (most informative)
+  
+  DuPont Analysis:
+  ROE = (Net Income/Revenue) × (Revenue/Assets) × (Assets/Equity)
+      = Net Margin × Asset Turnover × Leverage
+  
+  Likuiditas:
+  Current Ratio = Current Assets / Current Liabilities  (> 1 = aman)
+  Quick Ratio = (Current Assets - Inventory) / Current Liabilities  (lebih konservatif)
+  Cash Ratio = Cash / Current Liabilities  (paling konservatif)
+  
+  Solvabilitas:
+  Debt/Equity = Total Debt / Total Equity
+  Interest Coverage = EBIT / Interest Expense  (> 3 = aman)
+  
+  Efisiensi:
+  Inventory Turnover = COGS / Average Inventory
+  Days Sales Outstanding (DSO) = Accounts Receivable / (Revenue/365)
+  Asset Turnover = Revenue / Total Assets
+```
+
+---
+
+## 6. Manajemen Risiko Keuangan
+
+```
+WACC (Weighted Average Cost of Capital):
+  WACC = (E/V) × r_e + (D/V) × r_d × (1-T)
+  V = E + D  (total value = ekuitas + utang)
+  r_e = cost of equity (CAPM)
+  r_d = cost of debt (yield obligasi)
+  T = tax rate
+  
+  Interest tax shield: bunga utang mengurangi pajak → cost of debt after-tax lebih rendah!
+  WACC digunakan sebagai discount rate dalam DCF valuation
+  
+  Optimal Capital Structure: Modigliani-Miller (MM, 1958/1963):
+  Dengan pajak: utang memberi tax shield → value leverage > unlevered
+  Trade-off theory: benefit tax shield vs cost financial distress → optimal D/E ratio!
+  Pecking order theory: prefer internal financing → utang → ekuitas (signaling cost)
+
+Derivatif untuk Hedging:
+
+  Forward/Futures:
+    Forward: kustom, OTC, tanda (pengirim membeli mata uang asing di masa depan)
+    Futures: terstandarisasi, exchange-traded, mark-to-market harian
+    
+    Lindung nilai risiko kurs: eksportir mau jual USD 3 bulan ke depan
+    → Jual USD forward → terkunci apapun yang terjadi pada USD/IDR!
+  
+  Options:
+    Call: hak (bukan kewajiban) BELI aset pada harga strike
+    Put: hak (bukan kewajiban) JUAL aset pada harga strike
+    
+    Black-Scholes Formula (1973, Nobel 1997 Scholes & Merton):
+    C = S₀N(d₁) - Ke^(-rt)N(d₂)
+    d₁ = [ln(S₀/K) + (r + σ²/2)t] / (σ√t)
+    d₂ = d₁ - σ√t
+    S₀ = harga saham sekarang, K = strike price, σ = volatilitas, t = waktu ke expiry
+    N(d) = cumulative normal distribution
+    
+    Greeks:
+    Delta (Δ): sensitivitas harga option terhadap perubahan harga underlying
+    Gamma (Γ): perubahan delta terhadap perubahan harga
+    Theta (Θ): time decay — option kehilangan value seiring waktu berlalu ("passing time")
+    Vega (ν): sensitivitas terhadap volatilitas (bukan huruf Yunani — matematika keuangan punya "vega" sendiri!)
+
+  Swap:
+    Interest Rate Swap: tukar aliran bunga fixed vs floating
+    Currency Swap: tukar denominasi utang
+    Credit Default Swap (CDS): asuransi default — berperan besar dalam krisis 2008!
+    
+  VaR (Value at Risk):
+    VaR (95%, 1 hari) = kerugian maksimum yang akan terjadi dalam 95% kasus, dalam 1 hari
+    Banyak digunakan bank untuk risk management
+    Kelemahan: gagal capture tail risk (black swan events!)
+    Expected Shortfall (CVaR): rata-rata kerugian di atas VaR → lebih baik
+```
+
+<Quiz
+  question="Sebuah obligasi memiliki face value Rp 1.000.000, kupon 8% per tahun, dan jatuh tempo 5 tahun. Jika yield to maturity pasar naik dari 8% menjadi 10%, apa yang terjadi pada harga obligasi dan mengapa?"
+  options={[
+    "Harga naik karena yield lebih tinggi menurunkan opportunity cost memegang obligasi",
+    "Harga tidak berubah karena kupon tetap sama besarnya setiap tahun",
+    "Harga TURUN di bawah Rp 1.000.000, karena arus kas obligasi (kupon dan face value) yang tetap harus di-discount dengan rate lebih tinggi, menghasilkan PV yang lebih kecil. Pembeli baru minta harga lebih rendah agar return setara yield pasar 10%",
+    "Harga naik karena obligasi kupon 8% sekarang lebih langka dan dicari"
+  ]}
+  correctAnswer={2}
+  explanation="Hubungan harga obligasi dan yield adalah INVERSE (berlawanan). Harga obligasi = PV semua arus kas di-discount pada YTM. Ketika YTM naik dari 8% ke 10%, kita mendiscount arus kas yang SAMA (kupon Rp 80,000/tahun + FV Rp 1,000,000) dengan rate LEBIH TINGGI → PV lebih kecil. Hitung: P = 80,000 × [1-(1.10)^(-5)]/0.10 + 1,000,000/(1.10)^5 = 80,000 × 3.7908 + 620,921 = 303,265 + 620,921 = Rp 924,186 (< Rp 1,000,000). Intuisi: investor bisa beli obligasi baru di pasar yang offer 10%. Obligasi lama dengan kupon hanya 8% kurang menarik → harganya harus turun sampai effective yield-nya sama dengan pasar (10%). 'Ketika yield naik, harga turun' adalah aturan fundamental fixed income!"
+/>

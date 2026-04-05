@@ -1,0 +1,378 @@
+---
+title: "Biologi Molekuler: DNA, RNA, dan Ekspresi Gen"
+description: "Struktur DNA double helix, replikasi DNA, transkripsi dan translasi (dogma sentral), regulasi ekspresi gen pada prokariota (operon) dan eukariota (enhancer, faktor transkripsi), RNA processing, dan epigenetik."
+icon: "Dna"
+order: 2
+---
+
+# Biologi Molekuler: Kode Rahasia Kehidupan
+
+Di dalam setiap sel tubuh Anda terdapat ~2 meter DNA yang dipadatkan sempurna dalam inti berukuran 6 mikrometer. DNA ini berisi sekitar 3.2 miliar "huruf" yang mengkode ~20,000-25,000 gen — tetapi hanya sekitar 1.5% yang merupakan urutan pengkode protein. Selebihnya? Dulu disebut "junk DNA". Sekarang kita tahu lebih baik.
+
+---
+
+## 1. Struktur DNA: Double Helix Watson-Crick
+
+```
+Sejarah:
+  1869 — Friedrich Miescher menemukan "nuclein" dari nanah → pertama kali DNA
+  1944 — Avery, MacLeod, McCarty: DNA adalah material GENETIK (bukan protein!)
+  1950 — Chargaff Rules: A=T, G=C (jumlah purin = pirimidin)
+  1952 — Rosalind Franklin: foto sinar-X difraksi → serat heliks
+  1953 — Watson & Crick: model double helix (berbasis data Franklin yang kontroversial)
+  1962 — Nobel diberikan ke Watson, Crick, Wilkins (Franklin sudah meninggal, tidak dihitung)
+
+Struktur Nukleotida:
+  Base (basa nitrogen) + Gula deoksiribosa + Fosfat
+  
+  Purin (2 cincin): Adenin (A), Guanin (G) → lebih BESAR
+  Pirimidin (1 cincin): Timin (T), Sitosin (C) → lebih KECIL
+  
+  Pasangan basa (ikatan hidrogen):
+    A — T: 2 ikatan hidrogen  (lebih lemah)
+    G — C: 3 ikatan hidrogen  (lebih kuat)
+    
+    DNA kaya GC: lebih stabil terhadap suhu tinggi
+    PCR primers: Tm ≈ 4°C × (G+C) + 2°C × (A+T)  [untuk pendek < 20 bp]
+
+Dimensi Helix:
+  Heliks berputar ke KANAN (righthanded)
+  Satu putaran penuh: 10.5 pasang basa, tinggi ~3.4 nm
+  Diameter: ~2 nm
+  Major groove (lebar) dan minor groove (sempit)
+  → Protein regulasi mengenal urutan DNA melalui groove ini!
+
+Polaritas:
+  Setiap untai DNA punya arah: 5'→3'
+  Kedua untai ANTI-PARALEL: satu 5'→3', untai komplemennya 3'→5'
+  Selalu ditulis dari 5' ke 3'!
+```
+
+### Kemasan DNA dalam Inti:
+
+```
+Tantangan: Memadatkan 2 meter DNA ke dalam inti 6 μm!
+Rasio pemadatan: 2 meter → 6 μm = 10,000× lebih kecil
+
+Tingkatan kemasan:
+  Level 1: DNA + Histon → NUKLEOSOM (10 nm fiber)
+    8 protein histon (H2A, H2B, H3, H4 masing-masing 2 kopi = oktamer)
+    146 bp DNA melilit 1.65 kali di sekitar oktamer histon
+    "Manik-manik di tali" (beads on a string)
+    
+  Level 2: Nukleosom → 30 nm fiber (solenoid atau zig-zag)
+    H1 histon terhubung antara nukleosom → membantu pemadatan
+    
+  Level 3: 30 nm → Looping (scaffold) ~300 nm
+  Level 4: Looping → Coiling ~700 nm
+  Level 5: Kromosom metafase ~1400 nm (kondensasi maksimal)
+
+Histon dan Kode Histon:
+  Ujung N-terminal histon menonjol keluar → aksesibel!
+  Modifikasi histon (ekor histon):
+    Asetilasi K: +asetil pada lisin → chromatin terbuka (eu) → gen AKTIF
+    Metilasi K: bergantung posisi → bisa aktif atau diam
+    Fosforilasi S: H2AX-Ser139 (γH2AX) → tanda kerusakan DNA!
+    Ubiquitinasi: H2B-K120 → penting untuk transkripsi
+  
+  "Kode Histon": kombinasi modifikasi → epigenome yang kompleks!
+```
+
+---
+
+## 2. Replikasi DNA: Menyalin 3 Miliar Huruf dengan Akurasi Luar Biasa
+
+```
+Replikasi Semi-konservatif (Meselson-Stahl, 1958):
+  Setiap untai lama menjadi template untuk untai baru
+  Hasil: 2 DNA anak, masing-masing SATU untai lama + SATU baru
+
+Prinsip Kunci:
+  Replikasi hanya bisa 5' → 3' (DNA polimerase hanya bisa tambah nukleotida di ujung 3'-OH)
+  Butuh PRIMER RNA pendek terlebih dahulu (dibuat oleh primase)
+
+Komponen Replikasi DNA (E. coli sebagai model):
+
+  Helicase (DnaB): membuka pilin DNA (memutus ikatan hidrogen A-T, G-C)
+                   bergerak 5'→3' pada untai lagging template
+  SSB (Single-Strand Binding): menstabilkan untai tunggal yang terbuka
+  Topoisomerase: mengatasi super-coiling akibat helicase
+    Topo I: memutus 1 untai (nick), memutar, menyambung
+    Topo II: memutus 2 untai, lewatkan segmen, sambung → penting untuk replikasi dan mitosis!
+  Primase: membuat primer RNA pendek (8-12 bp) → dibutuhkan untuk DNA polimerase
+  DNA Pol III: utama, akurasi tinggi, bekerja 5'→3'
+  DNA Pol I: mengganti primer RNA dengan DNA
+  DNA Ligase: menyambung fragmen Okazaki
+
+Leading vs Lagging Strand:
+  Leading strand: sintesis KONTINU 5'→3' mengikuti helicase (mudah!)
+  Lagging strand: sintesis DISKONTINU — FRAGMEN OKAZAKI!
+    Setiap 1000-2000 bp: primer baru → DNA pol → fragmen pendek → ligasi
+    → Lebih lambat dan kompleks dari leading strand
+
+Akurasi Replikasi:
+  Proofreading: DNA Pol punya aktivitas 3'→5' exonuclease — cek digit terakhir!
+  Mismatch repair (MMR): enzim scan DNA baru → perbaiki salah pasang
+  
+  Error rate akhir: 1 per 10⁹-10¹⁰ bp!! (sangat akurat)
+  Tanpa proofreading: 1 per 10⁵ bp (masih luar biasa tapi tidak cukup)
+
+PCNA (Proliferating Cell Nuclear Antigen):
+  "Cincin gelincir" (sliding clamp): cincin trimer mengelilingi DNA
+  → Mengangkut DNA Pol III terikat di DNA → hindari pol lepas dari template!
+```
+
+---
+
+## 3. Dogma Sentral Biologi Molekuler
+
+```
+Crick, 1958:
+
+  DNA → RNA → Protein
+  
+  Replikasi  Transkripsi  Translasi
+   (DNA→DNA)   (DNA→RNA)  (RNA→Protein)
+
+Revisi Modern (ada pengecualian!):
+  RNA → RNA   : replikasi RNA virus
+  RNA → DNA   : REVERSE TRANSCRIPTASE (retrovirus HIV!)
+  DNA → Protein: dalam sistem bebas sel tertentu (bukan jalur alami utama)
+```
+
+---
+
+## 4. Transkripsi: DNA → RNA
+
+```
+RNA Polymerase:
+  Prokariota: satu RNA Pol (core: α₂ββ'ω + faktor sigma untuk promoter)
+  Eukariota: TIGA RNA Pol berbeda!
+    RNA Pol I: rRNA (ribosomal) → 28S, 18S, 5.8S
+    RNA Pol II: mRNA (untuk protein) + snRNA + miRNA
+    RNA Pol III: tRNA + 5S rRNA + snRNA kecil
+
+PROMOTER (tempat RNA Pol menempel):
+  
+  Prokariota:
+    -35 box: TTGACA (konsensus)
+    -10 box (Pribnow): TATAAT (konsensus)
+    Spacer antara keduanya: 17 bp optimal
+  
+  Eukariota (lebih kompleks):
+    TATA box: TATAAA, ~30 bp upstream dari TSS
+    Injector Promoter Element (IPE), GC box, CAAT box
+    Faktor transkripsi umum (GTF): TFIID, TFIIB, TFIIH, dll
+    TFIID mengenal TATA box → merekrut GTF lain → RNA Pol II
+    
+    Enhancer: bisa ribuan bp jauh dari TSS, bekerja dalam dua orientasi!
+    → Looping DNA mendekatkan enhancer ke promoter
+
+Tahapan Transkripsi:
+  Inisiasi: RNA Pol + sigma (pro) atau GTF (eu) → menempel promoter
+             DNA terbuka (transkrip bubble ~17 bp)
+  Elongasi: RNA disintesis 5'→3', komplemen dengan template (3'→5')
+             Basa RNA: A, U, G, C (bukan T, tapi URASIL!)
+  Terminasi:
+    Prokariota: intrinsik (struktur jepit rambut GC + U-run) atau Rho-dependent
+    Eukariota: poli-A sinyal (AAUAAA) → cleaving + poli-A tail + terminasi
+
+mRNA Eukariota — Processing (Pematangan):
+  TERJADI DI INTI sebelum mRNA pergi ke sitoplasma!
+  
+  1. 5' Capping: Tambah 7-metilguanosin (m7G) di ujung 5'
+     → Perlindungan dari degradasi, membantu ribosom mengenali mRNA
+  
+  2. 3' Polyadenylation: tambah 150-250 Adenin setelah pemotongan
+     → Stabulitas mRNA, ekspor dari inti, translasi
+  
+  3. RNA Splicing: Intron dibuang, Ekson digabung!
+     Dilakukan oleh SPLICEOSOME (snRNA U1, U2, U4, U5, U6 + ~150 protein)
+     Lariat intermediate: intron dipotong dalam bentuk lariat (lazo)
+     
+     Alternative Splicing! (penting sekali):
+       Gen yang sama → mRNA berbeda tergantung sel/kondisi
+       Contoh: gen troponin T → otot jantung dan rangka ambil ekson berbeda!
+       ~95% gen manusia mengalami alternative splicing → satu gen → banyak protein!
+```
+
+---
+
+## 5. Translasi: RNA → Protein
+
+```
+Kode Genetik:
+  3 nukleotida (kodon) → 1 asam amino
+  64 kodon untuk 20 asam amino → REDUNDANT (degenerate)
+  
+  AUG = kodon start (methionin, juga ATG di sense strand)
+  UAA, UAG, UGA = STOP kodon (tidak kode asam amino)
+  
+  Tabel kodon:
+    UUU, UUC = Phenylalanin (F)
+    UAU, UAC = Tyrosin (Y)
+    GAU, GAC = Aspartat (D)  → asam
+    AAA, AAG = Lisin (K)     → basa
+    UGG       = Triptofan (W) — SATU-SATUNYA kodon tunggal!
+    
+  Kode genetik = UNIVERSAL (hampir semua makhluk hidup!)
+  Pengecualian: mitokondria, ciliata (beberapa kodon stop dikode sebagai asam amino)
+
+Komponen Translasi:
+  
+  Ribosom: mesin translasi
+    Prokariota: 70S = 50S (23S rRNA + 5S rRNA + 31 protein)
+                      + 30S (16S rRNA + 21 protein)
+    Eukariota: 80S = 60S (28S, 5.8S, 5S rRNA + 49 protein)
+                   + 40S (18S rRNA + 33 protein)
+    
+    Situs A (Aminoacyl): menerima tRNA baru
+    Situs P (Peptidyl): pegang tRNA yang membawa peptida tumbuh
+    Situs E (Exit): tRNA kosong pergi
+
+  tRNA: adaptor antara kodon dan asam amino
+    Struktur klover-leaf → berbentuk L dalam 3D
+    Antikodon: 3 nukleotida yang komplemen dengan kodon
+    Ujung 3'-CCA: tempat asam amino diikat (ester bond)
+    Aminoacyl-tRNA synthetase: enzim yang "charge" tRNA dengan asam amino yang benar!
+    (20 enzim berbeda — ini yang memastikan keakuratan kode genetik)
+
+Tahapan Translasi:
+  
+  Inisiasi:
+    Prokariota: Shine-Dalgarno sequence (purin-kaya, ~10 bp upstream AUG)
+               menempel ke 16S rRNA → ribosom diposisikan di AUG
+    Eukariota: Cap-dependent scanning → 40S + eIF4F (cap binding) → scan 5'→3'
+               Cari AUG pertama dalam konteks baik (Kozak: (A/G)CCAUGG)
+    
+    fMet-tRNA (pro) atau Met-tRNA (eu) → masuk ke situs P di AUG start
+    
+  Elongasi:
+    1. tRNA baru (charged) masuk A site → antikodon cocokkan kodon
+    2. Peptidyl transferase (rRNA aktif! = ribozim!) → transfer peptida ke tRNA di A
+    3. Translokasi: ribosom geser 1 kodon ke 3' → A→P→E
+    4. tRNA kosong pergi dari E site
+    Laju: ~15-20 asam amino/detik (di eukariota)
+    
+  Terminasi:
+    Kodon stop → TIDAK ADA tRNA yang cocok!
+    Release factor (RF1/RF2 di pro, eRF1 di eu) masuk A site
+    Peptida dilepas, ribosom terdisosiasi
+
+Post-Translational Modification (PTM):
+  Protein TIDAK langsung fungsional setelah translasi!
+  Phosphorylation: Ser/Thr/Tyr → signal transduction
+  Glycosylation: N-linked atau O-linked → folding, trafficking
+  Ubiquitination: tag untuk degradasi (proteasome)
+  Lipidation: myristoylation, palmitoylation → membran targeting
+  Proteolytic cleavage: fibrinogen → fibrin (koagulasi), insulin
+  Folding: protein chaperone (Hsp70, GroEL/GroES) membantu folding!
+```
+
+---
+
+## 6. Regulasi Ekspresi Gen
+
+### Prokariota — Operon:
+
+```
+Operon lac (lactose operon) — contoh klasik regulasi gen!
+
+Tanpa laktosa, ada glukosa:
+  Represor (LacI) terikat operator → blok RNA Pol → gen MATI
+  cAMP rendah (karena glukosa) → CAP (CRP) tidak aktif → gen MATI
+  
+Dengan laktosa, tanpa glukosa:
+  Inducer (allolaktosa) mengikat represor → konfirmasi berubah → LEPAS dari operator!
+  cAMP tinggi → CAP-cAMP terikat CRP site → RNA Pol dibantu → gen AKTIF!
+  
+Operon trp — contoh represi:
+  Triptofan (end product) sebagai KOREPRESOR
+  Triptofan tinggi → berikatan dengan represor apoTrpR → trpR-operon dimatikan
+  Triptofan rendah → apoTrpR inaktif → gen bisoitesis trpA-E AKTIF
+```
+
+### Eukariota — Lebih Kompleks:
+
+```
+Faktor Transkripsi Spesifik:
+  Mengenal motif DNA spesifik di promoter/enhancer
+  Motif DNA-binding domain:
+    Zinc finger: Zn²⁺ terkoordinasi Cys/His → ujung jari masuk major groove
+    Helix-turn-helix (HTH): dalam homeobox protein
+    bHLH (basic Helix-Loop-Helix): dimerisasi, dimerisme perlu untuk binding
+    Leucine zipper (bZIP): ritual ritme! (CREB untuk cAMP response)
+  
+  Activation domain: merekrut koaktivator, MEDIATOR complex
+  Repression domain: merekrut corepressor, HDAC → deasetilasi histon → chromatin tertutup
+
+Enhancer dan Silencer:
+  Enhancer bisa ratusan kb jauh dari gen → looping!
+  Insulator/boundary elements: memisahkan domain topologis (TAD — Topologically Associating Domain)
+  → Looping DNA dalam TAD = foundasi organisasi genom 3D (Hi-C techinque)
+
+Epigenetik (di luar urutan DNA):
+  Metilasi DNA: 5-metilsitosin (5mC) di CpG dinukleotida
+    → biasanya MEREDAM gen
+    CpG island (promoter): tidak termetilasi = gen aktif
+    Metilasi DNA: diwariskan (epigenetik transgenerasi!)
+    
+  Histon modifications (lihat section sebelumnya)
+  Chromatin remodeling: SWI/SNF, ISWI → repositioning nukleosom
+  
+  Epigenetik dan Kanker:
+    Hipermetilasi CpG island tumor supressor gen (p16, MLH1, BRCA1)
+    → Gen antitumor diam → kanker bisa berkembang
+    Hipometilasi global → aktivasi protoonkogen, instabilitas genom
+```
+
+---
+
+## 7. RNA Non-Koding
+
+```
+REVOLUSI RNA — ternyata sebagian besar RNA tidak mengkode protein!
+
+miRNA (microRNA):
+  ~22 nukleotida
+  Dibuat dari pre-miRNA (hairpin) → Dicer memproses → RISC (RNA-induced silencing)
+  RISC + miRNA: mengenal sekuens 3'UTR mRNA target → degradasi atau blokir translasi
+  ~60% gen manusia diregulasi miRNA!
+  1 miRNA bisa mengatur ratusan gen berbeda
+
+siRNA (small interfering RNA):
+  ~21-23 bp double-stranded RNA
+  RNAi (RNA interference): dsRNA → Dicer → siRNA → RISC → cleave mRNA target
+  Mekanisme pertahanan alami virus → dimanfaatkan sebagai tool biologi!
+  Teknologi siRNA sebagai obat (Patisiran — obat siRNA pertama FDA, 2018)
+
+lncRNA (long non-coding RNA):
+  >200 nukleotida tanpa ORF (atau punya pseudogene kecil)
+  XIST: menonaktifkan kromosom X (X-inactivation pada betina XX!)
+  HOTAIR: merekrut PRC2 (repressor kompleks) → inaktivasi gen HOX
+  H19: dicetak (imprinted) — hanya ekspresi dari alel ibu
+  
+circRNA (circular RNA):
+  Ribuan jenis, stabil (tanpa ujung bebas → tidak dicerna eksoribonuklease)
+  Banyak yang berperan sebagai "sponge" miRNA
+  Biomarker potensial untuk penyakit
+
+Splicing yang Salah dan Penyakit:
+  Mutasi di splice site → intron tertahan / ekson terbuang
+  Cystic fibrosis: splicing kacau di CFTR gen → ~10% kasus CF
+  Spinal muscular atrophy (SMA): SMN1 mutan, SMN2 ekson 7 dibuang
+    → Nusinersen (Spinraza): antisense oligonukleotida memperbaiki splicing SMN2!
+    (obat temahal sedunia ~$750,000/tahun)
+```
+
+<Quiz
+  question="Dalam proses translasi, apa peran aminoacyl-tRNA synthetase, dan mengapa enzim ini dianggap sebagai 'penjaga' akurasi kode genetik?"
+  options={[
+    "Enzim yang membentuk ikatan peptida antara asam amino di ribosom",
+    "Enzim yang mengkatalisis pembentukan ikatan ester antara asam amino yang TEPAT dan tRNA yang TEPAT — memastikan setiap tRNA hanya membawa asam amino yang sesuai dengan antikodonnya",
+    "Enzim yang mencocokkan antikodon tRNA dengan kodon mRNA di situs A ribosom",
+    "Enzim yang melepaskan peptida selesai dari ribosom saat mencapai kodon stop"
+  ]}
+  correctAnswer={1}
+  explanation="Aminoacyl-tRNA synthetase (ada 20 jenis, satu per asam amino) mengkatalisis reaksi: AA + tRNA + ATP → AA-tRNA + AMP + PPi. Enzim ini bertanggung jawab atas AKURASI kode genetik karena mereka harus mengenal: (1) asam amino yang benar dari 20 yang ada, dan (2) tRNA yang benar yang membawa antikodon untuk asam amino tersebut. Jika salah satu dari 20 enzim ini salah mengakoplo, maka tRNA yang antikodonnya mengkode satu asam amino akan membawa asam amino lain — hasil: protein yang salah! Ribosom sendiri tidak cek kesesuaian asam amino, hanya antikodon-kodon. Jadi aminoacyl-tRNA synthetase adalah pengawal pertama dan terpenting akurasi translasi."
+/>

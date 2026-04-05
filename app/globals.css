@@ -151,6 +151,135 @@
   --sidebar-ring: oklch(0.70 0.05 245);
 }
 
+.ancient-parchment {
+  /* ── Surfaces ─────────────────────────────────────────────── */
+  --background: oklch(0.935 0.035 80);       /* warm parchment #F5E6C8-ish */
+  --foreground: oklch(0.22 0.04 50);         /* dark sepia-brown #3B2F2F-ish */
+
+  --card: oklch(0.952 0.030 78);             /* slightly lighter parchment */
+  --card-foreground: oklch(0.22 0.04 50);
+
+  --popover: oklch(0.960 0.025 78);
+  --popover-foreground: oklch(0.22 0.04 50);
+
+  /* ── Primary (antique gold) ───────────────────────────────── */
+  --primary: oklch(0.62 0.10 72);            /* muted gold #C9A44C-ish */
+  --primary-foreground: oklch(0.97 0.01 78);
+
+  /* ── Secondary / muted ────────────────────────────────────── */
+  --secondary: oklch(0.905 0.028 75);
+  --secondary-foreground: oklch(0.25 0.04 50);
+  --muted: oklch(0.905 0.028 75);
+  --muted-foreground: oklch(0.46 0.04 55);
+
+  /* ── Accent (slightly deeper parchment) ──────────────────── */
+  --accent: oklch(0.895 0.032 72);
+  --accent-foreground: oklch(0.22 0.04 50);
+
+  /* ── Destructive ──────────────────────────────────────────── */
+  --destructive: oklch(0.55 0.20 27);
+
+  /* ── Borders / inputs ─────────────────────────────────────── */
+  --border: oklch(0.82 0.040 68);            /* soft brown border */
+  --input: oklch(0.88 0.032 72);
+  --ring: oklch(0.62 0.10 72);              /* gold ring */
+
+  /* ── Charts ───────────────────────────────────────────────── */
+  --chart-1: oklch(0.62 0.10 72);
+  --chart-2: oklch(0.50 0.08 60);
+  --chart-3: oklch(0.40 0.06 55);
+  --chart-4: oklch(0.75 0.07 75);
+  --chart-5: oklch(0.30 0.05 50);
+
+  /* ── Radius (slightly squared for a book feel) ────────────── */
+  --radius: 0.35rem;
+
+  /* ── Sidebar ──────────────────────────────────────────────── */
+  --sidebar: oklch(0.918 0.033 77);
+  --sidebar-foreground: oklch(0.22 0.04 50);
+  --sidebar-primary: oklch(0.62 0.10 72);
+  --sidebar-primary-foreground: oklch(0.97 0.01 78);
+  --sidebar-accent: oklch(0.895 0.032 72);
+  --sidebar-accent-foreground: oklch(0.22 0.04 50);
+  --sidebar-border: oklch(0.82 0.040 68);
+  --sidebar-ring: oklch(0.62 0.10 72);
+}
+
+/* ── Ancient Parchment: typography & decorative overrides ───── */
+.ancient-parchment body {
+  font-family: var(--font-eb-garamond), "Garamond", "Times New Roman", Georgia, serif;
+  line-height: 1.8;
+}
+
+.ancient-parchment h1,
+.ancient-parchment h2,
+.ancient-parchment h3,
+.ancient-parchment h4,
+.ancient-parchment h5,
+.ancient-parchment h6 {
+  font-family: var(--font-eb-garamond), "Garamond", "Times New Roman", Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+/* Ink-line section dividers */
+.ancient-parchment hr {
+  border: none;
+  border-top: 1.5px solid oklch(0.70 0.055 65);
+  opacity: 0.65;
+  background: none;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.ancient-parchment hr::before {
+  content: "❧";
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  background: var(--color-background, oklch(0.935 0.035 80));
+  padding: 0 0.6rem;
+  color: oklch(0.62 0.10 72);
+  font-size: 1rem;
+}
+
+/* Paper-depth shadow on cards */
+.ancient-parchment [class*="rounded"] {
+  box-shadow: 0 1px 4px oklch(0.40 0.05 60 / 18%), 0 0.5px 0 oklch(0.70 0.04 65 / 30%) inset;
+}
+
+/* Engraved / ink-stamp buttons */
+.ancient-parchment button:not([class*="ghost"]):not([class*="outline"]) {
+  box-shadow: 0 1.5px 0 oklch(0.50 0.08 62), inset 0 1px 0 oklch(1 0 0 / 25%);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* Callout / note boxes: slightly darker parchment */
+.ancient-parchment [data-callout],
+.ancient-parchment blockquote {
+  background: oklch(0.895 0.038 73) !important;
+  border-left: 3px solid oklch(0.62 0.10 72) !important;
+}
+
+/* Subtle noise/grain texture simulated via CSS gradient */
+.ancient-parchment body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+}
+
+/* ── Selection colour for parchment theme ─────────────────── */
+.ancient-parchment ::selection {
+  background-color: oklch(0.62 0.10 72 / 30%);
+  color: oklch(0.18 0.04 50);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

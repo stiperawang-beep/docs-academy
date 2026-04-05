@@ -1,0 +1,275 @@
+---
+title: "Lingkaran Kosmik: Koordinat, Radian & Unit Circle"
+description: "Membedah jiwa lingkaran — dari keliling dan luas hingga sistem koordinat Kartesius, konversi derajat ke radian, dan Unit Circle sebagai peta semesta trigonometri."
+icon: "Circle"
+order: 3
+---
+
+# Orbit Kosmik: Misteri Sempurna Lingkaran dan Koordinatnya
+
+Sejak zaman kuno, tidak ada bentuk yang lebih disucikan oleh para filsuf, astronomer, dan matematikawan dibandingkan **lingkaran**. Plato menyebutnya sebagai bentuk ilahi yang paling sempurna. Para astronomer purba meyakini planet-planet bergerak dalam jalur lingkaran sempurna mengelilingi bumi (dan meski keliru soal pusatnya, intuisi mereka soal keindahan matematis lingkaran tidaklah sepenuhnya salah).
+
+Mengapa lingkaran begitu istimewa? Karena ia adalah satu-satunya bentuk di mana **setiap titik pada permukaannya berjarak identik dari pusatnya** — sebuah definisi yang sekaligus merupakan fondasi dari seluruh bangunan trigonometri, fisika gelombang, dan navigasi modern.
+
+---
+
+## 1. Anatomi Lingkaran: Peta Komponen Sang Maestro Bulat
+
+Sebelum menghitung apapun, kenali dulu organ-organ vital lingkaran:
+
+```
+Jari-Jari (r) : jarak dari pusat O ke tepi lingkaran
+Diameter  (d) : garis lurus menembus pusat = 2r
+Keliling  (K) : panjang seluruh tepi lingkaran = 2πr
+Luas      (A) : luas area yang dilingkupi         = πr²
+
+Tali Busur  : garis yang kedua ujungnya di tepi lingkaran (bukan diameter)
+Busur       : potongan tepi lingkaran di antara dua titik
+Tembereng   : daerah antara tali busur dan busur
+Juring      : daerah "irisan kue" antara dua jari-jari dan busur
+```
+
+### Rumus Inti Lingkaran
+
+| Properti | Rumus | Keterangan |
+|----------|-------|-----------|
+| Keliling | `K = 2πr = πd` | π ≈ 3.14159265... |
+| Luas | `A = πr²` | r = jari-jari |
+| Juring (sudut θ derajat) | `A_juring = (θ/360) × πr²` | θ dalam derajat |
+| Busur (sudut θ derajat) | `s = (θ/360) × 2πr` | s = panjang busur |
+
+**Contoh Nyata:**
+Roda sepeda berdiameter **66 cm**. Berapa jauh sepeda melaju setelah roda berputar **200 kali**?
+```
+r  = 33 cm
+K  = 2πr = 2 × 3.14159 × 33 = 207.35 cm ≈ 2.07 meter per putaran
+Total = 200 × 2.07 = 414 meter
+```
+
+> [!TIP] Intuisi Pi (π)
+> π adalah rasio keliling lingkaran terhadap diameternya — dan nilainya **selalu sama** untuk lingkaran apapun, sekecil molekul atau sebesar galaksi. Ini adalah salah satu konstanta paling misterius alam semesta: tak berulang, tak berhenti, namun hadir di mana-mana dari fisika kuantum hingga statistika normal.
+
+---
+
+## 2. Sistem Koordinat Kartesius: Peta Lokasi Titik di Alam Semesta 2D
+
+Sebelum Descartes (René Descartes, 1637), matematika geometris dan matematika aljabar hidup dalam dua dunia terpisah. Descartes menjembatani keduanya dengan sebuah ide sederhana namun revolusioner: **berikan setiap titik di bidang datar sebuah alamat berupa pasangan angka (x, y)**.
+
+```
+          Y (vertikal)
+          │
+    Q II  │  Q I      Kuadran I  (x+, y+): kanan atas
+          │           Kuadran II (x-, y+): kiri atas
+──────────O─────────  X (horizontal)
+          │           Kuadran III(x-, y-): kiri bawah
+   Q III  │  Q IV     Kuadran IV (x+, y-): kanan bawah
+          │
+```
+
+### Jarak Antara Dua Titik
+
+Dua titik P₁(x₁, y₁) dan P₂(x₂, y₂) — berapa jarak lurus di antara keduanya?
+
+Jawabannya lahir langsung dari Teorema Pythagoras:
+
+```
+d = √[(x₂ - x₁)² + (y₂ - y₁)²]
+```
+
+**Contoh:** P₁(1, 2) dan P₂(4, 6):
+```
+d = √[(4-1)² + (6-2)²]
+  = √[9 + 16]
+  = √25
+  = 5
+```
+
+### Persamaan Lingkaran di Koordinat Kartesius
+
+Lingkaran dengan pusat (a, b) dan jari-jari r memenuhi:
+
+```
+(x - a)² + (y - b)² = r²
+```
+
+Karena **setiap titik (x,y) di lingkaran berjarak r dari pusat (a,b)** — ini persis definisi lingkaran, diterjemahkan ke dalam bahasa Pythagoras!
+
+**Contoh:** Lingkaran pusat (3, -2), jari-jari 5:
+```
+(x - 3)² + (y + 2)² = 25
+```
+
+---
+
+## 3. Radian: Bahasa Asli Sudut yang Lebih Bersih dari Derajat
+
+Sekolah mengajarkan sudut dalam **derajat** (°) — satu putaran penuh = 360°. Tapi mengapa 360? Itu warisan kalender Babilonia kuno yang dibagi menjadi 360 hari (dan bertahan karena 360 punya banyak faktor pembagi). Bukan karena alasan matematis yang dalam.
+
+Matematika dan fisika modern lebih menyukai **radian** — satuan sudut yang lahir dari lingkaran itu sendiri:
+
+> **1 radian** = sudut yang menghasilkan busur sepanjang **satu jari-jari** pada lingkaran bersangkutan.
+
+```
+Busur s = r × θ  (jika θ dalam radian)
+
+Satu putaran penuh:
+  Keliling = 2πr
+  s = r × θ → 2πr = r × θ → θ = 2π radian
+
+Jadi: 360° = 2π radian
+      180° = π  radian
+       90° = π/2 radian
+       45° = π/4 radian
+```
+
+### Tabel Konversi Wajib Hafal
+
+| Derajat | Radian | Bentuk Eksak |
+|---------|--------|-------------|
+| 0° | 0 | 0 |
+| 30° | π/6 | 0.5236... |
+| 45° | π/4 | 0.7854... |
+| 60° | π/3 | 1.0472... |
+| 90° | π/2 | 1.5708... |
+| 120° | 2π/3 | 2.0944... |
+| 180° | π | 3.1416... |
+| 270° | 3π/2 | 4.7124... |
+| 360° | 2π | 6.2832... |
+
+### Rumus Konversi:
+```
+Derajat → Radian:  θ_rad = θ_deg × (π/180)
+Radian → Derajat:  θ_deg = θ_rad × (180/π)
+```
+
+> [!NOTE] Mengapa Kalkulus Butuh Radian?
+> Saat Anda mempelajari kalkulus, turunan fungsi trigonometri hanya "bersih" jika menggunakan radian:
+> - d/dx [sin(x)] = cos(x)  ← hanya benar jika x dalam radian
+> - d/dx [sin(x°)] = (π/180)cos(x°)  ← ada faktor jelek π/180
+>
+> Itulah mengapa semua rumus fisika, kalkulus, dan teknik selalu dalam satuan radian.
+
+---
+
+## 4. Unit Circle: Peta Induk Semesta Trigonometri
+
+**Unit Circle** adalah lingkaran dengan jari-jari **r = 1** berpusat di titik origin O(0,0). Ini bukan sekadar konsep — ini adalah **kunci master** yang membuka seluruh sistem trigonometri sekaligus.
+
+Untuk setiap titik P(x, y) pada unit circle dengan sudut θ (diukur dari sumbu X positif, berlawanan arah jarum jam):
+
+```
+cos(θ) = x     ← koordinat x = cosinus sudut
+sin(θ) = y     ← koordinat y = sinus sudut
+tan(θ) = y/x = sin(θ)/cos(θ)
+```
+
+### Nilai Trigonometri di Sudut Istimewa
+
+| θ (°) | θ (rad) | sin θ | cos θ | tan θ |
+|-------|---------|-------|-------|-------|
+| 0° | 0 | 0 | 1 | 0 |
+| 30° | π/6 | 1/2 | √3/2 | 1/√3 |
+| 45° | π/4 | √2/2 | √2/2 | 1 |
+| 60° | π/3 | √3/2 | 1/2 | √3 |
+| 90° | π/2 | 1 | 0 | ∞ |
+| 120° | 2π/3 | √3/2 | -1/2 | -√3 |
+| 135° | 3π/4 | √2/2 | -√2/2 | -1 |
+| 150° | 5π/6 | 1/2 | -√3/2 | -1/√3 |
+| 180° | π | 0 | -1 | 0 |
+| 270° | 3π/2 | -1 | 0 | ∞ |
+| 360° | 2π | 0 | 1 | 0 |
+
+### Trik Hafalan "Jari Tangan" untuk sin 0°-90°:
+
+```
+Bentangkan tangan kiri, lipat jari ke-n (dimulai dari ibu jari = 0°):
+
+Ibu jari (0°):   sin 0°  = √0/2 = 0
+Telunjuk (30°):  sin 30° = √1/2 = 1/2
+Tengah (45°):    sin 45° = √2/2
+Manis (60°):     sin 60° = √3/2
+Kelingking (90°):sin 90° = √4/2 = 1
+
+Untuk cos: urutan terbalik! cos 0°=1, cos 30°=√3/2, ..., cos 90°=0
+```
+
+---
+
+## 5. Identitas Trigonometri Fundamental
+
+Dari Unit Circle lahir identitas-identitas yang selalu benar untuk **sembarang sudut θ**:
+
+### Identitas Pythagoras:
+```
+sin²θ + cos²θ = 1          ← terbukti dari: x² + y² = r² = 1
+1 + tan²θ = sec²θ
+1 + cot²θ = csc²θ
+```
+
+### Sifat-Sifat Sudut Negatif dan Komplementer:
+```
+sin(-θ) = -sin(θ)    ← sinus adalah fungsi ganjil (odd)
+cos(-θ) =  cos(θ)    ← cosinus adalah fungsi genap (even)
+tan(-θ) = -tan(θ)
+
+sin(90° - θ) = cos(θ)    ← komplementer
+cos(90° - θ) = sin(θ)
+```
+
+### Identitas Jumlah dan Selisih Sudut:
+```
+sin(A + B) = sin A cos B + cos A sin B
+sin(A - B) = sin A cos B - cos A sin B
+cos(A + B) = cos A cos B - sin A sin B
+cos(A - B) = cos A cos B + sin A sin B
+
+tan(A + B) = (tan A + tan B) / (1 - tan A tan B)
+```
+
+### Identitas Sudut Ganda (Double Angle):
+```
+sin(2θ) = 2 sin θ cos θ
+cos(2θ) = cos²θ - sin²θ = 1 - 2sin²θ = 2cos²θ - 1
+tan(2θ) = 2tan θ / (1 - tan²θ)
+```
+
+**Contoh Penggunaan Identitas:**
+Sederhanakan: (sin θ + cos θ)²
+
+```
+= sin²θ + 2 sin θ cos θ + cos²θ
+= (sin²θ + cos²θ) + 2 sin θ cos θ
+= 1 + sin(2θ)
+```
+
+> [!IMPORTANT] Identitas ≠ Persamaan Biasa
+> Identitas trigonometri adalah **pernyataan yang benar untuk semua nilai θ** (selama fungsinya terdefinisi), bukan hanya nilai tertentu. Saat membuktikan identitas, pilih salah satu ruas, lalu manipulasi hingga sama dengan ruas lainnya — jangan pindah ruas seperti memecahkan persamaan biasa!
+
+---
+
+## 6. Aplikasi Nyata: GPS, Satelit, dan Sinyal Digital
+
+Semua koordinat GPS di smartphone Anda bekerja dengan prinsip **triangulasi** — perpotongan lingkaran dari beberapa satelit.
+
+```
+Satelit A: (x - xa)² + (y - ya)² = da²   ← lingkaran dengan r = da
+Satelit B: (x - xb)² + (y - yb)² = db²   ← lingkaran dengan r = db  
+Satelit C: (x - xc)² + (y - yc)² = dc²   ← lingkaran dengan r = dc
+
+Titik perpotongan ketiga lingkaran = Posisi Anda!
+(Butuh 4 satelit untuk 3D karena perlu memperhitungkan ketinggian + koreksi jam)
+```
+
+Dan sinyal digital (audio MP3, video H.264, sinyal WiFi) semuanya adalah gelombang sinusoidal yang dimanipulasi menggunakan **Fourier Transform** — dekomposisi sinyal kompleks menjadi jumlahan gelombang sin dan cos dengan frekuensi berbeda. Unit Circle adalah jantung dari semua itu.
+
+<Quiz
+  question="Jika sebuah lingkaran memiliki jari-jari 7 cm, berapa panjang busur yang menghadap sudut 120°?"
+  options={[
+    "14.67 cm",
+    "7π/3 cm ≈ 7.33 cm",
+    "14π/3 cm ≈ 14.66 cm",
+    "πr = 7π ≈ 21.99 cm"
+  ]}
+  correctAnswer={2}
+  explanation="Panjang busur = (θ/360) × 2πr = (120/360) × 2π × 7 = (1/3) × 14π = 14π/3 ≈ 14.66 cm. Ingat: pertama ubah sudut ke pecahan dari 360°, lalu kalikan dengan keliling penuh lingkaran."
+/>

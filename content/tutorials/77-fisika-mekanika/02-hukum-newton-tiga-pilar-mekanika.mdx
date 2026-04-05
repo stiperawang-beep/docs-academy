@@ -1,0 +1,293 @@
+---
+title: "Hukum Newton: Tiga Pilar Mekanika Klasik"
+description: "Tiga hukum Newton yang merevolusi sains — inersia, F=ma, dan aksi-reaksi. Gaya-gaya alam fundamental, gaya gesekan, tegangan tali, normal, gravitasi, dan aplikasi sistem banyak benda."
+icon: "Zap"
+order: 2
+---
+
+# Hukum Newton: Tiga Perintah yang Menguasai Alam Semesta
+
+Tahun 1687, Isaac Newton menerbitkan *Principia Mathematica* — mungkin buku fisika paling berpengaruh dalam sejarah. Dalam satu dokumen, ia menyatukan pergerakan planet di langit dengan jatuhnya apel di Bumi menggunakan tiga hukum sederhana.
+
+Dari roket SpaceX yang mendarat, rem ABS di mobil Anda, hingga cara dokter menghitung dosis obat — semua bersandar pada tiga hukum Newton yang berusia 337 tahun.
+
+---
+
+## 1. Hukum Newton Pertama: Inersia
+
+> **"Setiap benda akan tetap diam atau bergerak lurus beraturan selama tidak ada gaya neto yang bekerja padanya."**
+
+```
+Σ F⃗ = 0  ←→  a⃗ = 0   (kecepatan konstan atau diam)
+
+Inersia = kecenderungan benda untuk mempertahankan kondisi geraknya
+Masa menunjukkan inersia — massa besar = inersia besar
+
+Konsekuensi:
+  - Penumpang terdorong ke depan saat rem mendadak (inersia ke depan)
+  - Penumpang terdorong ke belakang saat gas mendadak
+  - Astronot tanpa dorongan roket → lurus selamanya
+```
+
+**Kerangka Acuan Inersial:**
+```
+Hukum I hanya berlaku di "kerangka acuan inersial" — kerangka yang
+tidak mengalami percepatan.
+
+Kerangka inersial: lantai laboratorium (hampir), kapal berjalan lurus konstan
+Bukan inersial: mobil berbelok, komidi putar, permukaan Bumi (sedikit)
+Bumi dianggap inersial untuk perhitungan non-presisi.
+```
+
+---
+
+## 2. Hukum Newton Kedua: F = ma
+
+> **"Percepatan benda berbanding lurus dengan gaya neto yang bekerja dan berbanding terbalik dengan massanya."**
+
+```
+F⃗_net = m × a⃗
+
+F⃗_net = Σ F⃗ = jumlah vektor SEMUA gaya yang bekerja
+
+Satuan: [F] = kg × m/s² = Newton (N)
+  1 N = gaya yang memberi percepatan 1 m/s² pada massa 1 kg
+  1 N ≈ berat 100g (setengah gelas air)
+
+Komponen:
+  ΣFₓ = m × aₓ
+  ΣFᵧ = m × aᵧ
+  ΣF_z = m × a_z
+```
+
+### Diagram Gaya Bebas (Free Body Diagram):
+
+Kunci sukses mekanika Newton: **gambar semua gaya yang bekerja pada satu benda**:
+
+```
+Blok 5 kg di bidang miring θ=30°, permukaan licin:
+
+         N (normal, ⊥ permukaan)
+         ↑
+    ┌────┤
+    │    │ → Fₓ = W sinθ (komponen berat sejajar)
+    │ m  │
+    └────┘
+    ↓ W (berat = mg, ke bawah)
+   /bidang miring
+
+Koordinat: x sejajar bidang (+ ke bawah bidang), y ⊥ bidang
+
+ΣFᵧ = 0:  N - W cosθ = 0  →  N = mg cosθ = 5×10×cos30° = 43.3 N
+ΣFₓ = maₓ: W sinθ = maₓ
+            mg sinθ = m aₓ
+            aₓ = g sinθ = 10×sin30° = 5 m/s²  (percepatan tidak bergantung massa!)
+```
+
+---
+
+## 3. Hukum Newton Ketiga: Aksi-Reaksi
+
+> **"Untuk setiap gaya aksi, ada gaya reaksi yang sama besar tapi berlawanan arah."**
+
+```
+F⃗_{A pada B} = -F⃗_{B pada A}
+
+PENTING: Aksi dan reaksi bekerja pada BENDA BERBEDA!
+Mereka tidak saling meniadakan karena bekerja pada objek yang berbeda.
+
+Contoh:
+  Kaki mendorong tanah ke BELAKANG (aksi)
+  Tanah mendorong kaki ke DEPAN (reaksi) ← ini yang menggerakkan Anda!
+
+  Roket membuang gas ke BAWAH (aksi)
+  Gas mendorong roket ke ATAS (reaksi) ← ini thrust roket!
+
+  Bumi menarik apel ke BAWAH (gaya gravitasi Bumi pada apel)
+  Apel menarik Bumi ke ATAS (gaya gravitasi apel pada Bumi)
+  → Kedua gaya SAMA BESAR, tapi percepatan berbeda (a = F/m)
+  → Bumi jauh lebih besar → percepatannya negligible
+```
+
+---
+
+## 4. Gaya-Gaya yang Umum Ditemui
+
+### Gaya Berat (Weight):
+```
+W = mg    (bukan "massa", tapi gaya gravitasi)
+
+g = 9.8 m/s² ≈ 10 m/s² (dekat permukaan Bumi)
+g di bulan ≈ 1.6 m/s²
+g di Mars ≈ 3.7 m/s²
+
+Massa = intrinsik benda (sama di mana-mana)
+Berat = gaya (bergantung gravitasi lingkungan)
+
+Manusia 70 kg:
+  Di Bumi: W = 70×9.8 = 686 N
+  Di Bulan: W = 70×1.6 = 112 N
+  Di ruang bebas: W = 0 N (tapi massa tetap 70 kg!)
+```
+
+### Gaya Normal (N):
+```
+Gaya tegak lurus permukaan yang mencegah benda menembus
+Selalu ⊥ terhadap permukaan kontak
+
+Di bidang datar horizontal: N = mg
+Di bidang miring θ: N = mg cosθ
+Di lift yang naik dengan a: N = m(g + a) → "lebih berat"
+Di lift yang turun dengan a: N = m(g - a) → "lebih ringan"
+Di freefall: N = 0 → "weightlessness" (tanpa bobot)
+```
+
+### Gaya Gesek (Friction):
+```
+Gesek Statis (fs): mencegah gerak relatif
+  fs ≤ μₛ N    (μₛ = koefisien gesek statis)
+  fs_max = μₛ N   ← nilai maksimum sebelum benda mulai bergerak
+
+Gesek Kinetik (fk): terjadi saat benda sudah bergerak
+  fk = μk N    (konstan, tidak bergantung kecepatan)
+  μk < μₛ selalu!   (lebih mudah mempertahankan gerak dari memulainya)
+
+Nilai khas μ:
+  Karet di aspal  → μₛ ≈ 0.7,  μk ≈ 0.5
+  Kayu di kayu   → μₛ ≈ 0.5,  μk ≈ 0.3
+  Es di es       → μₛ ≈ 0.1,  μk ≈ 0.03
+  Pelumas mesin  → μk ≈ 0.001-0.01
+```
+
+### Tegangan Tali (Tension):
+```
+T = gaya tarik yang ditransmisikan melalui tali/kabel
+Arah: sepanjang tali, menjauhi benda
+
+Asumsi tali ideal: massanya nol → T sama di seluruh panjang tali
+
+Contoh: Dua benda terkait tali di atas meja:
+  m₁ (5 kg) di atas meja, m₂ (3 kg) tergantung lewat katrol di tepi
+
+  Sistem (komponen searah gerak):
+  Untuk m₂: m₂g - T = m₂ a   ...(1)
+  Untuk m₁: T = m₁ a          ...(2)
+
+  (1)+(2): m₂g = (m₁+m₂)a
+  a = m₂g/(m₁+m₂) = 3×10/(5+3) = 3.75 m/s²
+  T = m₁ a = 5×3.75 = 18.75 N
+```
+
+---
+
+## 5. Sistem Banyak Benda: Atwood Machine
+
+Mesin Atwood (1784) — dua massa terhubung tali melalui katrol:
+
+```
+m₁ > m₂ → m₁ turun, m₂ naik
+
+Untuk m₁: m₁g - T = m₁a    ...(1)
+Untuk m₂: T - m₂g = m₂a    ...(2)
+
+(1)+(2): (m₁-m₂)g = (m₁+m₂)a
+
+         (m₁-m₂)g
+  a = ────────────        T = 2m₁m₂g/(m₁+m₂)
+         (m₁+m₂)
+
+Jika m₁ = m₂: a = 0 (seimbang, T = m₁g = m₂g = berat)
+Jika m₂ → 0: a → g (jatuh bebas)
+```
+
+---
+
+## 6. Gaya Sentripetal: Newton dan Gerak Melingkar
+
+Benda bergerak melingkar membutuhkan gaya yang mengarah ke pusat:
+
+```
+F_sentripetal = m × v²/r = m × ω²r
+
+BUKAN gaya baru — ini adalah resultante gaya-gaya lain
+yang selalu menunjuk ke pusat
+
+Contoh gaya yang menyediakan gaya sentripetal:
+  Gerak melingkar di Bumi: Gravitasi (satelit)
+  Mobil berbelok: Gesekan (ban di jalan)
+  Mainan diikat tali: Tegangan tali
+  Planet mengorbit: Gravitasi
+  Elektron mengorbit nukleus: Gaya elektrostatik (→ model Bohr)
+```
+
+**Contoh — Kendaraan Berbelok:**
+Mobil massa 1000 kg berbelok di tikungan radius 50m dengan kecepatan 20 m/s. Berapa gesekan minimum yang dibutuhkan?
+```
+F_sentripetal = mv²/r = 1000×400/50 = 8000 N
+
+Ini harus disediakan oleh gesekan (tanah datar):
+fs = 8000 N
+
+μₛ_minimum = fs/(mg) = 8000/(1000×10) = 0.8
+
+Jika μₛ < 0.8 → mobil tergelincir keluar tikungan!
+```
+
+---
+
+## 7. Gravitasi Universal Newton
+
+Newton menyadari bahwa gaya yang menjatuhkan apel adalah gaya yang sama yang mengorbitkan Bulan:
+
+```
+F = G × m₁ × m₂ / r²
+
+G = 6.674 × 10⁻¹¹ N⋅m²/kg²  (konstanta gravitasi universal)
+r = jarak antara pusat massa
+m₁, m₂ = massa kedua benda
+
+Sifat:
+  - Selalu tarik-menarik (tidak ada antigravitasi klasik)
+  - Jangkauan tak terbatas (tapi menurun dengan 1/r²)
+  - Tidak bergantung medium (bekerja di vakum)
+
+Dari permukaan Bumi:
+  g = GM_Bumi/R_Bumi² = (6.674×10⁻¹¹ × 5.97×10²⁴)/(6.37×10⁶)² ≈ 9.8 m/s²
+```
+
+### Hukum Kepler dan Gravitasi:
+
+Dari F_gravitasi = F_sentripetal → menurunkan Hukum Kepler:
+```
+Hukum Kepler III: T² ∝ r³
+  T² = (4π²/GM)r³
+
+Untuk satelit Bumi (orbit melingkar r dari pusat Bumi):
+  v_orbital = √(GM/r)
+  T = 2πr/v = 2πr^(3/2)/√(GM)
+
+ISS (r ≈ 6.77×10⁶ m dari pusat Bumi):
+  v = √(6.674×10⁻¹¹×5.97×10²⁴/6.77×10⁶) ≈ 7660 m/s = 27,600 km/jam!
+  T = 2π×6.77×10⁶/7660 ≈ 5550 s ≈ 92 menit per orbit
+```
+
+> [!NOTE] Batas Mekanika Newton
+> Mekanika Newton gagal dalam:
+> 1. **Kecepatan mendekati cahaya** → Relativitas Khusus Einstein
+> 2. **Skala atom/subatom** → Mekanika Kuantum
+> 3. **Gravitasi sangat kuat** → Relativitas Umum Einstein
+> 4. **Presisi tinggi orbit Merkurius** → Relativitas Umum diperlukan
+>
+> Untuk 99% masalah engineering sehari-hari, Newton masih sempurna.
+
+<Quiz
+  question="Sebuah lift bermassa 800 kg bergerak ke atas dengan percepatan 2 m/s². Berapa tegangan pada kabel penyangga lift? (g = 10 m/s²)"
+  options={[
+    "8000 N",
+    "9600 N",
+    "6400 N",
+    "1600 N"
+  ]}
+  correctAnswer={1}
+  explanation="Terapkan Hukum Newton II pada lift: ΣF = T - W = ma. T = W + ma = mg + ma = m(g+a) = 800×(10+2) = 800×12 = 9600 N. Saat lift naik dipercepat, kabel harus menahan berat PLUS memberikan gaya ekstra untuk mempercepat. Inilah mengapa Anda merasa 'lebih berat' saat lift mulai naik!"
+/>

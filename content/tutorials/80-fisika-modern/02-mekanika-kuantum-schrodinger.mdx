@@ -1,0 +1,296 @@
+---
+title: "Mekanika Kuantum: Dari Foton Hingga Persamaan Schrödinger"
+description: "Revolusi kuantum — hipotesis Planck, efek fotolistrik Einstein, dualitas gelombang-partikel de Broglie, prinsip Heisenberg, persamaan Schrödinger, sumur potensial, dan atom hidrogen kuantum."
+icon: "Atom"
+order: 2
+---
+
+# Mekanika Kuantum: Realitas yang Lebih Aneh dari Mimpi
+
+"Siapapun yang tidak terkejut oleh mekanika kuantum belum memahaminya." — Niels Bohr.
+
+Fisika kuantum adalah teori paling akurat yang pernah dibangun manusia — diverifikasi pada ketepatan satu bagian dalam 10 miliar. Sekaligus, ia adalah teori paling membingungkan: partikel bisa berada di dua tempat sekaligus, pengukuran mengubah sistem, dan dua partikel yang berjauhan bisa saling terpengaruh seketika (entanglement).
+
+Tapi kuantum bukan hanya teori abstrak — tanpa memahaminya, tidak ada laser, transistor, MRI, atau semikonduktor. Hampir sepertiga ekonomi modern bergantung pada teknologi kuantum.
+
+---
+
+## 1. Asal-Usul Kuantum: Krisis Fisika Klasik
+
+### Benda Hitam dan Bencana Ultraviolet:
+```
+Benda hitam = penyerap dan pemancar radiasi sempurna
+Hukum Rayleigh-Jeans (fisika klasik):
+  u(f) ∝ f²T    → MELEDAK ke tak hingga saat f → ∞ (bencana ultraviolet!)
+
+Solusi Planck (1900):
+  E = nhf    (energi hanya dalam kelipatan diskrit!)
+  h = 6.626 × 10⁻³⁴ J⋅s  (Konstanta Planck)
+  
+  Distribusi Planck:
+  u(f,T) = (8πhf³/c³) × 1/(e^(hf/kT) - 1)
+  
+  → Cocok SEMPURNA dengan eksperimen. Bencana ultraviolet teratasi!
+  → Energi tidak bisa dipancarkan sembarang nilai — hanya kelipatan integer hf.
+```
+
+### Efek Fotolistrik (Einstein, 1905 → Nobel 1921):
+```
+Cahaya menyinari logam → elektron terpental keluar
+
+Fisika klasik memprediksi:
+  Intensitas cahaya tinggi → elektron energi tinggi
+  Frekuensi tidak penting
+
+Hasil eksperimen NYATA:
+  Frekuensi terlalu rendah → TIDAK ADA elektron keluar (berapapun intensitasnya)
+  Frekuensi di atas threshold → elektron keluar
+  Energi elektron bergantung FREKUENSI, bukan intensitas
+  Intensitas → jumlah elektron (tidak energii per elektron)
+
+Einstein: CAHAYA adalah FOTON — paket energi diskrit!
+  E_foton = hf = hc/λ
+  KE_max = hf - φ    (φ = work function, energi minimum untuk melepas elektron)
+
+  Nilai φ beberapa logam:
+  Na: 2.3 eV,  Cu: 4.7 eV,  Pt: 5.65 eV
+
+Contoh: UV 300nm menyinari Cu (φ=4.7 eV):
+  E_foton = hc/λ = (6.626×10⁻³⁴ × 3×10⁸) / (300×10⁻⁹) = 6.63×10⁻¹⁹ J = 4.14 eV
+  KE_max = 4.14 - 4.7 = -0.56 eV → NEGATIF → elektron tidak bisa keluar! ✓
+```
+
+---
+
+## 2. Dualitas Gelombang-Partikel
+
+### Hipotesis de Broglie (1924):
+```
+Jika cahaya (gelombang) bisa bersifat seperti partikel (foton),
+maka partikel juga bisa bersifat seperti gelombang!
+
+Panjang gelombang de Broglie:
+  λ = h/p = h/(mv)   (untuk partikel dengan momentum p)
+
+  Elektron 100eV:  λ ≈ 1.2 Å (skala atom! → difraksi elektron mungkin)
+  Bola tenis 0.1kg bergerak 10m/s: λ = 6.6×10⁻³⁴ J⋅s / (0.1×10) = 6.6×10⁻³⁴ m
+  → Tak terdeteksi (jauh lebih kecil dari proton!) → dunia makro tampak klasik
+```
+
+### Difraksi Elektron (Davisson-Germer, 1927):
+```
+Elektron ditembakkan ke kristal nikel (jarak atom ~2Å)
+→ Pola difraksi sama seperti cahaya X!
+→ de Broglie TERBUKTI!
+
+Difraksi elektron kini digunakan dalam:
+  Transmisi Electron Microscopy (TEM): resolusi sub-Angstrom!
+  Low-Energy Electron Diffraction (LEED): analisis permukaan kristal
+```
+
+### Eksperimen Double-Slit:
+```
+Elektron satu per satu ditembakkan ke dua celah:
+  → Pola interferensi terbentuk di layar!
+  → Setiap elektron "berinterferensi dengan dirinya sendiri"
+
+Jika kita "mengintip" celah mana yang dilewati:
+  → Pola interferensi HILANG! (hanya pola penjumlahan dua celah)
+  → Tindakan pengukuran mengubah hasil!
+
+"Which-path information" vs "interference pattern" = selalu trade-off!
+```
+
+---
+
+## 3. Prinsip Ketidakpastian Heisenberg
+
+```
+Werner Heisenberg (1927):
+
+Δx × Δp ≥ ℏ/2    (posisi × momentum)
+ΔE × Δt ≥ ℏ/2    (energi × waktu)
+
+ℏ = h/(2π) = 1.055 × 10⁻³⁴ J⋅s
+
+Δx = ketidakpastian posisi
+Δp = ketidakpastian momentum
+
+Ketidakpastian ini BUKAN karena keterbatasan alat ukur!
+Ini adalah sifat FUNDAMENTAL partikel kuantum — "baked into reality"
+
+Implikasi:
+  Elektron di orbital atom (Δx ≈ 0.1 nm):
+  Δp ≥ ℏ/(2Δx) = 1.055×10⁻³⁴/(2×10⁻¹⁰) = 5.28×10⁻²⁵ kg⋅m/s
+  → Kecepatan minimum: v ≥ Δp/m = 5.28×10⁻²⁵/9.1×10⁻³¹ ≈ 580 km/s!
+  → Elektron TIDAK MUNGKIN diam di dalam atom → tidak spiral ke inti!
+  (Inilah penjelasan kuantum mengapa atom stabil!)
+
+Energi Nol-Titik (Zero-Point Energy):
+  Partikel dalam kotak tidak bisa memiliki E=0 (karena itu Δx=kotak, Δp=0 → melanggar HUP)
+  E_min = ℏ²π²/(2mL²)  (tidak pernah benar-benar diam!)
+  → Kristal saat 0K masih bergetar (zero-point vibration)!
+```
+
+---
+
+## 4. Fungsi Gelombang dan Persamaan Schrödinger
+
+```
+Fungsi Gelombang ψ(x,t):
+  Interpretasi Born: |ψ(x,t)|² = probabilitas menemukan partikel di x pada t
+  
+  Harus ternormalisasi: ∫ |ψ|² dx = 1  (probabilitas total = 1)
+
+Persamaan Schrödinger (time-dependent):
+  iℏ ∂ψ/∂t = Ĥψ = [-ℏ²/(2m) ∂²/∂x² + V(x,t)] ψ
+
+  Ĥ = operator Hamiltonian (energi total)
+  V = potensial
+
+Persamaan Schrödinger Stasioner (time-independent):
+  Ĥψ = Eψ
+  [-ℏ²/(2m) d²ψ/dx² + V(x)] ψ = Eψ
+
+  Solusinya: ψₙ(x) = fungsi gelombang stasioner
+             Eₙ = nilai eigen energi (diskrit!)
+```
+
+---
+
+## 5. Partikel dalam Kotak: Solusi Pertama
+
+```
+V(x) = 0 untuk 0 < x < L    (di dalam kotak)
+V(x) = ∞ untuk x ≤ 0 atau x ≥ L  (di luar)
+
+Solusi: ψₙ(x) = √(2/L) sin(nπx/L)    n = 1, 2, 3, ...
+
+Energi diskrit:
+  Eₙ = n²π²ℏ²/(2mL²) = n²E₁
+
+  E₁ = π²ℏ²/(2mL²)  ← zero-point energy!
+
+  Elektron dalam kotak L=0.1 nm (skala atom):
+  E₁ = π²(1.055×10⁻³⁴)²/(2×9.1×10⁻³¹×(10⁻¹⁰)²)
+     = 6.02×10⁻¹⁸ J = 37.6 eV
+
+  Gap energi E₂-E₁ = (4-1) × 37.6 = 112.8 eV (UV/X-ray!)
+
+Implikasi:
+  Energi elektron di atom bersifat DISKRIT → spektrum garis terdefinisi!
+  Panjang kotak menentukan energi → ukuran atom menentukan spektrum
+```
+
+---
+
+## 6. Atom Hidrogen Kuantum
+
+```
+Model Bohr berhasil SECARA NUMERIK tapi salah SECARA KONSEP.
+Solusi tepat Schrödinger untuk atom H:
+
+V(r) = -ke²/r   (potensial Coulomb)
+
+Solusi: ψ_{n,l,mₗ}(r,θ,φ) = R_{n,l}(r) × Y_l^{mₗ}(θ,φ)
+
+  R_{n,l} = fungsi radial (bergantung n dan l)
+  Y_l^{mₗ} = spherical harmonics (bentuk angular)
+
+Energi: Eₙ = -13.6/n²  eV  ← SAMA dengan Bohr!
+  (Tapi sekarang derivasi kuantum, bukan asumsi ad-hoc Bohr)
+
+Bilangan Kuantum:
+  n = 1,2,3,...   (utama — menentukan energi)
+  l = 0,1,...,n-1   (azimuth — menentukan bentuk)
+  mₗ = -l,...,0,...,+l  (magnetik — orientasi)
+  ms = ±½        (spin elektron)
+
+Degeneracy (level energi yang sama):
+  Level-n memiliki n² orbital (tanpa spin) atau 2n² state (dengan spin)
+  n=1: 2 state
+  n=2: 8 state (2s + 2p×3) × 2 spin  
+  n=3: 18 state
+
+  Ini menjelaskan struktur tabel periodik!
+```
+
+---
+
+## 7. Postulat Mekanika Kuantum dan Interpretasi
+
+```
+Lima Postulat Dasar:
+
+1. STATE: Keadaan sistem sepenuhnya ditentukan oleh ψ (di ruang Hilbert)
+
+2. OBSERVABLES: Besaran fisika direpresentasi oleh operator Hermitian
+   p̂ = -iℏ∂/∂x, x̂ = x, Ê = iℏ∂/∂t
+
+3. MEASUREMENT: Pengukuran mengubah keadaan secara acak ke eigenstate
+   dengan probabilitas |<ψ|n>|²
+
+4. EXPECTATION: Nilai rata-rata: <A> = <ψ|Â|ψ> = ∫ψ*Âψ dx
+
+5. TIME EVOLUTION: iℏ dψ/dt = Ĥψ
+
+Interpretasi Copenhagen (Bohr-Heisenberg):
+  ψ adalah semua yang ada — tidak ada "realitas tersembunyi"
+  Pengukuran → "collapse" fungsi gelombang
+  Sebelum diukur, partikel tidak memiliki posisi/momentum yang pasti
+
+Many-Worlds (Everett, 1957):
+  Sistem pengukuran JUGA IKUT berevolusi kuantum
+  Tidak ada collapse → alam semesta "bercabang" setiap pengukuran
+  Kita hanya ada di satu cabang
+
+Pilot Wave (de Broglie-Bohm):
+  Partikel NYATA memiliki posisi, dipandu oleh gelombang pilot
+  Deterministik tapi non-lokal
+
+Konsensus praktis (Shut up and calculate): gunakan formalisme → hasilnya akurat!
+```
+
+---
+
+## 8. Aplikasi Kuantum Modern
+
+```
+Laser (Light Amplification by Stimulated Emission of Radiation):
+  Elektron di level energi tinggi (populasi terversi)
+  Foton masuk memicu emisi foton IDENTIK (stimulated emission)
+  → Cahaya koheren, monokromatik, terarah!
+  Semua laser: CD/DVD, fiber optik, scanner, laser surgery
+
+Transistor (dasar semua elektronik):
+  Semikonduktor Si dengan doping N dan P
+  Gate voltage mengontrol aliran elektron via efek kuantum
+  1 cm² chip modern: >100 miliar transistor!
+
+Scanning Tunneling Microscope (STM):
+  Efek terowongan kuantum: elektron "menembus" hambatan klasik
+  Resolusi atomik — bisa "melihat" dan "memindahkan" atom satu per satu!
+
+Teleportasi Kuantum:
+  Bukan teleportasi materi — tapi transfer keadaan kuantum!
+  Menggunakan entanglement (Einstein "spooky action at a distance")
+  Terbukti eksperimental, digunakan dalam quantum cryptography
+
+Komputer Kuantum:
+  Qubit = superposisi |0⟩ dan |1⟩ sekaligus
+  N qubit = 2ᴺ keadaan diproses paralel!
+  Google Sycamore (53 qubit, 2019): kalkulasi 200 detik vs 10000 tahun supercomputer
+  IBM, Google, IonQ sedang berkompetisi membangun fault-tolerant QC
+```
+
+<Quiz
+  question="Panjang gelombang de Broglie elektron (m=9.11×10⁻³¹ kg) yang dipercepat melalui beda potensial 100V adalah sekitar?"
+  options={[
+    "1.23 nm",
+    "0.123 nm",
+    "12.3 nm",
+    "0.0123 nm"
+  ]}
+  correctAnswer={1}
+  explanation="Energi kinetik: KE = qV = 1.6×10⁻¹⁹ × 100 = 1.6×10⁻¹⁷ J. Momentum: p = √(2mKE) = √(2×9.11×10⁻³¹×1.6×10⁻¹⁷) = √(2.92×10⁻⁴⁷) = 1.71×10⁻²³ kg⋅m/s. λ = h/p = 6.626×10⁻³⁴/1.71×10⁻²³ = 3.87×10⁻¹¹ m ≈ 0.123 nm = 1.23 Å. Ini skala antar-atom dalam kristal! Itulah mengapa difraksi elektron bisa mempelajari struktur kristal."
+/>

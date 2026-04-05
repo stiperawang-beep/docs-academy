@@ -1,0 +1,403 @@
+---
+title: "Validasi Metode, GLP & GMP dalam Kimia Analitik"
+description: "Validasi metode analitik (ICH Q2): akurasi, presisi, linearitas, LOD, LOQ, selektivitas. Good Laboratory Practice (GLP), Good Manufacturing Practice (GMP), standar ISO 17025, dan quality control dalam analisis rutin."
+icon: "ClipboardCheck"
+order: 4
+---
+
+# Validasi Metode & Quality Assurance: Sains yang Bisa Dipercaya
+
+Tidak cukup hanya bisa mengukur — kita harus bisa membuktikan bahwa pengukuran kita **benar, konsisten, dan dapat diandalkan**. Inilah inti dari validasi metode: dokumentasi sistematis yang membuktikan bahwa suatu metode analitik fit-for-purpose.
+
+Tanpa validasi, hasil laboratorium adalah opini. Dengan validasi, hasil laboratorium adalah bukti.
+
+---
+
+## 1. Parameter Validasi Metode — ICH Q2(R1)
+
+ICH (International Council for Harmonisation) Q2(R1) adalah panduan global untuk validasi metode analitik farmasi. Parameternya:
+
+### 1.1 Spesifisitas / Selektivitas
+
+```
+Definisi: Kemampuan metode untuk mengukur analit secara akurat
+          dalam kehadiran komponen lain (matriks, impuritas, degradan)
+
+Cara uji:
+  - Analisis blanko (matriks tanpa analit) → tidak ada respons palsu
+  - Spiked-vs-unspiked: tambah standar ke matriks → recovery konsisten
+  - Analisis sampel terforced-degradasi:
+      Hidrolisis asam: HCl 1N, 80°C, 2 jam
+      Hidrolisis basa: NaOH 1N, 80°C, 2 jam
+      Oksidasi: H₂O₂ 3%, RT, 24 jam
+      Fotolisis: UV 254nm, 24 jam
+      Termal: 50°C, 7 hari
+    → Puncak degradan tidak boleh berinterferens dengan puncak analit!
+
+Acceptance criterion:
+  %PRP (Peak Purity Ratio) > 990 (diode array detector)
+  Tidak ada interferens signifikan pada Rtanalit ± 2 menit
+```
+
+### 1.2 Linearitas
+
+```
+Definisi: Kemampuan metode menghasilkan respons yang LANGSUNG PROPORSIONAL
+          terhadap konsentrasi analit dalam rentang tertentu
+
+Cara uji:
+  Minimal 5 konsentrasi berbeda mencakup 50-150% dari konsentrasi target
+  Lakukan replikasi 3× untuk setiap titik → total min 15 data
+
+  Analisis regresi linier: y = m×x + b
+  
+  n = jumlah pasang data
+  m = slope = Σ[(xᵢ-x̄)(yᵢ-ȳ)] / Σ(xᵢ-x̄)²
+  b = intercept = ȳ - m×x̄
+  r² = koefisien determinasi
+
+Acceptance criteria:
+  r² ≥ 0.9990 untuk kuantifikasi farmasi
+  r² ≥ 0.9900 untuk trace analysis (lebih toleran karena range lebar)
+  y-intercept: uji signifikansi (t-test, biasanya < 2% respons full scale)
+  Residual plot: tidak menunjukkan pola sistematis (acak di sekitar nol)
+```
+
+### 1.3 Akurasi (Recovery / Trueness)
+
+```
+Definisi: Kedekatan hasil pengukuran dengan nilai benar (true value)
+
+Cara uji A — Spike-recovery:
+  Tambah konsentrasi diketahui ke matriks kosong (blank matrix)
+  %Recovery = (Terukur / Ditambahkan) × 100%
+
+Cara uji B — Certified Reference Material (CRM):
+  Analisis bahan referensi bersertifikat → bandingkan dengan nilai tersertifikasi
+  Lebih disukai tapi CRM mahal dan tidak selalu tersedia
+
+Cara uji C — Metode referensi:
+  Bandingkan hasil dengan metode yang sudah tervalidasi (pharmacopoeia, AOAC)
+
+Acceptance criteria (ICH Q2):
+  80-120% untuk analit utama farmasi
+  70-130% untuk trace analysis (ppb range)
+  60-140% untuk ultra-trace (ppt range)
+  
+  Laporkan mean ± SD dari min 9 determinasi (3 konsentrasi × 3 replikat)
+```
+
+### 1.4 Presisi
+
+```
+Definisi: Kesesuaian antara pengulangan pengukuran independen
+
+Tiga Level Presisi:
+  1. Repeatability (intra-assay precision):
+     Kondisi IDENTIK: operator sama, hari sama, instrumen sama
+     Min 6 determinasi satu konsentrasi ATAU 3 konsentrasi × 3 replikat
+
+  2. Intermediate precision (within-lab reproducibility):
+     Variasi hari, analis, instrumen DALAM laboratorium yang sama
+     Ukur pada hari berbeda, analis berbeda → lebih realistis!
+
+  3. Reproducibility:
+     Antar laboratorium (interlaboratory study)
+     Untuk standarisasi metode publik (pharmacopoeia, AOAC)
+
+Acceptance criteria:
+  %RSD ≤ 2% untuk konsentrasi tinggi (% level)
+  %RSD ≤ 5% untuk trace analysis (μg/g range)
+  %RSD ≤ 10-15% untuk ultra-trace (ng/g range)
+  
+  Horwitz equation (empirical):
+  %RSD_reproducibility ≈ 2^(1-0.5logC)  (C = konsentrasi dalam fraction)
+```
+
+### 1.5 LOD dan LOQ
+
+```
+LOD — Limit of Detection:
+  Konsentrasi minimum yang masih bisa DIBEDAKAN dari blanko secara statisik
+  (bukan berarti bisa dikuantifikasi dengan akurasi baik!)
+
+  Metode 1 (Signal-to-Noise):
+    LOD = 3 × σ_noise    (dibaca dari baseline chromatogram atau spectrum)
+    LOQ = 10 × σ_noise
+
+  Metode 2 (Regression dari kurva kalibrasi):
+    LOD = 3.3 × σ_regression / slope
+    LOQ = 10 × σ_regression / slope
+    σ_regression = standar error dari estimasi regresi
+
+  Metode 3 (Visual, heritage):
+    Encerkan sampel hingga hanya bisa terdeteksi di ~50% pengulangan
+    Tidak kuantitatif, digunakan untuk pre-screening
+
+LOQ — Limit of Quantification:
+  Konsentrasi minimum yang BISA DIKUANTIFIKASI dengan presisi dan akurasi baik
+  Verifikasi: ukur LOQ sebanyak 5×, cek recovery 80-120%, %RSD ≤ 20%
+```
+
+### 1.6 Kekasaran (Robustness)
+
+```
+Definisi: Ketahanan metode terhadap variasi kecil yang disengaja
+          Proaktif — dilakukan saat PENGEMBANGAN metode!
+
+Cara uji — Plackett-Burman Design (atau sejenisnya):
+  Identifikasi 5-7 faktor yang mungkin mempengaruhi metode
+  Variasikan secara terencana dalam range kecil:
+  
+  HPLC example:
+    Faktor              Nominal  Level -  Level +
+    pH fase gerak       3.0      2.9      3.1
+    %MeCN               40%      38%      42%
+    Laju alir (mL/min)  1.0      0.9      1.1
+    Temperatur kolom    40°C     38°C     42°C
+    Volume injeksi      10 μL    9 μL     11 μL
+  
+  Hitung efek setiap faktor → identifikasi yang paling kritis!
+  Buat prosedur yang mengontrol faktor kritis dengan ketat
+
+System Suitability Test (SST):
+  Tes dilakukan SEBELUM setiap batch analisis (bukan validasi sekali saja!)
+  Kriteria umum HPLC:
+    Tailing factor: ≤ 2.0
+    N (theoretical plates): ≥ 2000
+    Resolution antara puncak berdekatan: Rs ≥ 1.5
+    %RSD 6 injeksi standar: ≤ 2.0%
+```
+
+---
+
+## 2. Good Laboratory Practice (GLP)
+
+```
+GLP = seperangkat prinsip yang memastikan KUALITAS dan INTEGRITAS
+      data keselamatan di uji non-klinik kimia/farmasi/pestisida
+      
+Bukan tentang "cara yang benar" — tapi tentang DOKUMENTASI yang membuktikan
+cara yang benar dilakukan!
+
+Prinsip Utama GLP (OECD):
+  1. Organisasi dan personel:
+     - Fasilitas harus memiliki Study Director yang bertanggung jawab
+     - Training record setiap personel harus ada dan up-to-date
+     - Job description tertulis
+  
+  2. Quality Assurance Unit (QAU):
+     - Independen dari analis — tidak boleh orang yang sama!
+     - Inspeksi berkala fasilitas, prosedur, rekaman
+     - Audit laporan akhir sebelum disubmit ke regulator
+  
+  3. Fasilitas:
+     - Area terpisah untuk setiap tipe studi (fisiko-kimia, toksikologi, dll)
+     - Ruang khusus untuk bahan uji, bahan referensi, arsip
+     - Kontrol lingkungan (T, RH, tekanan) terdokumentasi
+  
+  4. Peralatan:
+     - SOP kalibrasi dan maintenance untuk setiap instrumen
+     - Log book penggunaan dan anomaly
+     - Kalibrasi traceable ke standar nasional (NIST, NPL, dll)
+  
+  5. Bahan uji dan referensi:
+     - Karakterisasi identitas, kemurnian, stabilitas
+     - Label, penyimpanan, penanganan sesuai SOP
+     - Sampel cadangan (retention samples) disimpan
+  
+  6. Protokol studi:
+     - Tertulis, disetujui SEBELUM studi dimulai
+     - Amendment form jika ada perubahan selama studi
+  
+  7. Rekaman dan laporan:
+     - Data mentah (raw data): semua observasi primer → TIDAK BOLEH DIHAPUS!
+     - Audit trail: setiap entry diberi tanggal, inisial, tidak bisa dihapus
+     - Laporan akhir: ditandatangani Study Director, diaudit QAU
+  
+  8. Arsip:
+     - Data disimpan setidaknya 10 tahun pasca laporan akhir
+     - Kondisi penyimpanan terjaga (T, kelembaban, non-flammable)
+```
+
+---
+
+## 3. Good Manufacturing Practice (GMP)
+
+```
+GMP = peraturan yang memastikan produk (obat, makanan, kosmetik)
+      dibuat secara konsisten dan dikontrol sesuai standar kualitas
+
+Berbeda dari GLP:
+  GLP: studi keselamatan/uji laboratorium non-klinik (pre-market)
+  GMP: proses manufaktur produk yang akan dikonsumsi (market)
+
+Elemen Kunci GMP Farmasi (WHO, EU GMP, ICH Q10):
+
+Personnel:
+  - Qualified Person (QP): yang menandatangani batch release
+  - Pelatihan reguler: prosedur baru, higiene, keselamatan
+  - Pakaian area produksi: celana, baju, penutup kepala, sarung tangan
+
+Gedung dan Peralatan:
+  - "Clean rooms": kontrol partikel udara, bioburden
+    Grade A (ISO 5): ≤ 3,520 partikel/m³ (≥0.5μm) — laminar flow filling
+    Grade B (ISO 5): background untuk Grade A → 3,520 juga saat istirahat
+    Grade C (ISO 7): 352,000 partikel/m³ — aseptic preparation
+    Grade D (ISO 8): 3,520,000 partikel/m³ — general manufacturing
+  
+  - Validasi peralatan: IQ, OQ, PQ
+    IQ (Installation Qualification): peralatan diinstal sesuai spesifikasi
+    OQ (Operational Qualification): beroperasi dalam batas parameter
+    PQ (Performance Qualification): performa konsisten untuk penggunaan aktual
+
+Produksi:
+  - Batch Manufacturing Record (BMR) untuk setiap batch
+  - In-process controls: cek pH, viskositas, konsentrasi pada titik kritis
+  - Rekonsiliasi yield: yield aktual vs teoritis harus dalam range
+
+Kontrol Kualitas (QC):
+  - Testing setiap batch sebelum release: identitas, kemurnian, potensi, sterilitas
+  - Reference standards: ICH bersertifikat, dikarakterisasi ulang periodik
+  - Stability program: real-time (25°C/60% RH) + accelerated (40°C/75% RH)
+
+Dokumentasi:
+  "If it's not documented, it didn't happen" — Prinsip Emas GMP!
+  - SOP: Standard Operating Procedure untuk semua aktivitas kritis
+  - Log book: semua penggunaan instrumen, anomaly, maintenance
+  - Deviation report: jika ada penyimpangan dari prosedur standar
+  - CAPA: Corrective Action Preventive Action → tindak lanjut deviasi
+
+Release Batch:
+  QC: hasil uji dalam spesifikasi
+  QA: review semua dokumen, deviasi, hasil
+  QP: tandatangani Certificate of Analysis → batch released!
+```
+
+---
+
+## 4. ISO/IEC 17025: Laboratorium Kalibrasi dan Pengujian
+
+```
+ISO 17025 = standar internasional untuk kompetensi laboratorium pengujian + kalibrasi
+            Akkreditasi oleh KAN (Komite Akreditasi Nasional) di Indonesia
+            ILAC (International Laboratory Accreditation Cooperation) secara global
+
+Persyaratan Utama:
+  
+  Persyaratan Struktural:
+  - Impartialitas: bebas dari tekanan komersial/finansial untuk memanipulasi hasil
+  - Kerahasiaan: data klien terlindungi
+  
+  Persyaratan Sumber Daya:
+  - Kompetensi: staf terlatih, rekaman training
+  - Fasilitas dan kondisi lingkungan: terkontrol dan dipantau
+  - Peralatan: dikalibrasi, dipelihara, rekaman lengkap
+  - Ketertelusuran metrologi: rantai kalibrasi ke SI unit!
+  
+  Persyaratan Proses:
+  - Metode tervalidasi (internal atau standar: ISO, ASTM, SNI)
+  - Estimasi ketidakpastian pengukuran (uncertainty budget!)
+    → Setiap hasil harus dilaporkan dengan ketidakpastian!
+  - Jaminan mutu hasil: participation dalam proficiency testing
+  
+  Persyaratan Manajemen (opsional ISO 9001-based):
+  - Quality Manual, dokumen terkontrol
+  - Audit internal, tinjauan manajemen
+  - Penanganan ketidaksesuaian, tindakan korektif
+
+Proficiency Testing (PT):
+  Laboratorium mengirim sampel tersembunyi bersama lab lain → skor z
+  z-score = (x_lab - x_assigned) / σ_pt
+  |z| ≤ 2: satisfactory (95% lab harus masuk sini)
+  2 < |z| ≤ 3: questionable (investigasi)
+  |z| > 3: unsatisfactory (corrective action!)
+```
+
+---
+
+## 5. Ketidakpastian Pengukuran (Uncertainty Budget)
+
+```
+Setiap pengukuran memiliki ketidakpastian — tidak ada pengukuran "pasti"!
+
+Komponen Ketidakpastian (GUM — Guide to Expression of Uncertainty in Measurement):
+  
+  Type A: dievaluasi dari analisis statistik data yang diulang
+    u_A = s / √n    (standar error dari mean)
+  
+  Type B: dievaluasi dari sumber lain (sertifikat kalibrasi, spesifikasi)
+    Distribusi rectangular (seragam):  u = a/√3  (a = half-width)
+    Distribusi normal: u = U/k  (U = ketidakpastian diperluas, k = coverage factor)
+
+Propagasi Ketidakpastian:
+  Untuk fungsi sederhana y = f(x₁, x₂, ...):
+  
+  y = x₁ + x₂ − x₃:       u_y² = u₁² + u₂² + u₃²
+  y = x₁ × x₂ / x₃:       (u_y/y)² = (u₁/x₁)² + (u₂/x₂)² + (u₃/x₃)²
+  
+Relative Uncertainty (Combined):
+  u_c = √(Σuᵢ²)  (akar kuadrat jumlah semua komponen yang dikuadratkan)
+
+Ketidakpastian Diperluas:
+  U = k × u_c
+  k = 2 (confidence ~95.45% untuk distribusi normal)
+  k = 3 (confidence ~99.73%)
+  
+Contoh Laporan:
+  [Cu²⁺] = 15.32 ± 0.28 mg/L  (k = 2, 95% confidence level)
+  
+  Artinya: nilai benar kemungkinan 95% berada antara 15.04 dan 15.60 mg/L
+```
+
+---
+
+## 6. Quality Control Harian di Laboratorium Rutin
+
+```
+Blanko (Blank):
+  Reagent blank: semua reagen tanpa sampel → koreksi kontaminasi reagen
+  Matrix blank: matriks tanpa analit (misal: serum negatif)
+  Field blank: untuk aplikasi lapangan (cek kontaminasi dari pengambilan sampel)
+  
+  Subtraksi blanko: semua kalkulasi kuantifikasi dikurangi respons blanko
+
+Standar Internal (IS):
+  Senyawa ditambahkan ke SEMUA sampel dalam jumlah konstan
+  Koreksi untuk variasi instrumen, kehilangan selama preparasi
+  Ideal IS: struktur mirip analit, tapi bisa dibedakan (isotop deuterium, analog)
+  
+  Dalam LC-MS/MS: IS deuterium-labeled sangat umum (deuterium = D atau ²H)
+
+QC Samples (Kontrol Kualitas Internal):
+  Low QC: ~LOQ × 3 (paling rentan terhadap variasi)
+  Medium QC: ~50% tengah rentang kalibrasi
+  High QC: ~75-90% rentang atas kalibrasi
+  
+  Dianalisis bersamaan sampel nyata!
+  Acceptance criteria: ±15% dari nominal (±20% untuk LOQ)
+  
+  Jika QC gagal → REJECT batch seluruhnya dan analisis ulang!
+
+Levey-Jennings Chart + Westgard Rules:
+  Plot nilai QC terhadap waktu → monitoring trend
+  
+  1₂s: Peringatan — 1 QC melewati ±2 SD
+  1₃s: Reject — 1 QC melewati ±3 SD
+  2₂s: Reject — 2 QC berturutan di satu sisi ±2 SD
+  R₄s: Reject — 1 QC high >+2SD, 1 QC low < -2SD dalam run sama
+  4₁s: Reject — 4 QC berturutan di satu sisi ±1 SD
+  10x:  Warning/Reject — 10 QC berturutan di satu sisi mean
+```
+
+<Quiz
+  question="Sebuah laboratorium melakukan uji recovery terhadap metode HPLC baru. Dari 9 determinasi (3 konsentrasi × 3 replikat), diperoleh hasil recovery rata-rata 108% dengan %RSD 3.2%. Berdasarkan kriteria ICH Q2, apa kesimpulannya?"
+  options={[
+    "Metode TIDAK valid karena recovery di atas 100%",
+    "Metode VALID — akurasi 108% dan presisi 3.2% memenuhi kriteria ICH Q2 (80-120% recovery, %RSD ≤ 5%)",
+    "Metode perlu diulang karena %RSD harus ≤ 2%",
+    "Recovery diterima tapi %RSD terlalu tinggi untuk farmasi"
+  ]}
+  correctAnswer={1}
+  explanation="ICH Q2(R1) mensyaratkan recovery 80-120% untuk analit utama farmasi, dan %RSD ≤ 2% untuk presisi repeatability di konsentrasi tinggi, namun ≤ 5% umumnya diterima untuk intermediate precision atau ketika ada variasi konsentrasi. Recovery 108% berada dalam 80-120%, dan %RSD 3.2% masih acceptable. Recovery di atas 100% tidak masalah — itu bisa berarti ada gangguan matriks atau over-extract, tapi tetap 'valid' selama dalam batas ICH. Yang penting konsistensi dan dokumentasi alasan penerimaan."
+/>

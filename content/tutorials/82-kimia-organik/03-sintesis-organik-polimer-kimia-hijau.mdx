@@ -1,0 +1,258 @@
+---
+title: "Sintesis Organik & Polimer Modern"
+description: "Strategi sintesis organik multistep, proteksi gugus fungsi, selektivitas reaksi. Polimer kondensasi dan adisi, karet, plastik, serat sintetis. Kimia hijau dan katalisis asimetris untuk sintesis berkelanjutan."
+icon: "TestTube"
+order: 3
+---
+
+# Sintesis Organik: Seni Merancang Molekul
+
+Pada tahun 1828, Friedrich Wöhler mensintesis urea (NH₂CONH₂) dari amonium sianat — membuktikan bahwa senyawa organik bisa dibuat di luar tubuh makhluk hidup. Momen ini menghancurkan teori vitalisme dan melahirkan kimia organik modern.
+
+Hari ini, ahli sintetis organik bisa membuat senyawa dengan kompleksitas hampir tak terbatas — dari Aspirin sederhana hingga Taxol yang kompleks dengan 11 pusat stereosentral atau Vitamin B12 dengan 9 pusat kiral yang disintesis Woodward dan Eschenmoser.
+
+---
+
+## 1. Strategi Sintesis: Retrosynthesis
+
+```
+Retrosynthesis (disconnection analysis) — E.J. Corey (Nobel 1990):
+  Mulai dari TARGET MOLEKUL, mundur ke bahan awal yang tersedia
+  Setiap langkah = "disconnection" (memutus ikatan target)
+  
+  Notasi: ⟹ (panah retrosintesis, berlawanan dengan sintesis)
+
+Contoh Sederhana — Retrosynthesis Aspirin (asetil salisilat):
+
+  CH₃COOC₆H₄COOH  (aspirin)
+       ⟹
+  HO-C₆H₄-COOH + CH₃CO-  (dua synthon)
+  Asam salisilat + asetoklor (atau anhydride asetat)
+  
+  Sintesis nyata:
+  Asam salisilat + CH₃CO-OCOCH₃ → Aspirin + CH₃COOH
+  (asam salisilat + asetat anhidrid, katalis H₂SO₄)
+```
+
+### Pendekatan Retrosynthesis Sistematis:
+
+```
+1. Kenali gugus fungsi target dan turunannya
+2. Pertimbangkan transformasi pendekatan:
+   Disconnection: memutus ikatan C-C atau C-heteroatom
+   Strategically important bonds:
+     α ke gugus fungsi (carbonyl, alcohol, etc.)
+     Retrosynthetic cut yang sederhana
+
+3. Identifikasi "synthon" dan "synthetic equivalent"-nya:
+   Synthon: fragmen konseptual (carbonyl ⊕, carbanion ⊖)
+   Synthetic equivalent: reagen nyata yang digunakan
+
+4. Pilih "tactics": reagen, kondisi, urutan reaksi
+```
+
+---
+
+## 2. Reaksi Penting dan Gugus Pelindung
+
+### Reaksi Aldol:
+```
+Enolat (karbanion α-karbonil) + karbonil → β-hidroksi karbonil (aldol produk)
+
+Basa (NaOH):  CH₃CHO → ⁻CH₂CHO (enolat)
+              ⁻CH₂CHO + CH₃CHO → CH₃CH(OH)CH₂CHO  (aldol)
+
+Kondensasi Aldol (pemanasan, dehidrasi):
+  → CH₃CH=CHCHO (crotonaldehida) + H₂O
+  (ikatan C-C baru terbentuk dan konjugasi)
+
+Kontrol Regiokimia:
+  LDA (lithium diisopropylamide): basa kuat non-nukleofilik
+  → Kinetis: deprotonasi H paling asam tapi paling tidak terhalang
+  → Termodinamis: enolat paling stabil
+```
+
+### Reaksi Grignard:
+```
+Sintesis RMgX (reagen Grignard):
+  R-X + Mg → R-MgX   (X = Br, I; dalam eter kering)
+  R = alkil, aranol, vinil (tapi tidak Ar-F langsung)
+
+  R-MgX = "nukleofilik sumber karbanion"
+
+Reaksi Grignard + Aldehida/Keton → Alkohol:
+  R-MgX + RCHO → RC(OH)R   (alkohol sekunder)
+  R-MgX + R₂CO → RC(OH)R₂  (alkohol tersier)
+  R-MgX + HCHO → RCH₂OH    (alkohol primer)
+  R-MgX + CO₂ → RCOOH      (asam karboksilat!)
+
+  Penting: Semua bahan harus KERING! (Grignard bereaksi dengan air)
+  H₂O + RMgX → RH + Mg(OH)X   (proto-demetalasi, menghancurkan)
+```
+
+### Proteksi Gugus Fungsi:
+```
+Dalam sintesis multistep, kadang perlu BLOKIR gugus tertentu:
+
+Proteksi Alkohol:
+  -OH → -OTBS (TBS = tert-butyldimethylsilyl, tambah TBS-Cl, base)
+  Deproteksi: TBAF (fluoride) , mudah dan selektif
+  
+  -OH → -OTs (tosylat, tambah TsCl/Py) → leaving group
+  -OH → asetal (tambah aldehida/keton, asam Lewis) → lebih stabil
+
+Proteksi Karbonil:
+  C=O → 1,3-dioxolane (asetal siklik, tambah ethylene glycol, asam Lewis)
+  Stabil terhadap basa, dilepas dengan asam di air
+
+Strategi PAOH (Protection/Activation/Orthogonal):
+  Pilih protecting group yang tidak saling mengganggu
+  Setiap gugus diproteksi dengan PG yang bisa dilepas secara berbeda
+```
+
+---
+
+## 3. Katalisis Asimetris: Membuat Molekul Kiral
+
+```
+Mengapa penting?:
+  Banyak obat aktif hanya dalam satu enantiomer
+  Thalidomide (1960s): R=antiemetic, S=teratogenik
+  Ibuprofen: S 100x lebih aktif dari R
+
+Tiga Strategi Sintesis Asimetris:
+
+1. Chiral pool: mulai dari bahan alami yang sudah kiral
+   Asam amino, gula, terpenoid → bangunan blok kiral
+
+2. Auxiliary chiraux (chiral auxiliary):
+   Tambah gugus kiral sementara → kontrol stereokimia → hapus
+   Evans oxazolidinone: kontrol enkil aldol
+
+3. Katalisis Asimetris: katalis kiral (logam + ligan kiral)
+   → Bisa menghasilkan jutaan molekul produk kiral dari satu molekul katalis!
+   
+   Hydrogenasi Asimetris (Knowles, Noyori — Nobel 2001):
+     [Rh(BINAP)]⁺ + H₂ → hidrogenasi enantioselektif → >99% ee!
+     BINAP = 2,2'-bis(diphenylphosphino)-1,1'-binaphthyl (ligan kiral biaryl)
+     
+   Epoksidasi Asimetris Sharpless (Sharpless — Nobel 2001):
+     Ti(OiPr)₄ + DET + TBHP → epoksidasi alil alkohol >90% ee
+     
+   Organocatalysis (MacMillan — Nobel 2021):
+     Iminium dan enamine katalis kecil organik → bb mual berlebihan
+     Prolin: katalis asimetrik sederhana dari asam amino!
+```
+
+---
+
+## 4. Reaksi Olefin Metathesis: "Kawin" Ikatan Rangkap
+
+```
+Grubbs, Schrock, Chauvin — Nobel 2005
+
+Dalam metathesis alkena: dua ikatan C=C bertukar partner!
+  R¹CH=CHR² + R³CH=CHR⁴ →  R¹CH=CHR³ + R²CH=CHR⁴
+  (katalis karben logam, biasanya Ru atau Mo)
+
+Tipe Metathesis:
+  RCM (Ring Closing Metathesis): membentuk cincin dari diena
+  ROMP (Ring Opening Metathesis Poly): polimerisasi olefin siklik
+  CM  (Cross Metathesis): mengkombinasikan dua alkena berbeda
+  ADMET: polimerisasi dengan eliminasi
+
+Katalis Grubbs Generasi 1&2: berbasis Ru, toleran udara/air, mudah ditangani
+  → Revolusi dalam sintesis: ikatan C=C bisa dibentuk SANGAT efisien
+
+Aplikasi:
+  Sintesis macrolide antibiotik (Epothilone, Neopeltolide)
+  Polimer dan elastomer via ROMP (polydicyclopentadiene — material yang sangat keras)
+  Biomaterial dan material khusus
+```
+
+---
+
+## 5. Polimer Modern: Dari Monomer ke Material
+
+### Polimerisasi Anionik dan Kationik Hidup:
+```
+Living Polymerization: tidak ada terminasi → kontrol ketat:
+  MW = n_monomer/n_inisiator (bisa tepat!)
+  PDI mendekati 1.0 (nyaris monodispers)
+  
+  Block copolymer dapat dibuat:
+  Tambah monomer A dulu sampai habis → tambah monomer B
+  → [A]ₙ-[B]ₘ diblock copolymer → self-assemble jadi nanostruktur!
+  Microdomain: lamela, silinder, bola (bergantung fraksi volume blok)
+  → Aplikasi: templat nanofabrikasi, drug delivery, membran
+
+ATRP (Atom Transfer Radical Polymerization, Matyjaszewski):
+  Kontrol ketat tanpa inisiator anionik
+  Toleran kelembaban
+  Bisa membuat kopolimer gradien, star, brush polymer
+```
+
+### Karet dan Elastomer:
+```
+Karet alam = cis-1,4-poliisoprena (Hevea brasiliensis)
+  Ikatan C=C dalam konfigurasi CIS → rantai bisa melingkar
+  Elastisitas = entropi! Peregangan → entropi turun → gaya pemulih
+  Vulkanisasi (Goodyear 1844): ikatan silang S-S antar rantai
+  → Lebih kuat, elastis, tidak lengket di panas → ban mobil, bola, sarung tangan
+
+Karet Sintetis:
+  SBR (Stizene-Butadiene Rubber): 75% ban modern
+  EPDM: tahan cuaca, ozon, suhu tinggi → gasket, atap
+  Silikon: -Si-O- backbone, tahan panas (-80 to +250°C), medical grade
+  Neoprene: tahan minyak, api → baju selam, sarung tangan industri
+
+Hydrogel:
+  Polimer yang menyerap banyak air (>90%) tapi tidak larut
+  Super-absorber (Sodium Polyacrylate): popok bayi! (10g → 3L air)
+  Kontaklens: PHEMA (poli-2-hydroxyethyl methacrylat)
+  Scaffold tissue engineering: gelatin, hyaluronic acid, chitosan
+```
+
+---
+
+## 6. Kimia Hijau (Green Chemistry) — 12 Prinsip Anastas
+
+```
+1. Pencegahan: lebih baik mencegah limbah dari dan membersihkannya
+2. Atom economy: semua atom reaktan masuk produk
+   % atom economy = MM produk / ΣMM reaktan × 100%
+   
+   Adisi: A+B → C   atom economy = 100%!
+   Substitusi: A+B → C+D   economy < 100%
+   
+3. Sintesis kimia kurang berbahaya
+4. Merancang bahan kimia lebih aman
+5. Pelarut dan auxiliaries lebih aman (gunakan air, CO₂ superkritis)
+6. Efisiensi energi (T kamar dan P atmosfer lebih disukai)
+7. Bahan baku terbarukan
+8. Kurangi derivatif (gugus pelindung, deproteksi = atom economy buruk)
+9. Katalisis (lebih baik dari reagent stoikiometrik)
+10. Desain untuk degradasi (produk bisa terdegradasi di lingkungan)
+11. Analisis real-time untuk pencegahan polusi
+12. Kimia yang lebih aman untuk pencegahan kecelakaan
+```
+
+> [!IMPORTANT] Masa Depan Sintesis: Kimia Aliran dan Otomasi
+> **Flow chemistry** (sintesis dalam pipa mikro) menggantikan flask besar:
+> - Perpindahan panas/massa lebih baik → lebih aman untuk reaksi eksoterm
+> - Skala lebih mudah (parallel numbering up, bukan scaling up)
+> - Integrasi dengan analitik in-line real-time
+> 
+> **Automated synthesis robots** (Pfizer, Lilly) bisa menjalankan ratusan reaksi paralel, dianalisis dengan MS/HPLC, dan AI mengoptimalkan kondisi. IBM dan MIT membangun sistem AI yang bisa merencanakan dan mengeksekusi sintesis multi-step secara otonom (2023).
+
+<Quiz
+  question="Dalam retrosynthesis, jika kita memotong ikatan α-β terhadap gugus karbonil, akpakah yang kita dapatkan secara konseptual?"
+  options={[
+    "Dua alkena dari Wittig disconnection",
+    "Electrophilic carbonyl synthon dan nucleophilic alkyl synthon (enolate equivalent)",
+    "Dua fragmen dengan muatan yang sama",
+    "Alkohol dari reaksi Grignard terbalik"
+  ]}
+  correctAnswer={1}
+  explanation="Disconnection α ke karbonil memotong ikatan C(α)-C(β). Karbonil sintesis menjadi: (1) fragmen elektrofilik = karbonil itusendiri (C=O, menerima nukleofil) dan (2) fragmen nukleofilik = enolat/carbanion α (C⁻ dari C yang berdekatan dengan C=O). Dalam sintesis nyata: enolat dihasilkan dari basa kuat (LDA, dll) bereaksi dengan elektrofil apapun (aldehida, alkil halida). Inilah prinsip dasar reaksi aldol, alkylasi enolat, dan banyak transformasi C-C lainnya."
+/>

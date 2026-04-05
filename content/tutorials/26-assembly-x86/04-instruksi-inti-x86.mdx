@@ -1,0 +1,393 @@
+---
+title: "4. Instruksi Inti x86: Bahasa Perintah CPU"
+description: "Menguasai instruksi fundamental x86-64 — MOV, LEA, aritmetika, percabangan kondisional, loop, dan CALL/RET — dengan penjelasan mendalam tentang apa yang terjadi di dalam chip saat setiap instruksi dieksekusi."
+icon: "Terminal"
+order: 4
+---
+
+# Instruksi Inti x86: Bahasa Perintah CPU
+
+Setiap instruksi Assembly adalah **perintah langsung ke CPU** — tidak ada penerjemah tambahan, tidak ada runtime, tidak ada overhead. Saat Anda menulis `mov rax, 5`, prosesor benar-benar memindahkan nilai 5 ke register RAX dalam hitungan nanosecond.
+
+Di bab ini kita akan mempelajari instruksi-instruksi inti x86-64 beserta **apa yang sesungguhnya terjadi di dalam silikon** saat instruksi itu dieksekusi.
+
+---
+
+## 1. MOV — Raja dari Semua Instruksi
+
+`MOV` adalah instruksi paling sering digunakan di x86. Ia memindahkan (menyalin) data dari sumber ke tujuan.
+
+```nasm
+; Sintaks: MOV destination, source
+; Aturan: destination TIDAK BOLEH berupa literal angka (immediate)
+;         source bisa berupa: register, memori, atau immediate
+
+; --- Register ke Register ---
+mov rax, rbx        ; RAX = nilai dari RBX
+
+; --- Immediate ke Register ---
+mov rax, 42         ; RAX = 42 (literal)
+mov al,  'A'        ; AL = 65 (ASCII 'A') — hanya byte rendah RAX
+
+; --- Memori ke Register (LOAD) ---
+mov rax, [rbx]      ; RAX = 8-byte dari alamat memori [RBX]
+mov eax, [rbx + 4]  ; EAX = 4-byte dari alamat [RBX + 4]
+
+; --- Register ke Memori (STORE) ---
+mov [rbx], rax      ; Simpan nilai RAX ke alamat memori [RBX]
+mov [rsp + 8], rcx  ; Simpan RCX ke stack (offset 8 dari RSP)
+
+; --- PENTING: Tidak bisa Memory ke Memory secara langsung! ---
+; mov [dest], [src]  ← INI TIDAK VALID! x86 tidak bisa!
+; Solusi: gunakan register sebagai perantara:
+mov rax, [src]
+mov [dest], rax
+```
+
+> [!IMPORTANT] Aturan Emas MOV
+> x86 **tidak memizinkan** kedua operan sekaligus berupa alamat memori. Selalu harus ada minimal satu register di antara dua operasi memori. Ini adalah keterbatasan desain arsitektur yang sudah ada sejak Intel 8086 tahun 1978.
+
+---
+
+## 2. LEA — Ambil Alamatnya, Bukan Nilainya
+
+**LEA (Load Effective Address)** adalah instruksi yang sering disalahpahami. Ia menghitung alamat memori — tapi **tidak mengaksesnya**. Ia menyimpan alamat itu sendiri ke register.
+
+```nasm
+; Misalkan RBX = 0x1000
+mov rax, [rbx + 16]  ; RAX = NILAI 8-byte di alamat 0x1010
+lea rax, [rbx + 16]  ; RAX = ALAMAT itu sendiri = 0x1010
+
+; LEA sering dipakai untuk aritmetika cepat:
+lea rax, [rbx + rbx]        ; RAX = RBX * 2  (lebih cepat dari mul!)
+lea rax, [rbx + rbx*2]      ; RAX = RBX * 3
+lea rax, [rbx + rbx*4]      ; RAX = RBX * 5
+lea rax, [rbx + rbx*8]      ; RAX = RBX * 9
+
+; LEA untuk mendapatkan alamat variabel lokal:
+section .data
+    pesan db "Halo", 0
+section .text
+    lea rdi, [rel pesan]    ; RDI = alamat string "Halo" (untuk dikirim ke fungsi)
+```
+
+> [!TIP] Trik Kompiler: LEA sebagai Multiplier
+> Kompiler C sering menggunakan LEA untuk perkalian dengan konstanta kecil karena LEA **tidak mengubah RFLAGS** (tidak seperti ADD/MUL) dan sering lebih cepat. Jika Anda pernah melihat `lea eax, [eax + eax*4]` di output disassembler — itu adalah cara kompiler mengalikan EAX dengan 5.
+
+---
+
+## 3. Instruksi Aritmetika Lengkap
+
+### 3.1 Penjumlahan dan Pengurangan
+
+```nasm
+; ADD — Penjumlahan
+add rax, rbx        ; RAX = RAX + RBX  (update ZF, CF, OF, SF)
+add rax, 100        ; RAX = RAX + 100
+add [var], rax      ; nilai di memori [var] += RAX
+
+; SUB — Pengurangan
+sub rax, rbx        ; RAX = RAX - RBX
+sub rsp, 32         ; Alokasi 32 byte di stack (pola umum di function prologue)
+
+; INC / DEC — Increment / Decrement (1 operan, tidak ubah CF!)
+inc rax             ; RAX++ (lebih ringkas dari add rax, 1)
+dec rbx             ; RBX--
+
+; NEG — Negasi (two's complement)
+neg rax             ; RAX = 0 - RAX  (ubah tanda)
+
+; ADC — Add with Carry (untuk bilangan 128-bit)
+add rax, rbx        ; Tambah 64-bit rendah
+adc rdx, rcx        ; Tambah 64-bit tinggi + CF dari operasi sebelumnya
+```
+
+### 3.2 Perkalian dan Pembagian
+
+```nasm
+; MUL — Unsigned multiply (hasil ke RDX:RAX)
+mov rax, 1000
+mov rbx, 2000
+mul rbx             ; RDX:RAX = RAX * RBX = 2,000,000
+                    ; HaSIL 128-bit: 64-bit atas di RDX, 64-bit bawah di RAX
+
+; IMUL — Signed multiply (ada 3 varian)
+imul rbx            ; RDX:RAX = RAX * RBX (satu operan, seperti MUL tapi signed)
+imul rax, rbx       ; RAX = RAX * RBX (dua operan, hasil dipotong ke 64-bit)
+imul rax, rbx, 5    ; RAX = RBX * 5 (tiga operan, ada immediate)
+
+; DIV — Unsigned divide
+; Sebelum DIV, set RDX = 0 agar tidak ada sisa di high register
+xor rdx, rdx
+mov rax, 100
+mov rbx, 7
+div rbx             ; RAX = 100 / 7 = 14 (hasil)
+                    ; RDX = 100 % 7 = 2  (sisa bagi = modulo!)
+
+; IDIV — Signed divide (sama tapi signed)
+; Gunakan CQO/CDQ untuk sign-extend RAX ke RDX:RAX sebelum IDIV
+cqo                 ; Sign-extend RAX ke RDX:RAX
+idiv rbx            ; RAX = quotient, RDX = remainder
+```
+
+---
+
+## 4. Instruksi Perbandingan dan Lompatan (The Heart of if/else)
+
+Ini adalah cara Assembly mengimplementasikan logika kondisional.
+
+### 4.1 CMP dan TEST
+
+```nasm
+; CMP — Compare: melakukan (dst - src) tapi HANYA update flags, tidak simpan hasil
+cmp rax, rbx        ; Hitung RAX - RBX, update ZF/CF/SF/OF, buang hasilnya
+cmp rax, 0          ; Cek apakah RAX == 0?
+cmp rax, 100        ; Cek apakah RAX == 100?
+
+; TEST — Bitwise AND: melakukan (dst AND src) hanya untuk update flags
+test rax, rax       ; Cek apakah RAX == 0? (jika ZF=1, maka RAX=0)
+test rax, 1         ; Cek bit paling bawah RAX (apakah RAX ganjil?)
+```
+
+### 4.2 Conditional Jumps — Tabel Lengkap
+
+Setelah `CMP` atau `TEST`, gunakan salah satu lompatan kondisional ini:
+
+```nasm
+; === UNTUK BILANGAN TANPA TANDA (UNSIGNED) ===
+je  label   ; Jump if Equal          (ZF = 1)
+jne label   ; Jump if Not Equal      (ZF = 0)
+ja  label   ; Jump if Above          (CF=0 AND ZF=0)  [>  unsigned]
+jae label   ; Jump if Above or Equal (CF = 0)         [>= unsigned]
+jb  label   ; Jump if Below          (CF = 1)          [<  unsigned]
+jbe label   ; Jump if Below or Equal (CF=1 OR ZF=1)   [<= unsigned]
+
+; === UNTUK BILANGAN BERTANDA (SIGNED) ===
+jg  label   ; Jump if Greater        (ZF=0 AND SF=OF) [>  signed]
+jge label   ; Jump if Greater/Equal  (SF = OF)        [>= signed]
+jl  label   ; Jump if Less           (SF ≠ OF)        [<  signed]
+jle label   ; Jump if Less/Equal     (ZF=1 OR SF≠OF)  [<= signed]
+
+; === LOMPATAN KHUSUS FLAG ===
+jz  label   ; Jump if Zero Flag set (= JE)
+jnz label   ; Jump if Zero Flag clear (= JNE)
+jc  label   ; Jump if Carry Flag set
+jo  label   ; Jump if Overflow Flag set
+js  label   ; Jump if Sign Flag set (hasil negatif)
+jns label   ; Jump if Sign Flag clear (hasil positif)
+```
+
+### 4.3 Mengubah if/else ke Assembly
+
+```c
+// === Kode C yang kita terjemahkan ===
+int x = 10, y = 20;
+if (x < y) {
+    x = x + 5;
+} else {
+    y = y - 3;
+}
+```
+
+```nasm
+; === Terjemahan ke x86-64 Assembly ===
+section .data
+    x dd 10
+    y dd 20
+
+section .text
+    global _start
+
+_start:
+    mov eax, [x]        ; EAX = 10 (nilai x)
+    mov ebx, [y]        ; EBX = 20 (nilai y)
+
+    cmp eax, ebx        ; Bandingkan x dan y (hitung EAX - EBX)
+    jge else_block      ; Jika EAX >= EBX, loncat ke else
+                        ; (Karena kondisi kita x < y → loncat ke else jika TIDAK x<y)
+
+if_block:               ; x < y → true
+    add eax, 5          ; x = x + 5 = 15
+    mov [x], eax        ; Simpan kembali ke memori
+    jmp end_if          ; Loncat ke setelah if/else
+
+else_block:             ; x >= y → false
+    sub ebx, 3          ; y = y - 3 = 17
+    mov [y], ebx        ; Simpan kembali ke memori
+
+end_if:
+    ; Program berlanjut...
+```
+
+---
+
+## 5. LOOP — Perulangan di Assembly
+
+```c
+// Kode C: Hitung 1 + 2 + 3 + ... + 100
+int sum = 0;
+for (int i = 1; i <= 100; i++) {
+    sum += i;
+}
+```
+
+```nasm
+; === Terjemahan ke Assembly x86-64 ===
+    xor rax, rax        ; RAX = 0 (sum = 0, lebih cepat dari mov rax, 0)
+    mov rcx, 1          ; RCX = 1 (i = 1, gunakan RCX sebagai counter)
+
+loop_start:
+    cmp rcx, 100        ; Bandingkan i dengan 100
+    jg  loop_end        ; Jika i > 100, keluar dari loop
+
+    add rax, rcx        ; sum += i
+    inc rcx             ; i++
+    jmp loop_start      ; Kembali ke awal loop
+
+loop_end:
+    ; RAX sekarang berisi 5050 (hasil 1+2+...+100)
+```
+
+Ada juga instruksi `LOOP` bawaan x86 yang secara otomatis mengurangi RCX:
+
+```nasm
+; Cara alternatif menggunakan instruksi LOOP:
+    xor rax, rax
+    mov rcx, 100        ; RCX = counter (mundur dari 100)
+    mov rbx, 1          ; RBX = nilai dimulai dari 1
+
+iterasi:
+    add rax, rbx        ; sum += rbx
+    inc rbx             ; nilai berikutnya
+    loop iterasi        ; RCX--, jika RCX != 0, loncat ke iterasi
+                        ; Instruksi LOOP otomatis mengurangi RCX dan cek nol
+```
+
+---
+
+## 6. CALL dan RET — Memanggil dan Kembali dari Fungsi
+
+```nasm
+; === Memanggil fungsi ===
+call nama_fungsi    ; 1. PUSH RIP (alamat instruksi BERIKUTNYA ke stack)
+                    ; 2. JMP ke nama_fungsi
+
+; === Kembali dari fungsi ===
+ret                 ; 1. POP alamat dari stack ke RIP
+                    ; 2. JMP ke alamat tersebut (kembali ke pemanggil)
+```
+
+### Contoh Fungsi Lengkap: Menghitung Faktorial
+
+```nasm
+; Fungsi: faktorial(n) → EAX
+; Input: EDI = n (konvensi Linux x86-64 ABI)
+; Output: EAX = n!
+
+section .text
+    global _start
+
+; ==============================
+; fungsi faktorial (iteratif)
+; Input:  EAX = n
+; Output: EAX = n!
+; ==============================
+faktorial:
+    push rbp            ; Simpan RBP lama
+    mov  rbp, rsp       ; Buat frame baru
+    ; EAX sudah berisi n (kita tidak alokasi variabel lokal)
+
+    mov ecx, eax        ; ECX = n (pakai ECX sebagai counter)
+    mov eax, 1          ; EAX = 1 (ini akumulator hasil)
+
+    test ecx, ecx
+    jz   fakt_done      ; Jika n = 0, return 1
+
+fakt_loop:
+    imul eax, ecx       ; EAX = EAX * ECX
+    dec  ecx            ; ECX--
+    jnz  fakt_loop      ; Loop selama ECX != 0
+
+fakt_done:
+    pop  rbp            ; Kembalikan RBP
+    ret                 ; Kembali ke pemanggil (EAX berisi hasil)
+
+_start:
+    mov eax, 10         ; Hitung 10! = 3628800
+    call faktorial      ; Panggil fungsi
+    ; EAX sekarang = 3628800
+
+    ; Keluar dari program (syscall exit)
+    mov edi, eax        ; Argumen exit code (walaupun akan overflow, gak apa)
+    mov eax, 60         ; syscall nomor 60 = exit
+    syscall
+```
+
+---
+
+## 7. String Instructions — Operasi Massal di Memori
+
+x86 memiliki instruksi khusus untuk operasi pada blok memori:
+
+```nasm
+; REP MOVSB — Salin blok memori (seperti memcpy di C)
+; RSI = sumber, RDI = tujuan, RCX = jumlah byte
+    lea rsi, [src_buffer]
+    lea rdi, [dst_buffer]
+    mov rcx, 1024       ; Salin 1024 byte
+    rep movsb           ; Jalankan MOVSB sebanyak RCX kali
+
+; REP STOSB — Isi memori dengan nilai AL (seperti memset di C)
+    lea rdi, [buffer]
+    mov al, 0           ; Isi dengan nol
+    mov rcx, 512
+    rep stosb           ; Jalankan STOSB 512 kali: isi 512 byte dengan 0
+
+; SCASB — Cari byte dalam string (seperti strchr di C)
+    lea rdi, [teks]
+    mov al, 'A'         ; Cari karakter 'A'
+    mov rcx, 100        ; Maksimal 100 karakter
+    repne scasb         ; Jalankan SCASB sampai AL ditemukan (atau RCX=0)
+    ; Setelah selesai: RDI menunjuk ke SETELAH karakter yang ditemukan
+```
+
+---
+
+## 8. CMOV — Conditional Move tanpa Branch
+
+```nasm
+; Masalah: percabangan (JMP) mengganggu Branch Predictor CPU
+; Solusi: CMOV — pindahkan data HANYA JIKA kondisi terpenuhi
+
+; Contoh: max(a, b)
+mov rax, [a]
+mov rbx, [b]
+cmp rax, rbx
+cmovl rax, rbx  ; Jika RAX < RBX, maka RAX = RBX (tanpa JMP!)
+; RAX sekarang berisi max(a, b)
+
+; Tabel CMOV:
+; cmove  dst, src  → Move if Equal
+; cmovne dst, src  → Move if Not Equal
+; cmovl  dst, src  → Move if Less (signed)
+; cmovg  dst, src  → Move if Greater (signed)
+; cmovb  dst, src  → Move if Below (unsigned)
+; cmova  dst, src  → Move if Above (unsigned)
+```
+
+> [!NOTE] Mengapa CMOV Lebih Cepat dari JMP?
+> CPU modern menggunakan teknik **Branch Prediction** untuk menebak ke mana lompatan kondisional akan pergi, dan mulai mengeksekusi instruksi tersebut sebelum keputusan resmi dibuat (**speculative execution**). Jika tebakannya salah, CPU harus membuang semua pekerjaan spekulatif itu (**branch misprediction penalty**, ~15-20 cycle). CMOV menghindari masalah ini karena tidak ada lompatan sama sekali.
+
+---
+
+<Quiz
+  question="Apa perbedaan antara instruksi `cmp rax, rbx` dan `sub rax, rbx`?"
+  options={[
+    "Tidak ada perbedaan, kedua instruksi itu identik",
+    "CMP melakukan pengurangan dan menyimpan hasilnya ke RAX, sedangkan SUB hanya mengupdate RFLAGS",
+    "CMP melakukan pengurangan hanya untuk mengupdate RFLAGS tanpa menyimpan hasilnya ke RAX, sedangkan SUB menyimpan hasilnya ke RAX",
+    "CMP hanya bisa digunakan dengan immediate (angka literal), bukan register"
+  ]}
+  correctAnswer={2}
+  explanation="Tepat! CMP dan SUB sama-sama melakukan operasi pengurangan dan mengupdate flags (ZF, CF, SF, OF). Perbedaan krusialnya: SUB menyimpan hasil ke operan tujuan (memodifikasi RAX), sedangkan CMP membuang hasilnya — flags diupdate tapi nilai register tidak berubah. Inilah kenapa CMP biasanya diikuti oleh instruksi Jump kondisional."
+/>

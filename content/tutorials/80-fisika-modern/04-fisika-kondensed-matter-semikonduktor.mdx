@@ -1,0 +1,287 @@
+---
+title: "Fisika Kondensed Matter: Padatan, Semikonduktor & Topologi"
+description: "Struktur kristal dan ikatan padatan, pita energi (band theory), semikonduktor dan transistor, superkonduktivitas, efek Hall kuantum, bahan topologis, dan fasa kuantum materi modern."
+icon: "Boxes"
+order: 4
+---
+
+# Fisika Materi Terkondensasi: Mengapa Padatan Bisa Menghantarkan, Melindungi, dan Bahkan Melawan Gravitasi
+
+Fisika materi terkondensasi (condensed matter physics) adalah cabang fisika dengan jumlah penelitian dan penemuan terbanyak — lebih dari fisika partikel dan kosmologi digabungkan. Mengapa? Karena hampir semua teknologi modern berakar di sini: semikonduktor, magnet, superkonduktor, polimer, layar OLED, memory flash, dan kuantum komputasi.
+
+---
+
+## 1. Struktur Kristal dan Ikatan
+
+```
+Kristal = susunan periodik atom/ion/molekul dalam 3D
+  Bravais Lattice: 14 jenis kisi unik yang bisa mengisi ruang 3D tanpa celah
+
+Kisi Kubik (Cubic Lattice) — yang paling umum:
+  SC (Simple Cubic): 1 atom per sel satuan, tidak ada logam nyata
+  BCC (Body-Centered Cubic): 2 atom, Fe, W, Cr, Mo
+  FCC (Face-Centered Cubic): 4 atom, Cu, Au, Ag, Al, Ni
+
+Parameter kisi:
+  Kasus FCC (r = jari-jari atom):
+  Panjang sisi a = 2√2 r
+  Atomic packing factor (APF) = volume atom / volume sel = π/(3√2) = 74.05%
+  → Paling rapat! (sama dengan HCP)
+
+X-Ray Diffraction: Hukum Bragg
+  Sinar X difraksi dari bidang kristal (d = jarak antar bidang):
+  2d sinθ = nλ
+  
+  Mengukur pola difraksi → menentukan struktur kristal!
+  Penentuan DNA, protein, material — revolusi sains abad 20 & 21
+
+Cacat Kristal:
+  Point defect: vacancy, interstitial, substitusi
+  Line defect: dislokasi (edge, screw) → menentukan kekuatan mekanik logam!
+  Planar defect: grain boundary → batas butir
+  
+  Logam lebih kuat jika: lebih banyak dislokasi (work hardening),
+  partikel presipitat, paduan elemen (solid solution hardening)
+```
+
+---
+
+## 2. Teori Pita Energi: Mengapa Ada Konduktor, Isolator, Semikonduktor
+
+```
+Elektron dalam padatan: bukan orbital terisolasi tapi pita energi!
+
+Solusi Bloch untuk elektron dalam potensial periodik:
+  ψ_{k,n}(r) = u_{k,n}(r) × e^(ik⋅r)
+
+  n = indeks pita (band index)
+  k = vektor gelombang dalam zona Brillouin
+
+Pita Energi:
+  Pita terisi (valence band): elektron terisi penuh
+  Pita konduksi (conduction band): bisa terisi atau kosong
+  Band gap (Eg): celah energi antara keduanya [eV]
+
+Klasifikasi Material:
+  LOGAM:   pita konduksi SEBAGIAN TERISI (Fermi level di dalam pita)
+           → Elektron bebas bergerak → konduktor listrik dan panas
+
+  INSULATOR: Band gap besar (Eg > 4 eV)
+             → Elektron tidak bisa lompati gap pada T kamar
+             → Resistivitas sangat tinggi (10⁸ - 10¹⁸ Ω⋅m)
+
+  SEMIKONDUKTOR: Band gap kecil (Eg ≈ 0.1-3 eV)
+                → Pada T tinggi atau doping → elektron bisa melompati gap
+                
+                Si: Eg = 1.12 eV (ideal untuk solar cell dan transistor!)
+                Ge: Eg = 0.67 eV (IR detektor)
+                GaAs: Eg = 1.43 eV (LED, laser, solar sel tinggi)
+                SiC: Eg = 3.2 eV (power electronics, EV)
+                GaN: Eg = 3.4 eV (LED biru → Nobel 2014!, 5G)
+```
+
+---
+
+## 3. Semikonduktor dan Transistor
+
+### Doping Semikonduktor:
+```
+Doping = menambah impuritas dalam jumlah kecil (ppm) untuk mengontrol sifat
+
+N-type (excess elektron):
+  Si (4 valensi) + P atau As (5 valensi)
+  → 1 elektron ekstra per atom dopan
+  → Pembawa mayoritas: ELEKTRON
+  → Level donor: tepat di bawah pita konduksi
+
+P-type (defisiensi elektron = "hole"):
+  Si + B atau Al (3 valensi)
+  → 1 hole ekstra per atom dopan
+  → Pembawa mayoritas: HOLE
+  → Level akseptor: tepat di atas pita valensi
+  → Hole bergerak berlawanan dengan elektron
+
+Hole bukanlah lubang fisik — ia adalah quasipartikel:
+  Absensi elektron dalam pita valensi yang berkelakuan seperti partikel bermuatan +e
+```
+
+### P-N Junction dan Dioda:
+
+```
+Ketika P dan N disatukan:
+  Difusi → elektron ke P, hole ke N
+  Depletion region: tidak ada pembawa, ada medan listrik internal (W→P)
+  Built-in potential: V_bi ≈ 0.7V untuk Si
+
+Forward bias (V > 0): mengurangi depletion → arus mengalir eksponensial
+  I = I₀(e^(V/V_T) - 1)    V_T = kT/e = 26mV pada 25°C
+
+Reverse bias (V < 0): memperlebar depletion → arus sangat kecil (I₀)
+
+Aplikasi dioda: penyearah (AC→DC), LED, photodiode, dioda Zener (regulator tegangan)
+
+LED (Light Emitting Diode):
+  Elektron rekombinasi dengan hole → memancarkan foton (E_foton ≈ E_bandgap)
+  GaAs: IR,  GaP: merah/hijau, InGaN: biru/putih (Nobel 2014: Akasaki, Amano, Nakamura)
+  LED putih = chip GaN biru + fosfor konverter warna
+  Efisiensi: 150-200 lm/W (vs tungsten 15 lm/W, neon 60-100 lm/W)
+```
+
+### MOSFET — Transistor Modern:
+
+```
+MOSFET = Metal-Oxide-Semiconductor Field-Effect Transistor
+Blok bangunan dasar semua mikroprosesor modern!
+
+Strukturnya:
+  Source (S), Drain (D): N-type di Si P-type substrate
+  Gate (G): Metal/polysilicon di atas oksida SiO₂ yang sangat tipis (<2nm!)
+  Body/Substrate (B): P-type Si
+
+Operasi (NMOS):
+  V_GS = 0: tidak ada channel → tidak ada arus S-D (OFF)
+  V_GS > V_th: Medan listrik menginduksi channel N di bawah gate → arus mengalir (ON)
+
+  Threshold: V_th tipis = ~0.3-0.7V
+  Lebar channel L = ukuran transistor (2nm untuk node terkini!)
+
+Skalasi Moore's Law:
+  Gordon Moore (1965): jumlah transistor per chip × 2 setiap ~2 tahun
+  1971 (Intel 4004): 2,300 transistor
+  2024 (Apple M4): ~28 miliar transistor!
+  Batas: 2nm transistor gate (beberapa atom Si)
+  → Fisika kuantum (quantum tunneling) mulai mengganggu!
+
+Alternatif pasca-Silicon:
+  GaN (power), SiC (high temp), InGaAs (high mobility)
+  Nanowire transistor, Carbon nanotube FET
+  2D material (MoS₂) transistor 1-3 atom tebal!
+```
+
+---
+
+## 4. Superkonduktivitas
+
+```
+Onnes (1911): Resistansi Hg = 0 tepat di bawah T_c = 4.2K!
+→ Arus bisa mengalir SELAMANYA tanpa panas (I²R = 0!)
+
+Efek Meissner:
+  Superkonduktor menolak SEMUA medan magnet dari interior (B = 0 di dalam)
+  Ini bukan resistansi nol — bahkan material berresistansi nol membolehkan B masuk!
+  Efek Meissner = sifat termodinamik fundamental superkonduktor!
+  
+  Akibat: Magnet melayang di atas superkonduktor! (Magnetic levitation)
+
+Teori BCS (Bardeen, Cooper, Schrieffer — Nobel 1972):
+  Elektron membentuk Cooper Pairs — pasangan elektron dengan spin berlawanan
+  Mediated oleh phonon (getaran kisi)!
+  Cooper pairs = boson → bisa berada di ground state bersama → superkonduktivitas
+
+Kriteria: Tc rendah (beberapa K) untuk superkonduktor conventional
+  Pb: 7.2 K, Nb: 9.25 K, NbTi: 9K (paling umum digunakan, kawat MRI)
+  MgB₂: 39K (penemuan mengejutkan 2001)
+
+High-Temperature Superconductor (HTS):
+  YBCO (YBa₂Cu₃O₇): Tc = 92 K (di atas N₂ cair 77K! → murah!)
+  BiSrCaCuO: Tc = 110 K
+  HgBaCaCuO: Tc = 134 K (record tekanan atmosfer)
+  Mekanisme HTS belum sepenuhnya dipahami → salah satu masalah terbuka terbesar!
+
+Superkonduktor suhu kamar (2024):
+  LK-99 (2023): klaim gagal diverifikasi
+  H₃S di tekanan 200 GPa: Tc = 203 K (terbukti, tapi tekanan sangat tinggi)
+  LaH₁₀: Tc = 250 K pada 170 GPa!
+  → Masih butuh tekanan ekstrem — pencarian terus berlanjut...
+```
+
+---
+
+## 5. Efek Hall Kuantum dan Materi Topologis
+
+```
+Efek Hall (1879):
+  Arus mengalir dalam material bermedan magnet tegak lurus
+  → Gaya Lorentz membelokkan pembawa → tegangan Hall timbul
+  R_H = V_H/I = B/(ne)    (n = kerapatan pembawa)
+
+Efek Hall Kuantum Integer (von Klitzing, Nobel 1985):
+  Pada T rendah dan B kuat: R_H tidak kontinu tapi KUANTISASI!
+  R_xy = h/(ne²)    n = 1, 2, 3, ...
+  h/e² = 25,812.807 Ω (TEPAT — digunakan sebagai standar resistansi!)
+
+Efek Hall Kuantum Fraksional (Tsui, Stormer, Laughlin — Nobel 1998):
+  n = 1/3, 2/5, 3/7, ... (pecahan!) → Quasipartikel bermuatan e/3!
+  Partikel bermuatan PECAHAN — belum pernah dilihat sebelumnya!
+
+Isolator Topologis (Theory: Kane & Mele 2005, Experiment 2007):
+  Material yang ISOLATOR di bulk tapi KONDUKTOR di permukaan!
+  Konduktivitas permukaan dilindungi oleh topologi — tidak bisa dihancurkan!
+  (rotationally invariant Kramers degeneracy)
+
+  Contoh: Bi₂Te₃, Bi₂Se₃, SnTe
+  Permukaan: elektron Dirac (seperti graphene tapi lebih kuat)
+  
+  Aplikasi potensial: spintronic, quantum computing
+
+Semimetal Weyl/Dirac:
+  Titik-titik degenerasi di zona Brillouin → quasipartikel berperilaku seperti fermion relativistik
+  TaAs, WTe₂, Cd₃As₂
+  Anomali chiral → arus listrik SANGAT EFISIEN dalam arah tertentu
+
+Majorana Fermion (partikel = antipartikel sendiri):
+  Diusulkan Majorana (1937)
+  Ditemukan sebagai quasipartikel tepi dalam superkonduktor + topological insulator
+  → Qubit topologis untuk quantum computing yang tahan kesalahan!
+  Microsoft membangun QC berbasis Majorana (2023: klaim besar, skeptisisme komunitas)
+```
+
+---
+
+## 6. Magnetisme dan Spintronika
+
+```
+Tiga Kelas Dasar Magnetisme:
+  Diamagnetisme: semua material — penolakan lemah medan magnet
+  Paramagnetisme: material dengan elektron tak berpasangan → tertarik ke medan
+  Ferromagnetisme: alignment spontan momen magnetik → magnet permanen!
+    Contoh: Fe, Ni, Co, Gd, dan banyak paduan
+
+Teori Heisenberg (Exchange Interaction):
+  Elektron di atom tetangga berinteraksi melalui austausch (exchange):
+  H = -J Σ Sᵢ⋅Sⱼ
+  J > 0: ferromagnetik (spin paralel disukai)
+  J < 0: antiferromagnetik (spin antiparalel disukai)
+
+Domain Magnetik:
+  Logam feromagnetik dibagi menjadi domain (masing-masing menuju satu arah)
+  Dalam medan luar → domain berlining tumbuh → magnet!
+  Di atas T_Curie: gangguan termal > exchange → ferromagnetisme hilang
+
+Spintronika:
+  Menggunakan SPIN elektron (bukan hanya muatan) untuk menyimpan dan memproses data!
+  Giant Magnetoresistance (GMR, Fert & Grünberg — Nobel 2007):
+    Hambatan bergantung pada orientasi lapisan magnetik
+    → Baca head harddisk modern (kapasitas TB)
+
+  Tunnel Magnetoresistance (TMR):
+    Arus terowongan antara dua lapisan magnet dipisah oksida tipis
+    → Magnetic Tunnel Junction (MTJ) → MRAM!
+
+MRAM (Magnetic RAM):
+  Non-volatile, cepat seperti SRAM, densitas tinggi seperti DRAM
+  Spin-Transfer Torque MRAM (STT-MRAM) sudah diproduksi massal (Everspin, Samsung)
+  Masa depan: menggantikan SRAM+DRAM+Flash dalam satu chip universal?
+```
+
+<Quiz
+  question="Material dengan Eg=1.1 eV (semikonduktor intrinsik pada T=0K). Berapa panjang gelombang minimum foton yang bisa diabsorpsi material ini?"
+  options={[
+    "1130 nm (IR dekat)",
+    "452 nm (biru)",
+    "275 nm (UV)",
+    "220 nm (UV dalam)"
+  ]}
+  correctAnswer={0}
+  explanation="E_foton = hf = hc/λ untuk mengeksitasi elektron melintasi band gap harus E_foton ≥ Eg = 1.1 eV. λ_max = hc/Eg = (6.626×10⁻³⁴ × 3×10⁸) / (1.1 × 1.6×10⁻¹⁹) = 1.99×10⁻²⁵ / 1.76×10⁻¹⁹ = 1.13×10⁻⁶ m = 1130 nm. Ini adalah infrared dekat! Silicon bisa mengabsorpsi cahaya tampak dan NIR — itulah mengapa Si menjadi pilihan utama solar cell (spektrum matahari puncak di ~550nm, jauh di atas 1.1eV threshold)."
+/>

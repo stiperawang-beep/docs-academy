@@ -1,0 +1,260 @@
+---
+title: "Medan Magnet, Induksi Faraday & Persamaan Maxwell"
+description: "Medan magnet dari arus, hukum Biot-Savart, hukum Ampere, gaya Lorentz, induksi elektromagnetik Faraday, hukum Lenz, induktansi diri dan mutual, serta persamaan Maxwell yang menyatukan elektromagnetisme."
+icon: "Magnet"
+order: 3
+---
+
+# Elektromagnetisme: Tarian Listrik dan Magnet
+
+Selama ribuan tahun, listrik dan magnet dipandang sebagai fenomena berbeda. Namun pada 1820, Hans Oersted menemukan bahwa jarum kompas bergerak saat arus mengalir di kawat di dekatnya. Satu momen pengamatan itu memulai revolusi yang berlangsung 40 tahun — berakhir dengan empat persamaan Maxwell yang menyatukan listrik, magnet, dan **cahaya** menjadi satu teori tunggal.
+
+---
+
+## 1. Medan Magnet: Gaya dari Muatan yang Bergerak
+
+```
+Gaya Lorentz pada muatan bergerak:
+  F⃗ = q(E⃗ + v⃗ × B⃗)    (gaya total elektromagnetik)
+
+Gaya magnetik saja:
+  F⃗_B = q v⃗ × B⃗ = qvB sinθ (θ = sudut v dan B)
+
+Satuan B: Tesla (T) = N/(A⋅m) = kg/(A⋅s²)
+  1 T = sangat kuat (MRI = 1.5-3T, magnet jembatan = ~10⁻⁵T)
+  1 Gauss = 10⁻⁴ T (medan magnet Bumi ≈ 0.5 Gauss = 5×10⁻⁵ T)
+
+Sifat Gaya Magnetik:
+  → Selalu ⊥ terhadap v⃗ (tidak melakukan kerja!)
+  → Tidak mengubah laju (hanya arah)
+  → Muatan positif dan negatif dibelokkan berlawanan arah
+```
+
+### Gerak Muatan dalam Medan Magnet Seragam:
+
+```
+Jika v⃗ ⊥ B⃗: gerak MELINGKAR (F_B menyediakan gaya sentripetal)
+  qvB = mv²/r
+  r = mv/(qB)   ← radius siklotron (Larmor radius)
+  ω = qB/m      ← frekuensi siklotron (tidak bergantung v!)
+  T = 2πm/(qB)  ← periode (tidak bergantung v!)
+
+Aplikasi:
+  MRI (Magnetic Resonance Imaging): inti H dalam tubuh berpresisi dalam B
+  Siklotron (akselerator partikel): ω konstan, R bertambah dengan v
+  Spektrometer massa: ion dibelokkan sesuai m/q → identifikasi massa!
+
+  Proton dalam siklotron dengan B=1T:
+  r = 1.67×10⁻²⁷ × v / (1.6×10⁻¹⁹ × 1) = 1.04×10⁻⁸ × v
+  Jika v = 10⁶ m/s: r = 0.0104 m ≈ 1 cm
+```
+
+---
+
+## 2. Gaya Magnetik pada Kawat Berarus
+
+```
+Elemen kawat berarus dalam medan magnet:
+  dF⃗ = I dL⃗ × B⃗
+
+Kawat lurus panjang L dalam medan B seragam:
+  F = BIL sinθ    (θ = sudut kawat dan B)
+  F_max = BIL    (saat kawat ⊥ B)
+  F = 0           (saat kawat ‖ B)
+
+Gaya antara dua kawat sejajar (jarak d):
+  F/L = μ₀I₁I₂/(2πd)    [N/m]
+  
+  μ₀ = 4π × 10⁻⁷ T⋅m/A  (permeabilitas magnetik vakum)
+
+  Arus searah: TARIK MENARIK
+  Arus berlawanan: TOLAK MENOLAK
+
+Definisi Ampere (lama):
+  1 Ampere = arus yang menyebabkan gaya 2×10⁻⁷ N/m
+  antara dua kawat sejajar berjarak 1m (OBSOLETE setelah 2019)
+```
+
+---
+
+## 3. Hukum Biot-Savart dan Ampere
+
+### Hukum Biot-Savart (Medan dari Elemen Arus):
+```
+dB⃗ = (μ₀/4π) × I dL⃗ × r̂ / r²
+
+Aplikasi:
+  Kawat lurus panjang tak hingga (jarak r):
+    B = μ₀I/(2πr)   ← medan berbentuk sirkular di sekitar kawat
+
+  Lingkaran kawat radius R di pusatnya:
+    B = μ₀I/(2R)
+
+  Solenoid (N lilitan/L panjang, di dalam):
+    B = μ₀nI    (n = N/L = kerapatan lilitan)    → medan seragam!
+    B di tepi = ½ μ₀nI (setengah dari tengah)
+```
+
+### Hukum Ampere:
+```
+∮ B⃗ · dL⃗ = μ₀ I_terlampir    (sepanjang loop tertutup)
+
+"Integral lingkaran B di sepanjang loop tertutup =
+ μ₀ × total arus yang menembus loop"
+
+Analog dengan Hukum Gauss untuk elektrostatika!
+
+Aplikasi:
+  Toroid (donut, N lilitan, radius R):
+    B = μ₀NI/(2πR)   (hanya di dalam toroid)
+    B = 0             (di luar — medan tersekap sempurna)
+```
+
+---
+
+## 4. Hukum Induksi Faraday
+
+```
+Michael Faraday (1831): Medan magnet yang BERUBAH menimbulkan GGL!
+
+Fluks Magnetik:
+  Φ_B = ∫ B⃗ · dA⃗ = B × A × cosθ    [Weber = T⋅m²]
+
+Hukum Faraday:
+  ε = -dΦ_B/dt    [Volt]
+
+  ε = GGL (Gaya Gerak Listrik) yang diinduksi
+  Tanda minus = Hukum Lenz!
+
+GGL untuk N lilitan:
+  ε = -N × dΦ_B/dt
+```
+
+### Hukum Lenz — Arah Induksi:
+```
+"Arus yang diinduksi selalu berlawanan arah dengan penyebabnya"
+
+Kutub N magnet mendekati kumparan:
+  → Fluks bertambah (masuk ke dalam kumparan)
+  → Arus induksi mengalir melawan penambahan fluks
+  → Arus menghasilkan kutub N yang menolak magnet masuk!
+  (Secara efektif: elektromagnetik menolak sumber perubahan)
+
+Penting: Hukum Lenz menunjukkan konservasi energi!
+  Jika tidak ada penolakan → menarik magnet tidak butuh usaha
+  → Dapat energi gratis → melanggar hukum kekekalan energi
+```
+
+---
+
+## 5. Induktansi Diri dan Mutual
+
+### Induktansi Diri (L):
+```
+Kumparan yang dialiri arus I membuat fluks Φ_B di dirinya sendiri:
+  ε_L = -L × dI/dt    [Henry = V⋅s/A]
+  L = N Φ_B / I
+
+Solenoid dengan n lilitan/m, panjang ℓ, luas A:
+  L = μ₀n²V    (V = Aℓ = volume solenoid)
+
+Energi tersimpan dalam induktor:
+  U = ½LI²
+
+  Densitas energi: u = B²/(2μ₀)    [J/m³]    (analogous to ½ε₀E² untuk kapasitor)
+```
+
+### Induktansi Mutual (M):
+```
+GGL pada kumparan 2 karena perubahan arus di kumparan 1:
+  ε₂ = -M × dI₁/dt
+
+  M₁₂ = M₂₁ = M (teorema Neumann)
+  M ≤ √(L₁L₂)
+
+  Koefisien kopling: k = M/√(L₁L₂)  (0 ≤ k ≤ 1)
+
+Transformator ideal (k=1):
+  V₂/V₁ = N₂/N₁ = n (rasio lilitan)
+  I₂/I₁ = N₁/N₂ = 1/n    (daya masuk = daya keluar)
+  P₂ = P₁   (jika ideal)
+
+  Step-up: N₂>N₁ → V₂>V₁, I₂<I₁
+  Step-down: N₂<N₁ → V₂<V₁, I₂>I₁
+
+  PLN mengirim daya pada 150kV dan 500kV untuk mengurangi I²R losses
+  Di rumah diturunkan ke 220V
+```
+
+---
+
+## 6. Persamaan Maxwell: Teori Besar Elektromagnetisme
+
+Maxwell (1865) menyatukan semua elektromagnetisme dalam 4 persamaan:
+
+```
+Persamaan Maxwell (bentuk integral):
+
+I.  ∮ E⃗ · dA⃗ = Q_dalam/ε₀
+    (Hukum Gauss Listrik)
+    "Fluks E total keluar dari permukaan = muatan di dalam / ε₀"
+
+II. ∮ B⃗ · dA⃗ = 0
+    (Hukum Gauss Magnet / Non-existence of Magnetic Monopoles)
+    "Fluks B total selalu nol — tidak ada monopol magnet"
+
+III.∮ E⃗ · dL⃗ = -dΦ_B/dt
+    (Hukum Faraday)
+    "GGL = laju perubahan fluks B"
+
+IV. ∮ B⃗ · dL⃗ = μ₀(I + ε₀ dΦ_E/dt)
+    (Hukum Ampere + Arus Perpindahan Maxwell)
+    "Sirkulasi B = μ₀ × (arus nyata + arus perpindahan)"
+
+Inovasi Maxwell: ε₀ dΦ_E/dt = "ARUS PERPINDAHAN"
+  → E yang berubah juga menghasilkan B (seperti I nyata)
+  → Syarat konsistensi persamaan (tanpa ini, persamaan tidak konsisten)
+  → Ramalan: gelombang EM dapat merambat tanpa medium!
+```
+
+### Solusi Gelombang: Cahaya!
+
+```
+Dari persamaan Maxwell VII dan IV → Wave equation:
+
+∂²E/∂x² = μ₀ε₀ × ∂²E/∂t²
+
+Solusi: E berupa gelombang merambat dengan kecepatan:
+  c = 1/√(μ₀ε₀) = 1/√(4π×10⁻⁷ × 8.85×10⁻¹²) = 3.00 × 10⁸ m/s
+
+"Ini SAMA dengan kecepatan cahaya yang diukur Fizeau!"
+→ CAHAYA ADALAH GELOMBANG ELEKTROMAGNETIK!
+
+Sifat Gelombang EM:
+  - E⃗ ⊥ B⃗ ⊥ arah rambat (transversal)
+  - E = cB   (amplitudo berkaitan)
+  - Merambat di vakum dengan c = 3×10⁸ m/s
+  - Dalam medium: v = c/n  (n = indeks bias)
+
+Spektrum EM lengkap:
+  Frekuensi rendah → tinggi (panjang gelombang panjang → pendek):
+  Gelombang radio → Mikrovave → IR → Cahaya tampak → UV → X-ray → Gamma
+
+Cahaya tampak: 400 nm (ungu) – 700 nm (merah)
+  f = 4.3×10¹⁴ Hz (merah) – 7.5×10¹⁴ Hz (ungu)
+```
+
+> [!NOTE] Dampak Revolusioner Maxwell
+> Persamaan Maxwell bukan hanya menerangkan cahaya — mereka memprediksi **gelombang radio** sebelum ditemukan Hertz (1887), mendasari **relativitas khusus** Einstein (persamaan invariant di semua kerangka), dan merupakan contoh pertama **teori terpadu** dalam fisika. Seluruh telekomunikasi modern — radio, TV, WiFi, 5G, satelit — berjalan di atas fondasi Maxwell.
+
+<Quiz
+  question="Sebuah transformator memiliki 100 lilitan di kumparan primer dan 2000 lilitan di sekunder. Jika tegangan primer 220V, berapa tegangan sekunder dan arus sekunder jika beban 1000Ω?"
+  options={[
+    "V₂=11V, I₂=0.011A",
+    "V₂=4400V, I₂=4.4A",
+    "V₂=4400V, I₂=11mA",
+    "V₂=11V, I₂=22mA"
+  ]}
+  correctAnswer={1}
+  explanation="V₂ = V₁ × (N₂/N₁) = 220 × (2000/100) = 220 × 20 = 4400V. I₂ = V₂/R = 4400/1000 = 4.4A. Arus primer: I₁/I₂ = N₂/N₁ → I₁ = 4.4 × (2000/100) = 88A. Daya: P = V₁×I₁ = 220×88 = 19360W = V₂×I₂ = 4400×4.4 = 19360W ✓. Transformator step-up menaikkan tegangan, MENURUNKAN arus, daya tetap."
+/>

@@ -1,0 +1,292 @@
+---
+title: "Termodinamika: Panas, Entropi & Mesin Alam Semesta"
+description: "Empat hukum termodinamika — suhu mutlak, hukum pertama (kekekalan energi), hukum kedua (entropi), dan hukum ketiga (nol absolut). Mesin Carnot, siklus termodinamik, dan ekuilibrium statistik."
+icon: "Thermometer"
+order: 1
+---
+
+# Termodinamika: Ilmu yang Menguasai Energi Alam Semesta
+
+Termodinamika lahir dari masalah praktis revolusi industri: *Seberapa efisien sebuah mesin uap bisa bekerja?* Sadi Carnot pada 1824 menemukan jawaban yang mengejutkan — ada batas efisiensi yang tidak bisa ditembus, bukan karena keterbatasan rekayasa, tapi karena **hukum alam yang fundamental**.
+
+Hari ini, termodinamika menjelaskan mengapa waktu hanya mengalir ke satu arah, mengapa kita tidak bisa membuat mesin yang bekerja selamanya, dan bahkan mengapa alam semesta itu sendiri pasti berakhir.
+
+---
+
+## 1. Konsep Dasar Termodinamika
+
+```
+Sistem: bagian yang kita pelajari
+Lingkungan: segalanya di luar sistem
+Batas: pemisah sistem dan lingkungan
+
+Jenis Sistem:
+  Terbuka:    massa DAN energi bisa bertukar dengan lingkungan
+  Tertutup:   hanya ENERGI yang bertukar (tidak ada massa masuk/keluar)
+  Terisolasi: tidak ada pertukaran sama sekali (ΔE=0, Δm=0)
+
+Variabel Keadaan (State Variables):
+  Menyatakan keadaan sistem: T, P, V, n, U, H, S, G
+  Tidak bergantung pada sejarah sistem — hanya keadaan sekarang
+
+Variabel Jalur (Path Variables):
+  q (kalor) dan w (kerja): bergantung cara proses berlangsung
+  δq ≠ dU, harus ditulis sebagai proses, bukan beda keadaan
+```
+
+---
+
+## 2. Hukum Nol Termodinamika: Dasar Termometer
+
+```
+"Jika A dalam kesetimbangan termal dengan C, dan B dalam
+kesetimbangan termal dengan C, maka A dalam kesetimbangan
+termal dengan B."
+
+A ~ C, B ~ C → A ~ B
+
+Ini memungkinkan definisi SUHU dan penggunaan termometer.
+Termometer = sistem C yang dijadikan standar.
+
+Skala Suhu:
+  Celsius (°C):     0°C = titik beku air, 100°C = titik didih air
+  Fahrenheit (°F):  T_F = (9/5)T_C + 32
+  Kelvin (K):       T_K = T_C + 273.15  ← skala absolut, 0K = nol absolut
+  Rankine (°R):     T_R = T_F + 459.67  ← Fahrenheit absolut
+
+Nol Absolut (0 K = -273.15°C):
+  Suhu terendah yang bisa dicapai secara teoritis
+  Semua gerakan termal berhenti
+  Tidak bisa dicapai sempurna (Hukum Ketiga)
+```
+
+---
+
+## 3. Hukum Pertama: Kekekalan Energi
+
+```
+ΔU = q + w     (konvensi IUPAC)
+ΔU = q - w     (konvensi teknik lama)
+
+ΔU = perubahan energi dalam (internal energy)
+q   = kalor yang diserap sistem dari lingkungan
+      q > 0: sistem menyerap panas (endotermik dari perspektif sistem)
+      q < 0: sistem melepas panas (eksotermik)
+w   = kerja yang dilakukan PADA sistem
+      w > 0: lingkungan melakukan kerja pada sistem (kompresi)
+      w > 0: sistem melakukan kerja pada lingkungan (ekspansi) → w negatif
+
+Kerja P-V (ekspansi/kompresi gas):
+  w = -∫P_ext dV
+  
+  Untuk proses kuasistatik (sangat lambat):
+  w = -∫P dV   (menggunakan P_dalam, hampir sama dengan P_ext)
+
+Proses Umum:
+┌──────────────┬──────────────────────────────────────────┐
+│ Proses       │ Hubungan                                  │
+├──────────────┼──────────────────────────────────────────┤
+│ Isokhorik    │ V konstan → w=0 → ΔU = q_v               │
+│ Isobarik     │ P konstan → w=-PΔV → ΔU = q_p - PΔV     │
+│ Isotermal    │ T konstan → ΔU=0 (gas ideal) → q=-w       │
+│ Adiabatik    │ q=0 → ΔU = w → TV^(γ-1)=konstan         │
+└──────────────┴──────────────────────────────────────────┘
+```
+
+### Entalpi (H):
+```
+H = U + PV    [Joule]
+
+ΔH = ΔU + Δ(PV)
+ΔH = ΔU + PΔV   (untuk P konstan)
+ΔH = q_p        (kalor pada tekanan konstan = perubahan entalpi)
+
+→ Mengapa H penting?
+  Reaksi kimia biasanya berlangsung di tekanan konstan (terbuka ke atmosfer)
+  → q_p = ΔH lebih mudah diukur dan diinterpretasi
+
+ΔH < 0: reaksi EKSOTERMIK (melepas panas, sistem kehilangan energi)
+ΔH > 0: reaksi ENDOTERMIK (menyerap panas — butuh dipanaskan)
+```
+
+### Kapasitas Panas:
+```
+C_v = (∂U/∂T)_V    kapasitas panas pada volume konstan
+C_p = (∂H/∂T)_P    kapasitas panas pada tekanan konstan
+
+Untuk gas ideal monoatomik: C_v = (3/2)R, C_p = (5/2)R
+Untuk gas ideal diatomik:   C_v = (5/2)R, C_p = (7/2)R
+Ratio: γ = C_p/C_v (monoatomik=5/3, diatomik=7/5=1.4)
+
+Hukum Dulong-Petit (padatan):
+  C_v ≈ 3R = 24.9 J/(mol·K)  untuk logam kristal
+  Valid hanya pada T tinggi (quantum corrections at low T)
+```
+
+---
+
+## 4. Hukum Kedua: Entropi dan Arah Proses
+
+> **Entropi alam semesta selalu meningkat atau tetap dalam setiap proses yang terjadi secara spontan.**
+
+```
+Definisi Entropi (Clausius):
+  dS = δq_rev / T    [J/K]
+
+  S = besaran state function (bergantung keadaan, bukan jalur)
+  q_rev = kalor yang ditransfer secara reversibel
+
+Ketidaksamaan Clausius:
+  dS ≥ δq/T    (= untuk proses reversibel, > untuk proses irreversibel)
+
+  ΔS_total = ΔS_sistem + ΔS_lingkungan ≥ 0
+```
+
+### Entropi sebagai Disorder (Boltzmann):
+
+```
+S = k_B × ln(W)     (persamaan Boltzmann)
+
+k_B = 1.381 × 10⁻²³ J/K
+W = jumlah mikrokonfigurasi yang mungkin (multiplicity)
+
+W besar → S besar → lebih "acak/disorder"
+
+Contoh intuisi:
+  Gas di satu sisi kotak → W kecil, S rendah
+  Gas menyebar ke seluruh kotak → W sangat besar, S tinggi
+  → Gas SPONTAN menyebar! (meningkatkan S_total)
+
+Mengapa telur tidak bisa "tidak pecah"?:
+  Telur pecah: W sangat besar (banyak cara susunan keping)
+  Telur utuh: W kecil (satu konfigurasi khusus)
+  P(kembali utuh) = W_utuh/W_pecah ≈ 10^(-Milyaran) ≈ 0
+```
+
+### Perubahan Entropi dalam Berbagai Proses:
+
+```
+Ekspansi Isotermal Gas Ideal (n mol):
+  ΔS = nR ln(V₂/V₁) = nR ln(P₁/P₂)
+
+Pemanasan pada P konstan:
+  ΔS = nC_p ln(T₂/T₁)
+
+Perubahan fasa pada T konstan:
+  ΔS_leleh  = ΔH_leleh / T_leleh
+  ΔS_didih  = ΔH_didih / T_didih
+
+  H₂O mendidih (100°C = 373 K, ΔH_vap = 40.7 kJ/mol):
+  ΔS = 40700/373 = 109.1 J/(mol·K)
+  (besar! → gas jauh lebih disordered dari cairan)
+
+Aturan Trouton: ΔS_vap ≈ 88 J/(mol·K) untuk sebagian besar cairan
+  (ikatan hidrogen menyebabkan nilai lebih besar: air=109, HF=113)
+```
+
+---
+
+## 5. Mesin Carnot dan Efisiensi Maksimum
+
+```
+Mesin panas (heat engine): menyerap panas, menghasilkan kerja
+
+        Q_H (dari reservoir panas T_H)
+         ↓
+    [MESIN] → W_kerja
+         ↓
+        Q_C (dibuang ke reservoir dingin T_C)
+
+W = Q_H - Q_C    (Hukum Pertama)
+Efisiensi: η = W/Q_H = 1 - Q_C/Q_H
+
+Mesin Carnot (siklus ideal dan reversibel):
+  η_Carnot = 1 - T_C/T_H    (dalam Kelvin!)
+
+  T_H = suhu reservoir panas
+  T_C = suhu reservoir dingin
+
+  Ini adalah BATAS ATAS efisiensi — tidak ada mesin nyata
+  yang bisa melebihi efisiensi Carnot!
+
+Contoh PLTU Batubara (T_H=600°C=873K, T_C=30°C=303K):
+  η_Carnot = 1 - 303/873 = 0.653 = 65.3% (teoritis)
+  η_nyata ≈ 35-45% (karena irreversibilitas, gesekan, dll)
+```
+
+### Pernyataan Hukum Kedua:
+
+```
+Kelvin-Planck: Tidak mungkin membuat mesin yang beroperasi dalam
+siklius dan mengubah kalor sepenuhnya menjadi kerja.
+
+Clausius: Tidak mungkin memindahkan kalor secara spontan dari
+benda dingin ke benda panas tanpa kerja luar.
+
+Kedua pernyataan ini EKUIVALEN (terbukti satu menyiratkan yang lain).
+→ Broken → perpetual motion machine of the second kind impossible
+```
+
+---
+
+## 6. Hukum Ketiga: Nol Absolut
+
+```
+"Entropi zat kristal murni sempurna adalah nol pada suhu 0 Kelvin."
+S(0 K) = 0     (konfigurasi tunggal, W=1, ln1=0)
+
+Konsekuensi:
+  1. 0 K tidak bisa dicapai dalam jumlah langkah terbatas
+     (setiap langkah pendinginan memberikan hasil yang berkurang)
+  2. Memberikan referensi mutlak untuk entropi (berbeda dengan U dan H)
+  3. Entropi ABSOLUT dapat dihitung: S°(298K) = ∫₀²⁹⁸ (C_p/T)dT
+
+Rekord suhu terendah yang dicapai:
+  ~10⁻¹⁰ K (100 picokelvin) — Bose-Einstein Condensate di lab MIT
+  Bintang Neutron: ~10⁶ K (jauh lebih panas!)
+  0 K sendiri: tidak pernah dicapai
+```
+
+---
+
+## 7. Siklus Termodinamik di Mesin-Mesin Nyata
+
+```
+Siklus Otto (Mesin Bensin):
+  1→2: Kompresi Adiabatik
+  2→3: Pembakaran (V konstan, isokhorik)
+  3→4: Ekspansi Adiabatik
+  4→1: Pembuangan (V konstan)
+  
+  η_Otto = 1 - (1/r^(γ-1))   r = rasio kompresi (~8-12 untuk bensin)
+  r=10, γ=1.4: η = 1 - 10^(-0.4) = 60.2% (teoritis)
+  Aktual: ~25-35%
+
+Siklus Diesel:
+  Kompresi lebih tinggi (r=14-25) → efisiensi lebih baik (~40-50% aktual)
+  Pembakaran pada P konstan (isobarik)
+
+Siklus Rankine (Pembangkit Uap):
+  1→2: Pompa (kompresi cairan)
+  2→3: Boiler (absorb panas, uap bertekanan)
+  3→4: Turbin (ekspansi, kerja)
+  4→1: Kondenser (buang panas)
+
+Siklus Brayton (Turbin Gas, Mesin Jet):
+  1→2: Kompresor
+  2→3: Ruang Bakar
+  3→4: Turbin   ← menghasilkan kerja
+  4→1: Buang ke atmosfer
+```
+
+<Quiz
+  question="Mesin Carnot bekerja antara reservoir 500 K dan 300 K. Jika mesin menyerap 1000 J dari reservoir panas, berapa kerja maksimum yang bisa dihasilkan?"
+  options={[
+    "200 J",
+    "400 J",
+    "600 J",
+    "1000 J"
+  ]}
+  correctAnswer={1}
+  explanation="η_Carnot = 1 - T_C/T_H = 1 - 300/500 = 1 - 0.6 = 0.4 = 40%. W = η × Q_H = 0.4 × 1000 = 400 J. Sisa Q_C = 600 J dibuang ke reservoir dingin. Ini adalah kerja MAKSIMUM yang mungkin — tidak ada mesin nyata yang bisa menghasilkan lebih dari ini dengan kondisi yang sama."
+/>

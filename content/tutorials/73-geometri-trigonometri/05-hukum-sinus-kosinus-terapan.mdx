@@ -1,0 +1,279 @@
+---
+title: "Hukum Sinus, Kosinus & Trigonometri Terapan"
+description: "Melampaui segitiga siku-siku — Hukum Sinus dan Kosinus untuk segitiga sembarang, aplikasi ketinggian dan jarak tak terjangkau, serta kasus pembuktian ganda (SSA ambiguity)."
+icon: "Triangle"
+order: 5
+---
+
+# Melampaui Segitiga Siku-Siku: Hukum Sinus dan Kosinus
+
+Semua yang telah kita pelajari tentang sin, cos, dan tan di Bab 2 berlaku untuk **segitiga siku-siku** — yang memiliki tepat satu sudut 90°. Namun dunia nyata jarang berbaik hati menyajikan sudut siku-siku yang sempurna.
+
+Seorang surveyor mengukur sebidang tanah berbentuk segitiga — sudut-sudutnya 57°, 73°, dan 50°. Tidak ada yang 90°. Seorang arsitek merancang atap pelana dengan sudut puncak 40°. Seorang navigator mengukur sudut azimuth antara dua landmark.
+
+Untuk segitiga **sembarang** (tidak harus siku-siku), kita butuh dua hukum besar: **Hukum Sinus** dan **Hukum Kosinus**.
+
+---
+
+## 1. Notasi Standar Segitiga
+
+Sebelum melanjutkan, sepakati notasi yang konsisten:
+
+```
+Segitiga ABC:
+
+        A
+       / \
+      /   \
+   c /     \ b
+    /       \
+   B----a----C
+
+  Sisi a = BC (di hadapan sudut A)
+  Sisi b = AC (di hadapan sudut B)  
+  Sisi c = AB (di hadapan sudut C)
+  Sudut A + Sudut B + Sudut C = 180°
+```
+
+---
+
+## 2. Hukum Sinus: Rasio Sisi-Sudut yang Selalu Seimbang
+
+**Hukum Sinus** menyatakan bahwa dalam segitiga apapun:
+
+```
+    a         b         c
+─────────  =  ─────────  =  ─────────
+  sin A        sin B        sin C
+```
+
+Atau ekuivalennya:
+
+```
+sin A     sin B     sin C
+─────  =  ─────  =  ─────
+  a          b         c
+```
+
+### Kapan Menggunakan Hukum Sinus?
+
+Gunakan Hukum Sinus saat Anda tahu:
+- **AAS**: Dua sudut + satu sisi di hadapan salah satu sudut tersebut
+- **ASA**: Dua sudut + sisi di antara keduanya
+- **SSA**: Dua sisi + satu sudut bukan apit (⚠️ bisa ambigu — lihat bagian 4)
+
+### Contoh AAS:
+
+Segitiga ABC dengan sudut A = 35°, sudut B = 80°, dan sisi a = 12 cm. Cari sisi b dan c.
+
+```
+Sudut C = 180° - 35° - 80° = 65°
+
+Hukum Sinus:
+  a/sin A = b/sin B
+  12/sin 35° = b/sin 80°
+  b = 12 × sin 80° / sin 35°
+  b = 12 × 0.9848 / 0.5736
+  b ≈ 12 × 1.717
+  b ≈ 20.6 cm
+
+  12/sin 35° = c/sin 65°
+  c = 12 × sin 65° / sin 35°
+  c = 12 × 0.9063 / 0.5736
+  c ≈ 18.96 cm
+```
+
+---
+
+## 3. Hukum Kosinus: Generalisasi Pythagoras
+
+**Hukum Kosinus** adalah perluasan dari Teorema Pythagoras untuk segitiga sembarang:
+
+```
+a² = b² + c² - 2bc cos A
+b² = a² + c² - 2ac cos B
+c² = a² + b² - 2ab cos C
+```
+
+Verifikasi: Jika A = 90°, maka cos 90° = 0, sehingga:
+```
+a² = b² + c² - 2bc × 0 = b² + c²  ← Pythagoras!
+```
+
+### Kapan Menggunakan Hukum Kosinus?
+
+Gunakan Hukum Kosinus saat Anda tahu:
+- **SAS**: Dua sisi + sudut apit (sudut di antara kedua sisi)
+- **SSS**: Tiga sisi (untuk mencari sudut)
+
+### Contoh SAS:
+
+Segitiga dengan b = 8, c = 11, dan sudut A = 40°. Cari sisi a.
+
+```
+a² = b² + c² - 2bc cos A
+a² = 8² + 11² - 2 × 8 × 11 × cos 40°
+a² = 64 + 121 - 176 × 0.7660
+a² = 185 - 134.82
+a² = 50.18
+a  = √50.18 ≈ 7.08 cm
+```
+
+### Contoh SSS:
+
+Segitiga dengan a = 7, b = 10, c = 5. Cari sudut A.
+
+```
+a² = b² + c² - 2bc cos A
+7² = 10² + 5² - 2×10×5 × cos A
+49 = 125 - 100 cos A
+100 cos A = 125 - 49 = 76
+cos A = 76/100 = 0.76
+A = arccos(0.76) ≈ 40.5°
+```
+
+---
+
+## 4. Kasus Ambigu SSA: Dua Sisi + Sudut Bukan Apit
+
+Ini adalah jebakan paling terkenal dalam trigonometri. Kasus **SSA** (dua sisi dan sudut bukan apit) bisa menghasilkan **0, 1, atau 2 segitiga** — bergantung pada proporsi ukurannya.
+
+```
+Diketahui: a, b, dan sudut A (a di hadapan A)
+Cari: sudut B → sin B = b×sin A / a
+
+Analisis:
+  Jika a < b×sin A  → sin B > 1 → TIDAK ADA segitiga
+  Jika a = b×sin A  → sin B = 1 → B = 90°, SATU segitiga
+  Jika a > b         → SATU segitiga (B akut saja)
+  Jika b×sin A < a < b → sin B < 1, tapi B bisa akut atau tumpul
+                       → DUA SEGITIGA MUNGKIN
+```
+
+**Contoh kasus dua segitiga:**
+
+Diketahui: a = 9, b = 12, sudut A = 40°:
+```
+sin B = b×sin A / a = 12 × sin 40° / 9 = 12 × 0.6428 / 9 ≈ 0.857
+
+B₁ = arcsin(0.857) ≈ 59.0°  → C₁ = 180° - 40° - 59° = 81° (valid!)
+B₂ = 180° - 59.0° = 121°    → C₂ = 180° - 40° - 121° = 19° (valid!)
+
+Keduanya menghasilkan segitiga yang valid!
+```
+
+> [!WARNING] Jebakan SSA di Soal Nyata
+> Selalu periksa apakah kasus SSA menghasilkan satu atau dua solusi. Dalam soal kata-kata nyata (survei, navigasi), konteks biasanya menentukan mana yang logis — tapi dalam matematika murni, **laporkan kedua solusi jika keduanya valid**.
+
+---
+
+## 5. Luas Segitiga Sembarang
+
+Sebelumnya kita tahu luas segitiga = ½ × alas × tinggi. Tapi bagaimana jika kita tidak tahu tingginya langsung?
+
+### Menggunakan Dua Sisi dan Sudut Apit (SAS):
+```
+Luas = ½ × b × c × sin A
+Luas = ½ × a × c × sin B
+Luas = ½ × a × b × sin C
+```
+
+**Contoh:** b = 8, c = 11, A = 40°:
+```
+Luas = ½ × 8 × 11 × sin 40°
+     = ½ × 88 × 0.6428
+     = 44 × 0.6428
+     ≈ 28.28 cm²
+```
+
+### Rumus Heron (hanya dari tiga sisi):
+```
+s = (a + b + c) / 2    ← semi-perimeter
+Luas = √[s(s-a)(s-b)(s-c)]
+```
+
+**Contoh:** a = 7, b = 10, c = 5:
+```
+s = (7 + 10 + 5) / 2 = 11
+Luas = √[11 × (11-7) × (11-10) × (11-5)]
+     = √[11 × 4 × 1 × 6]
+     = √264
+     ≈ 16.25 cm²
+```
+
+---
+
+## 6. Aplikasi Nyata: Pengukuran Jarak dan Ketinggian
+
+### Menghitung Ketinggian Gedung dari Dua Titik
+
+```
+Dari titik P₁, sudut elevasi puncak gedung = 38°
+Dari titik P₂ (50m lebih dekat), sudut elevasi = 52°
+
+        Puncak
+       /   |
+      /    | h (tinggi)
+     / 52° | 38°
+────────────────
+  P₂  d  P₁
+  |←50m→| |
+
+Dari P₂: tan 52° = h / d         → h = d × tan 52°
+Dari P₁: tan 38° = h / (d + 50)  → h = (d + 50) × tan 38°
+
+Samakan:
+d × tan 52° = (d + 50) × tan 38°
+d × 1.2799 = d × 0.7813 + 50 × 0.7813
+d × (1.2799 - 0.7813) = 39.065
+d × 0.4986 = 39.065
+d ≈ 78.35 m
+
+h = 78.35 × tan 52° = 78.35 × 1.2799 ≈ 100.3 meter
+```
+
+### Triangulasi Dua Titik yang Terpisah Laut
+
+```
+Dua kapal A dan B berjarak 120 km satu sama lain.
+Keduanya melihat menara di pulau C.
+Dari A: sudut CAB = 63°
+Dari B: sudut ABC = 74°
+
+Cari jarak AC dan BC!
+
+Sudut ACB = 180° - 63° - 74° = 43°
+
+Hukum Sinus:
+  AB/sin C = AC/sin B = BC/sin A
+  120/sin 43° = AC/sin 74° = BC/sin 63°
+
+  AC = 120 × sin 74° / sin 43° = 120 × 0.9613 / 0.6820 ≈ 169.2 km
+  BC = 120 × sin 63° / sin 43° = 120 × 0.8910 / 0.6820 ≈ 156.8 km
+```
+
+---
+
+## 7. Ringkasan: Memilih Metode yang Tepat
+
+| Informasi Diketahui | Metode | Hukum |
+|--------------------|--------|-------|
+| Segitiga siku-siku + 1 sudut + 1 sisi | SOH-CAH-TOA | sin/cos/tan dasar |
+| AAS atau ASA | Hukum Sinus | a/sinA = b/sinB |
+| SSA (⚠️ bisa ambigu) | Hukum Sinus + cek | Perhatikan kasus ganda |
+| SAS (dua sisi + sudut apit) | Hukum Kosinus | a²=b²+c²-2bc cosA |
+| SSS (tiga sisi diketahui) | Hukum Kosinus | Cari sudut dengan arccos |
+| Luas dengan SAS | ½bc sinA | — |
+| Luas dengan SSS | Rumus Heron | √[s(s-a)(s-b)(s-c)] |
+
+<Quiz
+  question="Segitiga ABC memiliki sisi a = 15, b = 20, dan sudut A = 30°. Berapa banyak segitiga yang mungkin terbentuk?"
+  options={[
+    "Tidak ada — sin B > 1 sehingga tidak mungkin",
+    "Tepat satu segitiga",
+    "Dua segitiga yang berbeda",
+    "Tak terhingga banyak segitiga"
+  ]}
+  correctAnswer={2}
+  explanation="Ini adalah kasus SSA! sin B = b×sinA/a = 20×sin30°/15 = 20×0.5/15 = 10/15 = 0.667. Karena sin B < 1, solusi ada. B₁ = arcsin(0.667) ≈ 41.8° (akut), maka C₁ = 180-30-41.8 = 108.2° (valid). B₂ = 180-41.8 = 138.2° (tumpul), maka C₂ = 180-30-138.2 = 11.8° (valid). Keduanya valid! → Dua segitiga."
+/>

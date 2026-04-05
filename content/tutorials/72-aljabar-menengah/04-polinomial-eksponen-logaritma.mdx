@@ -1,0 +1,293 @@
+---
+title: "Polinomial, Eksponen & Logaritma"
+description: "Menguasai suku banyak (polinomial), hukum eksponen, dan logaritma sebagai kebalikannya. Fondasi pertumbuhan eksponensial, bunga majemuk, skala Richter, dan desibel."
+icon: "TrendingUp"
+order: 4
+---
+
+# Eksponen dan Logaritma: Bahasa Pertumbuhan dan Skala Kosmik
+
+Ada sebuah kisah klasik tentang penemu catur yang meminta upah: satu biji gandum untuk kotak pertama, dua untuk kotak kedua, empat untuk kotak ketiga — terus berlipat ganda hingga 64 kotak. Raja tertawa, merasa murah. Tapi total gabah yang diminta adalah **2⁶⁴ - 1 ≈ 18.4 kuintiliun biji gandum** — lebih banyak dari semua gandum yang pernah ada di Bumi.
+
+Itulah kekuatan **pertumbuhan eksponensial** — dan **logaritma** adalah alat untuk mengukur dan mengendalikannya.
+
+---
+
+## 1. Polinomial: Suku Banyak yang Tersusun Rapi
+
+**Polinomial** adalah ekspresi berupa jumlahan suku-suku dengan variabel berpangkat bilangan bulat non-negatif:
+
+```
+P(x) = aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀
+
+n   = derajat (degree) polinomial — pangkat tertinggi
+aₙ  = koefisien terdepan (leading coefficient), harus ≠ 0
+a₀  = konstanta (suku bebas)
+```
+
+### Klasifikasi Berdasarkan Derajat:
+
+| Derajat | Nama | Contoh |
+|---------|------|--------|
+| 0 | Konstanta | 7 |
+| 1 | Linear | 3x - 5 |
+| 2 | Kuadrat | 2x² + x - 4 |
+| 3 | Kubik | x³ - 2x² + x + 1 |
+| 4 | Kuartik | x⁴ - 5x² + 4 |
+| n | Polinomial derajat-n | aₙxⁿ + ... + a₀ |
+
+### Operasi Polinomial
+
+**Penjumlahan:** Gabung suku sejenis
+```
+(3x² + 2x - 1) + (x² - 5x + 4) = 4x² - 3x + 3
+```
+
+**Perkalian:** Distributif penuh
+```
+(x + 2)(x² - 3x + 1)
+= x(x² - 3x + 1) + 2(x² - 3x + 1)
+= x³ - 3x² + x + 2x² - 6x + 2
+= x³ - x² - 5x + 2
+```
+
+**Pembagian Polinomial (Horner/Sintetis):**
+```
+(x³ - 2x² + 4x - 8) ÷ (x - 2)
+
+Gunakan metode Horner dengan pembagi x = 2:
+Koefisien: 1  -2   4  -8
+
+  2 │ 1  -2   4  -8
+    │     2   0   8
+    ├────────────────
+      1   0   4   0  ← sisa = 0
+
+Hasil: x² + 0x + 4 = x² + 4   (dengan sisa 0, jadi (x-2) adalah faktor!)
+```
+
+> [!TIP] Teorema Sisa dan Faktor
+> - **Teorema Sisa:** P(x) ÷ (x - k) → sisa = P(k)
+> - **Teorema Faktor:** (x - k) adalah faktor P(x) jika dan hanya jika P(k) = 0
+>
+> Jadi untuk cek apakah (x - 2) memfaktorkan contoh di atas: P(2) = 8 - 8 + 8 - 8 = 0 ✓
+
+---
+
+## 2. Hukum Eksponen: Aturan Baku Pemangkatan
+
+Eksponen `aⁿ` berarti: kalikan `a` sebanyak `n` kali.
+
+### Delapan Hukum Eksponen Wajib Hafal:
+
+```
+1. aᵐ × aⁿ = aᵐ⁺ⁿ          (pangkat sama, basis sama → tambah pangkat)
+2. aᵐ ÷ aⁿ = aᵐ⁻ⁿ          (bagi → kurangi pangkat)
+3. (aᵐ)ⁿ  = aᵐⁿ            (pangkat dari pangkat → kali)
+4. (ab)ⁿ  = aⁿbⁿ           (distribusi ke perkalian)
+5. (a/b)ⁿ = aⁿ/bⁿ          (distribusi ke pembagian)
+6. a⁰      = 1               (bilangan apapun pangkat 0 = 1, asalkan a≠0)
+7. a⁻ⁿ     = 1/aⁿ           (pangkat negatif = kebalikan)
+8. a^(m/n) = ⁿ√(aᵐ)         (pangkat pecahan = akar)
+```
+
+**Latihan Gabungan:**
+```
+Sederhanakan: (2x³y⁻²)² × (4x⁻¹y³)
+
+= 2²x⁶y⁻⁴ × 4x⁻¹y³          ← hukum 3 (pangkat pangkat)
+= 4x⁶y⁻⁴ × 4x⁻¹y³
+= 16 × x⁶⁺⁽⁻¹⁾ × y⁻⁴⁺³       ← hukum 1 (kalikan basis sama)
+= 16x⁵y⁻¹
+= 16x⁵/y                     ← hukum 7 (pangkat negatif)
+```
+
+---
+
+## 3. Fungsi Eksponensial: Pertumbuhan yang Meledak
+
+Fungsi eksponensial: `f(x) = aˣ` di mana a > 0, a ≠ 1
+
+```
+Jika a > 1: fungsi naik (pertumbuhan eksponensial)
+Jika 0 < a < 1: fungsi turun (peluruhan eksponensial)
+```
+
+### Bilangan e — Konstanta Alam Pertumbuhan
+
+Seperti π untuk lingkaran, **e ≈ 2.71828...** adalah konstanta alam untuk pertumbuhan berkelanjutan (continuous growth):
+
+```
+e = lim(n→∞) (1 + 1/n)ⁿ ≈ 2.71828182845...
+
+Fungsi f(x) = eˣ adalah satu-satunya fungsi yang merupakan turunannya sendiri:
+  d/dx [eˣ] = eˣ   ← unik di alam semesta matematika!
+```
+
+### Aplikasi: Pertumbuhan dan Peluruhan
+
+```
+Pertumbuhan berkelanjutan: A = A₀ × e^(rt)
+      A₀ = nilai awal, r = laju pertumbuhan, t = waktu
+
+Peluruhan radioaktif: N(t) = N₀ × e^(-λt)
+      λ = konstanta peluruhan, t₁/₂ = ln(2)/λ (waktu paruh)
+
+Bunga majemuk kontinu: A = P × e^(rt)
+      P = pokok, r = suku bunga tahunan, t = tahun
+```
+
+**Contoh — Investasi:**
+Rp 10 juta dengan bunga 8% per tahun selama 10 tahun:
+```
+A = 10,000,000 × e^(0.08 × 10)
+  = 10,000,000 × e^0.8
+  = 10,000,000 × 2.2255
+  ≈ Rp 22,255,409
+```
+
+---
+
+## 4. Logaritma: Membalik Eksponen
+
+**Logaritma** adalah operasi invers dari eksponen:
+
+```
+aˣ = b  ⟺  logₐ(b) = x
+
+Dibaca: "logaritma b basis a sama dengan x"
+
+Jenis umum:
+  log₁₀(x) = log(x)    ← logaritma basis 10 (common log)
+  logₑ(x)  = ln(x)     ← logaritma natural (basis e)
+  log₂(x)             ← logaritma basis 2 (informatika)
+```
+
+**Konversi:**
+```
+log(1000) = 3    karena 10³ = 1000
+ln(e²)   = 2    karena e² = e²
+log₂(64) = 6    karena 2⁶ = 64
+```
+
+### Sifat-Sifat Logaritma:
+
+```
+1. logₐ(mn)   = logₐ(m) + logₐ(n)       (log perkalian = jumlah log)
+2. logₐ(m/n)  = logₐ(m) - logₐ(n)       (log pembagian = selisih log)
+3. logₐ(mⁿ)   = n × logₐ(m)             (log pangkat = pangkat × log)
+4. logₐ(a)    = 1                        (log basis sendiri = 1)
+5. logₐ(1)    = 0                        (log satu = 0)
+6. logₐ(b) = logₓ(b) / logₓ(a)          (change of base formula)
+
+  khusus: logₐ(b) = ln(b)/ln(a) = log(b)/log(a)
+```
+
+### Latihan:
+
+Sederhanakan: `log(8) + log(125) - log(10)`
+```
+= log(8 × 125) - log(10)    ← sifat 1
+= log(1000) - log(10)
+= log(1000/10)              ← sifat 2
+= log(100)
+= 2
+```
+
+---
+
+## 5. Persamaan Eksponensial dan Logaritma
+
+### Persamaan Eksponensial:
+
+```
+Kasus 1 — Basis sama:
+5^(2x+1) = 5^9
+2x + 1 = 9
+x = 4
+
+Kasus 2 — Basis berbeda, gunakan log:
+3^x = 50
+x × ln(3) = ln(50)     ← ambil ln kedua ruas
+x = ln(50) / ln(3)
+x = 3.912 / 1.099
+x ≈ 3.56
+```
+
+### Persamaan Logaritma:
+
+```
+log₂(x + 3) + log₂(x - 1) = 5
+
+log₂[(x+3)(x-1)] = 5       ← sifat 1
+(x+3)(x-1) = 2⁵ = 32
+x² + 2x - 3 = 32
+x² + 2x - 35 = 0
+(x + 7)(x - 5) = 0
+x = -7  atau  x = 5
+
+Cek domain: log₂(x-1) harus x > 1, log₂(x+3) harus x > -3
+x = -7 → tidak valid (x < 1)
+x = 5  → valid ✓
+
+Jawaban: x = 5
+```
+
+> [!IMPORTANT] Domain Logaritma
+> `logₐ(x)` hanya terdefinisi untuk `x > 0`. Selalu periksa domain di awal — dan cek solusi di akhir. Solusi yang membuat argumen log ≤ 0 harus dibuang!
+
+---
+
+## 6. Skala Logaritmis di Kehidupan Nyata
+
+Banyak fenomena alam dan teknologi menggunakan skala logaritmik karena rentang nilainya sangat lebar:
+
+### Skala Richter (Gempa Bumi):
+```
+M = log₁₀(A/A₀)
+
+Gempa 6.0 vs 7.0:
+Selisih 1 unit Richter = 10× lebih kuat dalam amplitudo getaran
+Selisih 1 unit Richter = 31.6× lebih banyak energi yang dilepas
+
+Gempa M7.0:  10^7 kali amplitudo referensi
+Gempa M8.0:  10^8 kali → 10× lebih kuat dari M7.0
+```
+
+### Desibel (Kekuatan Suara):
+```
+dB = 10 × log₁₀(I/I₀)
+
+I₀ = 10⁻¹² W/m² (ambang pendengaran)
+
+0 dB   : ambang pendengaran
+60 dB  : percakapan normal
+120 dB : konser rock (mendekati menyakitkan)
+194 dB : batas fisik suara di atmosfer bumi
+
+Naik 10 dB = intensitas 10× lebih besar
+Naik 20 dB = intensitas 100× lebih besar
+```
+
+### pH (Keasaman):
+```
+pH = -log₁₀[H⁺]
+
+pH 7   : netral (air murni)
+pH 3   : asam jus lemon (10.000× lebih asam dari air)
+pH 14  : basa kuat (NaOH)
+
+Selisih 1 unit pH = 10× perbedaan konsentrasi ion H⁺
+```
+
+<Quiz
+  question="Jika 2^x = 100, berapa nilai x? (gunakan log₁₀)"
+  options={[
+    "x = 50",
+    "x = log(100)/log(2) ≈ 6.644",
+    "x = log(2)/log(100) ≈ 0.150",
+    "x = 2 × log(100) = 4"
+  ]}
+  correctAnswer={1}
+  explanation="Ambil log₁₀ kedua ruas: log(2^x) = log(100), sehingga x × log(2) = log(100). Maka x = log(100)/log(2) = 2/0.30103 ≈ 6.644. Ini adalah aplikasi 'change of base formula': log₂(100) = log₁₀(100)/log₁₀(2)."
+/>

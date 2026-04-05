@@ -1,0 +1,275 @@
+---
+title: "Listrik Statis: Muatan, Medan & Hukum Gauss"
+description: "Hukum Coulomb, medan listrik, fluks dan Hukum Gauss, potensial listrik, kapasitor dan dielektrik, serta distribusi muatan pada konduktor — fondasi elektrostatik dari fenomena petir hingga chip komputer."
+icon: "Sparkles"
+order: 1
+---
+
+# Listrik Statis: Gaya yang Lebih Kuat dari Gravitasi Triliunan Kali
+
+Gravitasi menjaga Bumi mengorbit Matahari. Tapi gaya elektrostatik 10³⁹ kali lebih kuat dari gravitasi! Mengapa dunia tidak hancur oleh gaya yang begitu dahsyat? Karena materi normal memiliki jumlah muatan positif dan negatif yang **hampir sempurna seimbang** — selisihnya per atom kurang dari satu dalam sepuluh miliar.
+
+Ketidakseimbangan kecil ini menghasilkan petir, listrik statis, kimia atom, dan semua elektronika modern.
+
+---
+
+## 1. Muatan Listrik: Properti Fundamental Materi
+
+```
+Dua jenis muatan: Positif (+) dan Negatif (-)
+
+Partikel fundamental bermuatan:
+  Proton:   q = +1.602 × 10⁻¹⁹ C  (dalam inti atom)
+  Elektron: q = -1.602 × 10⁻¹⁹ C  (mengelilingi inti)
+  Neutron:  q = 0                  (dalam inti)
+
+Muatan elementer: e = 1.602 × 10⁻¹⁹ C
+  (semua muatan adalah kelipatan integer dari e)
+
+Hukum Kekekalan Muatan:
+  Muatan total alam semesta adalah konstan
+  Muatan bisa dipindah, tapi tidak diciptakan atau dimusnahkan
+  (Dalam reaksi nuklir: muatan anggota kiri = anggota kanan ✓)
+
+Kuantisasi Muatan:
+  q = n × e   (n = bilangan bulat, positif atau negatif)
+  Catatan: Quark memiliki muatan ±e/3 dan ±2e/3,
+  tapi tidak pernah ditemukan bebas — selalu terkungkung dalam hadron
+```
+
+### Konduktor dan Isolator:
+```
+Konduktor (logam, grafit, plasma):
+  Elektron dapat bergerak bebas
+  Muatan berlebih bermigrasi ke PERMUKAAN
+  Medan listrik di dalam konduktor statis = 0 (shielding sempurna)
+
+Semikonduktor (Si, Ge, GaAs):
+  Konduktivitas antara konduktor dan isolator
+  Bisa dikontrol dengan suhu, cahaya, atau doping
+  Dasar transistor dan semua elektronik modern
+
+Isolator (karet, plastik, kaca, keramik):
+  Elektron terikat kuat, tidak bebas bergerak
+  Muatan tetap di tempat disimpan (electret, kapasitor)
+
+Superkonduktor:
+  Di bawah T_kritis: resistansi = 0 (sempurna)
+  Arus bisa berjalan selamanya tanpa disipasi!
+  Contoh: Nb₃Sn (T_c=18.3K), YBCO (T_c=92K)
+```
+
+---
+
+## 2. Hukum Coulomb: Gaya antara Dua Muatan
+
+```
+F = k × |q₁q₂| / r²    [Newton]
+
+k = 1/(4πε₀) = 8.988 × 10⁹ N⋅m²/C²
+ε₀ = 8.854 × 10⁻¹² C²/(N⋅m²) = permittivitas vakum
+
+Bentuk vektor:
+  F⃗₁₂ = k × q₁q₂/r² × r̂₁₂    (gaya pada q₂ dari q₁)
+
+  r̂₁₂ = vektor satuan dari q₁ ke q₂
+
+Sifat:
+  Muatan sejenis: F repulsif (tolak-menolak)
+  Muatan berlawanan: F atraktif (tarik-menarik)
+  Seperti gravitasi tapi: bisa positif DAN negatif
+  Bergantung r² (inverse square law)
+
+Perbandingan gravitasi vs elektrostatik (proton-elektron):
+  F_E / F_G = (ke²) / (Gm_p m_e) ≈ 2.3 × 10³⁹
+  
+  Gaya listrik 2.3 DESILLION kali lebih kuat dari gravitasi!
+```
+
+**Prinsip Superposisi:**
+```
+Untuk N muatan, gaya total pada muatan uji q₀:
+  F⃗_total = Σᵢ F⃗_i = k q₀ Σᵢ qᵢ/rᵢ² r̂ᵢ
+
+Tiap gaya dihitung terpisah lalu dijumlah vektorial.
+```
+
+---
+
+## 3. Medan Listrik: Gaya per Satuan Muatan
+
+```
+E⃗ = F⃗/q₀    (muatan uji q₀ → 0 agar tidak mengganggu)
+
+Satuan: N/C = V/m
+
+Medan dari muatan titik q:
+  E⃗ = k × q/r² × r̂    (menjauhi muatan positif, menuju negatif)
+
+Prinsip Superposisi untuk Medan:
+  E⃗_total = Σᵢ E⃗ᵢ
+
+Garis Medan Listrik (Field Lines):
+  - Mulai dari + dan berakhir di -
+  - Makin rapat → medan makin kuat
+  - Tidak pernah berpotongan
+  - Tegak lurus permukaan konduktor
+  - Sejajar dan berjarak sama = medan seragam
+```
+
+### Dipol Listrik:
+```
+Sistem dua muatan +q dan -q terpisah jarak d:
+
+Momen dipol: p⃗ = qd⃗    (dari - ke +, besar = q×d)
+Satuan: C⋅m  atau  Debye (1D = 3.336×10⁻³⁰ C⋅m)
+
+Medan di titik jauh dari dipol:
+  E ∝ p/r³    (menurun lebih cepat dari muatan tunggal 1/r²)
+
+Torsi dipol dalam medan E⃗:
+  τ⃗ = p⃗ × E⃗ = pE sinθ
+  → Dipol cenderung berbaris sejajar medan
+
+Energi dipol dalam medan:
+  U = -p⃗ · E⃗ = -pE cosθ
+
+Momen dipol beberapa molekul (Debye):
+  H₂O: 1.85 D  (sangat polar)
+  HCl: 1.08 D
+  CO:  0.11 D  (hampir nonpolar, C dan O hampir sama EN)
+  CO₂: 0      (nonpolar — dua dipol saling meniadakan karena linear)
+```
+
+---
+
+## 4. Fluks Listrik dan Hukum Gauss
+
+```
+Fluks Listrik (Φ_E):
+  Φ = ∮ E⃗ · dA⃗    [N⋅m²/C = V⋅m]
+
+  Untuk medan seragam E dan permukaan datar A:
+  Φ = E × A × cosθ    (θ = sudut E dengan normal permukaan)
+
+Hukum Gauss:
+  ∮ E⃗ · dA⃗ = Q_dalam / ε₀
+
+  "Fluks total keluar dari permukaan tertutup apapun
+   sama dengan muatan total di dalam dibagi ε₀"
+
+Kegunaan: Menghitung E untuk distribusi simetris tinggi!
+```
+
+### Aplikasi Hukum Gauss:
+
+**1. Muatan Titik (simetri bola):**
+```
+Permukaan Gauss: bola radius r, muatan q di pusat
+  ∮ E dA = E × 4πr² = q/ε₀
+  E = q/(4πε₀r²) = kq/r²   ← Hukum Coulomb terbukti dari Gauss! ✓
+```
+
+**2. Silinder Tak Hingga (simetri silindris):**
+```
+Kawat panjang dengan muatan λ [C/m]:
+  Permukaan Gauss: silinder koaksial radius r, panjang L
+  Φ = E × 2πrL = λL/ε₀
+  E = λ/(2πε₀r)    → E ∝ 1/r  (bukan 1/r²!)
+```
+
+**3. Bidang Tak Hingga (simetri planar):**
+```
+Lembaran tak hingga dengan muatan σ [C/m²]:
+  Permukaan Gauss: kotak (pillbox) menembus bidang
+  Φ = 2×E×A = σA/ε₀
+  E = σ/(2ε₀)    → KONSTAN! (tidak bergantung jarak)
+```
+
+**4. Dalam Konduktor:**
+```
+Di dalam konduktor statis: E = 0
+Hukum Gauss dalam konduktor → ρ_dalam = 0 (semua muatan di permukaan)
+Di permukaan luar konduktor: E = σ_permukaan/ε₀ (tegak lurus permukaan)
+```
+
+---
+
+## 5. Potensial Listrik: Energi per Satuan Muatan
+
+```
+Potensial Listrik (V):
+  V = U/q₀ = W_infinity→r / q₀    [Volt = J/C]
+
+  Energi potensial listrik: U = q₀ × V
+
+Potensial dari muatan titik q:
+  V = kq/r    (skalar! lebih mudah dari medan vektor)
+
+Perbedaan Potensial (Tegangan):
+  ΔV = V_B - V_A = -∫_A^B E⃗ · dr⃗   [Volt]
+
+Hubungan E dan V:
+  E⃗ = -∇V = -(∂V/∂x î + ∂V/∂y ĵ + ∂V/∂z k̂)
+  E = -dV/dr  (dalam 1D)
+
+Equipotential Surface:
+  Permukaan di mana V = konstan
+  E⃗ selalu tegak lurus equipotential
+  Tidak ada kerja yang dilakukan saat bergerak di equipotential
+```
+
+---
+
+## 6. Kapasitor dan Penyimpanan Energi
+
+```
+Kapasitor = dua konduktor bermuatan berlawanan terpisah
+
+Kapasitansi: C = Q/V    [Farad = C/V]
+
+Kapasitor Keping Sejajar (paling umum):
+  C = ε₀ × A/d    (A = luas keping, d = jarak antar keping)
+
+  Dengan dielektrik:
+  C = κε₀ × A/d   (κ = konstanta dielektrik bahan, κ ≥ 1)
+
+  κ beberapa bahan:
+  Vakum = 1.000  Udara = 1.001  Kertas = 3.5
+  Kaca = 4-7     Air = 80       BaTiO₃ = 1200-10000!
+
+Energi Tersimpan:
+  U = ½CV² = ½Q²/C = ½QV    [Joule]
+
+  Densitas energi: u = ½ε₀E²    [J/m³]
+
+Kapasitor Seri dan Paralel:
+  Seri:   1/C_total = 1/C₁ + 1/C₂ + ...    (tegangan terbagi)
+  Paralel: C_total = C₁ + C₂ + ...          (muatan terbagi)
+```
+
+**Aplikasi Kapasitor:**
+```
+Flash kamera: kapasitor diisi perlahan (detik), dilepas cepat (µs)
+  → Daya sesaat sangat besar dari energi yang tersimpan
+
+Defibrillator jantung:
+  Kapasitor ~32 µF diisi ke 5000V → U = ½×32×10⁻⁶×(5000)² = 400 J
+  Dilepaskan ke jantung dalam ~4 ms → P = 400/0.004 = 100 kW sesaat!
+
+DRAM (memori komputer):
+  Setiap bit = 1 kapasitor kecil (tersimpan muatan = 1, tidak = 0)
+  Perlu di-refresh tiap ~64ms karena kebocoran muatan
+```
+
+<Quiz
+  question="Dua keping sejajar berkapasitansi C diisi hingga tegangan V, lalu sumber tegangan diputus. Kemudian jarak antara keping digandakan. Apa yang terjadi pada tegangan antar keping?"
+  options={[
+    "Tegangan tetap V",
+    "Tegangan menjadi V/2",
+    "Tegangan menjadi 2V",
+    "Tegangan menjadi V/4"
+  ]}
+  correctAnswer={2}
+  explanation="Saat sumber diputus, MUATAN Q tetap konstan (tidak ada tempat pergi). Saat d digandakan: C_baru = ε₀A/(2d) = C/2. Tegangan baru: V_baru = Q/C_baru = Q/(C/2) = 2Q/C = 2V. Tegangan berlipat dua! Energi pun berlipat dua: U_baru = ½(C/2)(2V)² = CV² = 2×½CV² = 2U. Energi ekstra ini berasal dari kerja yang dilakukan saat memisahkan keping melawan gaya tarik antar keping."
+/>

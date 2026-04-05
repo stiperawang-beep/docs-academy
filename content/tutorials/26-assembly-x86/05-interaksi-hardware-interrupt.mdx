@@ -1,0 +1,500 @@
+---
+title: "5. Bicara Langsung dengan Hardware: Interrupt & I/O"
+description: "Pelajari cara CPU berkomunikasi langsung dengan perangkat keras — keyboard, disk, layar — melalui interrupt, I/O port, dan sistem call. Inilah jembatan antara kode dan dunia fisik."
+icon: "Zap"
+order: 5
+---
+
+# Bicara Langsung dengan Hardware: Interrupt & I/O
+
+Bayangkan Anda seorang direktur perusahaan yang sibuk mengerjakan laporan (mengeksekusi instruksi). Tiba-tiba asisten Anda mengetuk pintu dan berkata: *"Ada telepon penting!"* Anda berhenti sejenak, angkat telepon, selesaikan urusannya, lalu kembali ke laporan dari tempat Anda berhenti.
+
+**Itulah cara kerja interrupt.**
+
+CPU tidak bisa terus-menerus memantau semua perangkat (keyboard, mouse, disk, jaringan) secara bersamaan — itu akan membuang-buang waktu. Sebaliknya, setiap perangkat dapat **menyela (interrupt)** CPU saat ada sesuatu yang perlu ditangani.
+
+Di bab ini kita akan memahami **bagaimana CPU dan hardware saling berbicara** — dan bagaimana cara Assembly menjadi perantaranya.
+
+---
+
+## 1. Arsitektur I/O: Tiga Cara CPU Berkomunikasi dengan Hardware
+
+Ada tiga paradigma komunikasi antara CPU dan perangkat keras:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         CPU (Prosesor)                          │
+└────────────────┬──────────────────────────────────────┬─────────┘
+                 │                                        │
+     ┌───────────▼───────────┐              ┌─────────────▼──────────┐
+     │    I/O Port (IN/OUT)  │              │  Memory-Mapped I/O     │
+     │  Ruang alamat terpisah│              │  Hardware dipetakan ke │
+     │  0x000 - 0xFFFF       │              │  alamat memori biasa   │
+     └───────────────────────┘              └────────────────────────┘
+                 │
+     ┌───────────▼───────────┐
+     │     Interrupt          │
+     │  Hardware → CPU signal │
+     │  Software → INT n      │
+     └───────────────────────┘
+```
+
+### 1.1 Port I/O: Saluran Khusus CPU-ke-Hardware
+
+x86 memiliki ruang alamat I/O yang **terpisah** dari ruang alamat memori — 65536 port (0x0000 hingga 0xFFFF). Untuk mengakses port ini, gunakan instruksi khusus `IN` dan `OUT`:
+
+```nasm
+; OUT — Kirim data ke port hardware
+; Sintaks: OUT port, AL/AX/EAX
+out 0x60, al        ; Kirim byte di AL ke port 0x60 (PS/2 keyboard controller)
+out dx, al          ; Kirim AL ke port yang alamatnya ada di DX
+
+; IN — Baca data dari port hardware
+; Sintaks: IN AL/AX/EAX, port
+in al, 0x60         ; Baca 1 byte dari port 0x60 (baca scan code keyboard)
+in al, dx           ; Baca dari port yang alamatnya ada di DX
+
+; Catatan: OUT/IN dengan immediate hanya untuk port 0x00-0xFF
+; Untuk port > 0xFF, harus taruh nomor port di DX dulu
+mov dx, 0x03F8      ; Port Serial COM1
+in al, dx           ; Baca status dari COM1
+```
+
+> [!NOTE] Port I/O yang Terkenal
+> Setiap port I/O dialokasikan untuk perangkat tertentu sejak era IBM PC:
+> - **0x20-0x21**: Programmable Interrupt Controller (PIC) master
+> - **0x40-0x43**: Programmable Interval Timer (PIT) — jam sistem
+> - **0x60**: PS/2 Keyboard/Mouse Controller
+> - **0x70-0x71**: CMOS RTC (Real-Time Clock)
+> - **0x03F8**: Serial Port COM1
+> - **0x0CF8-0x0CFF**: PCI Configuration Space
+
+### 1.2 Memory-Mapped I/O: Hardware yang Berpura-pura Jadi RAM
+
+Pendekatan modern: hardware memetakan registernya ke **rentang alamat memori tertentu**. CPU mengakses hardware dengan instruksi `MOV` biasa — seolah-olah mengakses RAM — namun yang sesungguhnya terjadi adalah sinyal elektronik terkirim ke perangkat keras.
+
+```nasm
+; Contoh: VGA Text Mode Buffer ada di alamat 0xB8000
+; Setiap karakter di layar = 2 byte: [karakter][atribut warna]
+; Untuk menulis 'A' berwarna putih-hitam ke pojok kiri atas:
+
+mov ax, 0xB800
+mov es, ax              ; ES = segment 0xB800
+
+mov byte [es:0], 'A'    ; Karakter 'A'
+mov byte [es:1], 0x0F   ; Atribut: hitam (latar) + putih (teks), terang
+```
+
+> [!TIP] Mengapa Memory-Mapped I/O Lebih Populer?
+> - Bisa menggunakan semua instruksi memori (MOV, AND, OR) bukan hanya IN/OUT
+> - Unified address space — tidak perlu instruksi khusus
+> - Lebih mudah di-cache dan dioptimasi
+
+---
+
+## 2. Interrupt: Sinyal yang Menyela Segalanya
+
+Interrupt adalah **mekanisme paling fundamental** dalam sistem operasi. Tanpa interrupt, CPU harus terus-menerus memeriksa (*polling*) setiap perangkat — boros dan tidak efisien.
+
+### 2.1 Tiga Jenis Interrupt
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Jenis Interrupt                       │
+├──────────────────┬──────────────────┬───────────────────┤
+│  Hardware IRQ    │    Exception     │  Software INT     │
+│ (dari perangkat) │   (dari CPU)     │ (from kode: INT n)│
+├──────────────────┼──────────────────┼───────────────────┤
+│ • Keyboard press │ • Division by 0  │ • INT 0x80 (Linux)│
+│ • Mouse move     │ • Page Fault     │ • INT 0x21 (DOS)  │  
+│ • Network packet │ • Invalid opcode │ • INT 0x10 (BIOS) │
+│ • Disk I/O done  │ • Stack overflow │                   │
+└──────────────────┴──────────────────┴───────────────────┘
+```
+
+### 2.2 Interrupt Descriptor Table (IDT)
+
+Saat interrupt terjadi, CPU perlu tahu *siapa* yang harus menanganinya. Untuk ini ada **IDT (Interrupt Descriptor Table)** — sebuah tabel array di memori berisi 256 entri, masing-masing menunjuk ke **Interrupt Service Routine (ISR)** yang sesuai.
+
+```
+Nomor Interrupt → IDT[n] → Alamat ISR → CPU lompat ke ISR
+```
+
+```nasm
+; Struktur IDT Entry (8 byte per entri):
+; Bits  0-15:  Offset rendah dari ISR (low 16 bit address)
+; Bits 16-31:  Segment selector
+; Bits 32-39:  Reserved  
+; Bits 40-47:  Type dan atribut (Interrupt Gate = 0x8E)
+; Bits 48-63:  Offset tinggi dari ISR (high 16 bit address)
+
+; Untuk memuat IDT ke CPU:
+lidt [idtr]        ; Load IDT Register: beritahu CPU lokasi IDT
+                   ; idtr = 6 byte: 2 byte limit + 4 byte base address
+```
+
+### 2.3 Alur Kerja Interrupt — Frame by Frame
+
+Inilah yang terjadi saat Anda menekan tombol keyboard:
+
+```
+[Anda tekan 'A'] 
+    │
+    ▼
+[Keyboard Controller mendeteksi tombol]
+    │
+    ▼
+[Keyboard Controller kirim sinyal elektrik ke PIC (irq1)]
+    │
+    ▼
+[PIC (Programmable Interrupt Controller) terima IRQ1]
+    │ CPU sedang eksekusi instruksi lain...
+    ▼
+[PIC kirim sinyal INTR ke CPU]
+    │
+    ▼
+[CPU selesaikan instruksi saat ini, lalu cek INTR]
+    │
+    ▼
+[CPU PUSH semua state ke stack:]
+    PUSH RFLAGS   ← simpan semua flags
+    PUSH CS       ← simpan Code Segment
+    PUSH RIP      ← simpan alamat instruksi berikutnya
+    │
+    ▼
+[CPU baca IDT[IRQ1+0x20] → dapatkan alamat keyboard ISR]
+    │
+    ▼
+[CPU JMP ke keyboard ISR]
+    │
+    ▼
+[ISR: Baca scan code dari port 0x60, proses, simpan ke buffer]
+    │
+    ▼
+[ISR hantem PIC: "interrupt tertangani!" → OUT 0x20, 0x20]
+    │
+    ▼
+[IRET ← POP RIP, CS, RFLAGS → lanjut instruksi yang tadi disela]
+```
+
+```nasm
+; Skeleton Interrupt Handler (ISR) yang Benar:
+
+keyboard_isr:
+    push rax                ; Simpan semua register yang akan dipakai
+    push rbx
+    push rcx
+    
+    ; Baca scan code dari keyboard controller
+    in al, 0x60             ; Baca scan code (misal: 0x1E = tombol 'A' ditekan)
+    
+    ; Proses scan code (biasanya: simpan ke buffer, set flag, dsb)
+    mov [keyboard_buffer], al
+    
+    ; Kirim sinyal "End of Interrupt" (EOI) ke PIC
+    ; WAJIB dilakukan, atau PIC tidak akan kirim interrupt lagi!
+    mov al, 0x20
+    out 0x20, al            ; EOI ke PIC master
+    
+    pop rcx                 ; Kembalikan register
+    pop rbx
+    pop rax
+    iret                    ; Interrupt Return: POP RIP, CS, RFLAGS dan lanjut
+```
+
+> [!IMPORTANT] Aturan Emas Interrupt Handler
+> 1. **Simpan SEMUA register** yang digunakan (PUSH di awal, POP di akhir)
+> 2. **Selalu kirim EOI ke PIC** jika ini IRQ hardware (bukan exception)
+> 3. **IRET, bukan RET** — hanya IRET yang me-restore RFLAGS secara atomik
+> 4. **Buat ISR secepat mungkin** — jangan melakukan pekerjaan berat di dalam ISR
+
+---
+
+## 3. Software Interrupt: Gerbang ke Sistem Operasi
+
+Cara program biasa meminta layanan OS adalah melalui **software interrupt** atau **syscall**. Ini adalah gerbang resmi yang aman antara *user space* dan *kernel space*.
+
+### 3.1 Dua Cara Melakukan System Call di x86-64 Linux
+
+```nasm
+; === CARA LAMA: INT 0x80 (32-bit, masih bisa di 64-bit) ===
+; Tidak efisien, sudah deprecated untuk 64-bit
+mov eax, 4          ; syscall: sys_write
+mov ebx, 1          ; fd: stdout
+mov ecx, msg        ; pointer ke pesan
+mov edx, msg_len    ; panjang pesan
+int 0x80            ; Picu software interrupt → masuk ke kernel
+
+; === CARA BARU: SYSCALL (64-bit, lebih cepat) ===
+; Register convention untuk SYSCALL di x86-64 Linux:
+;   RAX = nomor syscall
+;   RDI = argumen 1
+;   RSI = argumen 2
+;   RDX = argumen 3
+;   R10 = argumen 4
+;   R8  = argumen 5
+;   R9  = argumen 6
+; Hasil kembali di RAX (negatif = error)
+
+mov rax, 1          ; syscall nomor 1 = write
+mov rdi, 1          ; fd = 1 (stdout)
+mov rsi, msg        ; buffer pointer
+mov rdx, 13         ; panjang = 13 byte
+syscall             ; Instruksi SYSCALL — jauh lebih cepat dari INT 0x80
+```
+
+> [!NOTE] Mengapa SYSCALL Lebih Cepat dari INT 0x80?
+> `INT 0x80` memicu seluruh mekanisme interrupt: menyimpan semua state, lookup IDT, privilege level switch penuh. Instruksi `SYSCALL` adalah jalan pintas khusus untuk syscall — ia menggunakan register MSR (Model-Specific Register) yang sudah dikonfigurasi kernel untuk langsung lompat ke handler syscall tanpa overhead penuh.
+
+### 3.2 Daftar Syscall Penting Linux x86-64
+
+```nasm
+; Nomor Syscall di x86-64 Linux (dari /usr/include/asm/unistd_64.h)
+
+; I/O
+mov rax, 0    ; sys_read    (fd, buf, count)
+mov rax, 1    ; sys_write   (fd, buf, count)
+mov rax, 2    ; sys_open    (filename, flags, mode)
+mov rax, 3    ; sys_close   (fd)
+
+; Proses
+mov rax, 57   ; sys_fork    ()                      → PID child/0
+mov rax, 59   ; sys_execve  (filename, argv, envp)  → ganti proses
+mov rax, 60   ; sys_exit    (status)                → terminasi
+mov rax, 61   ; sys_wait4   (pid, status, options, rusage)
+
+; Memori
+mov rax, 9    ; sys_mmap    (addr, length, prot, flags, fd, offset)
+mov rax, 11   ; sys_munmap  (addr, length)
+mov rax, 12   ; sys_brk     (addr) → pindahkan break heap
+
+; Jaringan
+mov rax, 41   ; sys_socket  (domain, type, protocol)
+mov rax, 42   ; sys_connect (sockfd, addr, addrlen)
+mov rax, 49   ; sys_bind    (sockfd, addr, addrlen)
+mov rax, 50   ; sys_listen  (sockfd, backlog)
+mov rax, 43   ; sys_accept  (sockfd, addr, addrlen)
+```
+
+---
+
+## 4. Programmable Interval Timer (PIT): Jantung Detak Sistem
+
+Bagaimana OS tahu sudah waktunya *context switch* (mengganti proses)? Jawabannya: **PIT (Programmable Interval Timer)** — chip yang menghasilkan interrupt secara periodik seperti jam.
+
+```nasm
+; === Konfigurasi PIT untuk menghasilkan interrupt 100 Hz ===
+; PIT beroperasi pada frekuensi dasar 1.193182 MHz
+; Untuk 100 Hz: divisor = 1193182 / 100 = 11932
+
+PIT_CMD  equ 0x43   ; Port perintah PIT
+PIT_CH0  equ 0x40   ; Port data Channel 0 PIT
+
+configure_pit:
+    ; Kirim command: channel 0, lo/hi byte, mode 3 (square wave), binary
+    mov al, 0b00110110  ; 0x36 : channel 0, rate generator, lobyte/hibyte
+    out PIT_CMD, al
+
+    ; Kirim divisor (low byte dulu, baru high byte)
+    mov ax, 11932       ; 11932 ≈ 100 Hz
+    out PIT_CH0, al     ; Low byte
+    mov al, ah
+    out PIT_CH0, al     ; High byte
+    ret
+
+; Sekarang IRQ0 (timer interrupt) akan dipanggil 100 kali per detik.
+; Kernel menggunakan ini untuk:
+;   - Update jam sistem
+;   - Decrement time slice proses aktif
+;   - Trigger scheduler jika time slice habis (→ context switch)
+```
+
+---
+
+## 5. Context Switch: Ilusi "Multitasking"
+
+Komputer Anda seolah menjalankan banyak program sekaligus — padahal pada satu-core CPU, hanya satu yang benar-benar berjalan. Multitasking adalah **ilusi yang dikerjakan oleh scheduler** melalui context switch.
+
+```nasm
+; Proses A berjalan:
+;   RAX=0x01, RBX=0x200, RCX=0x300, RIP=0x10A0, RSP=0x7FFF
+;
+; Timer interrupt terjadi (IRQ0)!
+; Kernel's timer ISR menyimpan seluruh state Proses A ke Process Control Block (PCB_A):
+
+save_context_A:
+    ; Saat INTR terjadi, CPU otomatis PUSH: RFLAGS, CS, RIP ke stack
+    ; ISR kemudian menyimpan sisanya:
+    mov [PCB_A + 0],  rax
+    mov [PCB_A + 8],  rbx
+    mov [PCB_A + 16], rcx
+    mov [PCB_A + 24], rdx
+    mov [PCB_A + 32], rsi
+    mov [PCB_A + 40], rdi
+    mov [PCB_A + 48], rsp   ; Stack pointer Proses A
+    ; ... dst semua register ...
+
+; Scheduler memilih Proses B untuk dijalankan berikutnya
+; Kernel loads state Proses B dari PCB_B:
+load_context_B:
+    mov rax, [PCB_B + 0]
+    mov rbx, [PCB_B + 8]
+    mov rcx, [PCB_B + 16]
+    ; ... dst semua register ...
+    mov rsp, [PCB_B + 48]   ; Pindah ke stack Proses B!
+    
+    iret                    ; POP RIP, CS, RFLAGS → Proses B lanjut berjalan!
+```
+
+> [!IMPORTANT] Context Switch = Biaya Nyata
+> Setiap context switch membutuhkan waktu: menyimpan ~200 byte state per proses, flush TLB (Translation Lookaside Buffer) jika beda address space, invalidate Branch Predictor. Itulah mengapa **goroutine** di Go dan **async/await** di Python lebih efisien dari thread OS — mereka melakukan context switch di user space tanpa melibatkan kernel.
+
+---
+
+## 6. DMA: Hardware yang Bypass CPU
+
+Untuk transfer data besar (seperti membaca file dari disk), ada mekanisme **DMA (Direct Memory Access)** — chip khusus yang bisa menulis langsung ke RAM *tanpa melibatkan CPU sama sekali*.
+
+```
+Tanpa DMA (CPU-driven):
+[Disk] → (byte 1) → CPU → RAM
+[Disk] → (byte 2) → CPU → RAM
+... (CPU sibuk menunggu setiap byte)
+
+Dengan DMA:
+CPU: "DMA, tolong salin 512 byte dari disk ini ke alamat 0x80000"
+[CPU bebas mengerjakan hal lain...]
+DMA Controller: mengambil data dari disk, menulis langsung ke RAM
+DMA Controller: [setelah selesai] "CPU, aku sudah selesai! IRQ!"
+CPU: [menerima interrupt] "Oke, data sudah siap di 0x80000, lanjut proses."
+```
+
+```nasm
+; Konfigurasi DMA (contoh ISA DMA channel 2 untuk floppy disk)
+; Port DMA controller ada di 0x00-0x0F dan 0x80-0x9F
+
+configure_dma_read:
+    ; 1. Disable DMA channel yang akan dipakai
+    out 0x0A, 0x06      ; Mask channel 2 (0x04 | channel)
+
+    ; 2. Reset flip-flop (agar start dari low byte)
+    out 0x0C, 0xFF
+
+    ; 3. Set mode: single transfer, read, channel 2
+    out 0x0B, 0x46      ; 0x40=single | 0x04=read | 0x02=channel2
+
+    ; 4. Set alamat memori tujuan (physical address)
+    mov ax, 0x0000      ; Alamat low word (misal: tujuan = 0x90000)
+    out 0x04, al        ; Low byte
+    out 0x04, ah        ; High byte
+    out 0x81, 0x09      ; Page register: high nibble (0x09 = 0x90000)
+
+    ; 5. Set jumlah byte (count - 1)
+    mov ax, 511         ; 512 byte - 1
+    out 0x05, al
+    out 0x05, ah
+
+    ; 6. Enable channel
+    out 0x0A, 0x02      ; Unmask channel 2
+    
+    ; Sekarang DMA akan transfer data saat disk controller siap
+    ret
+```
+
+---
+
+## 7. BIOS Interrupt: Warisan yang Masih Ada
+
+Sebelum OS dimuat, BIOS (Basic Input/Output System) menyediakan layanan dasar melalui software interrupt. Meski sudah digantikan UEFI, konsepnya tetap sama:
+
+```nasm
+; === Contoh menggunakan BIOS interrupt (mode real 16-bit) ===
+
+; INT 0x10 — Video Services
+; Fungsi AH=0x0E: Teletype Output (cetak karakter ke layar)
+mov ah, 0x0E        ; Fungsi 0x0E
+mov al, 'H'         ; Karakter yang ditampilkan
+int 0x10            ; Panggil BIOS video service
+
+; INT 0x13 — Disk Services
+; Fungsi AH=0x02: Read Sectors from Drive
+mov ah, 0x02        ; Fungsi read sectors
+mov al, 1           ; Baca 1 sektor
+mov ch, 0           ; Track (cylinder) 0
+mov cl, 1           ; Sektor 1 (dimulai dari 1, bukan 0!)
+mov dh, 0           ; Head 0
+mov dl, 0x00        ; Drive 0 (floppy)
+mov bx, 0x7C00      ; Alamat buffer tujuan
+int 0x13            ; Panggil BIOS disk service
+
+; INT 0x16 — Keyboard Services
+; Fungsi AH=0x00: Get Keystroke (tunggu dan baca tombol)
+mov ah, 0x00
+int 0x16            ; Tunggu sampai ada tombol ditekan
+                    ; AH = scan code, AL = karakter ASCII
+```
+
+> [!NOTE] Real Mode vs. Protected Mode
+> Semua kode BIOS di atas berjalan di **Real Mode** — mode 16-bit di mana CPU tidak punya proteksi memori, tidak ada paging, dan semua memori bisa diakses langsung. Saat bootloader selesai memuat kernel, salah satu tugasnya adalah **beralih ke Protected Mode (32-bit) atau Long Mode (64-bit)** — dan pada saat itu, semua BIOS interrupt tidak bisa lagi digunakan karena IDT telah diganti oleh IDT milik kernel.
+
+---
+
+## 8. Inspeksi Nyata: Apa yang Terjadi Saat Anda Menekan Keyboard
+
+Sekarang mari kita satukan semua yang telah kita pelajari dalam satu skenario lengkap:
+
+```
+FISIK (0.000ms):
+  Tombol 'A' ditekan → pegas menutup sirkuit → arus listrik mengalir
+
+KEYBOARD CONTROLLER (0.001ms):
+  Intel 8042 Controller mendeteksi sinyal
+  Scan code 0x1E (make code untuk 'A') DIKIRIM ke buffer internal
+
+SINYAL PIC (0.002ms):
+  8042 menarik garis IRQ1 (jalur listrik) ke LOW
+  PIC 8259A di-clock → latch IRQ1 di IMR (Interrupt Mask Register)
+  PIC mengirim sinyal INTR ke pin CPU → CPU cek flag IF (Interrupt Flag)
+
+CPU RESPONSE (0.003ms):
+  Wait for current instruction to finish (jika sedang decode/execute)
+  PUSHQ RFLAGS → stack
+  PUSHQ CS     → stack
+  PUSHQ RIP    → stack (return address)
+  Clear IF flag (nonaktifkan interrupt lainnya sementara)
+  Read IDT[0x21] → alamat keyboard_isr
+  JMP ke keyboard_isr
+
+KEYBOARD ISR (0.004ms):
+  PUSH semua register caller-saved
+  IN AL, 0x60          → baca scan code (0x1E) dari keyboard controller
+  Pindahkan ke buffer keyboard kernel
+  OUT 0x20, 0x20       → EOI ke PIC (interrupt selesai, bisa terima lagi)
+  POP semua register
+  IRET                 → restore RFLAGS, CS, RIP
+
+KERNEL INPUT LAYER (0.010ms):
+  Kernel mengkonversi scan code 0x1E → keycode KEY_A
+  Kirim event ke input subsystem
+
+USERSPACE (0.015ms):
+  Terminal (bash) yang menunggu input /dev/input/event0 membaca event
+  Buffer terminal: tambahkan 'a'
+  Tampilkan 'a' di layar (write ke framebuffer atau VT100 escape)
+
+TOTAL: sekitar 15-50ms — yang Anda rasakan sebagai "tombol tertekan"
+```
+
+---
+
+<Quiz
+  question="Apa yang HARUS dilakukan oleh setiap Interrupt Service Routine (ISR) untuk hardware interrupt sebelum menjalankan `IRET`?"
+  options={[
+    "Memanggil syscall exit agar program berhenti dengan bersih",
+    "Mengirim sinyal End-of-Interrupt (EOI) ke PIC agar PIC bisa menerima interrupt berikutnya",
+    "Memflush cache CPU agar state tidak korup setelah interrupt",
+    "Mengembalikan nilai 0 di register RAX sebagai tanda sukses"
+  ]}
+  correctAnswer={1}
+  explanation="Benar! Setelah sebuah ISR selesai menangani hardware interrupt, ia WAJIB mengirim sinyal End-of-Interrupt (EOI) ke PIC dengan `OUT 0x20, 0x20` (untuk IRQ 0-7) atau `OUT 0xA0, 0x20` diikuti `OUT 0x20, 0x20` (untuk IRQ 8-15). Tanpa EOI, PIC akan 'diam' dan tidak pernah mengirim interrupt berikutnya — keyboard, mouse, dan semua perangkat akan berhenti merespons."
+/>

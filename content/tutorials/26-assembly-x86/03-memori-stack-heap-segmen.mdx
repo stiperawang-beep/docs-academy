@@ -1,0 +1,262 @@
+---
+title: "3. Memori: Peta Dunia di Balik Program Anda"
+description: "Menjelajahi arsitektur memori virtual x86 — memahami Stack, Heap, segmentasi memori, pointer, dan bagaimana setiap baris kode Assembly berinteraksi dengan RAM secara fisik."
+icon: "Database"
+order: 3
+---
+
+# Memori: Peta Dunia di Balik Program Anda
+
+Jika Register adalah meja kerja Anda dan CPU adalah tangan Anda, maka **RAM adalah kota tempat Anda hidup**.
+
+Tapi ini bukan kota biasa. Ini adalah kota yang diorganisir oleh sistem operasi menggunakan teknik yang brilian bernama **Virtual Memory** — sebuah ilusi yang membuat setiap program percaya bahwa ia memiliki seluruh memori komputer untuk dirinya sendiri.
+
+---
+
+## 1. Virtual Memory: Ilusi yang Membuat Segalanya Mungkin
+
+Bayangkan Anda memiliki apartemen berukuran 4GB di gedung pencakar langit. Nyaman, luas, dan seluruhnya milik Anda sendiri. Tetangga Anda di lantai lain juga memiliki apartemen 4GB mereka sendiri.
+
+Tapi gedung itu hanya memiliki 16GB total ruang nyata (RAM fisik Anda).
+
+Bagaimana caranya setiap penghuni memiliki 4GB padahal total gedung hanya 16GB? **Sang pengelola gedung (OS + MMU) menipu semua penghuni**.
+
+Pengelola menggunakan teknik "virtualisasi" — ia memberikan setiap program *nomor apartemen palsu* (alamat virtual) dan diam-diam memetakannya ke ruang nyata yang tersedia (RAM fisik) menggunakan **Page Table**.
+
+```
+Program A (Chrome):
+Alamat Virtual 0x00400000  →  RAM Fisik 0x12345000
+Alamat Virtual 0x00401000  →  RAM Fisik 0x87654000
+Alamat Virtual 0x00402000  →  SSD (di-swap keluar dari RAM!)
+
+Program B (VS Code):
+Alamat Virtual 0x00400000  →  RAM Fisik 0x99ABC000
+                ↑
+            SAMA! Tapi dipetakan ke tempat BERBEDA di RAM
+```
+
+Keajaiban ini dikelola oleh **Memory Management Unit (MMU)**, sebuah sirkuit khusus di dalam CPU.
+
+> [!NOTE] Kenapa Ini Penting di Assembly?
+> Ketika Anda menulis `mov rax, [0x400000]` di Assembly, Anda sedang menggunakan **alamat virtual** — bukan alamat RAM fisik. MMU secara otomatis menerjemahkan ini ke alamat fisik yang sebenarnya. Anda tidak perlu (dan tidak bisa) mengakses RAM fisik secara langsung dari *user-space* Assembly.
+
+---
+
+## 2. Peta Memori Virtual x86-64
+
+Setiap proses di Linux/Windows memiliki layout memori virtual yang terstruktur seperti ini:
+
+```
+Alamat Memori Virtual (64-bit, tapi hanya 48-bit yang dipakai)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+0xFFFFFFFFFFFFFFFF ┐
+                   │  KERNEL SPACE
+                   │  (Hanya OS yang boleh akses)
+                   │  - Kernel code & data
+                   │  - Page tables
+                   │  - Hardware mappings (RAM, MMIO)
+0xFFFF800000000000 ┘
+
+  [GAP BESAR - Tidak Valid]
+
+0x00007FFFFFFFFFFF ┐
+                   │  USER SPACE (Program Anda)
+                   │
+  0x7FFExxxxxxxx   │  Stack (tumbuh KE BAWAH ⬇)
+                   │  [RSP menunjuk ke sini]
+                   │  ← Frame fungsi sekarang
+                   │  ← Frame fungsi pemanggil
+                   │  ← Frame fungsi tertua
+                   │
+  [GAP]            │  (Stack bisa tumbuh hingga berbenturan dengan Heap)
+                   │
+  0x0040yyyyyyyy   │  Heap (tumbuh KE ATAS ⬆)
+                   │  [malloc/new mengalokasikan di sini]
+                   │
+  [GAP]            │
+                   │
+  0x00400000-      ├─ .bss    (Data global yang belum diinisialisasi)
+  0x0040xxxx       ├─ .data   (Data global yang sudah diinisialisasi)
+                   ├─ .rodata (String konstan, read-only)
+                   ├─ .text   (Kode program - instruksi Assembly Anda!)
+0x0000000000400000 ┘  (Biasanya base address program)
+
+0x0000000000000000    NULL (Tidak bisa diakses → Crash jika disentuh!)
+```
+
+---
+
+## 3. Segmen Memori: Empat Wilayah Program Anda
+
+### 3.1 `.text` — Wilayah Kode (Di Sini Instruksi Assembly Bertempat)
+
+Bagian `.text` adalah tempat instruksi Assembly Anda tersimpan. Ini adalah **read-only** — program tidak bisa memodifikasi dirinya sendiri saat berjalan (pada sistem modern, karena perlindungan **W^X**).
+
+```nasm
+section .text           ; Deklarasi segmen kode
+    global _start       ; Titik masuk program
+
+_start:
+    mov eax, 1          ; ← Instruksi ini ada di .text, di suatu alamat memori
+    mov edi, 0          ; ← Instruksi ini ada di .text + 5 byte
+    syscall             ; ← Instruksi ini ada di .text + 7 byte
+```
+
+### 3.2 `.data` — Wilayah Data Statis
+
+Variabel global yang sudah diisi nilainya saat program dimulai:
+
+```nasm
+section .data
+    pesan       db "Halo Dunia!", 0     ; String dengan null-terminator
+    angka       dd 42                   ; Double-word (32-bit), nilai 42
+    pi          dq 3.14159265358979     ; Quad-word (64-bit float)
+    array       dd 1, 2, 3, 4, 5       ; Array 5 integer
+```
+
+### 3.3 `.bss` — Wilayah Data Tak Terinisialisasi
+
+Untuk variabel global yang nilainya belum diketahui saat kompilasi. **Tidak memakan ruang di file binary** — OS yang menyediakan memori zeroed saat program load.
+
+```nasm
+section .bss
+    buffer      resb 1024   ; Reserve 1024 bytes (untuk input buffer)
+    nilai       resd 1      ; Reserve 1 double-word (32-bit)
+    matriks     resq 256    ; Reserve 256 quad-words (untuk matriks 16x16)
+```
+
+### 3.4 Stack — Tumpukan yang Tumbuh ke Bawah
+
+Stack adalah salah satu konsep paling kritis di Assembly. Ia bekerja seperti tumpukan piring — yang terakhir masuk adalah yang pertama keluar (**LIFO: Last In, First Out**).
+
+```
+RSP awal → 0x7FFF0000
+           ┌──────────┐
+           │  Data C  │  ← PUSH C: RSP turun ke 0x7FFEFF08
+           │  Data B  │  ← PUSH B: RSP turun ke 0x7FFEFF00
+           │  Data A  │  ← PUSH A: RSP turun ke 0x7FFFEFF8
+           └──────────┘
+RSP → 0x7FFFEFF8 (Stack Pointer selalu menunjuk ke "top of stack")
+
+; Instruksi PUSH (menyimpan ke stack):
+push rax    ; RSP -= 8 (turun 8 byte), lalu [RSP] = nilai RAX
+
+; Instruksi POP (mengambil dari stack):
+pop rbx     ; RBX = [RSP] (ambil nilai dari top), lalu RSP += 8 (naik)
+```
+
+> [!CAUTION] Stack Overflow yang Sesungguhnya
+> "Stack Overflow" bukan hanya nama website! Ini adalah error nyata yang terjadi ketika Stack tumbuh ke bawah terlalu jauh hingga bertabrakan dengan Heap atau wilayah memori lain. Rekursi tanpa batas atau alokasi array besar di stack adalah penyebab utamanya. OS mendeteksi ini dengan **Guard Page** — halaman memori khusus yang akan memicu segfault jika disentuh.
+
+---
+
+## 4. Stack Frame: Bagaimana Fungsi Bekerja
+
+Ketika sebuah fungsi dipanggil, CPU membuat "bingkai" (frame) baru di Stack. Ini adalah bagaimana variabel lokal dan parameter fungsi disimpan.
+
+```nasm
+; Misalkan kita punya fungsi C: int tambah(int a, int b) { return a + b; }
+; Dan pemanggilnya: int hasil = tambah(10, 20);
+;
+; Setelah kompilasi menjadi x86-64 Assembly (ABI Linux/System V):
+;   Argumen 1 → EDI
+;   Argumen 2 → ESI
+;   Return value → EAX
+
+; Pemanggil (caller):
+mov edi, 10         ; Argumen pertama ke EDI
+mov esi, 20         ; Argumen kedua ke ESI
+call fungsi_tambah  ; PUSH RIP ke stack, lalu JMP ke fungsi_tambah
+
+; --- Stack Frame saat masuk fungsi_tambah: ---
+; [ Return Address ] ← RSP (push oleh instruksi CALL)
+; [ Old RBP        ] ← RSP - 8 (setelah push rbp)
+; [ Local vars...  ] ← RSP - 16, -24, dst
+
+fungsi_tambah:
+    push rbp            ; Simpan Base Pointer lama ke stack
+    mov  rbp, rsp       ; Buat frame baru: RBP = RSP sekarang
+    sub  rsp, 16        ; Alokasi 16 byte untuk variabel lokal
+
+    ; Body fungsi: EDI sudah berisi 10, ESI berisi 20
+    mov eax, edi        ; EAX = 10
+    add eax, esi        ; EAX = 10 + 20 = 30
+
+    leave               ; Shorthand untuk: mov rsp, rbp; pop rbp
+    ret                 ; POP return address dari stack ke RIP, lanjut eksekusi
+```
+
+Inilah mengapa **debugger** bisa menampilkan "call stack" — karena setiap fungsi yang aktif meninggalkan frame-nya di Stack, dan frame-frame itu bisa dibaca dari bawah ke atas untuk merekontruksi jalur eksekusi.
+
+---
+
+## 5. Addressing Mode: Cara Assembly Mengakses Memori
+
+Di Assembly x86, ada beberapa cara untuk merujuk ke lokasi memori:
+
+```nasm
+; 1. IMMEDIATE — Nilai langsung (bukan dari memori)
+mov rax, 42             ; RAX = 42 (literal)
+
+; 2. REGISTER — Nilai dari register lain
+mov rax, rbx            ; RAX = nilai yang ada di RBX
+
+; 3. DIRECT MEMORY — Akses ke alamat memori langsung
+mov rax, [0x404000]     ; RAX = nilai 8-byte di alamat 0x404000
+
+; 4. REGISTER INDIRECT — Register berisi alamat
+mov rax, [rbx]          ; RAX = nilai di alamat yang tersimpan di RBX
+                        ; (seperti pointer di C: rax = *rbx)
+
+; 5. REGISTER + DISPLACEMENT — Register + offset tetap
+mov rax, [rbx + 8]      ; RAX = nilai di (alamat RBX) + 8 byte
+                        ; (seperti struct access: rax = rbx->field_at_offset_8)
+
+; 6. SCALED INDEX — Untuk akses array
+mov rax, [rbx + rcx*8]  ; RAX = elemen ke-RCX dari array di RBX
+                        ; (skala 8 = ukuran tiap elemen 8 byte)
+
+; 7. FULL: Base + Index*Scale + Displacement
+mov rax, [rbx + rcx*8 + 16]  ; Kombinasi lengkap (untuk matriks 2D, dll)
+```
+
+> [!TIP] Mental Model untuk Pointer
+> `[rbx]` di Assembly = `*rbx` di C (dereference pointer).
+> `rbx` di Assembly (tanpa kurung siku) = nilai alamat itu sendiri (seperti `int *ptr = rbx` di C).
+> Kurung siku `[]` adalah "pergi ke alamat tersebut dan ambil nilainya".
+
+---
+
+## 6. Proteksi Memori: Kenapa Tidak Semua Memori Bisa Diakses
+
+Sistem operasi modern menandai setiap halaman memori (4KB per halaman) dengan **permission bits**:
+
+| Permission | Arti | Wilayah yang pakai |
+|---|---|---|
+| **R** (Read) | Bisa dibaca | Semua segmen |
+| **W** (Write) | Bisa ditulis | .data, .bss, Stack, Heap |
+| **X** (Execute) | Bisa dieksekusi | .text saja |
+
+Filosofi modern adalah **W^X** (Write XOR Execute) — tidak ada halaman yang bisa sekaligus ditulis DAN dieksekusi. Ini adalah pertahanan utama terhadap **shellcode injection**: penyerang tidak bisa menulis kode ke Stack lalu menjalankannya, karena Stack tidak memiliki permission Execute.
+
+```
+Segmen .text:  R--X  (baca + eksekusi, tapi tidak bisa dimodifikasi)
+Segmen .data:  RW--  (baca + tulis, tapi tidak bisa dieksekusi)
+Stack:         RW--  (baca + tulis, tidak bisa dieksekusi = cegah shellcode)
+Heap:          RW--  (baca + tulis, tidak bisa dieksekusi)
+```
+
+---
+
+<Quiz
+  question="Ketika instruksi `push rax` dieksekusi, apa yang terjadi pada register RSP?"
+  options={[
+    "RSP bertambah 8 (naik), lalu nilai RAX disimpan di [RSP]",
+    "RSP berkurang 8 (turun), lalu nilai RAX disimpan di [RSP]",
+    "RSP tidak berubah; nilai RAX langsung disimpan di top of stack",
+    "RSP bertambah 4 karena RAX adalah register 32-bit"
+  ]}
+  correctAnswer={1}
+  explanation="Tepat! Stack x86 tumbuh ke bawah (ke alamat yang lebih kecil). `PUSH` pertama-tama mengurangi RSP sebesar 8 byte (karena RAX adalah 64-bit = 8 byte), lalu menyimpan nilai RAX di lokasi [RSP] yang baru. Kebalikannya, `POP` membaca [RSP] terlebih dahulu lalu menambah RSP sebesar 8."
+/>

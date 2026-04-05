@@ -1,0 +1,333 @@
+---
+title: "Rotasi, Torsi & Dinamika Fluida"
+description: "Dinamika rotasi — torsi, momen inersia, energi kinetik rotasi, presesi giroskop. Mekanika fluida — tekanan, prinsip Archimedes, kontinuitas, Bernoulli, viskositas, dan turbulensi."
+icon: "Wind"
+order: 4
+---
+
+# Rotasi dan Fluida: Dunia yang Berputar dan Mengalir
+
+Dunia tidak hanya bergerak lurus — ia berputar. Dari elektron yang berspin, Bumi yang berotasi, turbin yang menghasilkan listrik, hingga siklon dan galaksi yang berputar — rotasi adalah salah satu gerak paling fundamental di alam semesta.
+
+Dan di antara benda-benda yang berputar itu mengalir fluida — udara, air, darah, magma — mengikuti hukum-hukum yang sama elegan dan pentingnya.
+
+---
+
+## 1. Kinematika Rotasi
+
+```
+Besaran sudut (analog dengan besaran linear):
+
+  Linear        ↔    Rotasi
+  x (posisi)    ↔    θ (sudut) [radian]
+  v = dx/dt     ↔    ω = dθ/dt [rad/s]
+  a = dv/dt     ↔    α = dω/dt [rad/s²]
+
+Hubungan linear-rotasi:
+  s = θr,   v = ωr,   aₜ = αr  (komponen tangensial)
+  aₙ = ω²r             (percepatan sentripetal)
+
+Persamaan GLBB Rotasi (α = konstan):
+  θ = θ₀ + ω₀t + ½αt²
+  ω = ω₀ + αt
+  ω² = ω₀² + 2α(θ - θ₀)
+  θ = θ₀ + ½(ω₀ + ω)t
+
+Contoh — Motor listrik:
+  Mulai dari diam, mencapai 1800 rpm dalam 6 detik
+  ω₀ = 0,  ω = 1800 × (2π/60) = 188.5 rad/s
+  α = Δω/Δt = 188.5/6 = 31.4 rad/s²
+  θ = ½αt² = ½ × 31.4 × 36 = 565 rad ≈ 90 putaran
+```
+
+---
+
+## 2. Torsi: Gaya yang Memutar
+
+```
+Torsi (τ⃗):
+  τ⃗ = r⃗ × F⃗    [N⋅m]
+  τ = rF sinθ = r_⊥ × F   (r_⊥ = lever arm)
+
+  τ > 0: memutar berlawanan jarum jam
+  τ < 0: memutar searah jarum jam
+
+Hukum Newton II Rotasi:
+  Στ = Iα     (analog F = ma)
+
+  I = Momen Inersia = Σ mᵢrᵢ²    [kg⋅m²]
+
+Momen Inersia Benda Kontinu:
+  I = ∫ r² dm
+  
+  Komponen Umum:
+  Silinder/disk padat (sumbu tengah): I = ½MR²
+  Bola padat (sumbu tengah): I = (2/5)MR²
+  Batang tipis (ujung ke ujung): I = (1/3)ML²
+  Batang tipis (tengah): I = (1/12)ML²
+  Cincin/hollow cylinder: I = MR²
+  Bola berongga: I = (2/3)MR²
+```
+
+### Teorema Sumbu Sejajar (Steiner/Parallel Axis):
+```
+I = I_cm + Md²
+
+I_cm = momen inersia terhadap sumbu melalui pusat massa
+d = jarak sumbu baru dari pusat massa
+
+Contoh: I batang tipis panjang L (1/12)ML² (tengah) →
+  Ujung: I = (1/12)ML² + M(L/2)² = (1/12)ML² + (1/4)ML² = (1/3)ML² ✓
+```
+
+---
+
+## 3. Energi dan Momentum Sudut
+
+```
+Energi Kinetik Rotasi:
+  KE_rot = ½Iω²
+
+Untuk benda yang menggelinding (rolling without slipping):
+  KE_total = KE_trans + KE_rot = ½mv² + ½Iω²
+  dengan v = ωR (syarat menggelinding)
+
+Perbandingan bola vs silinder menggelinding dari ketinggian h:
+  Bola (I=2/5MR²):
+    ½mv² + ½(2/5MR²)(v/R)² = mgh
+    ½mv² + (1/5)mv² = mgh → v = √(10gh/7) ≈ 0.845√(2gh)
+
+  Silinder (I=½MR²):
+    ½mv² + ½(½MR²)(v/R)² = mgh → v = √(4gh/3) ≈ 0.816√(2gh)
+
+  Bola lebih cepat! (lebih banyak KE di translasi)
+
+Momentum Sudut (L⃗):
+  L⃗ = r⃗ × p⃗ = Iω⃗    [kg⋅m²/s]
+
+Hukum Newton II untuk rotasi:
+  τ⃗_net = dL⃗/dt
+
+Kekekalan Momentum Sudut (jika τ_net = 0):
+  L = Iω = konstan
+
+  Penari menutup lengan: I kecil → ω besar (sama L)
+  Penari membuka lengan: I besar → ω kecil
+```
+
+---
+
+## 4. Giroskop dan Presesi
+
+```
+Momentum sudut giroskop yang berputar menciptakan KESTABILAN:
+
+Presesi giroskop (sumbu berputar perlahan mengelilingi vertikal):
+  Ω_presesi = τ/L = mgd/(Iω)
+
+  d = jarak dari titik tumpu ke pusat massa
+  Ω_presesi KECIL jika L besar (ω besar)
+
+Aplikasi:
+  Kompas giroskop kapal/pesawat (tidak terpengaruh magnet lokal)
+  Stabilisasi satelit (momentum sudut roda giroskop)
+  Gyroscope dalam smartphone (deteksi orientasi)
+  Spinning top (gasing) — tidak jatuh karena presesi!
+  Bumi sendiri berpresi dengan periode ~26,000 tahun (Presesi Ekuinoks)
+```
+
+---
+
+## 5. Mekanika Fluida Statis
+
+```
+Fluida = zat yang mengalir (cair dan gas)
+
+Tekanan:
+  P = F/A    [Pascal = N/m² = kg/(m⋅s²)]
+  1 atm = 101,325 Pa = 760 mmHg = 14.696 psi
+
+  Tekanan hidrostatik:
+  P = P₀ + ρgh    (ρ = densitas fluida, g = gravitasi, h = kedalaman)
+
+  Tekanan sama pada semua titik pada ketinggian yang sama dalam fluida statis
+
+Prinsip Pascal:
+  Tekanan yang diberikan pada fluida tertutup diteruskan
+  ke seluruh bagian fluida secara merata.
+
+  Aplikasi: dongkrak hidrolik
+    P₁ = P₂ → F₁/A₁ = F₂/A₂
+    Gaya kecil di pistong kecil → gaya besar di pistong besar!
+    F₂ = F₁ × (A₂/A₁)
+
+    Tongkat kecil F₁=100N, A₁=10 cm², A₂=1000 cm²:
+    F₂ = 100 × (1000/10) = 10,000 N = 1 ton force!
+```
+
+### Prinsip Archimedes:
+```
+Gaya Apung (Buoyancy):
+  F_apung = ρ_fluida × g × V_tenggelam
+
+  "Benda yang dicelup dalam fluida mendapat gaya ke atas sebesar
+   berat fluida yang dipindahkan"
+
+  Mengapung jika: ρ_benda < ρ_fluida (F_apung ≥ W_benda)
+  Tenggelam jika: ρ_benda > ρ_fluida
+
+Contoh — Kapal baja:
+  Baja ρ = 7900 kg/m³ >> ρ_air = 1000 kg/m³
+  Tapi kapal BERONGGA → volume efektif besar, densitas RATA-RATA kecil!
+  
+  Kapal 50,000 ton (50×10⁶ kg):
+  Volume air yang dipindahkan = 50×10⁶/1000 = 50,000 m³
+  Panjang 300m × lebar 50m → draught ≈ 50000/(300×50) ≈ 3.3 m
+```
+
+---
+
+## 6. Dinamika Fluida: Persamaan Kontinuitas dan Bernoulli
+
+### Persamaan Kontinuitas (Kekekalan Massa):
+```
+Untuk fluida ideal (incompressible, tanpa viskositas):
+  ρ₁A₁v₁ = ρ₂A₂v₂
+
+  Jika ρ konstan (incompressible):
+  A₁v₁ = A₂v₂ = konstan = Q (debit)
+
+  Penampang kecil → kecepatan besar (air kencang dari keran sempit)
+  Penampang besar → kecepatan kecil
+```
+
+### Persamaan Bernoulli (Kekekalan Energi Fluida):
+```
+P + ½ρv² + ρgh = konstan    (sepanjang aliran)
+
+Tiga suku:
+  P = tekanan statis (energi tekanan)
+  ½ρv² = tekanan dinamis (energi kinetik per volume)
+  ρgh = energi potensial per volume
+
+Interpretasi: Tekanan tinggi ↔ kecepatan rendah (dan sebaliknya)
+```
+
+**Aplikasi Bernoulli:**
+
+```
+1. Sayap Pesawat (Airfoil):
+   Profil sayap: aliran atas lebih cepat → tekanan lebih rendah
+   Aliran bawah lebih lambat → tekanan lebih tinggi
+   → Perbedaan tekanan = LIFT (gaya angkat)
+
+   Lift: L = CL × ½ρv²A  (CL = koefisien lift, A = luas sayap)
+
+2. Tabung Venturimeter (mengukur kecepatan aliran):
+   P₁ + ½ρv₁² = P₂ + ½ρv₂²    (h sama)
+   ΔP = P₁ - P₂ = ½ρ(v₂² - v₁²)
+   v₁ = A₂√[2ΔP / ρ(A₁²-A₂²)]
+
+3. Efluks Torricelli (cairan keluar dari lubang):
+   Kecepatan keluar: v = √(2gh)   (sama dengan jatuh bebas dari h!)
+
+4. Spinning Ball (Magnus Effect):
+   Bola berputar → udara terlambat di satu sisi, cepat di sisi lain
+   → Perbedaan tekanan → bola melengkung (curve ball, topspin, slice)
+```
+
+---
+
+## 7. Viskositas dan Aliran Nyata
+
+```
+Viskositas (η): hambatan fluida terhadap deformasi atau aliran
+  [Pa⋅s = N⋅s/m²]
+
+  Tegangan geser: τ = η × dv/dy    (Hukum Newton tentang viskositas)
+
+  Nilai η:
+  Udara (20°C): 1.8×10⁻⁵ Pa⋅s
+  Air (20°C): 1.0×10⁻³ Pa⋅s
+  Madu: ~2-10 Pa⋅s
+  Kaca (temperatur kamar): ~10¹² Pa⋅s (sangat keras tapi tetap "mengalir"!)
+
+Aliran Laminar vs Turbulen:
+  Bilangan Reynolds: Re = ρvL/η
+  
+  Re < 2300: Aliran LAMINAR (lapisan-lapisan teratur)
+  Re > 4000: Aliran TURBULEN (pusaran, chaotik)
+  2300-4000: Transisi
+
+Hukum Poiseuille (aliran pipa silinder, laminar):
+  Q = πr⁴ΔP/(8ηL)
+
+  Jari-jari sangat penting! → r⁴
+  Halving r (arteri menyempit 50%) → Q turun 16×!
+  Ini relevan dengan aterosklerosis dan kesehatan jantung
+
+Aplikasi Medis:
+  Darah (cairan non-Newtonian, η ≈ 3-4 mPa⋅s pada kecepatan tinggi)
+  Aliran darah aorta: turbulen (murmur jantung)
+  Kapiler: laminar (pertukaran zat efisien)
+```
+
+---
+
+## 8. Osilasi dan Gelombang: Gerak Berulang
+
+### Osilasi Harmonik Sederhana (SHM):
+```
+Syarat: Gaya pemulih F = -kx (proporsional jarak dari equilibrium)
+
+  x(t) = A cos(ωt + φ)
+  v(t) = -Aω sin(ωt + φ)
+  a(t) = -Aω² cos(ωt + φ) = -ω²x
+
+  ω = √(k/m)  [rad/s] (frekuensi sudut)
+  T = 2π√(m/k) [s]   (periode)
+  f = ω/(2π) = 1/T   [Hz]
+
+Sistem-sistem SHM:
+  Pegas: ω = √(k/m)          k = konstanta pegas
+  Bandul: ω = √(g/L)          L = panjang tali (asumsi θ kecil)
+  LC Circuit: ω = 1/√(LC)     L = induktansi, C = kapasitansi
+```
+
+### Gelombang: SHM yang Merambat:
+```
+Gelombang transversal: osilasi ⊥ arah rambat (tali, cahaya, air)
+Gelombang longitudinal: osilasi ‖ arah rambat (suara, slinky)
+
+Persamaan gelombang:
+  y(x,t) = A sin(kx - ωt + φ)
+
+  k = 2π/λ [rad/m] = bilangan gelombang
+  ω = 2πf [rad/s]   = frekuensi sudut
+  λ = 2π/k          = panjang gelombang
+
+Kecepatan fase: v_fase = ω/k = λf
+
+Kecepatan gelombang bergantung medium:
+  Tali:  v = √(T/μ)    T = tegangan, μ = massa/panjang
+  Suara: v = √(B/ρ)    B = bulk modulus, ρ = densitas
+  Cahaya: v = c/n = 1/√(με)
+
+Superposisi:
+  Dua gelombang bertemu: amplitudo dijumlah (titik demi titik)
+  Interferensi konstruktif: amplitudo max (fasa sama)
+  Interferensi destruktif: amplitudo min/nol (fasa berlawanan)
+  Gelombang berdiri: pola tetap (node dan antinode)
+```
+
+<Quiz
+  question="Sebuah cakram padat (I=½MR²) dan bola bola padat (I=2/5MR²) dilepas dari ketinggian yang sama di bidang miring. Mana yang tiba lebih dahulu di bawah?"
+  options={[
+    "Cakram, karena lebih padat",
+    "Bola, karena momen inersia lebih kecil secara relatif",
+    "Keduanya tiba bersamaan",
+    "Bergantung pada massa masing-masing"
+  ]}
+  correctAnswer={1}
+  explanation="Dari energi: mgh = ½mv² + ½Iω² = ½mv²(1 + I/mR²). Bola: v = √(2gh/(1 + 2/5)) = √(10gh/7). Cakram: v = √(2gh/(1 + 1/2)) = √(4gh/3). Hitung: v_bola = √(1.429gh) > v_cakram = √(1.333gh). Bola lebih cepat! Semakin kecil I/mR², semakin besar kecepatan. Ingat: massa tidak mempengaruhi hasil — hanya distribusi massa (via I/mR²)."
+/>

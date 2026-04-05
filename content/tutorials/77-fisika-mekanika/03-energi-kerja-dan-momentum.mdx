@@ -1,0 +1,284 @@
+---
+title: "Energi, Kerja & Momentum: Hukum Kekekalan"
+description: "Kerja dan teorema energi-kinetik, energi potensial, hukum kekekalan energi mekanik, momentum linear dan impuls, tumbukan elastis/inelastis, pusat massa, dan momentum sudut."
+icon: "Battery"
+order: 3
+---
+
+# Energi dan Momentum: Mata Uang Terkuat Alam Semesta
+
+Dalam semua perubahan yang terjadi di alam semesta — dari ledakan supernova hingga kontraksi otot jantung — ada dua besaran yang selalu terjaga: **energi** dan **momentum**. Hukum kekekalan bukan sekadar aturan manusia — ia adalah cerminan **simetri fundamental alam semesta** (Teorema Noether, 1915).
+
+---
+
+## 1. Kerja: Transfer Energi Melalui Gaya
+
+```
+Definisi Kerja (W):
+  W = F⃗ · Δr⃗ = F × d × cos θ    [Joule = N⋅m]
+
+  F = besar gaya
+  d = jarak perpindahan
+  θ = sudut antara gaya dan perpindahan
+
+Syarat kerja ≠ 0:
+  → Harus ada GAYA (F ≠ 0)
+  → Harus ada PERPINDAHAN (d ≠ 0)
+  → Gaya tidak boleh ⊥ perpindahan (θ ≠ 90°)
+
+Kasus Penting:
+  θ = 0°:   W = Fd  (maksimum, gaya searah gerak) — mesin mendorong
+  θ = 90°:  W = 0   (gaya tegak lurus gerak) — gaya normal, gaya sentripetal
+  θ = 180°: W = -Fd (gaya melawan gerak) — gesekan, rem
+```
+
+### Kerja oleh Gaya Variabel:
+
+```
+Jika F berubah dengan posisi:
+  W = ∫ₐᵇ F(x) dx = luas di bawah grafik F-x
+
+Contoh — Pegas (Hukum Hooke: F = kx):
+  W = ∫₀ˣ kx dx = ½kx²
+
+  k = konstanta pegas (N/m)
+  x = simpangan dari posisi setimbang
+
+Contoh nyata: Busur panah k=200 N/m, ditarik 0.5m:
+  W = ½ × 200 × 0.25 = 25 J (energi tersimpan, siap dilepas)
+```
+
+---
+
+## 2. Teorema Kerja-Energi Kinetik
+
+```
+Energi Kinetik: KE = ½mv²    [Joule]
+
+Teorema Kerja-Energi:
+  W_net = ΔKE = KE_akhir - KE_awal = ½mv² - ½mv₀²
+
+Bukti dari Hukum Newton II:
+  F_net = ma = m(dv/dt) = m(dv/dx)(dx/dt) = mv(dv/dx)
+  W = ∫F dx = ∫mv dv = ½mv² - ½mv₀²  ✓
+
+Catatan Penting:
+  Hanya GAYA NETO yang menentukan W_net
+  KE selalu ≥ 0 (karena v²≥0)
+  KE = 0 saat v = 0 (diam)
+```
+
+**Contoh — Rem Darurat:**
+```
+Mobil 1200 kg dari 100 km/jam = 27.8 m/s berhenti. Berapa kerja rem?
+  KE_awal = ½ × 1200 × 27.8² = 463,632 J ≈ 464 kJ
+  KE_akhir = 0
+
+  W_net = 0 - 464 kJ = -464 kJ  (negatif: gaya berlawanan gerak)
+  → Rem harus menyerap 464 kJ energi (diubah menjadi PANAS!)
+```
+
+---
+
+## 3. Energi Potensial dan Gaya Konservatif
+
+```
+Gaya Konservatif: kerja yang dilakukan tidak bergantung lintasan,
+hanya bergantung titik awal dan akhir.
+  - Gravitasi ✓
+  - Gaya pegas ✓
+  - Gaya elektrostatis ✓
+  - Gesekan ✗ (bergantung lintasan, disipasi panas)
+
+Energi Potensial (PE) = hanya bisa didefinisikan untuk gaya konservatif:
+  W_konservatif = -ΔPE   (kerja gaya konservatif = penurunan PE)
+  F = -dU/dx              (gaya = gradien negatif PE)
+
+Energi Potensial Gravitasi:
+  U_g = mgh    (h = ketinggian dari titik acuan, bebas dipilih)
+  
+Energi Potensial Pegas:
+  U_s = ½kx²
+
+Energi Potensial Gravitasi Newton (umum):
+  U_g = -GMm/r         (negatif: nol di r=∞, makin dalam makin negatif)
+```
+
+---
+
+## 4. Hukum Kekekalan Energi Mekanik
+
+```
+Untuk sistem TANPA gaya non-konservatif (tidak ada gesekan, dll):
+
+  E_mekanik = KE + PE = konstan
+
+  ½mv₁² + U₁ = ½mv₂² + U₂
+
+Jika ada gaya non-konservatif (gesekan):
+  W_non-konservatif = ΔE_mekanik = ΔKE + ΔPE
+  (kerja gesekan = energy yang "hilang" jadi panas)
+```
+
+**Contoh — Roller Coaster:**
+```
+Titik A (puncak, h=50m, v_A=0):
+  A ke titik B (h=10m):
+  ½mv_A² + mgh_A = ½mv_B² + mgh_B
+  0 + mg(50) = ½mv_B² + mg(10)
+  v_B² = 2g(50-10) = 2×10×40 = 800
+  v_B = √800 ≈ 28.3 m/s   (tidak bergantung massa!)
+```
+
+**Contoh — Energi Mekanik Total:**
+```
+Bandul panjang L=2m, sudut 30° dari vertikal, dilepas diam.
+  h_awal = L(1-cosθ) = 2(1-cos30°) = 2(1-0.866) = 0.268 m
+
+  Di titik terendah (h=0):
+  ½mv² = mgh_awal
+  v = √(2gh) = √(2×10×0.268) = √5.36 ≈ 2.32 m/s
+```
+
+---
+
+## 5. Daya: Laju Transfer Energi
+
+```
+Daya (P) = dW/dt = F⃗ · v⃗ = F × v × cos θ    [Watt = J/s]
+
+Satuan:
+  1 Watt = 1 J/s
+  1 HP (Horsepower) = 745.7 W
+  1 kWh = 3.6 × 10⁶ J (kilowatt-jam — satuan tagihan listrik)
+
+Contoh — Mobil di jalan tol:
+  Kecepatan konstan 108 km/h = 30 m/s
+  Hambatan total (gesek+angin) = 400 N
+  P_mesin = F × v = 400 × 30 = 12,000 W = 12 kW = 16.1 HP
+```
+
+---
+
+## 6. Momentum Linear dan Impuls
+
+```
+Momentum Linear:
+  p⃗ = mv⃗    [kg⋅m/s]
+
+Hukum Newton II dalam bentuk momentum:
+  F⃗_net = dp⃗/dt = d(mv⃗)/dt   (lebih umum dari F=ma saat m berubah!)
+
+Impuls (J⃗):
+  J⃗ = ΔP⃗ = F⃗_net × Δt   (untuk gaya konstan)
+  J⃗ = ∫F⃗ dt              (untuk gaya variabel terhadap waktu)
+
+Teorema Impuls-Momentum:
+  J⃗ = Δp⃗ = m(v⃗_f - v⃗_i)   ← gaya besar × waktu singkat = gaya kecil × waktu lama
+```
+
+**Aplikasi — Airbag:**
+```
+Kepala 6 kg bergerak 15 m/s → berhenti dalam tumbukan.
+Δp = 6 × 15 = 90 kg⋅m/s (sama untuk keduanya)
+
+Tanpa airbag: Δt = 0.002 s → F = 90/0.002 = 45,000 N = 4.5 kN
+Dengan airbag: Δt = 0.15 s  → F = 90/0.15 = 600 N   (75× lebih kecil!)
+→ Airbag memperpanjang waktu kontak → gaya jauh berkurang → selamat
+```
+
+---
+
+## 7. Hukum Kekekalan Momentum
+
+```
+Untuk sistem TERISOLASI (tidak ada gaya eksternal):
+  p⃗_total_awal = p⃗_total_akhir
+  Σm_i × v⃗_i (sebelum) = Σm_i × v⃗_i (sesudah)
+
+Hukum kekekalan momentum berlaku bahkan jika:
+  - Massa berubah (roket!)
+  - Ada gaya internal (ledakan, tumbukan)
+```
+
+### Tiga Jenis Tumbukan:
+
+**1. Elastis Sempurna:**
+```
+KE terjaga DAN momentum terjaga
+  m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'             ...(momentum)
+  ½m₁v₁² + ½m₂v₂² = ½m₁v₁'² + ½m₂v₂'²    ...(energi)
+
+Solusi analitik (jika m₂ diam, v₂=0):
+  v₁' = (m₁-m₂)/(m₁+m₂) × v₁
+  v₂' = 2m₁/(m₁+m₂) × v₁
+
+Kasus khusus:
+  m₁=m₂: v₁'=0, v₂'=v₁  (tumbukan bola billiard — tukar kecepatan!)
+  m₁>>m₂: v₁'≈v₁, v₂'≈2v₁ (bola besi vs bola ping pong)
+  m₁<<m₂: v₁'≈-v₁, v₂'≈0  (bola ping pong vs dinding)
+```
+
+**2. Inelastis Sempurna (Benda Menyatu):**
+```
+Momentum terjaga, KE TIDAK terjaga (maksimum hilang)
+  m₁v₁ + m₂v₂ = (m₁+m₂)v'
+  v' = (m₁v₁ + m₂v₂) / (m₁+m₂)
+
+KE yang hilang = ½μ(v₁-v₂)²  di mana μ = m₁m₂/(m₁+m₂) = reduced mass
+```
+
+**3. Inelastis Parsial:**
+```
+Ditandai dengan koefisien restitusi (e):
+  e = (v₂' - v₁') / (v₁ - v₂)
+
+  e = 1: elastis sempurna
+  e = 0: inelastis sempurna
+  0 < e < 1: inelastis parsial (kebanyakan tumbukan nyata)
+
+Bola golf di lapangan: e ≈ 0.6-0.7
+Bola karet: e ≈ 0.8
+Bola plastisin: e ≈ 0.1
+```
+
+---
+
+## 8. Momentum Sudut: Kekekalan dalam Rotasi
+
+```
+Momentum Sudut:
+  L⃗ = r⃗ × p⃗ = r × mv sinφ    [kg⋅m²/s]
+  L = Iω    (untuk benda tegar yang berputar)
+
+Torsi dan Momentum Sudut:
+  τ⃗_net = dL⃗/dt    (analog dengan F = dp/dt)
+
+Hukum Kekekalan Momentum Sudut:
+  Jika τ_net = 0:  L = konstan
+
+Aplikasi:
+  Penari balet menarik lengan ke dalam → I mengecil → ω membesar (L tetap)
+  Planet lebih dekat Matahari → bergerak lebih cepat (Hukum Kepler II!)
+  Neutron star hasil ledakan supernova → I sangat kecil → berputar ratusan kali/detik
+```
+
+> [!NOTE] Teorema Noether: Akar Hukum Kekekalan
+> Emmy Noether (1915) membuktikan bahwa setiap **simetri kontinu** dalam fisika berkorespondensi dengan **hukum kekekalan**:
+> - Simetri waktu (hukum fisika tidak berubah seiring waktu) → Kekekalan Energi
+> - Simetri translasi (hukum fisika sama di semua tempat) → Kekekalan Momentum Linear
+> - Simetri rotasi (hukum fisika sama di semua arah) → Kekekalan Momentum Sudut
+>
+> Hukum-hukum kekekalan bukan kebetulan — mereka adalah refleksi keseragaman alam semesta.
+
+<Quiz
+  question="Peluru 10g dengan kecepatan 300 m/s menembus blok kayu 2 kg yang diam dan keluar dengan kecepatan 100 m/s. Berapa kecepatan blok setelah ditembak?"
+  options={[
+    "0.5 m/s",
+    "1.0 m/s",
+    "1.5 m/s",
+    "2.0 m/s"
+  ]}
+  correctAnswer={1}
+  explanation="Hukum kekekalan momentum: m_p×v_p + m_b×v_b = m_p×v_p' + m_b×v_b'. (0.01×300) + (2×0) = (0.01×100) + (2×v_b'). 3 = 1 + 2v_b'. v_b' = 2/2 = 1 m/s. Energi kinetik yang hilang = ½(0.01)(300²) - ½(0.01)(100²) - ½(2)(1²) = 450 - 50 - 1 = 399 J → diubah menjadi panas dan deformasi kayu."
+/>

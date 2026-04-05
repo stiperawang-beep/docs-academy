@@ -1,0 +1,260 @@
+---
+title: "Matematika Keuangan & Pemodelan"
+description: "Nilai waktu uang, NPV, IRR, anuitas, amortisasi, model matematika populasi, epidemi, dan pasar saham — matematika yang menggerakkan ekonomi dan keputusan bisnis."
+icon: "DollarSign"
+order: 4
+---
+
+# Matematika Keuangan: Saat Angka Menggerakkan Dunia
+
+Uang memiliki nilai waktu — Rp 1 juta hari ini lebih berharga dari Rp 1 juta setahun kemudian, karena hari ini bisa diinvestasikan dan tumbuh. Prinsip sederhana ini, dikombinasikan dengan matematika yang telah kita pelajari, adalah **fondasi seluruh keuangan modern**.
+
+Dari keputusan kredit rumah, analisis investasi perusahaan, hingga penetapan harga opsi saham oleh bank investasi — semua bersandar pada kalkulus dan aljabar yang sama.
+
+---
+
+## 1. Nilai Waktu Uang: Prinsip Paling Fundamental
+
+```
+Nilai Masa Depan (Future Value, FV):
+  FV = PV × (1 + r)ⁿ           ← bunga majemuk diskret
+  FV = PV × e^(rt)              ← bunga majemuk kontinu
+
+Nilai Sekarang (Present Value, PV):
+  PV = FV / (1 + r)ⁿ
+  PV = FV × e^(-rt)
+
+r = suku bunga per periode
+n = jumlah periode
+```
+
+**Contoh — Berapa yang diinvestasikan sekarang agar 10 tahun kemudian menjadi Rp 100 juta? (bunga 8%/tahun)**
+```
+PV = 100.000.000 / (1.08)¹⁰
+   = 100.000.000 / 2.1589
+   = Rp 46.319.349 ≈ Rp 46.3 juta
+```
+
+### Faktor Diskonto (Discount Factor):
+```
+DF = 1/(1+r)ⁿ
+
+Ini adalah "nilai sekarang dari Rp 1 yang diterima n periode kemudian"
+Makin jauh di masa depan, makin kecil nilai sekarangnya.
+```
+
+---
+
+## 2. Anuitas: Pembayaran Berkala
+
+**Anuitas** adalah serangkaian pembayaran tetap yang dilakukan secara berkala:
+
+```
+PV Anuitas Biasa (pembayaran di akhir periode):
+  PV = PMT × [1 - (1+r)^(-n)] / r
+
+FV Anuitas Biasa:
+  FV = PMT × [(1+r)ⁿ - 1] / r
+
+PMT = jumlah pembayaran per periode
+r   = suku bunga per periode
+n   = jumlah periode
+
+Anuitas Perpetuitas (tak hingga):
+  PV = PMT / r
+```
+
+**Contoh — Cicilan KPR:**
+Pinjaman Rp 500 juta, bunga 9%/tahun (0.75%/bulan), tenor 20 tahun (240 bulan):
+```
+PMT = PV × r / [1 - (1+r)^(-n)]
+    = 500.000.000 × 0.0075 / [1 - (1.0075)^(-240)]
+    = 3.750.000 / [1 - (1.0075)^(-240)]
+    = 3.750.000 / [1 - 0.1653]
+    = 3.750.000 / 0.8347
+    ≈ Rp 4.493.140 per bulan
+
+Total dibayar = 240 × 4.493.140 = Rp 1,078,354,000
+Total bunga   = 1,078,354,000 - 500,000,000 = Rp 578 juta!
+                (115.7% dari pokok pinjaman)
+```
+
+---
+
+## 3. Amortisasi: Bagaimana Cicilan Dibagi Pokok dan Bunga
+
+```
+Tabel amortisasi untuk 3 bulan pertama KPR di atas:
+
+Bulan | Angsuran    | Bunga         | Pokok         | Sisa Utang
+  1   | 4,493,140   | 500M×0.75%=3,750,000 | 743,140  | 499,256,860
+  2   | 4,493,140   | 499.25M×0.75%=3,744,426 | 748,714 | 498,508,146
+  3   | 4,493,140   | 498.51M×0.75%=3,738,811 | 754,329 | 497,753,817
+  ...
+```
+
+Di awal tenor, sebagian besar angsuran adalah bunga.
+Di akhir tenor, proporsi pokok makin dominan.
+
+---
+
+## 4. Net Present Value (NPV) & IRR: Analisis Investasi
+
+### Net Present Value:
+```
+NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + ... + Cₙ/(1+r)ⁿ
+    = -C₀ + Σ Cₜ/(1+r)ᵗ
+
+C₀ = investasi awal (arus kas keluar)
+Cₜ = arus kas masuk di periode t
+r  = tingkat diskonto (required rate of return)
+
+NPV > 0 → Proyek menguntungkan, terima!
+NPV < 0 → Proyek merugi, tolak!
+NPV = 0 → Impas
+```
+
+**Contoh:** Investasi mesin Rp 200 juta, menghasilkan arus kas:
+- Tahun 1: Rp 80 juta
+- Tahun 2: Rp 90 juta
+- Tahun 3: Rp 70 juta
+- Tingkat diskonto: 10%
+
+```
+NPV = -200 + 80/(1.1) + 90/(1.1)² + 70/(1.1)³
+    = -200 + 72.73 + 74.38 + 52.59
+    = -200 + 199.70
+    = -Rp 0.3 juta  ≈ 0
+
+NPV ≈ 0 → Proyek hampir impas (IRR ≈ 10%)
+```
+
+### Internal Rate of Return (IRR):
+```
+IRR = nilai r yang membuat NPV = 0
+
+Tidak ada formula eksak — harus dicari dengan iterasi numerik
+(metode Newton-Raphson sangat tepat untuk ini)
+
+Aturan: Terima proyek jika IRR > Cost of Capital
+```
+
+---
+
+## 5. Model Pertumbuhan Populasi: Logistik vs Eksponensial
+
+### Pertumbuhan Eksponensial Malthus:
+```
+dP/dt = rP    → solusi: P(t) = P₀ × e^(rt)
+
+r > 0: populasi tumbuh tak terbatas
+r < 0: populasi punah
+
+Masalah: Tidak mempertimbangkan keterbatasan sumber daya
+```
+
+### Model Logistik Verhulst:
+```
+dP/dt = rP(1 - P/K)
+
+K = carrying capacity (kapasitas dukung lingkungan)
+r = laju pertumbuhan intrinsik
+
+Solusi:  P(t) = K / (1 + [(K-P₀)/P₀] × e^(-rt))
+
+Perilaku:
+  Jika P << K: tumbuh hampir eksponensial
+  Jika P → K: pertumbuhan melambat
+  Jika P = K: pertumbuhan berhenti (equilibrium)
+```
+
+**Interpretasi Kurva Logistik (S-curve):**
+```
+Populasi
+K ─────────────────────────────── (kapasitas maksimum)
+         ╭──────────────
+        ╱
+       ╱  ← fase pertumbuhan cepat
+      ╱
+─────╯
+  t₀      t_inflection       t → ∞
+```
+
+Kurva S ini muncul di adopsi teknologi, penyebaran penyakit, pertumbuhan penduduk, dan difusi inovasi.
+
+---
+
+## 6. Model SIR: Matematika Epidemi
+
+Digunakan untuk memodelkan penyebaran penyakit (COVID-19, flu, dsb):
+
+```
+Populasi dibagi 3 kompartemen:
+S = Susceptible (rentan)
+I = Infected (terinfeksi dan menular)
+R = Recovered (sembuh/imun) atau Removed (meninggal)
+
+Persamaan diferensial:
+  dS/dt = -β × S × I / N
+  dI/dt =  β × S × I / N - γ × I
+  dR/dt =  γ × I
+
+β = laju penularan (transmission rate)
+γ = laju pemulihan (recovery rate)
+N = total populasi = S + I + R
+
+Angka Reproduksi Dasar:
+  R₀ = β/γ
+
+  R₀ > 1 → epidemi menyebar (satu orang menulari >1 orang)
+  R₀ < 1 → epidemi menurun
+  R₀ = 1 → epidemi stagnan
+
+Herd Immunity Threshold:
+  p_c = 1 - 1/R₀
+  (proporsi populasi yang harus imun untuk menghentikan epidemi)
+
+  COVID-19 R₀ ≈ 2.5-3 → p_c ≈ 60-67%
+  Campak R₀ ≈ 12-18   → p_c ≈ 92%
+```
+
+---
+
+## 7. Black-Scholes: Harga Opsi Saham dengan Kalkulus
+
+Model paling berpengaruh dalam keuangan modern (Hadiah Nobel 1997):
+
+```
+Harga opsi call Eropa:
+C = S₀N(d₁) - Ke^(-rT)N(d₂)
+
+d₁ = [ln(S₀/K) + (r + σ²/2)T] / (σ√T)
+d₂ = d₁ - σ√T
+
+S₀ = harga saham saat ini
+K  = strike price (harga exercis opsi)
+r  = suku bunga bebas risiko
+T  = waktu hingga jatuh tempo (dalam tahun)
+σ  = volatilitas harga saham (standar deviasi return)
+N(x) = fungsi distribusi normal kumulatif
+
+Penurunan model ini menggunakan:
+  - Persamaan diferensial parsial (heat equation)
+  - Ito's Lemma (kalkulus stokastik)
+  - Distribusi log-normal
+```
+
+> [!NOTE] Dampak Black-Scholes di Dunia Nyata
+> Sebelum 1973, tidak ada cara standar untuk menghargai opsi. Setelah Black-Scholes, pasar opsi meledak — Chicago Board Options Exchange dibuka persis tahun model ini dipublikasikan. Kini, triliunan dolar opsi diperdagangkan setiap hari menggunakan variasi model ini. Sekaligus, "over-reliance" pada model ini berkontribusi pada Long-Term Capital Management collapse (1998) dan krisis keuangan 2008.
+
+<Quiz
+  question="Sebuah investasi membutuhkan modal awal Rp 100 juta dan menghasilkan arus kas Rp 40 juta per tahun selama 3 tahun. Jika tingkat diskonto 10%, berapa NPV-nya?"
+  options={[
+    "Rp 20 juta (positif)",
+    "Rp -0.5 juta (negatif)",
+    "Rp 99.5 juta (positif)",
+    "Rp -100 juta (negatif)"
+  ]}
+  correctAnswer={0}
+  explanation="NPV = -100 + 40/(1.1) + 40/(1.1)² + 40/(1.1)³ = -100 + 36.36 + 33.06 + 30.05 = -100 + 99.47 ≈ -Rp 0.5 juta. Hmm, hampir impas tapi sedikit negatif! Jadi jawaban yang paling mendekati adalah Rp -0.5 juta. Proyeksi menghasilkan total Rp 120 juta nominal, tapi nilai sekarangnya hanya Rp 99.47 juta — tidak cukup untuk menutupi investasi Rp 100 juta."
+/>

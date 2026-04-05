@@ -1,0 +1,379 @@
+---
+title: "Imunologi: Sistem Pertahanan Kehidupan"
+description: "Imunitas bawaan (innate) dan adaptif (acquired), sel-sel imun, antibodi dan imunoglobulin, respons imun humoral dan seluler, vaksin, imunodefisiensi, autoimunitas, dan imunoterapi kanker modern."
+icon: "Shield"
+order: 4
+---
+
+# Imunologi: Tentara Tak Terlihat dalam Tubuh Anda
+
+Setiap detik, ~200 jenis virus, bakteri, jamur, dan parasit berusaha menembus pertahanan tubuh Anda. Setiap hari, tubuh Anda menghancurkan sel-sel yang mengalami mutasi yang berpotensi menjadi kanker — ratusan hingga ribuan sel! Semua ini dilakukan oleh tentara 2 triliun sel imun yang bekerja secara ajaib.
+
+---
+
+## 1. Garis Pertahanan: Imunitas Bawaan vs Adaptif
+
+```
+IMUNITAS BAWAAN (INNATE IMMUNITY):
+  Garis pertahanan PERTAMA, CEPAT (menit-jam), NON-SPESIFIK
+  Tidak punya "memori" — respons sama setiap kali
+
+  Fisik:
+    Kulit: epitel berlapis + sel keratin + pH asam (5.5)
+    Mukosa: lendir (mucus) + sel ciliated (menyapu partikel ke atas)
+    Lisozim: dalam air mata, saliva, telinga → hidrolisis peptidoglikan bakteri
+    Defensin: peptida antimikrobial dalam usus, saluran napas
+
+  Seluler:
+    Neutrofil: 50-70% leukosit, pertama tiba, fagositosis + oxidative burst
+    Makrofag: fagositosis profesional, presentasi antigen, produksi sitokin
+    NK cell (Natural Killer): bunuh sel tanpa MHC-I (sel tumor, sel terinfeksi virus)
+    Mast cell: granula histamin → alergi dan inflamasi
+    Basofil + Eosinofil: parasit, alergi
+    Dendritic cell (DC): jembatan innate-adaptive → presentasi antigen ke T cell!
+
+  Humoral Bawaan:
+    Komplemen (C1-C9): kaskade proteolitik → membran attack complex (MAC) → lisis bakteri!
+    Interferon (IFN-α, β): sel terinfeksi virus → keluarkan IFN → sel tetangga "waspada"
+    CRP (C-reactive protein): opsonin → memfasilitasi fagositosis
+
+IMUNITAS ADAPTIF (ACQUIRED IMMUNITY):
+  Lambat (hari-minggu untuk respons pertama), SANGAT SPESIFIK
+  Punya MEMORI → respons lebih cepat dan kuat pada paparan ulang!
+
+  Sel B: produksi antibodi (humoral immunity)
+  Sel T: imunitas seluler
+    T helper (CD4⁺): koordinasi respons imun, bantu B cell dan T cytotoxic
+    T cytotoxic (CD8⁺): bunuh sel terinfeksi/kanker langsung
+    T regulatory (Treg): rem respons imun (mencegah autoimunitas)
+    T memory: bertahan lama setelah infeksi sembuh
+```
+
+---
+
+## 2. Reseptor Pengenal Patogen
+
+```
+Innate Immunity mengenal PAMP (Pathogen-Associated Molecular Patterns):
+  Pola molekuler KHAS organisme asing (bukan self!)
+  
+  PRR (Pattern Recognition Receptors):
+  
+  TLR (Toll-Like Receptors):
+    TLR4: LPS (lipopolisakarida) gram-negatif (sinyal sepsis!)
+    TLR3: dsRNA (virus)
+    TLR7/8: ssRNA (influenza, HIV)
+    TLR9: CpG DNA unmethylated (bakteri, virus)
+    TLR: di membran plasma atau endosom
+    
+    Sinyal: MyD88 → NF-κB → sitokin pro-inflamasi (TNF-α, IL-1, IL-6, IL-12)
+    Atau TRIF → IRF3 → Interferon tipe I (IFN-α/β)
+
+  NLR (NOD-Like Receptors):
+    NOD1/NOD2: fragmen peptidoglikan bakteri (intraseluler)
+    NLRP3: inflammasome → aktivasi kaspase-1 → potong pro-IL-1β → IL-1β matur
+    Gout: kristal asam urat mengaktifkan NLRP3! → radikal bebas, nyeri sendi
+
+  cGAS-STING pathway:
+    cGAS mengenal dsDNA sitoplasma (yang tidak normal!)
+    cGAS → cGAMP → STING → TBK1 → IRF3 → IFN → antivirus
+    Tumor juga bisa mengaktifkan ini → potensi for immunotherapy!
+
+Adaptive Immunity mengenal ANTIGEN spesifik:
+  B cell receptor (BCR) → antibodi setelah aktivasi
+  T cell receptor (TCR) → mengenal PEPTIDE di atas MHC!
+  
+  MHC (Major Histocompatibility Complex) = HLA pada manusia:
+    MHC-I (HLA-A, B, C): di SEMUA sel berinti
+      Presentasi peptida ENDOGEN (dari dalam sel sendiri!) → ke CD8⁺ T
+      Sel normal: peptida self → tidak bereaksi (toleransi)
+      Sel terinfeksi/tumor: peptida asing/mutasi → T cytotoxic bunuh!
+    
+    MHC-II (HLA-DR, DP, DQ): hanya di "professional APC"
+      (Dendritic cell, makrofag, sel B)
+      Presentasi peptida EKSOGEN (dari fagositosis) → ke CD4⁺ T helper
+      → Membantu mengorganisasi seluruh respons adaptif
+```
+
+---
+
+## 3. Sel B dan Antibodi
+
+```
+Perkembangan Sel B:
+  Bone marrow stem cell → Pro-B → Pre-B → Immature B → Mature B → Peripheral
+  
+  V(D)J Recombination:
+    Gen antibodi direshuffle → KREASI repertoire sangat besar!
+    V (Variable) + D (Diversity) + J (Joining) segments → sambung acak
+    Random nucleotide addition/deletion di junction → LEBIH BANYAK variasi!
+    
+    Estimasi repertoire B cell: ~10¹² specificity berbeda!
+    (Lebih dari total sel B di tubuh — setiap B cell unik)
+  
+  Self-toleransi:
+    B cell dengan reseptor yang mengenal "self" dimatikan (anergy) atau 
+    dihancurkan (clonal deletion) di sumsum tulang
+
+Struktur Antibodi (Immunoglobulin):
+  
+  Y-shape: 2 rantai berat + 2 rantai ringan
+  Heavy chain: γ (IgG), α (IgA), μ (IgM), δ (IgD), ε (IgE)
+  Light chain: κ atau λ
+  
+  Fab region (Fragment antigen binding): 2 Fab per antibodi
+    VH + VL = variable domain → mengenal dan berikatan antigen
+    CDR (Complementarity Determining Region): loop yang langsung kontak antigen
+    3 CDR di VH + 3 CDR di VL = 6 loop → "paratop" spesifik untuk antigen
+  
+  Fc region (Fragment crystallizable): bagian pangkal
+    Berinteraksi dengan reseptor Fc di fagosit, NK cell, komplemen
+    → Menentukan efek fungsi setelah antibodi berikatan antigen!
+
+Isotype Switching (Class Switching):
+  IgM: pertama diproduksi (monomeric di sel B, sekresi pentameric)
+       → 10 binding site! Aglutinasi kuat
+  IgG: predominan dalam darah, paling melimpah (4 subkelas: IgG1-4)
+       → melewati plasenta! (perlindungan neonatal)
+  IgA: dalam sekresi (mukosa, ASI, saliva, air mata)
+       dimeric → dua molekul IgA + J chain + Secretory Component
+  IgE: kadar terendah tapi sangat poten
+       Berikatan ke mast cell/basofil → paparan alergen → degranulasi → ALERGI!
+  IgD: sebagian besar di permukaan B cell yang naive, fungsi masih kurang jelas
+
+Somatic Hypermutation dan Affinity Maturation:
+  Setelah aktivasi → B cell berproliferasi di GERMINAL CENTER (limfonodus)
+  Somatic hypermutation: mutasi acak di V(D)J region → variasi baru!
+  Seleksi: B cell dengan afinitas LEBIH TINGGI untuk antigen → survive + proliferasi
+  B cell dengan afinitas rendah → apoptosis
+  
+  Hasil: antibodi makin lama makin TINGGI afinitas (Kd bisa turun dari μM ke pM!)
+  → "Affinity maturation" selama respons imun!
+```
+
+---
+
+## 4. Sel T dan Imunitas Seluler
+
+```
+Perkembangan Sel T (di TIMUS):
+  Bone marrow → darah → Timus
+  
+  Positive selection: T cell yang bisa mengenal SELF-MHC → survive
+    (yang tidak bisa mengenal MHC sama sekali → mati)
+  
+  Negative selection: T cell yang bereaksi terlalu kuat terhadap SELF peptide → MATI
+    (mencegah autoimunitas — "clonal deletion")
+  
+  Hanya ~2-5% timosit yang lulus kedua seleksi → masuk sirkulasi sebagai mature T cell!
+
+T Helper (CD4⁺) — Orchestrator:
+  
+  Setelah aktivasi oleh DC (antigen + MHC-II), berdiferensiasi menjadi:
+  
+  Th1: IFN-γ → mengaktivasi makrofag, CTL → melawan bakteri intraseluler, virus
+  Th2: IL-4, IL-5, IL-13 → mengaktivasi sel B (IgE switch), eosinofil → alergi, parasit
+  Th17: IL-17, IL-22 → koordinasi respons mukosa, neutrofil → jamur, bakteri ekstraseluler
+  Treg: IL-10, TGF-β → MENEKAN respons imun → mencegah autoimunitas
+  
+  Ketidakseimbangan Th1/Th2 hipotesis dalam alergi:
+    Th2 berlebihan → IgE → alergi atopik
+    Kebersihan yang berlebihan → kurang stimulasi Th1 → Th2 dominan?
+    (Hygiene Hypothesis — kontroversial tapi ada buktinya)
+
+T Cytotoxic (CD8⁺ CTL):
+  Dibantu oleh Th1 untuk aktivasi penuh
+  Mengenal: peptida + MHC-I di target cell
+  
+  Mekanisme pembunuhan:
+    Perforin: ciptakan pori di membran target
+    Granzyme B: masuk melalui pori → aktivasi kaspase → APOPTOSIS!
+    FasL–Fas interaction: membunuh sel yang merekspres Fas di permukaan
+  
+  Sangat penting untuk:
+    Virus: sel terinfeksi → MHC-I + peptida viral → CTL bunuh!
+    Kanker: sel tumor → MHC-I + neoantigen (mutasi) → CTL bunuh
+    Transplantasi: CTL bisa menolak organ asing (MHC tidak cocok!)
+
+Checkpoint Imun:
+  Sistem "rem" yang mencegah T cell overaktif:
+  
+  CTLA-4: di T cell, kompetisi dengan CD28 untuk CD80/86 → rem aktivasi awal
+  PD-1: di T cell, interaksi dengan PD-L1/2 → meredam T cell yang sudah aktif
+  
+  Kanker "mengeksploitasi" checkpoint ini:
+    Sel tumor ekspresi PD-L1 tinggi → T cell di-off → tumor lolos!
+    
+  IMUNOTERAPI CHECKPOINT INHIBITOR:
+    Anti-CTLA-4: Ipilimumab → melanoma (pertama 2011!)
+    Anti-PD-1: Pembrolizumab, Nivolumab → banyak kanker
+    Anti-PD-L1: Atezolizumab, Durvalumab
+    
+    Efek samping: autoimunitas! (rem dilepas seluruh tubuh, bukan hanya di tumor)
+    Tetapi: beberapa pasien → remisi KOMPLET dari melanoma metastatik yang fatal!
+```
+
+---
+
+## 5. Respons Imun dan Memori
+
+```
+Primary Response (Paparan pertama):
+  Lag phase: 5-10 hari sebelum antibodi terdeteksi
+  Dominasi IgM awalnya
+  Puncak: minggu 2-3
+  Klon memori: sel B dan T memori terbentuk dan bertahan LAMA
+
+Secondary Response (Paparan ulang):
+  LEBIH CEPAT: antibodi dalam 1-3 hari
+  LEBIH KUAT: 10-100x lebih banyak antibodi
+  LEBIH LAMA: bertahan berbulan-bulan
+  Dominasi IgG (setelah class switching + afinity maturation)
+  
+  Ini DASAR VAKSINASI! Vaksin = paparan "aman" → bangun memori SEBELUM infeksi nyata
+
+Vaksin — Jenis dan Mekanisme:
+  
+  Live attenuated (dilemahkan hidup):
+    MMR (campak-gondongan-rubela), cacar air, polio oral (Sabin), BCG (TBC)
+    PRO: respons imun paling mirip infeksi alami, memori sangat kuat
+    KONTRA: tidak aman untuk immunocompromised, harus disimpan dingin
+  
+  Inactivated (dimatikan):
+    Influenza (suntikan), polio IPV (Salk), Hepatitis A, rabies
+    PRO: stabil, aman untuk semua
+    KONTRA: respons lebih lemah, perlu booster
+  
+  Subunit/Recombinant:
+    Hepatitis B (HBsAg rekombinan), HPV (Gardasil — VLP), Pertusis asseluler
+    PRO: sangat aman (hanya bagian kecil patogen)
+    KONTRA: respons lebih lemah tanpa adjuvant kuat
+  
+  mRNA (PLATFORM BARU — COVID-19 mempercepatnya!)
+    mRNA → liposome nanoparticle (LNP) → sel ambil → ribosom produksi antigen
+    Keunggulan: sangat cepat dibuat (berminggu setelah genome diketahui!), bisa dimodifikasi
+    Contoh: Pfizer-BioNTech (BNT162b2), Moderna (mRNA-1273) → COVID-19
+    Sekarang dalam development: kanker mRNA tailor-made per pasien!
+
+Adjuvant:
+  Zat tambahan untuk "membangunkan" innate immunity → memperkuat respons adaptif
+  Aluminium hydroxide (Alum): KLASIK, aman, murah
+  AS04 (MPL + Alum): untuk Cervarix, adjuvant lebih kuat
+  MF59 (squalene emulsion): untuk influenza pada lansia
+  CpG (oligonukleotida): TLR9 agonist → respons Th1 kuat
+```
+
+---
+
+## 6. Gangguan Imun
+
+```
+IMUNODEFISIENSI:
+
+Primary (bawaan):
+  SCID (Severe Combined Immunodeficiency): tidak ada T dan B cell
+    Adenosine deaminase (ADA) deficiency: ADA rusak → metabolit toksik → sel imun mati
+    Pasien di "bubble" steril → target pertama gene therapy (1990, diberikan ke Ashanthi DeSilva!)
+  
+  X-linked Agammaglobulinemia (XLA, Bruton):
+    Mutasi BTK → B cell tidak matang → hampir tidak ada antibodi
+    Terapi: infus IVIG (Immunoglobulin IV) seumur hidup
+  
+  DiGeorge Syndrome: timus tidak berkembang (22q11 deletion) → tidak ada T cell
+  
+  Chronic Granulomatous Disease: neutrofil tidak bisa oxidative burst → infeksi berulang bakteri
+
+Secondary (didapat):
+  HIV/AIDS: HIV menginfeksi dan menghancurkan CD4⁺ T cell
+    CD4⁺ < 200/μL → AIDS (normal: 500-1500/μL)
+    Oportunistik: PCP pneumonia, CMV retinitis, toxoplasmosis cerebral
+    ARV (antiretroviral): HAART → HIV tidak bisa dibasmi tapi dikontrol!
+  
+  Imunosupresi iatrogenik: pasca transplantasi, kemoterapi → rentan infeksi
+
+AUTOIMUNITAS:
+  Sistem imun menyerang "self" — breakdown toleransi!
+  
+  Mekanisme:
+    Molecular mimicry: antigen bakteri/virus mirip self-antigen
+    Bystander activation: infeksi → inflamasi → activate self-reactive cell
+    Epitope spreading: kerusakan jaringan → exposes hidden self antigen
+  
+  Contoh:
+    Rheumatoid Arthritis (RA): antibodi anti-CCP, RF → synovium → arthritis
+    SLE (Systemic Lupus Erythematosus): anti-dsDNA antibodi → banyak organ
+    Type 1 Diabetes: anti-islet cell antibody → sel β pankreas → tidak ada insulin
+    MS (Multiple Sclerosis): T cell menyerang myelin → konduksi saraf terganggu
+    Hashimoto's thyroiditis: antibodi anti-thyroid → hipotiroidisme
+  
+  Terapi:
+    Immunosupresants: steroid, methotrexate, mycophenolate
+    Biologic: anti-TNF (Infliximab, Adalimumab) → RA, Crohn's, Psoriasis
+               Anti-IL-6R (Tocilizumab) → RA, COVID cytokine storm!
+               B cell depletion: Rituximab (anti-CD20) → SLE, RA
+
+ALERGI:
+  Respons IgE berlebihan terhadap antigen tidak berbahaya (alergen)
+  
+  Sensitisasi: alergen → Th2 → IL-4 → sel B switch ke IgE → IgE-coated mast cells
+  Re-exposure: alergen crosslink IgE di mast cell → DEGRANULASI → histamin, prostaglandin, leukotrien
+  
+  Reaksi: bersin, gatal, merah, bengkak
+  Anafilaksis: sistemik, berat → bisa fatal (adrenalin = antidote!)
+  
+  Terapi: antihistamin (blokir H1), kortikosteroid (anti-inflamasi), Omalizumab (anti-IgE)
+  Imunoterapi alergen: desensitisasi → paparan bertahap alergen → toleransi
+```
+
+---
+
+## 7. Imunoterapi Kanker Modern
+
+```
+Tumor Microenvironment (TME):
+  Sel tumor tidak sendirian — dikelilingi immunosuppressive milieu:
+  Treg, M2 makrofag, MDSCs → menekan T cell killers
+  PD-L1 tinggi → off T cell effector
+  
+Pendekatan Imunoterapi:
+
+1. Checkpoint Inhibitors (lihat sebelumnya):
+   Anti-CTLA-4 + Anti-PD-1: kombinasi → double checkpoint block → lebih poten
+   Responders ~20-40% untuk beberapa kanker, tapi responders sering TAHAN jangka panjang!
+
+2. CAR-T Cell Therapy:
+   Chimeric Antigen Receptor T cell
+   Ambil T cell dari pasien → tambah gen CAR melalui lentivirus
+   CAR = single-chain antibody + T cell signaling domain (CD3ζ + CD28 atau 4-1BB)
+   Infus CAR-T → kenali CD19 pada sel B kanker → bunuh!
+   
+   Tisagenlecleucel (Kymriah): FDA 2017 → B-ALL pediatri, relapsed/refractory
+   Remisi komplit pada 80%+ pasien yang sebelumnya kehabisan opsi!
+   
+   Tantangan:
+   CRS (Cytokine Release Syndrome): badai sitokin → demam tinggi, organ failure
+   Neurotoxicity (ICANS): edema otak
+   Solid tumor: CAR-T sulit masuk TME dan tumor tidak punya target antigen yang jelas
+   
+3. Bispecific T cell Engager (BiTE):
+   Blinatumomab: antibodi yang mengikat CD19 (kanker) di satu sisi + CD3 (T cell) di sisi lain
+   → Memaksakan T cell berada dekat sel kanker → T cell bunuh langsung!
+   Tidak butuh MHC-peptide matching!
+
+4. Tumor Vaccine:
+   Neoantigens: mutasi spesifik di tumor → peptida unik (tidak ada di sel normal)
+   Sequencing tumor → identifikasi neoantigen → buat mRNA vaccine personal!
+   mRNA-4157/V940 (Moderna + Merck): phase 2/3 dalam melanoma — hasil awal sangat menjanjikan
+```
+
+<Quiz
+  question="Mengapa sel darah merah (eritrosit) tidak dapat diserang oleh T sitotoksik (CD8⁺ CTL), meskipun terinfeksi oleh parasit malaria?"
+  options={[
+    "Karena eritrosit tidak memiliki reseptor untuk perforin dan granzyme",
+    "Karena eritrosit adalah sel ANUKLEAT (tidak berinti) dan tidak mengekspresikan MHC-I — sel tanpa MHC-I tidak bisa dipresentasikan ke CD8⁺ T cell",
+    "Karena sistem komplemen melindungi eritrosit dari serangan T cell",
+    "Karena eritrosit mengekspres PD-L1 yang meredam aktivitas CTL"
+  ]}
+  correctAnswer={1}
+  explanation="T cytotoxic (CD8⁺) mengenal target melalui PEPTIDA yang dipresentasikan di atas MHC-I. Eritrosit adalah sel anukleat — mereka kehilangan inti dan organel saat maturasi. Tanpa inti, tidak ada transkripsi dan translasi, maka tidak ada MHC-I baru yang diproduksi, dan sel ini tidak mengekspresikan MHC-I di permukaannya. Tanpa MHC-I, CD8⁺ T cell tidak bisa mengenal sel tersebut. Inilah mengapa Plasmodium (malaria) 'sembunyi' dalam eritrosit selama stadium aseksual — aman dari CTL! Imunitas terhadap Plasmodium bergantung lebih pada antibodi (humoral, dari sel B + CD4⁺ Th) dan makrofag. NK cell juga bisa membunuh sel yang 'hilang' MHC-I (melalui 'missing self' recognition), namun eritrosit punya mekanisme tambahan untuk menghindari NK cell juga."
+/>

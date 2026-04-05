@@ -1,0 +1,862 @@
+---
+title: "6. Program Assembly Lengkap: Rakit, Jalankan, Kuasai"
+description: "Panduan end-to-end menulis program Assembly x86-64 nyata di Linux: dari setup NASM, struktur file, linking, debugging dengan GDB, hingga membangun program interaktif yang membaca input dan menulis output."
+icon: "Code"
+order: 6
+---
+
+# Program Assembly Lengkap: Rakit, Jalankan, Kuasai
+
+Ini adalah bab yang paling Anda tunggu. Kita tidak lagi belajar *tentang* Assembly — kita akan **menulis, merakit, dan menjalankan** program Assembly sungguhan.
+
+Di bab-bab sebelumnya Anda sudah belajar:
+- Register dan arsitektur CPU (Bab 2)
+- Stack dan memori (Bab 3)
+- Instruksi inti (Bab 4)
+- Interrupt dan komunikasi hardware (Bab 5)
+
+Sekarang semua itu akan kita satukan dalam program yang nyata.
+
+---
+
+## 1. Ekosistem Tools Assembly x86-64 di Linux
+
+Sebelum menulis satu baris pun, kenali alat yang akan Anda gunakan:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                    ALUR KERJA ASSEMBLY                          │
+│                                                                  │
+│  Source File    Assembler    Object File    Linker    Executable │
+│  program.asm ──► NASM ──► program.o ──► ld ──► program         │
+│                                                                  │
+│  Atau untuk debugging:                                           │
+│  program ──► GDB (debugger) : step, breakpoint, inspect regs    │
+└────────────────────────────────────────────────────────────────┘
+
+Tools yang Dibutuhkan:
+  nasm   : Netwide Assembler — assembler terbaik untuk x86-64
+  ld     : GNU Linker — menggabungkan object files jadi executable
+  gcc    : C compiler — bisa dipakai sebagai linker alternatif
+  gdb    : GNU Debugger — debug program Assembly secara interaktif
+  objdump: Disassembler — lihat machine code dalam format hex + assembly
+  strace : System call tracer — pantau semua syscall yang dibuat program
+```
+
+### Instalasi (Ubuntu/Debian):
+```bash
+sudo apt install nasm binutils gdb
+```
+
+### Perintah Dasar — Hafal Ini:
+```bash
+# Rakit (assemble): .asm → .o
+nasm -f elf64 program.asm -o program.o
+
+# Link: .o → executable
+ld -o program program.o
+
+# Atau jika pakai fungsi C (printf, scanf, dll):
+gcc -o program program.o -no-pie
+
+# Jalankan:
+./program
+
+# Debug dengan GDB:
+gdb ./program
+
+# Lihat machine code (disassembly):
+objdump -d -M intel program
+
+# Pantau system call:
+strace ./program
+```
+
+---
+
+## 2. Anatomi File Assembly NASM: Struktur Standar
+
+Setiap program Assembly yang Anda tulis akan mengikuti pola ini:
+
+```nasm
+; ============================================================
+; NAMA FILE: skeleton.asm
+; KOMPILASI: nasm -f elf64 skeleton.asm -o skeleton.o
+;            ld -o skeleton skeleton.o
+; ============================================================
+
+; === SECTION BSS: Variabel yang belum diinisialisasi ===
+section .bss
+    nama_var    resb  10    ; Reserve 10 byte (b=byte, w=word, d=dword, q=qword)
+    array_int   resq  50    ; Reserve 50 x 8 byte = 400 byte untuk 50 integer
+    ; resb = reserve bytes, resw = reserve words (2B)
+    ; resd = reserve dwords (4B), resq = reserve qwords (8B)
+
+; === SECTION DATA: Variabel yang sudah diinisialisasi ===
+section .data
+    ; String (tambahkan 10 = 0x0A = newline, 0 = null terminator)
+    pesan       db  "Halo, Dunia!", 10, 0
+    pesan_len   equ $ - pesan      ; $ = lokasi saat ini, pesan = awal string
+                                   ; $ - pesan = panjang string (otomatis dihitung!)
+
+    ; Angka
+    angka_32    dd  42              ; 32-bit integer (dd = define dword)
+    angka_64    dq  9876543210      ; 64-bit integer (dq = define qword)
+    pi          dq  3.14159265358979323846  ; 64-bit float (IEEE 754)
+
+    ; Array
+    array       dd  10, 20, 30, 40, 50     ; 5 integer 32-bit
+    array_len   equ ($ - array) / 4        ; Panjang array = 5
+
+; === SECTION TEXT: Kode program ===
+section .text
+
+; _start = entry point (harus di-export dengan global)
+global _start
+
+; ============================================================
+; FUNGSI HELPER
+; ============================================================
+
+; Fungsi: print_string
+; Input: RSI = alamat string, RDX = panjang
+; Menggunakan syscall write ke stdout
+print_string:
+    mov rax, 1          ; sys_write
+    mov rdi, 1          ; fd = stdout
+    syscall
+    ret
+
+; ============================================================
+; ENTRY POINT UTAMA
+; ============================================================
+_start:
+    ; Cetak pesan
+    lea rsi, [pesan]    ; RSI = alamat string
+    mov rdx, pesan_len  ; RDX = panjang
+    call print_string
+
+    ; Exit bersih
+    mov rax, 60         ; sys_exit
+    xor rdi, rdi        ; exit code = 0
+    syscall
+```
+
+> [!NOTE] `equ` vs `dd`/`db`
+> - `equ` adalah konstanta waktu assembler (seperti `#define` di C) — tidak mengalokasikan memori
+> - `dd`, `db`, `dq` adalah data sungguhan yang dialokasikan dalam binary
+> - `$ - label` adalah trik NASM untuk menghitung ukuran data secara otomatis
+
+---
+
+## 3. Program Lengkap #1: "Hello, Assembly!" dengan Breakdown Total
+
+```nasm
+; ============================================================
+; hello.asm — Program pertama yang benar-benar kita pahami
+; KOMPILASI:
+;   nasm -f elf64 hello.asm -o hello.o
+;   ld -o hello hello.o
+; JALANKAN:
+;   ./hello
+; EXPECTED OUTPUT:
+;   ╔══════════════════════╗
+;   ║   Halo dari Assembly ║
+;   ╚══════════════════════╝
+; ============================================================
+
+section .data
+    ; Baris 1: border atas
+    border_top  db  "╔══════════════════════╗", 10
+    bt_len      equ $ - border_top
+
+    ; Baris 2: konten
+    isi         db  "║   Halo dari Assembly ║", 10
+    isi_len     equ $ - isi
+
+    ; Baris 3: border bawah
+    border_bot  db  "╚══════════════════════╝", 10
+    bb_len      equ $ - border_bot
+
+section .text
+global _start
+
+; Makro: tulis string ke stdout
+%macro write 2          ; %macro nama jumlah_arg
+    mov rax, 1          ; sys_write
+    mov rdi, 1          ; fd = 1 (stdout)
+    mov rsi, %1         ; %1 = argumen pertama (alamat)
+    mov rdx, %2         ; %2 = argumen kedua (panjang)
+    syscall
+%endmacro
+
+_start:
+    write border_top, bt_len    ; Cetak baris atas
+    write isi, isi_len          ; Cetak isi
+    write border_bot, bb_len    ; Cetak baris bawah
+
+    mov rax, 60         ; sys_exit
+    xor rdi, rdi        ; exit code 0
+    syscall
+```
+
+**Cara Merakit dan Menjalankan:**
+```bash
+$ nasm -f elf64 hello.asm -o hello.o
+$ ld -o hello hello.o
+$ ./hello
+╔══════════════════════╗
+║   Halo dari Assembly ║
+╚══════════════════════╝
+$ echo $?
+0                        # exit code = 0 (sukses)
+```
+
+---
+
+## 4. Program Lengkap #2: Membaca Input dari User
+
+```nasm
+; ============================================================
+; input.asm — Baca nama dari stdin, cetak sambutan
+; KOMPILASI:
+;   nasm -f elf64 input.asm -o input.o
+;   ld -o input input.o
+; ============================================================
+
+section .bss
+    nama        resb    64      ; Buffer 64 byte untuk nama
+
+section .data
+    tanya       db  "Siapa namamu? ", 0
+    tanya_len   equ $ - tanya - 1      ; -1 karena exclude null terminator
+
+    sambutan    db  "Halo, "
+    sambutan_len equ $ - sambutan
+
+    newline     db  10          ; Karakter newline
+    exclaim     db  "! Selamat datang di Assembly!", 10
+    exc_len     equ $ - exclaim
+
+section .text
+global _start
+
+_start:
+    ; === 1. Cetak pertanyaan ===
+    mov rax, 1              ; sys_write
+    mov rdi, 1              ; stdout
+    lea rsi, [tanya]
+    mov rdx, tanya_len
+    syscall
+
+    ; === 2. Baca input dari user ===
+    mov rax, 0              ; sys_read
+    mov rdi, 0              ; stdin
+    lea rsi, [nama]         ; buffer tujuan
+    mov rdx, 64             ; maksimal 64 byte
+    syscall
+    ; Sekarang RAX = jumlah byte yang dibaca (termasuk '\n')
+
+    ; Simpan panjang nama ke RBX (kita perlu nanti)
+    mov rbx, rax
+    dec rbx                 ; Kurangi 1 untuk karakter '\n' di akhir
+
+    ; === 3. Cetak "Halo, " ===
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [sambutan]
+    mov rdx, sambutan_len
+    syscall
+
+    ; === 4. Cetak nama yang baru diinput ===
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [nama]
+    mov rdx, rbx            ; Panjang nama (tanpa '\n')
+    syscall
+
+    ; === 5. Cetak "! Selamat datang..." ===
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [exclaim]
+    mov rdx, exc_len
+    syscall
+
+    ; === 6. Exit ===
+    mov rax, 60
+    xor rdi, rdi
+    syscall
+```
+
+```bash
+$ nasm -f elf64 input.asm -o input.o && ld -o input input.o
+$ ./input
+Siapa namamu? Budi
+Halo, Budi! Selamat datang di Assembly!
+```
+
+---
+
+## 5. Program Lengkap #3: Konversi Integer ke String dan Cetak
+
+Ini adalah tantangan nyata — karena syscall `write` hanya mau menerima *string*, bukan angka. Kita harus mengubah angka ke representasi teksnya secara manual.
+
+```nasm
+; ============================================================
+; print_int.asm — Cetak angka 64-bit ke layar
+; Algoritma: bagi terus dengan 10, ambil sisa, simpan ke buffer terbalik
+; ============================================================
+
+section .bss
+    buffer      resb    20      ; Buffer 20 digit (cukup untuk 64-bit)
+    newline_buf resb    1
+
+section .data
+    newline     db  10
+
+section .text
+global _start
+
+; ============================================================
+; Fungsi: print_uint64
+; Input:  RAX = angka unsigned 64-bit yang ingin dicetak
+; Output: (ditulis ke stdout)
+; Mengubah angka ke string desimal lalu cetak
+; ============================================================
+print_uint64:
+    push rbx
+    push rcx
+    push rdx
+    push rsi
+    push rdi
+
+    ; Kita akan isi buffer dari belakang ke depan
+    lea rbx, [buffer + 19]  ; RBX = pointer ke akhir buffer
+    mov byte [rbx], 0       ; Null terminator (tidak wajib tapi good practice)
+    
+    ; Dekrement RBX untuk mulai isi digit
+    dec rbx
+    
+    ; Kasus khusus: jika angka = 0, langsung tulis "0"
+    test rax, rax
+    jnz .convert_loop
+    mov byte [rbx], '0'
+    jmp .do_write
+
+.convert_loop:
+    ; Algoritma: RAX / 10 → quotient di RAX, sisa di RDX
+    xor rdx, rdx            ; Bersihkan RDX dulu (DIV butuh RDX:RAX)
+    mov rcx, 10
+    div rcx                 ; RAX = RAX / 10, RDX = RAX % 10
+
+    ; Ubah digit sisa (0-9) ke karakter ASCII ('0'-'9')
+    add dl, '0'             ; DL (low byte RDX) + 0x30
+    mov [rbx], dl           ; Simpan ke buffer
+    dec rbx                 ; Geser pointer ke kiri
+
+    ; Ulangi selama RAX > 0  
+    test rax, rax
+    jnz .convert_loop
+
+.do_write:
+    ; Hitung panjang: RBX sekarang menunjuk ke(sebelum digit pertama)
+    ; Panjang = (buffer + 19) - RBX - 1 (karena kita sudah dec sebelum tulis)
+    lea rcx, [buffer + 20]  ; Satu setelah buffer
+    sub rcx, rbx            ; Panjang = end - ptr
+    dec rcx                 ; Koreksi
+
+    ; Tulis ke stdout
+    mov rax, 1              ; sys_write
+    mov rdi, 1              ; stdout
+    lea rsi, [rbx + 1]      ; Alamat digit pertama (satu setelah ptr)
+    mov rdx, rcx            ; Panjang
+    syscall
+
+    ; Cetak newline
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [newline]
+    mov rdx, 1
+    syscall
+
+    pop rdi
+    pop rsi
+    pop rdx
+    pop rcx
+    pop rbx
+    ret
+
+; ============================================================
+; ENTRY POINT
+; ============================================================
+_start:
+    ; Hitung 1 + 2 + 3 + ... + 100 = 5050
+    xor rax, rax            ; sum = 0
+    xor rcx, rcx            ; i = 0
+
+.loop:
+    inc rcx                 ; i++
+    add rax, rcx            ; sum += i
+    cmp rcx, 100
+    jle .loop               ; ulangi jika i <= 100
+
+    ; RAX = 5050, cetak!
+    call print_uint64
+
+    ; Cetak juga beberapa angka lain untuk uji
+    mov rax, 0
+    call print_uint64       ; Output: 0
+
+    mov rax, 9876543210
+    call print_uint64       ; Output: 9876543210
+
+    mov rax, 18446744073709551615   ; 2^64 - 1 = maksimum uint64
+    call print_uint64
+
+    mov rax, 60
+    xor rdi, rdi
+    syscall
+```
+
+```bash
+$ nasm -f elf64 print_int.asm -o print_int.o && ld -o print_int print_int.o
+$ ./print_int
+5050
+0
+9876543210
+18446744073709551615
+```
+
+---
+
+## 6. Debugging dengan GDB — Panduan Praktis
+
+GDB adalah teman terbaik Anda saat assembly tidak berperilaku seperti yang diharapkan.
+
+```bash
+# Rakit dengan info debug (flag -g):
+nasm -f elf64 -g -F dwarf program.asm -o program.o
+ld -o program program.o
+
+# Mulai GDB:
+gdb ./program
+```
+
+```gdb
+# === PERINTAH GDB PALING PENTING UNTUK ASSEMBLY ===
+
+# Tampilkan register setiap setelah satu langkah:
+(gdb) layout reg
+
+# Tampilkan kode assembly:
+(gdb) layout asm
+
+# Keduanya sekaligus:
+(gdb) layout split
+
+# Set breakpoint di label:
+(gdb) break _start
+(gdb) break loop_start
+(gdb) break *0x401000        # Breakpoint di alamat spesifik
+
+# Jalankan program:
+(gdb) run
+
+# Step satu instruksi Assembly (si = stepi):
+(gdb) si
+(gdb) stepi
+
+# Lanjut sampai breakpoint berikutnya:
+(gdb) continue
+(gdb) c
+
+# Lihat nilai register:
+(gdb) info registers
+(gdb) info registers rax rbx rcx    # Hanya 3 register ini
+(gdb) print/x $rax                  # Cetak RAX dalam hex
+(gdb) print/d $rax                  # Cetak RAX dalam desimal
+
+# Lihat isi memori:
+(gdb) x/8xb $rsp               # 8 byte dalam hex dari RSP
+(gdb) x/4xg $rsp               # 4 quadword (8-byte) dari RSP
+(gdb) x/s $rsi                 # Baca sebagai string dari RSI
+(gdb) x/10xb 0x402000          # 10 byte dari alamat
+
+# Lihat stack:
+(gdb) x/16xg $rsp              # 16 entri stack (masing-masing 8 byte)
+
+# Ubah nilai register saat debug:
+(gdb) set $rax = 42
+
+# Keluar:
+(gdb) quit
+```
+
+### Contoh Sesi GDB Nyata:
+
+```
+$ gdb ./hello
+GNU gdb (Ubuntu 12.1) ...
+(gdb) break _start
+Breakpoint 1 at 0x401000: file hello.asm, line 42.
+
+(gdb) run
+Starting program: /tmp/hello
+
+Breakpoint 1, _start () at hello.asm:42
+42      mov rax, 1
+
+(gdb) layout split
+┌──────────────────────────────────────────────────────────┐
+│  rax   0x0               0                               │
+│  rbx   0x0               0                               │
+│  rip   0x401000          0x401000 <_start>               │
+└──────────────────────────────────────────────────────────┘
+   0x401000 <_start>       mov    eax,0x1               ► Baris aktif
+   0x401005 <_start+5>     mov    edi,0x1
+   0x40100a <_start+10>    lea    rsi,[rip+0xdb]
+
+(gdb) si
+43      mov rdi, 1
+
+(gdb) info registers rax
+rax            0x1     1        ← RAX sudah bernilai 1 (sys_write)
+
+(gdb) c
+Continuing.
+╔══════════════════════╗
+║   Halo dari Assembly ║
+╚══════════════════════╝
+[Inferior 1 (process 12345) exited normally]
+```
+
+---
+
+## 7. `objdump` — Membaca Program dari Sisi Mesin
+
+```bash
+# Disassemble executable:
+$ objdump -d -M intel ./hello
+
+./hello:     file format elf64-x86-64
+
+Disassembly of section .text:
+
+0000000000401000 <_start>:
+  401000:  b8 01 00 00 00    mov    eax,0x1
+  401005:  bf 01 00 00 00    mov    edi,0x1
+  40100a:  48 8d 35 fb 0f 00 00  lea rsi,[rip+0xffb]  # 402006 <pesan>
+  401011:  ba 0e 00 00 00    mov    edx,0xe
+  401016:  0f 05             syscall
+  401018:  b8 3c 00 00 00    mov    eax,0x3c
+  40101d:  31 ff             xor    edi,edi
+  40101f:  0f 05             syscall
+```
+
+> [!TIP] Membaca Hex Machine Code
+> Setiap instruksi Assembly memiliki representasi hex (opcode). Contoh:
+> - `b8 01 00 00 00` → `mov eax, 0x1` (b8 = opcode MOV EAX, diikuti 4 byte little-endian)
+> - `0f 05` → `syscall` (2 byte opcode untuk instruksi SYSCALL)
+> - `31 ff` → `xor edi, edi` (31 = opcode XOR r/rm + r, ff = ModRM byte untuk EDI, EDI)
+>
+> Ini adalah yang Anda lihat di hex editor saat reverse engineering!
+
+---
+
+## 8. Program Final: Kalkulator Sederhana Interaktif
+
+Proyek penutup — kalkulator yang membaca dua angka dan operasi dari user:
+
+```nasm
+; ============================================================
+; kalkulator.asm — Kalkulator sederhana: +, -, *, /
+; KOMPILASI:
+;   nasm -f elf64 kalkulator.asm -o kalkulator.o
+;   ld -o kalkulator kalkulator.o
+; ============================================================
+
+section .bss
+    buf_a       resb    20      ; Buffer angka pertama
+    buf_b       resb    20      ; Buffer angka kedua
+    buf_op      resb    4       ; Buffer operator (+, -, *, /)
+    buf_hasil   resb    30      ; Buffer output hasil
+
+section .data
+    ; Prompt
+    p_angka1    db  "Angka ke-1 : ", 0
+    p_angka1_l  equ $ - p_angka1 - 1
+    p_op        db  "Operator   : ", 0
+    p_op_l      equ $ - p_op - 1
+    p_angka2    db  "Angka ke-2 : ", 0
+    p_angka2_l  equ $ - p_angka2 - 1
+    p_hasil     db  "Hasil      : ", 0
+    p_hasil_l   equ $ - p_hasil - 1
+    err_div     db  "ERROR: Pembagian dengan nol!", 10
+    err_div_l   equ $ - err_div
+    err_op      db  "ERROR: Operator tidak dikenal!", 10
+    err_op_l    equ $ - err_op
+    newline     db  10
+
+section .text
+global _start
+
+; ============================================================
+; Fungsi: read_uint64
+; Baca string dari stdin, konversi ke uint64
+; Input: RDI = buffer, RSI = max_bytes
+; Output: RAX = nilai uint64
+; ============================================================
+read_uint64:
+    push rbx
+    push rcx
+    push rdx
+    push r8
+
+    ; sys_read
+    mov r8, rdi             ; Simpan alamat buffer
+    mov rdx, rsi            ; Panjang max
+    mov rax, 0              ; sys_read
+    mov rdi, 0              ; stdin
+    mov rsi, r8             ; buffer
+    syscall
+    ; RAX = bytes yang dibaca (termasuk '\n')
+
+    ; Konversi string digit ke angka
+    ; Algoritma: result = result * 10 + digit
+    mov rcx, rax            ; RCX = jumlah byte dibaca
+    dec rcx                 ; Kurangi '\n'
+    xor rax, rax            ; result = 0
+    xor rbx, rbx            ; rbx = index = 0
+
+.parse_loop:
+    test rcx, rcx
+    jz .parse_done
+
+    movzx rdx, byte [r8 + rbx]  ; Ambil karakter
+    sub dl, '0'             ; Konversi ASCII ke digit
+    jl .parse_done          ; Jika bukan digit, berhenti
+    cmp dl, 9
+    jg .parse_done
+
+    ; result = result * 10 + digit
+    imul rax, rax, 10
+    add rax, rdx
+
+    inc rbx
+    dec rcx
+    jmp .parse_loop
+
+.parse_done:
+    pop r8
+    pop rdx
+    pop rcx
+    pop rbx
+    ret
+
+; ============================================================
+; Fungsi: print_string_raw
+; Input: RSI = alamat, RDX = panjang
+; ============================================================
+print_str:
+    mov rax, 1
+    mov rdi, 1
+    syscall
+    ret
+
+; ============================================================
+; Fungsi: print_uint64 (versi streamlined)
+; Input: RAX = angka
+; ============================================================
+print_number:
+    push r12
+    push r13
+    push rcx
+    push rdx
+
+    lea r12, [buf_hasil + 29]
+    mov byte [r12], 10          ; Newline di akhir
+    dec r12
+
+    test rax, rax
+    jnz .conv
+    mov byte [r12], '0'
+    jmp .print_num
+
+.conv:
+    xor rdx, rdx
+    mov rcx, 10
+    div rcx
+    add dl, '0'
+    mov [r12], dl
+    dec r12
+    test rax, rax
+    jnz .conv
+
+.print_num:
+    lea rsi, [r12 + 1]
+    lea rcx, [buf_hasil + 30]
+    sub rcx, rsi
+    mov rdx, rcx
+    mov rax, 1
+    mov rdi, 1
+    syscall
+
+    pop rdx
+    pop rcx
+    pop r13
+    pop r12
+    ret
+
+; ============================================================
+; _start — Entry Point Kalkulator
+; ============================================================
+_start:
+    ; === Baca angka pertama ===
+    lea rsi, [p_angka1]
+    mov rdx, p_angka1_l
+    call print_str
+
+    lea rdi, [buf_a]
+    mov rsi, 20
+    call read_uint64
+    mov r12, rax            ; R12 = angka_a
+
+    ; === Baca operator ===
+    lea rsi, [p_op]
+    mov rdx, p_op_l
+    call print_str
+
+    mov rax, 0              ; sys_read
+    mov rdi, 0
+    lea rsi, [buf_op]
+    mov rdx, 4
+    syscall
+
+    movzx r13, byte [buf_op]   ; R13 = karakter operator
+
+    ; === Baca angka kedua ===
+    lea rsi, [p_angka2]
+    mov rdx, p_angka2_l
+    call print_str
+
+    lea rdi, [buf_b]
+    mov rsi, 20
+    call read_uint64
+    mov r14, rax            ; R14 = angka_b
+
+    ; === Cetak label hasil ===
+    lea rsi, [p_hasil]
+    mov rdx, p_hasil_l
+    call print_str
+
+    ; === Hitung hasil berdasarkan operator ===
+    mov rax, r12            ; RAX = a
+    mov rbx, r14            ; RBX = b
+
+    cmp r13b, '+'
+    je .op_tambah
+    cmp r13b, '-'
+    je .op_kurang
+    cmp r13b, '*'
+    je .op_kali
+    cmp r13b, '/'
+    je .op_bagi
+
+    ; Operator tidak dikenal
+    lea rsi, [err_op]
+    mov rdx, err_op_l
+    call print_str
+    jmp .exit
+
+.op_tambah:
+    add rax, rbx
+    call print_number
+    jmp .exit
+
+.op_kurang:
+    sub rax, rbx
+    call print_number
+    jmp .exit
+
+.op_kali:
+    imul rax, rbx
+    call print_number
+    jmp .exit
+
+.op_bagi:
+    ; Cek pembagian dengan nol
+    test rbx, rbx
+    jnz .do_bagi
+    lea rsi, [err_div]
+    mov rdx, err_div_l
+    call print_str
+    jmp .exit
+
+.do_bagi:
+    xor rdx, rdx            ; Bersihkan RDX untuk DIV
+    div rbx                 ; RAX = kuotient, RDX = sisa
+    call print_number
+    jmp .exit
+
+.exit:
+    mov rax, 60
+    xor rdi, rdi
+    syscall
+```
+
+```bash
+$ nasm -f elf64 kalkulator.asm -o kalkulator.o && ld -o kalkulator kalkulator.o
+$ ./kalkulator
+Angka ke-1 : 1234
+Operator   : *
+Angka ke-2 : 5678
+Hasil      : 7006652
+
+$ ./kalkulator
+Angka ke-1 : 100
+Operator   : /
+Angka ke-2 : 0
+Hasil      : ERROR: Pembagian dengan nol!
+```
+
+---
+
+## 9. Ringkasan: Hal yang Anda Sudah Kuasai
+
+Anda telah menempuh perjalanan dari sakelar transistor hingga program Assembly yang komplet. Berikut peta perjalanan kita:
+
+| Bab | Topik | Kemampuan yang Dikuasai |
+|-----|-------|------------------------|
+| 1 | Sejarah & Cara Pikir | Memahami posisi Assembly dalam hierarki komputer |
+| 2 | Register & CPU | Membaca/menulis register, memahami siklus fetch-decode-execute |
+| 3 | Memori & Stack | Stack frame, calling convention, alokasi memori |
+| 4 | Instruksi Inti | MOV, LEA, aritmetika, percabangan, loop, CALL/RET |
+| 5 | Hardware I/O | Interrupt, PIC, syscall, port I/O, context switch |
+| 6 | Program Lengkap | Write-assemble-link-run-debug siklus penuh |
+
+### Langkah Selanjutnya yang Direkomendasikan:
+
+1. **Reverse Engineering**: Coba disassemble program C dengan `objdump`, kenali pola kompiler
+2. **SIMD/SSE/AVX**: Pelajari instruksi vektorisasi untuk data paralel
+3. **OS Development**: Buat bootloader sederhana yang cetak teks sebelum OS dimuat
+4. **CTF Challenges**: Binary exploitation di platform seperti pwnable.kr, pwn.college
+
+> [!TIP] Sumber Referensi Terbaik
+> - **Intel Software Developer's Manual** (gratis): Manual resmi instruksi x86-64 yang lengkap
+> - **felixcloutier.com/x86**: Versi web yang lebih mudah dibaca dari Intel manual
+> - **CS:APP (Bryant & O'Hallaron)**: Buku Computer Systems terbaik yang ada
+> - **nasm.us**: Dokumentasi resmi NASM assembler
+
+---
+
+<Quiz
+  question="Apa perbedaan antara perintah `nasm -f elf64 program.asm -o program.o` dan `ld -o program program.o`?"
+  options={[
+    "Keduanya sama — keduanya menghasilkan file executable yang bisa langsung dijalankan",
+    "NASM mengubah source code Assembly (.asm) menjadi object file (.o) berisi machine code, sedangkan ld (linker) menggabungkan object file dan resolve referensi simbolik menjadi executable final",
+    "NASM adalah untuk 32-bit dan ld adalah untuk 64-bit",
+    "ld hanya digunakan untuk library, sedangkan NASM menghasilkan executable langsung"
+  ]}
+  correctAnswer={1}
+  explanation="Tepat! Proses pembuatan program Assembly ada dua tahap: (1) Assembly — NASM membaca source code .asm dan menghasilkan object file .o yang berisi machine code mentah beserta tabel simbol; (2) Linking — ld menggabungkan semua object file, me-resolve semua referensi antar-simbol (seperti label fungsi yang dipanggil dari file berbeda), menentukan layout memori akhir, dan menghasilkan executable ELF yang bisa langsung dijalankan OS."
+/>

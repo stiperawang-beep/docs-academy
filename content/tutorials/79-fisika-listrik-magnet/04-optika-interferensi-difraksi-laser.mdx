@@ -1,0 +1,286 @@
+---
+title: "Optika: Cahaya sebagai Gelombang dan Sinar"
+description: "Optika geometri (Snell, lensa, cermin, prisma) dan optika fisis (interferensi Young, difraksi, polarisasi). Optika modern: laser, serat optik, holografi, dan optika nonlinier."
+icon: "Eye"
+order: 4
+---
+
+# Optika: Memahami Cahaya dari Genggaman Tangan hingga Teleskop James Webb
+
+Cahaya adalah fenomena paling akrab dan sekaligus paling misterius. Selama ratusan tahun, fisikawan berdebat: apakah cahaya itu partikel (Newton) atau gelombang (Huygens, Young)? Maxwell membuktikan cahaya adalah gelombang elektromagnetik. Einstein membuktikan cahaya juga bersifat partikel (foton). Keduanya benar sekaligus — inilah dualitas gelombang-partikel.
+
+---
+
+## 1. Model Sinar: Optika Geometri
+
+```
+Prinsip Fermat: "Cahaya mengambil jalur yang membutuhkan waktu terpendek"
+→ Menurunkan semua hukum optika geometri!
+
+Hukum Snell (Pembiasan):
+  n₁ sinθ₁ = n₂ sinθ₂
+
+  n = indeks bias = c/v (kecepatan cahaya dalam medium)
+  
+  Indeks bias beberapa material:
+  Vakum: n = 1.000 (tepat)
+  Udara:  n = 1.0003 ≈ 1
+  Air:    n = 1.33 (λ bergantung!)
+  Kaca:   n = 1.5-1.9 (bergantung komposisi)
+  Intan:  n = 2.42 (paling tinggi di material alami)
+  Si:     n = 3.5  (IR region)
+
+Refleksi Total Internal (TIR):
+  Terjadi saat n₁ > n₂ dan θ₁ > θ_kritis
+  
+  sin(θ_kritis) = n₂/n₁
+  θ_kritis(air→udara) = arcsin(1/1.33) = 48.8°
+
+  Aplikasi: SERAT OPTIK! Cahaya terperangkap dalam core n_tinggi,
+  memantul bolak-balik tanpa keluar → bisa dikirim km-km tanpa banyak kehilangan
+```
+
+---
+
+## 2. Cermin dan Lensa: Optika Paraksial
+
+```
+Persamaan Cermin Cekung (Konvergen):
+  1/f = 1/dₒ + 1/dᵢ
+
+  f = focal length (positif untuk konkav, negatif untuk konveks)
+  dₒ = jarak objek dari cermin (selalu positif jika di depan)
+  dᵢ = jarak bayangan (positif = bayangan nyata di depan, negatif = maya di belakang)
+
+  Pembesaran: M = -dᵢ/dₒ = hᵢ/hₒ
+  M positif = tegak, M negatif = terbalik
+  |M| > 1 diperbesar, |M| < 1 diperkecil
+
+Lensa Tipis (Persamaan Pembuat Lensa — Lensmaker's Equation):
+  1/f = (n-1)(1/R₁ - 1/R₂)
+
+  R₁, R₂ = jari-jari kelengkungan permukaan (sign convention penting!)
+  Lensa cembung (konveks): f > 0 → konvergen → memperbesar gambar intens
+  Lensa cekung (konkav): f < 0 → divergen → memperkecil
+
+Dioptri:
+  P = 1/f [diopter] (f dalam meter)
+  Kacamata +2.5D: f=+0.4m (miopia +)
+  Kacamata -3.0D: f=-0.33m (hiperopia -)
+```
+
+### Sistem Optik Gabungan:
+
+```
+Teleskop Refraktor (dua lensa):
+  Lensa objektif f₁ (panjang, besar) + Okuler f₂ (pendek, kecil)
+  Perbesaran angular: M = -f₁/f₂
+  
+  f₁=1000mm, f₂=10mm: M = -100× (tanda minus → terbalik)
+  → Bintang tampak 100× lebih dekat sudutnya!
+
+Mikroskop (dua lensa konvergen):
+  Objektif presisi tinggi f₁ kecil (~2mm) + okuler f₂ (~25mm)
+  M_total = M_objektif × M_okuler
+  Dengan N.A. tinggi → resolusi ≈ 0.2 μm (batas difraksi cahaya!)
+  Untuk resolusi lebih baik → Elektron micrscope (λ_elektron << λ_cahaya)
+
+Mata Manusia:
+  Lensa dan kornea gabungan f ≈ 22mm
+  Akomodasi: otot silia mengubah kelengkungan lensa untuk fokus jarak berbeda
+  Batas difraksi pupil (d≈5mm): resolusi ≈ 1 arcminute (≈ 1.5m pada 100m)
+```
+
+---
+
+## 3. Dispersi, Prisma, dan Pelangi
+
+```
+Dispersi: indeks bias bergantung pada panjang gelombang
+  n(λ) = A + B/λ² + C/λ⁴ + ... (Formula Cauchy)
+
+  Cahaya merah (700nm): n_kaca ≈ 1.513
+  Cahaya ungu (400nm): n_kaca ≈ 1.538
+
+  → Prisma memisahkan cahaya putih menjadi spektrum warna!
+  → Ungu dibiaskan LEBIH BANYAK dari merah (n lebih besar)
+
+Pelangi:
+  1. Cahaya matahari masuk ke tetes air (pembiasan)
+  2. Refleksi internal di permukaan belakang tetes
+  3. Keluar dengan pembiasan lagi → dispersi warna
+
+  Pelangi utama: sudut 40-42° dari arah matahari
+  Pelangi ganda: refleksi dua kali → warna TERBALIK, sudut 51-54°
+
+Kromatic Aberrasi:
+  Lensa membiaskan warna berbeda ke titik fokus berbeda
+  → Gambar kabur dengan "pinggir warna"
+  → Diatasi dengan lensa achromatic (doublet: crown glass + flint glass)
+```
+
+---
+
+## 4. Interferensi: Bukti Sifat Gelombang Cahaya
+
+```
+Eksperimen Double-Slit Young (1801):
+  Cahaya monokromatik melalui dua celah → pola terang-gelap di layar
+
+  Konstruktif (garis terang): d sinθ = mλ    m = 0, ±1, ±2, ...
+  Destruktif (garis gelap): d sinθ = (m+½)λ
+
+  Posisi garis terang: y = mλL/d   (L = jarak celah ke layar)
+
+  Fringe spacing: Δy = λL/d   (garis terang berurutan)
+
+  Semakin kecil d atau semakin besar λ → fringe lebih lebar
+  Semakin jauh layar → fringe lebih lebar
+
+Contoh:
+  λ=532nm (laser hijau), d=0.1mm, L=2m
+  Δy = 532×10⁻⁹ × 2 / 10⁻⁴ = 10.64 mm ≈ 1 cm (mudah terlihat!)
+
+Interferensi Film Tipis:
+  Lapisan tipis (sabun, minyak, AR coating, kompakdisk):
+  Pemantulan dari atas dan bawah film berinterferensi
+
+  Kondisi konstruktif: 2nt = mλ
+  Kondisi destruktif: 2nt = (m+½)λ
+  n = indeks bias film, t = tebal film
+
+  Warna pelangi di gelembung sabun = interferensi film tipis sabun!
+  Lapisan AR (Anti-refleksi) pada lensa: t = λ/4n → destruktif refleksi!
+```
+
+---
+
+## 5. Difraksi: Cahaya Membelok di Tepi Benda
+
+```
+Prinsip Huygens: setiap titik muka gelombang adalah sumber gelombang baru
+
+Difraksi Celah Tunggal (single slit width a):
+  Minimum pertama: a sinθ = λ
+  Secara umum: a sinθ = mλ  (m = ±1, ±2, ... untuk minimum)
+
+Batas Resolusi (Rayleigh Criterion):
+  Dua titik bisa dibedakan jika:
+  θ_min = 1.22 λ/D    (D = diameter apertura)
+
+  Mata manusia (D≈5mm, λ=550nm):
+  θ_min = 1.22 × 550×10⁻⁹ / 5×10⁻³ = 1.34×10⁻⁴ rad = 0.46 arcmenit
+
+  Teleskop Hubble (D=2.4m):
+  θ_min = 1.22 × 550×10⁻⁹ / 2.4 = 2.8×10⁻⁷ rad = 0.058 arcseconds!
+  → 8000× lebih tajam dari mata!
+
+  James Webb Space Telescope (D=6.5m, IR λ≈2μm):
+  θ_min = 1.22 × 2000×10⁻⁹ / 6.5 = 3.75×10⁻⁷ rad
+  (Meski IR, apertura besar → resolusi tinggi)
+
+Kisi Difraksi (Diffraction Grating):
+  Banyak celah dengan jarak d → pola interferensi tajam
+  d sinθ = mλ (maksimum orde ke-m)
+
+  Digunakan dalam: spektrometer, CD/DVD (kisi dari alur), optika serat
+```
+
+---
+
+## 6. Polarisasi: Cahaya dengan Orientasi
+
+```
+Cahaya transversal → vektor E bisa bergetar dalam arah apapun ⊥ propagasi
+
+Cahaya terpolarisasi linier: E bergetar dalam satu bidang saja
+
+Tiga cara mempolarisasi:
+1. Polaroid (filter): material anisotropis yang menyerap polarisasi satu arah
+   Setelah melewati polaroid: intensitas I₀ → I₀/2 (polarisasi acak)
+
+2. Hukum Malus:
+   Cahaya terpolarisasi melalui polaroid dengan sudut θ:
+   I = I₀ cos²θ
+   
+   θ=0°: I=I₀ (semuanya lewat)
+   θ=90°: I=0 (tidak ada yang lewat → gelap!)-
+
+3. Pembiasan (Sudut Brewster):
+   Pada sudut Brewster θ_B, cahaya pantul sepenuhnya terpolarisasi (horizontal)
+   tan(θ_B) = n₂/n₁
+   
+   Air (n=1.33): θ_B = arctan(1.33) = 53.1°
+   → Kacamata polaroid memblokkir cahaya yang dipantulkan permukaan air/jalan
+   → Anti-silau saat berkendara atau memancing!
+
+Polarisasi Melingkar (Circular Polarization):
+  Dua komponen lin. terpolarisasi ⊥ dengan beda fasa 90°
+  Digunakan dalam: display 3D, kamera bokeh, CD/DVD reader
+```
+
+---
+
+## 7. Laser: Cahaya Ampuh dan Koherensi
+
+```
+LASER = Light Amplification by Stimulated Emission of Radiation
+
+Prinsip dasar:
+  Einstein (1917): emisi terstimulasi — foton memicu atom tereksitasi
+  memancarkan foton yang IDENTIK (frekuensi, fasa, polarisasi, arah)
+
+  Komponen laser:
+  1. Medium aktif: material yang bisa dipopulasi-terbalikkan
+  2. Pompa energi: mengisi elektron ke level tinggi
+  3. Resonator optik: dua cermin memantulkan, membangun osilasi
+
+  Populasi terversi: N_atas > N_bawah → amplifikasi cahaya!
+
+Properti unik laser:
+  Monokromatik: lebar spektrum sangat sempit (He-Ne: Δλ < 0.001nm)
+  Koheren: fasa terdefinisi (temporal dan spasial)
+  Terarah: divergensi sangat kecil (mrad)
+  Intensitas: bisa sangat tinggi (W/cm² hingga TW/cm²!)
+
+Jenis Laser:
+  Gas: He-Ne (632.8nm, red), CO₂ (10.6μm, IR — cutting/welding), Ar+ (488nm, blue-green)
+  Solid-state: Nd:YAG (1064nm → 532nm SHG green), Ruby (694nm, red)
+  Semiconductor: Diode laser (telecom, pointer, Blu-ray, LiDAR)
+  Dye: Panjang gelombang dapat diatur (tunable)
+  Free-electron: X-ray laser (LCLS, XFEL)
+```
+
+### Serat Optik: Revolusi Telekomunikasi:
+
+```
+Serat optik silika: core n≈1.46, cladding n≈1.45 → TIR terjaga
+  Atenuasi: ~0.2 dB/km (terbaik saat ini)
+  Bandwidth: THz (160 Tbps per fiber demonstrasi!)
+  Vs kabel tembaga: bandwidth jauh lebih besar, tidak terpengaruh EM
+
+Mode serat:
+  Single-mode (SMF): core 8-10 μm → satu mode → dispersi rendah → internet jarak jauh
+  Multi-mode (MMF): core 50-62.5 μm → banyak mode → jarak pendek (LAN/data center)
+
+Amplifikasi sinyal: EDFA (Erbium-Doped Fiber Amplifier)
+  Erbium tereksitasi oleh pompa laser 980nm → memperkuat sinyal 1550nm
+  → Tidak perlu konversi elektrik → repeater semua-optik tiap 60-80 km!
+  Seluruh jaringan internet global bergantung pada EDFA
+
+WDM (Wavelength Division Multiplexing):
+  Banyak panjang gelombang berbeda di satu fiber → banyakin kapasitas!
+  DWDM: ~80 channel × 100-400 Gbps = >30 Tbps per fiber pair!
+```
+
+<Quiz
+  question="Cahaya monokromatik λ=600nm melewati dua celah berjarak d=0.3mm, jarak ke layar L=1.5m. Berapa jarak antar garis terang (fringe spacing)?"
+  options={[
+    "1 mm",
+    "2 mm",
+    "3 mm",
+    "5 mm"
+  ]}
+  correctAnswer={2}
+  explanation="Fringe spacing: Δy = λL/d = (600×10⁻⁹ × 1.5) / (0.3×10⁻³) = (9×10⁻⁷) / (3×10⁻⁴) = 3×10⁻³ m = 3 mm. Semakin panjang gelombang atau semakin jauh layar → garis makin lebar. Semakin rapat celah → garis lebih lebar. Ini prinsip dasar spektroskopi interferometri."
+/>

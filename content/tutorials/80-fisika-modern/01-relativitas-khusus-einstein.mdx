@@ -1,0 +1,245 @@
+---
+title: "Fisika Modern: Relativitas Khusus Einstein"
+description: "Teori Relativitas Khusus Einstein — postulat, transformasi Lorentz, dilatasi waktu, kontraksi panjang, relativitas simultaneitas, massa-energi (E=mc²), dan 4-vektor ruang-waktu."
+icon: "Rocket"
+order: 1
+---
+
+# Relativitas Khusus: Ketika Akal Sehat Gagal
+
+Tahun 1905 — kemudian dikenal sebagai "Annus Mirabilis" — Albert Einstein menerbitkan empat makalah yang mengubah fisika selamanya. Yang paling mengguncang adalah Relativitas Khusus: sebuah teori yang memberi tahu kita bahwa **waktu tidak mengalir sama untuk semua orang**, **panjang benda bergantung pada siapa yang mengukurnya**, dan bahwa **massa adalah bentuk energi yang sangat padat**.
+
+Ini bukan fiksi ilmiah. GPS di ponsel Anda tidak akan akurat tanpa memperhitungkan relativitas.
+
+---
+
+## 1. Krisis di Fisika Klasik
+
+Sebelum Einstein, ada dua teori yang sangat sukses tapi TIDAK KONSISTEN:
+```
+Mekanika Newton: Kecepatan bersifat relatif, dijumlah dengan V_galileo
+  u' = u - v    (Galilean addition of velocities)
+
+Elektromagnetisme Maxwell: Cahaya bergerak dengan c = 3×10⁸ m/s
+  → Tapi relatif terhadap APA? Ether?
+
+Masalah: Jika Galileo benar → kecepatan cahaya harus berbeda bergantung arah
+         Percobaan Michelson-Morley (1887) → kecepatan cahaya SAMA ke semua arah!
+         (Akurasi 1 dalam 10.000 — tidak ada ether!)
+```
+
+---
+
+## 2. Dua Postulat Einstein (1905)
+
+```
+Postulat 1 — Prinsip Relativitas:
+  "Hukum fisika sama dalam semua kerangka acuan INERSIAL"
+  (Tidak ada kerangka acuan "istimewa" yang mutlak diam)
+
+Postulat 2 — Invarians Kecepatan Cahaya:
+  "Kecepatan cahaya dalam vakum (c) sama untuk semua pengamat,
+   terlepas dari gerak sumber atau pengamat"
+
+  c = 299,792,458 m/s ≈ 3 × 10⁸ m/s   (pasti, mendefinisikan meter!)
+
+Konsekuensi mengejutkan:
+  Jika c konstan tapi v berubah → WAKTU harus berubah!
+  Jika c konstan → ruang dan waktu saling berkaitan
+```
+
+---
+
+## 3. Faktor Lorentz dan Transformasi
+
+```
+Faktor Lorentz (γ):
+  γ = 1/√(1 - v²/c²) = 1/√(1 - β²)    β = v/c
+
+  v = 0:       γ = 1
+  v = 0.6c:    γ = 1.25
+  v = 0.8c:    γ = 1.67
+  v = 0.9c:    γ = 2.29
+  v = 0.99c:   γ = 7.09
+  v = 0.999c:  γ = 22.4
+  v → c:       γ → ∞
+
+Transformasi Lorentz (kerangka S' bergerak v di sumbu x terhadap S):
+  x' = γ(x - vt)         t' = γ(t - vx/c²)
+  y' = y                  z' = z
+
+   [berbeda dengan Galileo hanya untuk x dan t!]
+```
+
+---
+
+## 4. Dilatasi Waktu: "Moving Clocks Run Slow"
+
+```
+Jam bergerak dengan v terhadap pengamat diam → JAM BERGERAK LEBIH LAMBAT:
+
+  Δt = γ × Δt₀    (Δt₀ = waktu proper = waktu di kerangka jam sendiri)
+  
+  Δt₀ < Δt  (waktu proper selalu bervalue terkecil)
+
+Contoh — Muon kosmis:
+  Muon terbentuk di atmosfer atas (~15 km) oleh sinar kosmis
+  Muon waktu hidup = 2.2 μs (di kerangka sendiri)
+  Kecepatan = 0.9994c → γ ≈ 28.9
+
+  Tanpa relativitas: jarak = 0.9994c × 2.2×10⁻⁶ = 0.66 km
+  → Mustinya tidak sampai ke permukaan!
+
+  Dengan dilatasi waktu: Δt = γ × 2.2 μs = 28.9 × 2.2 = 63.6 μs
+  → Jarak = 0.9994c × 63.6×10⁻⁶ = 19 km > 15 km → SAMPAI! ✓
+  (Terbukti oleh detektor di permukaan)
+
+Paradoks Si Kembar:
+  Kembar A tetap di Bumi. Kembar B melakukan perjalanan ke bintang
+  dengan v = 0.9c dan kembali.
+
+  Dari perspektif A: B bergerak → jam B lambat → B kembali lebih muda!
+  Dari perspektif B: A yang bergerak → seharusnya A yang lebih muda?
+
+  Resolusi: B TIDAK inersial! B harus berbalik (percepatan) → B memang lebih muda.
+  Asimetri bukan paradoks — ada perbedaan nyata antara A dan B.
+```
+
+---
+
+## 5. Kontraksi Panjang: "Moving Objects are Shorter"
+
+```
+Benda bergerak tampak LEBIH PENDEK dalam arah geraknya:
+
+  L = L₀/γ = L₀ × √(1 - v²/c²)
+
+  L₀ = panjang proper (diukur dalam kerangka benda sendiri)
+  L < L₀   (panjang tampak lebih pendek bagi pengamat yang terhadapnya benda bergerak)
+
+Tidak ada apa pun yang secara fisik "menyusut" — ini tentang PENGUKURAN
+
+Contoh — Muon di kerangka muon sendiri:
+  Di kerangka muon, Bumi bergerak mendekat dengan 0.9994c
+  Ketebalan atmosfer tampak: L = 15 km / 28.9 = 0.52 km
+  Muon hanya perlu melewati 0.52 km dalam lifetimenya 2.2 μs
+  → 0.9994c × 2.2×10⁻⁶ = 0.66 km > 0.52 km → BISA! ✓
+
+  Dua deskripsi berbeda, hasil sama — konsistensi relativitas!
+```
+
+---
+
+## 6. Relativitas Simultaneitas
+
+```
+Dua kejadian yang simultan di satu kerangka → TIDAK simultan di kerangka lain!
+
+Eksperimen pikiran: Kilat di titik A dan B, pengamat di tengah kereta bergerak
+
+  Pengamat di kereta (bergerak ke kanan):
+  Kilat A (belakang) → perlu waktu lebih lama untuk sampai
+  Kilat B (depan) → perlu waktu lebih singkat untuk sampai
+  → Bagi pengamat kereta: B lebih dulu dari A!
+
+  Pengamat di stasiun (diam):
+  Kilat A dan B terjadi simultan (dari posisi tengah yang diam)
+
+Implikasinya: "sekarang" bergantung pada siapa Anda dan bagaimana Anda bergerak
+Tidak ada makna universal dari "sekarang yang sama"
+```
+
+---
+
+## 7. Penambahan Kecepatan Relativistik
+
+```
+Jika objek bergerak u' dalam kerangka S' yang bergerak v terhadap S:
+
+  u = (u' + v) / (1 + u'v/c²)
+
+  Reduksi ke Galileo saat u', v << c
+
+Kasus: u' = c (cahaya):
+  u = (c + v)/(1 + cv/c²) = (c + v)/(1 + v/c) = c(c+v)/( c+v) = c ✓
+  → Cahaya tetap c bagi semua pengamat!
+
+Kasus: u' = 0.9c, v = 0.9c (dua roket saling menjauh):
+  u = (0.9c + 0.9c)/(1 + 0.81) = 1.8c/1.81 = 0.994c   (bukan 1.8c!)
+  → Tidak ada yang bisa melebihi c!
+```
+
+---
+
+## 8. Massa-Energi: E = mc²
+
+```
+Energi total relativistik:
+  E = γmc² = mc²/√(1 - v²/c²)
+
+  v = 0: E₀ = mc²   ← Energi diam (rest energy) — massa adalah energi!
+
+  E² = (pc)² + (mc²)²    (relasi energi-momentum)
+  
+  Untuk foton (m=0): E = pc → p = E/c = hf/c = h/λ
+
+Energi kinetik relativistik:
+  KE = E - E₀ = (γ-1)mc²
+
+  Untuk v << c: KE ≈ ½mv²  (limit klasik ✓)
+
+Implikasi — Konversi Massa ke Energi:
+  1 kg massa = c² = (3×10⁸)² = 9×10¹⁶ J = 25 miliar kWh
+  = Energi yang dikonsumsi seluruh AS selama ~3 tahun dari 1kg!
+
+Fisi Nuklir (U-235):
+  Massa yang "hilang" dalam fisi ~ 0.1% massa awal
+  1 kg U-235 → ~8 × 10¹³ J = energi 20.000 ton TNT (bom atom!)
+
+  E_fisi = Δm × c² = 0.001 × 1 × (3×10⁸)² = 9 × 10¹³ J  ✓
+
+Antimateri:
+  1 gram elektron + 1 gram positron → annihilasi → E = 2mc² = 1.8 × 10¹⁴ J
+  (23× lebih efisien dari fisi nuklir, tapi antimateri sangat sulit dibuat!)
+```
+
+---
+
+## 9. Ruang-Waktu Minkowski: 4D Universe
+
+```
+Einstein & Minkowski: ruang (3D) dan waktu (1D) bukan terpisah
+→ Satu kesatuan kontinum RUANG-WAKTU 4D!
+
+Interval Ruang-Waktu (s):
+  s² = c²(Δt)² - (Δx)² - (Δy)² - (Δz)²
+
+  s² > 0: time-like interval (kejadian kausal — bisa terhubung)
+  s² = 0: light-like interval (terhubung oleh cahaya)
+  s² < 0: space-like interval (tidak bisa terhubung kausalitas)
+
+4-Vektor:
+  x^μ = (ct, x, y, z)   ← posisi ruang-waktu
+  p^μ = (E/c, px, py, pz)   ← momentum 4D
+  p_μ p^μ = (mc)² = invarian   ← menyatukan energi dan momentum!
+```
+
+> [!NOTE] GPS dan Relativitas
+> GPS membutuhkan waktu yang sangat akurat. Dua efek yang saling berlawanan:
+> 1. **Relativitas Khusus** (dilatasi waktu): Satelit bergerak ~14,000 km/jam → jam di satelit lebih lambat 7 μs/hari
+> 2. **Relativitas Umum** (dilataisi gravitasi): Satelit di ketinggian tinggi, gravitasi lemah → jam lebih cepat 45 μs/hari
+>
+> Net: +38 μs/hari. Jika tidak dikoreksi → GPS error ~11 km/hari!
+> GPS membuktikan relativitas bekerja setiap kali Anda menggunakan navigasi.
+
+<Quiz
+  question="Sebuah pesawat bergerak dengan v=0.87c. Jika pilot mengukur perjalanan berlangsung 10 tahun (proper time), berapa lama yang diamati orang di Bumi?"
+  options={[
+    "10 tahun (sama)",
+    "8.7 tahun (lebih pendek)",
+    "20 tahun (dua kali lebih lama)",
+    "11.5 tahun"
+  ]}
+  correctAnswer={2}
+  explanation="v=0.87c → β=0.87 → γ = 1/√(1-0.87²) = 1/√(1-0.757) = 1/√0.243 = 1/0.493 ≈ 2.03. Waktu di Bumi: Δt = γ×Δt₀ = 2.03 × 10 ≈ 20 tahun. Pilot mengalami 10 tahun, tapi pengamat Bumi mengukur hampir 20 tahun. Jam bergerak berjalan lebih lambat — pilot lebih muda ~10 tahun dari saudara kembarnya yang di Bumi!"
+/>

@@ -1,0 +1,301 @@
+---
+title: "Graf, Pohon & Teori Kombinatorik"
+description: "Menguasai teori graf — vertex, edge, path, siklus, pohon, BFS/DFS — dan kombinatorik: permutasi, kombinasi, prinsip pigeonhole, dan aplikasinya di algoritma dan kriptografi."
+icon: "Network"
+order: 3
+---
+
+# Teori Graf: Jaring Laba-Laba Matematika
+
+Di balik setiap peta jalan, jaringan sosial, sirkuit listrik, dan internet — ada sebuah struktur matematika yang sama: **Graf**. Google Maps menemukan rute tercepat dengan algoritma graf. Facebook merekomendasikan teman dengan analisis graf. Kompiler kode mendeteksi dependensi sirkular dengan deteksi siklus di graf.
+
+Graf bukan sekadar diagram — ia adalah **bahasa universal untuk menggambarkan hubungan**.
+
+---
+
+## 1. Definisi Dasar Graf
+
+```
+Graf G = (V, E)
+  V = himpunan vertex (simpul/node)
+  E = himpunan edge (sisi/link) — pasangan vertex
+
+Contoh: G = ({A,B,C,D}, {AB, AC, BD, CD})
+
+  A ─── B
+  │     │
+  C ─── D
+```
+
+### Jenis-Jenis Graf:
+
+```
+Graf Tak Berarah (Undirected):
+  Edge tidak punya arah → AB = BA
+  Contoh: jaringan jalan, friendship graph
+
+Graf Berarah (Directed / Digraph):
+  Edge punya arah →  A→B ≠ B→A
+  Contoh: Twitter follow, ketergantungan modul
+
+Graf Berbobot (Weighted):
+  Setiap edge punya nilai/bobot
+  Contoh: jarak antar kota, bandwidth jaringan
+
+Graf Sederhana:
+  Tidak ada self-loop (A→A) dan tidak ada multi-edge
+
+Graf Lengkap (Complete, Kₙ):
+  Setiap vertex terhubung ke semua vertex lain
+  Jumlah edge = n(n-1)/2
+```
+
+---
+
+## 2. Properti Graf
+
+```
+Derajat vertex (degree) = jumlah edge yang menyentuh vertex tersebut
+
+Handshaking Lemma:
+  Σ degree(v) = 2|E|
+  (jumlah semua derajat = 2 × jumlah edge)
+  Konsekuensi: jumlah vertex berderajat ganjil selalu genap
+
+Path: urutan vertex yang terhubung tanpa pengulangan edge
+Siklus (Cycle): path yang kembali ke titik asal
+Komponen: subgraf yang terhubung satu sama lain
+
+Graf Terhubung (Connected):
+  Ada path antara sembarang dua vertex
+
+Graf Euler:
+  Memiliki sirkuit yang melewati SETIAP EDGE tepat satu kali
+  Syarat: semua vertex berderajat genap (Teorema Euler)
+
+Graf Hamilton:
+  Memiliki siklus yang melewati SETIAP VERTEX tepat satu kali
+  (lebih sulit — tidak ada syarat sesederhana Euler)
+```
+
+---
+
+## 3. Representasi Graf dalam Komputer
+
+### Adjacency Matrix:
+```
+Untuk n vertex, buat matriks n×n:
+  M[i][j] = 1 jika ada edge i→j
+  M[i][j] = 0 jika tidak ada edge
+
+Graf A-B-C-D (A-B, B-C, C-D, A-D):
+     A  B  C  D
+  A [0  1  0  1]
+  B [1  0  1  0]
+  C [0  1  0  1]
+  D [1  0  1  0]
+
+✓ Cek koneksi O(1)
+✗ Memori O(n²) — boros untuk graf jarang (sparse)
+```
+
+### Adjacency List:
+```
+Setiap vertex menyimpan daftar tetangganya:
+  A: [B, D]
+  B: [A, C]
+  C: [B, D]
+  D: [C, A]
+
+✓ Memori O(V + E) — efisien untuk sparse graph
+✗ Cek koneksi O(degree)
+```
+
+---
+
+## 4. Traversal Graf: BFS dan DFS
+
+### BFS (Breadth-First Search) — Level by Level:
+```
+Algoritma:
+1. Mulai dari vertex awal, masukkan ke queue dan tandai visited
+2. Dequeue vertex, proses, enqueue semua tetangga yang belum visited
+3. Ulangi sampai queue kosong
+
+Urutan BFS dari A di graf:
+A-B, A-C, B-D, B-E, C-F
+
+  A
+ / \
+B   C
+|\ / \
+D E   F
+
+Level 0: A
+Level 1: B, C
+Level 2: D, E, F
+
+Kegunaan BFS:
+  - Jarak terpendek (unweighted)
+  - Level-order traversal pohon
+  - Deteksi bipartit
+```
+
+### DFS (Depth-First Search) — Menyelam Sedalam Mungkin:
+```
+Algoritma (rekursif):
+  DFS(v):
+    tandai v sebagai visited
+    untuk setiap tetangga w dari v:
+      jika w belum visited:
+        DFS(w)
+
+Urutan DFS dari A: A → B → D → E → C → F
+
+Kegunaan DFS:
+  - Deteksi siklus
+  - Topological sort
+  - Komponen terhubung kuat (Tarjan's algorithm)
+  - Penyelesaian maze
+```
+
+---
+
+## 5. Algoritma Shortest Path: Dijkstra
+
+Untuk graf berbobot, menemukan jalur terpendek dari sumber ke semua vertex:
+
+```
+Graf kota dengan jarak (km):
+  A →B: 4    A→C: 2
+  B →C: 1    B→D: 5
+  C →B: 1    C→D: 8
+  D →(end)
+
+Dijkstra dari A:
+  Init: dist[A]=0, dist[lain]=∞
+  Priority Queue: [(0,A)]
+
+  Step 1: proses A (dist=0)
+    → update B: min(∞, 0+4)=4,  update C: min(∞, 0+2)=2
+    PQ: [(2,C), (4,B)]
+
+  Step 2: proses C (dist=2)
+    → update B: min(4, 2+1)=3!,  update D: min(∞, 2+8)=10
+    PQ: [(3,B), (4,B_old), (10,D)]
+
+  Step 3: proses B (dist=3)
+    → update D: min(10, 3+5)=8!
+    PQ: [(8,D), (10,D_old)]
+
+  Hasil: A→A=0, A→C=2, A→B=3, A→D=8
+```
+
+---
+
+## 6. Pohon (Tree): Graf Tanpa Siklus
+
+**Pohon** adalah graf terhubung tanpa siklus:
+
+```
+Sifat Pohon (n vertex):
+  - Tepat n-1 edge
+  - Ada tepat SATU path antara sembarang dua vertex
+  - Menambah satu edge → membuat tepat satu siklus
+  - Menghapus satu edge → memisah menjadi dua komponen
+
+Binary Tree: setiap node maksimal 2 anak (kiri, kanan)
+Binary Search Tree (BST):
+  - Node kiri < parent < node kanan
+  - Search: O(log n) rata-rata
+  - Insert, Delete: O(log n) rata-rata
+
+Minimum Spanning Tree (MST):
+  Pohon yang menghubungkan semua vertex dengan total bobot minimum
+  Algoritma: Kruskal (sort edge, greedy) atau Prim (vertex greedy)
+```
+
+---
+
+## 7. Kombinatorik: Menghitung Kemungkinan
+
+### Aturan Dasar:
+
+```
+Aturan Penjumlahan:
+  Jika A bisa dilakukan dengan m cara, B dengan n cara (eksklusif):
+  Total = m + n
+
+Aturan Perkalian:
+  Jika A dilakukan dulu dengan m cara, B setelahnya dengan n cara:
+  Total = m × n
+```
+
+### Permutasi: Urutan Penting
+
+```
+nPr = n! / (n-r)!   ← pilih r dari n, urutan penting
+
+Contoh: Berapa cara memilih ketua, wakil ketua, dan sekretaris
+dari 10 kandidat?
+  10P3 = 10! / (10-3)! = 10×9×8 = 720 cara
+
+Permutasi dengan pengulangan:
+  n!/( n₁! × n₂! × ... )
+  Kata "MATEMATIKA" (10 huruf: M=2,A=3,T=2,E=1,I=1,K=1):
+  = 10! / (2!×3!×2!×1!×1!×1!) = 3,628,800 / 24 = 151,200
+```
+
+### Kombinasi: Urutan Tidak Penting
+
+```
+nCr = C(n,r) = n! / [r!(n-r)!]   ← simbol: (n/r) atau "n pilih r"
+
+Contoh: Berapa cara memilih tim 3 orang dari 8 kandidat?
+  C(8,3) = 8! / (3! × 5!) = (8×7×6) / (3×2×1) = 56 cara
+
+Sifat-sifat penting:
+  C(n,r) = C(n, n-r)   ← simetri
+  C(n,0) = C(n,n) = 1
+  C(n,r) + C(n,r+1) = C(n+1,r+1)   ← Segitiga Pascal
+```
+
+### Segitiga Pascal dan Teorema Binomial:
+
+```
+Baris ke-n dari Segitiga Pascal = koefisien ekspansi (a+b)ⁿ:
+
+Row 0:      1
+Row 1:     1 1
+Row 2:    1 2 1
+Row 3:   1 3 3 1
+Row 4:  1 4 6 4 1
+
+(a+b)³ = 1a³ + 3a²b + 3ab² + 1b³
+
+Teorema Binomial:
+(a+b)ⁿ = Σ C(n,k) × aⁿ⁻ᵏ × bᵏ   (k dari 0 ke n)
+```
+
+---
+
+## 8. Prinsip Pigeonhole: Bukti yang Mengejutkan
+
+Jika **n+1 objek** dimasukkan ke **n kotak**, setidaknya **satu kotak berisi ≥ 2 objek**.
+
+**Contoh nyata yang mengejutkan:**
+1. Di Jakarta (populasi ~10 juta), setidaknya ada **dua orang dengan tanggal ulang tahun yang sama** (karena 10 juta > 366 hari)
+2. Di antara sembarang **5 titik** di dalam persegi 1×1, setidaknya dua titik berjarak ≤ √2/2 ≈ 0.707
+3. Dalam kelompok **manapun** yang terdiri dari ≥ 6 orang, ada 3 yang saling kenal ATAU 3 yang saling asing (Ramsey Theory)
+
+<Quiz
+  question="Berapa banyak cara memilih delegasi 4 orang dari kelompok 10 orang (tanpa memperhatikan urutan posisi)?"
+  options={[
+    "210 cara",
+    "5040 cara",
+    "40 cara",
+    "10000 cara"
+  ]}
+  correctAnswer={0}
+  explanation="Ini adalah kombinasi karena urutan tidak penting: C(10,4) = 10!/(4!×6!) = (10×9×8×7)/(4×3×2×1) = 5040/24 = 210 cara. Jika urutan penting (permutasi), jawaban adalah P(10,4) = 10×9×8×7 = 5040."
+/>

@@ -1,0 +1,368 @@
+---
+title: "Genetika & Evolusi Molekuler"
+description: "Hukum Mendel, pewarisan non-Mendelian, genetika populasi (Hardy-Weinberg), mutasi dan perbaikan DNA, rekombinasi genetik, filogenetik molekuler, evolusi molekuler dan seleksi alam di tingkat gen."
+icon: "GitBranch"
+order: 3
+---
+
+# Genetika & Evolusi: Dari Pea Mendel hingga Pohon Kehidupan Darwin
+
+Gregor Mendel menghitung kacang polong di taman biaara selama 8 tahun (1856-1863) untuk menemukan pola pewarisan sifat. Ia menemukan hukum yang mengatur separuh biologi kehidupan. Yang luar biasa: ia tidak tahu DNA itu ada.
+
+Hari ini, kita bisa membaca kode lengkap genom organisme dan melacak garis keturunan jutaan tahun ke belakang dari kode itu.
+
+---
+
+## 1. Hukum Mendel
+
+```
+Mendel memilih kacang polong (Pisum sativum) karena:
+  - Penyerbukan sendiri → strain murni mudah dibuat
+  - Kontrol penyerbukan silang mudah
+  - Siklus hidup pendek (~1 musim)
+  - 7 karakter berbeda yang mudah diamati
+
+Terminologi:
+  Alel: varian berbeda dari satu gen (A vs a)
+  Genotipe: konstitusi alel (AA, Aa, aa)
+  Fenotipe: tampilan karakter (tinggi, kerdil)
+  Homozigot: AA atau aa (kedua alel sama)
+  Heterozigot: Aa (alel berbeda)
+  Dominan: alel yang menutupi efek alel lain (A)
+  Resesif: alel yang hanya terlihat jika homozigot (a)
+
+Hukum I — Segregasi (Separation):
+  "Faktor-faktor (alel) berpasangan, dan pada saat pembentukan gamet
+   mereka MEMISAH sehingga setiap gamet hanya mengandung satu dari pasangan itu"
+  
+  P: Tall × short   (TT × tt)
+  F1: Tt (semua Tall — dominan)
+  F1 × F1: Tt × Tt
+  F2: 1 TT : 2 Tt : 1 tt = fenotipe 3 Tall : 1 short (3:1)
+
+Hukum II — Assortment Bebas (Independent Assortment):
+  "Alel dari dua gen berbeda memisah secara INDEPENDEN satu sama lain"
+  
+  Syarat: gen harus pada kromosom berbeda (tidak terikat/linked!)
+  
+  P: AABB × aabb
+  F1: AaBb (semua fenotipe AB)
+  F2: 9 A_B_ : 3 A_bb : 3 aaB_ : 1 aabb (rasio 9:3:3:1)
+  
+  Penjelasan mekanistik: selama meiosis I, kromosom homolog SEGREGASI BEBAS!
+  2 pasang kromosom → 2² = 4 kombinasi sama mungkin
+  Manusia: 23 pasang → 2²³ = 8.4 juta kombinasi berbeda hanya dari segregasi bebas!
+
+Uji Chi-Kuadrat (χ²):
+  Apakah hasil percobaan sesuai dengan rasio yang diprediksi?
+  χ² = Σ[(O - E)² / E]
+  O = observasi, E = ekspektasi
+  
+  df = kelas - 1
+  Jika χ² < nilai kritis (tabel) → hasil konsisten dengan hipotesis (tidak signifikan)
+  Jika χ² > nilai kritis → hipotesis kemungkinan SALAH
+```
+
+---
+
+## 2. Pewarisan Non-Mendelian
+
+```
+Dominan Tidak Sempurna (Incomplete Dominance):
+  F1 heterozigot = CAMPURAN fenotipe kedua induk!
+  Contoh: bunga Mirabilis (Rr = merah muda, RR = merah, rr = putih)
+  F2: 1 RR : 2 Rr : 1 rr = 1 merah : 2 merah muda : 1 putih (1:2:1, BUKAN 3:1)
+
+Codominance:
+  Kedua alel KEDUANYA terekspresi penuh!
+  Golongan darah ABO:
+    Alel: IA, IB, i
+    Genotipe: IAIA, IAi → golongan A
+               IBIB, IBi → golongan B
+               IAIB       → golongan AB (CODOMINANT!)
+               ii          → golongan O
+  
+  Rhesus: Rh+ (RR atau Rr), Rh- (rr)
+  Eritrosit Rh- ibu + fetus Rh+ → isoimmunisasi → hemolytic disease of newborn (HDN)
+
+Alel Multiple:
+  Satu lokus punya >2 alel berbeda dalam populasi (meskipun setiap individu hanya 2)
+  
+  Golongan darah ABO: 3 alel utama (IA, IB, i)
+  MHC/HLA: ribuan alel! → paling polimorfik di seluruh genom manusia
+
+Gen Terkait (Linked Genes):
+  Gen pada kromosom yang SAMA → cenderung mewariskan bersama
+  Melanggar Hukum II Mendel!
+  
+  Frekuensi rekombinasi (θ): seberapa sering gen berpisah akibat crossing over
+    θ = 0: terikat sempurna (tidak ada CO di antaranya)
+    θ = 0.5: segregasi bebas (jauh → terlihat independen)
+  
+  1 cM (centimorgan) = 1% frekuensi rekombinasi = ~1Mb DNA pada rata-rata
+  
+  Peta genetik: menempatkan gen berdasarkan jarak rekombinasi
+  Peta fisik: posisi aktual dalam pb (bp)
+
+Epistasis:
+  Satu gen MEMPENGARUHI ekspresi gen lain (bukan alelnya sendiri)
+  
+  Warna bulu labrador: (E_B_ kuning tidak) salah, let me redo:
+  Warna Labrador: Ee untuk ekspresi pigmen, Bb untuk warna:
+    E_B_ = hitam,  E_bb = coklat (chocolate),  eeB_ atau eebb = kuning
+    (alel e = tidak ada deposisi pigmen — epistasis resesif)
+  F2 dari EeBb × EeBb: 9 hitam : 3 coklat : 4 kuning (9:3:4 — bukan 9:3:3:1!)
+
+Pewarisan Mitokondria & Kloroplas:
+  Organela ini punya DNA sendiri → MATERNAL inheritance!
+  Ibu → semua anak menerima mitokondria ibunya
+  Ayah → sperma mitokondria TIDAK ikut (hampir selalu; ada pengecualian sangat langka)
+  
+  Penyakit mitokondria: LHON (Leber Hereditary Optic Neuropathy), MELAS
+    → hanya dari ibu, semua anak terpengaruh
+```
+
+---
+
+## 3. Mutasi DNA
+
+```
+Mutasi = perubahan permanen dalam urutan DNA
+
+Klasifikasi:
+  Point mutation (mutasi titik):
+    Transisi: purin⟷purin atau pirimidin⟷pirimidin
+              (A↔G, C↔T — lebih sering karena kimia mirip)
+    Transversi: purin↔pirimidin (A/G ↔ C/T — lebih jarang)
+    
+    Missense: kodon mengkode asam amino BERBEDA
+              Valin → Glutamat di β-globin = Sickle Cell Disease!
+    Nonsense: kodon yang tadinya kode asam amino → STOP kodon prematur
+              → Protein terpotong, biasanya nonfungsional
+    Silent: kodon berubah tapi mengkode asam amino SAMA (karena degenerasi kode)
+              → Tidak ada efek fenotipik (mayoritas mutasi titik di codon ketiga)
+  
+  Frameshift mutation:
+    Insersi atau delesi (bukan kelipatan 3): mengubah reading frame!
+    Cystic Fibrosis: ΔF508 = delesi 3 bp → hilang Phe508 di CFTR
+    Thalassemia: berbagai delesi/insersi di gen globin
+    
+  Trinucleotide repeat expansion:
+    Pengulangan triplet yang normal berjumlah sedikit → bisa berkembang!
+    Huntington's Disease: CAG repeat di HTT
+      Normal: 10-35 kopi, Penyakit: >36 kopi (makin banyak → makin parah)
+      Anticipation: repeat bertambah dengan setiap generasi!
+    Fragile X: CGG repeat di FMR1
+      Normal: <55 kopi, Premutation: 55-200, Full mutation: >200
+
+Mutagenesis:
+  Spontan: kesalahan replikasi, depurinasi, deaminasi sitosin → urasil
+           (5-metilsitosin sangat mudah terdeaminasi → timin → transisi C→T!)
+  
+  Fisik:
+    UV: pirimidin dimer (T-T, C-T di double strand) → photoproducts
+    X-ray: double-strand break (DSB) → parah!
+    Gamma ray: DSB, single-strand break, radikal bebas
+  
+  Kimia:
+    Alkylating agent (mustard gas, EMS): alkylasi basa → meniru basa berbeda
+    Acridine dyes: interkalasi antara basa → frameshift!
+    Benzopyrene (asap rokok): adduct di guanin → transversi G·C → T·A
+
+Sistem Perbaikan DNA:
+
+  Direct Reversal:
+    Photolyase: memecah pirimidin dimer dengan cahaya (light repair) — tidak ada di manusia!
+    O6-methylguanine-DNA methyltransferase (MGMT): donor metil dipindah ke sistein sendiri
+  
+  Base Excision Repair (BER):
+    Untuk kerusakan kecil (8-oxoG, urasil, sitein hasil depurinasi)
+    DNA Glycosylase → AP site (abasic) → AP endonuclease → remove gap → DNA Pol I/β → Ligase
+  
+  Nucleotide Excision Repair (NER):
+    Untuk kerusakan besar (pirimidin dimer, besar adduct)
+    XPA, XPC, TFIIH, XPF-ERCC1, XPG → potong 25-30 nukleotida sekitar lesi → gap diisi
+    Xeroderma Pigmentosum (XP): mutasi gen XP → NER rusak → UV → kanker kulit!
+  
+  Mismatch Repair (MMR):
+    Untuk kesalahan pasang (A-C, G-T) setelah replikasi
+    MutS (MutSα/β eukariota): mengenal mismatch
+    MutL: merekrut MutH (mengenal untai baru dari tanda metilasi)
+    Lynch Syndrome (HNPCC): MMR defisit → kanker kolorektal herediter
+  
+  Double-Strand Break Repair:
+    NHEJ (Non-Homologous End Joining): cepat, error-prone, G1 fase
+    HR (Homologous Recombination): akurat, butuh sister chromatid, S/G2 fase
+    BRCA1/BRCA2: penting untuk HR → mutasi BRCA1/2 = kanker payudara/ovarium!
+```
+
+---
+
+## 4. Genetika Populasi
+
+```
+Hardy-Weinberg Equilibrium (HWE):
+  Frekuensi alel dan genotipe konstan sepanjang generasi
+  (dalam populasi ideal yang memenuhi semua asumsi)
+  
+  Jika frekuensi alel A = p, a = q, maka p + q = 1
+  
+  Frekuensi genotipe HWE:
+    AA = p²
+    Aa = 2pq
+    aa = q²
+    Total: (p+q)² = p² + 2pq + q² = 1 ✓
+
+Asumsi HWE (populasi ideal):
+  1. Populasi sangat besar (tidak ada genetic drift)
+  2. Perkawinan acak (panmixia)
+  3. Tidak ada mutasi
+  4. Tidak ada migrasi (tidak ada gene flow)
+  5. Tidak ada seleksi alam (semua genotipe sama fitness)
+
+Pelanggaran asumsi = EVOLUSI!
+
+Penyebab Perubahan Frekuensi Alel:
+  
+  Seleksi Alam:
+    Seleksi terhadap alel → frekuensinya turun
+    Seleksi positif (favored): alel baru menguntungkan → frekuensi naik cepat
+    Contoh: mutasi CCR5-Δ32 → resistansi HIV → frekuensi naik di Eropa Utara
+    
+    Balancing selection: HBB*S (sickle cell) → merugikan jika homozigot (SS = anemia berat)
+                         tapi MENGUNTUNGKAN jika heterozigot (AS = proteksi malaria!)
+                         → alel S tetap ada di daerah malaria endemis!
+  
+  Genetic Drift:
+    Perubahan acak frekuensi alel karena sampel terbatas
+    Populasi kecil → efek drift besar → alel bisa hilang atau fixed secara kebetulan!
+    
+    Bottleneck effect: populasi turun drastis → beberapa alel hilang secara acak
+                       (Cheetah: keragaman genetik sangat rendah! — population bottleneck)
+    Founder effect: sekelompok kecil mendirikan populasi baru
+                    (Populasi Amish di Lancaster → frekuensi tinggi Ellis-van Creveld syndrome)
+  
+  Gene Flow (Migrasi):
+    Alel masuk dari populasi lain → mengubah frekuensi
+    Contoh: geneflow dari Homo sapiens ke Neanderthal (atau sebaliknya) terbukti dari genomik!
+    
+  Mutasi:
+    Jarang (10⁻⁶ per lokus per generasi) → efek kecil per generasi
+    Tapi dalam waktu panjang → penting!
+  
+  Non-random mating (Inbreeding):
+    Kawin sesama kerabat → peningkatan HOMOZIGOSITAS
+    F (inbreeding coefficient): probabilitas dua alel identik by descent
+    Risiko penyakit resesif: anak inbreed jauh lebih tinggi risikonya
+```
+
+---
+
+## 5. Filogenetik Molekuler
+
+```
+"Seberapa dua spesies berkerabat?" → Bandingkan urutan DNA/protein!
+
+Molekul Jam (Molecular Clock):
+  Urutan DNA berubah secara RELATIF KONSTAN per satuan waktu
+  (pada gen netral yang tidak berada di bawah seleksi kuat)
+  
+  Tingkat substitusi konstan → divergensi → estimasi waktu pemisahan!
+  
+  Calibration: menggunakan catatan fosil untuk mengkalibrasi jam
+  
+  Contoh penggunaan:
+    HIV berasal dari SIV simpanse → kapan? ~1920-an di Kinshasa, DRC
+    SARS-CoV-2 → diverge dari kelelawar CoV ~2013-2019 berdasarkan phyloklok
+
+Pohon Filogenetik:
+  Node: nenek moyang bersama (common ancestor)
+  Branch: garis keturunan
+  Branch length: biasanya proporsional dengan divergensi genetik
+  Outgroup: takson yang berada di luar kelompok yang dianalisis
+  
+  Metode rekonstruksi:
+  UPGMA: unweighted pair-group method → ultrametric, asumsi tingkat evolusi sama
+  Neighbor-Joining: lebih cepat, tidak asumsi rate sama
+  Maximum Parsimony: minimalkan jumlah perubahan evolusioner
+  Maximum Likelihood: model statistik eksplisit dari substitusi nukleotida
+  Bayesian: posterior probability → memberikan support nilai yang natural
+  
+Bootstrap support:
+  Resample data ratusan kali → berapa kali clade yang sama muncul?
+  >70% = clade reliabel, >95% = sangat kuat
+
+Contoh Pembuktian Evolusi via Molekuler:
+  
+  Pseudogen hemoglobin:
+    Manusia dan simpanse memiliki PSUDOGENE YANG SAMA di lokasi yang sama!
+    → Mutasi yang sama terjadi di nenek moyang bersama, kemudian diwariskan
+    → Desain cerdas tidak akan membuat gen rusak yang sama di dua spesies berbeda!
+  
+  ERV (Endogenous Retroviruses):
+    ~8% genom manusia adalah "fosil" retrovirus!
+    Manusia dan gorila berbagi ERV EXACT SAMA di lokasi kromosom yang sama
+    → Infeksi virus di nenek moyang bersama, terintegrasi di germ line, diwariskan
+  
+  Kodon stop di cytochrome c:
+    Urutan protein cytochrome c sangat mirip semua eukariota
+    Namun ada satu posisi di kuda kuda yang berbeda dari semua mamalia lain
+    → Seleksi ketat mempertahankan fungsi, tapi masih bisa berubah perlahan
+```
+
+---
+
+## 6. Biotek Genetika Modern
+
+```
+CRISPR-Cas9 (2012, Jennifer Doudna & Emmanuelle Charpentier — Nobel 2020):
+  Sistem imun adaptif bakteri → diprogram untuk edit DNA!
+  
+  Komponen:
+    sgRNA (single guide RNA): 20 nt komplemen target + scaffold
+    Cas9: endonuklease → potong double-strand break (DSB)
+    PAM sequence: NGG (untuk SpCas9) harus ada di sebelah target
+  
+  Proses:
+    sgRNA mengikat Cas9 → kompleks mencari sekuens komplemen di genom
+    Cas9 membuat DSB → sel berusaha memperbaiki:
+      NHEJ: error-prone → knockout gen (insertion/deletion = frameshift)
+      HDR: homologous direct repair → dengan template → precise edit!
+  
+  Aplikasi:
+    Gene therapy: koreksi mutasi penyakit genetik
+    Agriculture: tanaman tahan hama, tahan kekeringan (tanpa GMO transgenik!)
+    Anti-kanker: CAR-T therapy
+    "Gene drive": mengubah frekuensi alel di populasi liar (anopheles)
+    
+  Kekhawatiran etika: germline editing di embrio manusia!
+    He Jiankui (2018): edit CCR5 di embrio manusia → lahir bayi kembar:
+    kontroversial besar → dipenjara 3 tahun di China
+
+Gene Therapy:
+  Mengoreksi gen yang rusak di sel pasien
+  
+  Ex vivo: sel diambil → dimodifikasi di lab → dimasukkan kembali
+    CAR-T: ambil T cell, modifikasi receptor → kenali sel kanker → infus
+  
+  In vivo: vektor langsung ke pasien
+    AAV (Adeno-Associated Virus): kecil, tidak menyebabkan penyakit, bisa ke post-mitotic
+    LNP (Lipid Nanoparticle): untuk mRNA delivery (mRNA COVID-19 vaccine!)
+  
+  Zolgensma (onasemnogene abeparvovec):
+    AAV9 membawa gen SMN1 → single dose → obat SMA
+    Harga: ~$2.1 juta — obat termahal di dunia (2024)
+    Tapi jika diberikan sebelum gejala → perkembangan NORMAL!
+```
+
+<Quiz
+  question="Seorang wanita karier (carrier) hemofilia A (X^H X^h) menikah dengan pria normal (X^H Y). Berapa probabilitas anak PEREMPUAN mereka menderita hemofilia A?"
+  options={[
+    "0% — anak perempuan tidak bisa menderita hemofilia A",
+    "25% dari semua anak (atau 50% dari anak laki-laki saja)",
+    "50% dari anak laki-laki dan 0% dari anak perempuan",
+    "50% dari anak laki-laki dan 25% dari semua anak perempuan (tidak ada anak perempuan yang menderita)"
+  ]}
+  correctAnswer={0}
+  explanation="Hemofilia A disebabkan alel resesif terpaut X (X^h). Silang: X^H X^h (ibu karirier) × X^H Y (ayah normal). Gamet ibu: X^H atau X^h. Gamet ayah: X^H atau Y. Kombinasi anak perempuan: X^H X^H (normal) atau X^H X^h (karier). Kedua kemungkinan anak perempuan punya setidaknya satu X^H dari ayah → tidak ada anak perempuan yang menderita (X^h X^h tidak mungkin karena ayah tidak punya X^h). Jadi probabilitas anak perempuan menderita hemofilia = 0%. Anak laki-laki: X^H Y (normal) atau X^h Y (hemofilia) = 50% anak laki-laki menderita. Secara keseluruhan dari semua anak: 25% adalah anak laki-laki dengan hemofilia."
+/>

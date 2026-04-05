@@ -1,0 +1,442 @@
+---
+title: "Ekonomi Makro: GDP, Inflasi, dan Kebijakan"
+description: "Pengukuran ekonomi makro (GDP, inflasi, pengangguran), model IS-LM dan AD-AS, kebijakan fiskal dan moneter, siklus bisnis, pertumbuhan ekonomi jangka panjang (Solow model), perdagangan internasional, dan sistem keuangan global."
+icon: "BarChart3"
+order: 2
+---
+
+# Ekonomi Makro: Memahami Kesehatan Ekonomi Sebuah Bangsa
+
+GDP naik 5%. Inflasi 8%. Pengangguran 6%. Angka-angka ini bukan sekadar statistik — mereka menentukan apakah jutaan orang bisa makan, apakah usaha Anda untung atau bangkrut, apakah negara ini maju atau stagnan. Ekonomi makro adalah sains yang mempelajari ekonomi sebagai satu kesatuan — bukan satu pasar, tapi semua pasar sekaligus.
+
+---
+
+## 1. Pengukuran Ekonomi Makro
+
+```
+GDP (Gross Domestic Product) — Ukuran Standar Ekonomi:
+  Nilai pasar semua barang dan jasa AKHIR yang diproduksi dalam suatu negara
+  dalam kurun waktu tertentu (biasanya 1 tahun atau kuartal)
+  
+  "AKHIR": hitung produk jadi, bukan intermediate (hindari double counting!)
+  "dalam negara": lokasi produksi (bukan warga negara → itu GNP/GNI)
+  
+  TIGA Cara Menghitung GDP (hasilnya sama!):
+  
+  1. Pendekatan Pengeluaran (Expenditure Approach):
+     GDP = C + I + G + (X - M)
+     C = Konsumsi rumah tangga
+     I = Investasi swasta (fixed + inventory + residential)
+     G = Belanja pemerintah (transfer payments TIDAK termasuk!)
+     X = Ekspor, M = Impor
+     NX = X - M = Net Export
+     
+     Rata-rata distribusi GDP Indonesia (2023):
+     C ≈ 55%, G ≈ 9%, I ≈ 29%, NX ≈ 7%
+     (US: C ≈ 68%, sangat dominan konsumsi!)
+  
+  2. Pendekatan Produksi (Production/Value Added):
+     GDP = Σ (Nilai Output - Nilai Input Antara) per sektor
+     = Σ Value Added di setiap tahap produksi
+     
+     Contoh: Gandum→Tepung→Roti
+     Petani: jual gandum Rp 1000 (value added = Rp 1000)
+     Miller: jual tepung Rp 1500 (value added = Rp 500)
+     Baker: jual roti Rp 2000 (value added = Rp 500)
+     GDP contribution = 1000 + 500 + 500 = 2000 = harga roti! ✓
+  
+  3. Pendekatan Pendapatan (Income Approach):
+     GDP = Compensation of employees + Gross operating surplus + Taxes on production
+     = Upah + Profit + Bunga + Sewa + Penyusutan + Pajak Bisnis
+
+GDP Nominal vs GDP Riil:
+  GDP Nominal: nilai pasar pada HARGA BERLAKU (tidak koreksi inflasi)
+  GDP Riil: nilai pada harga TAHUN DASAR (hilangkan efek inflasi)
+  
+  GDP Deflator = (GDP Nominal / GDP Riil) × 100
+  
+  Jika GDP nominal naik tapi GDP riil stagnan → "pertumbuhan" adalah inflasi, bukan produksi nyata!
+  GDP Riil Growth Rate = "pertumbuhan ekonomi sejati"
+
+Keterbatasan GDP sebagai Ukuran Kesejahteraan:
+  Tidak menghitung: ekonomi informal, household production (memasak, pengasuhan)
+  Tidak membedakan: distribuisi pendapatan (Gini coefficient)
+  Tidak menghitung: kualitas lingkungan, kebahagiaan, keamanan
+  Alternatif: HDI (Human Development Index), GPI (Genuine Progress Indicator),
+              Bhutan's Gross National Happiness!
+
+Pengangguran:
+  BPS definisi (Indonesia): tidak bekerja + tersedia untuk bekerja + mencari kerja
+  
+  Labor force = employed + unemployed
+  Unemployment rate = unemployed / labor force × 100%
+  
+  Jenis:
+  Frictional: waktu cari kerja baru setelah keluar (normal, sehat)
+  Structural: mismatch skills dengan lowongan (butuh reskilling)
+  Cyclical: akibat resesi
+  Seasonal: bergantung musim (petani, pariwisata)
+  
+  Natural Rate of Unemployment (NRU/NAIRU):
+  Frictional + structural = "full employment" sebenarnya!
+  Indonesia NRU ≈ 4-5%
+  Cyclical U di atas ini = reses
+  
+  Hukum Okun: 1% naik pengangguran ↔ ~2% penurunan GDP riil
+
+Inflasi:
+  Kenaikan tingkat harga umum secara terus-menerus
+  
+  CPI (Consumer Price Index): keranjang barang representative
+  CPI = (Cost basket current year / Cost basket base year) × 100
+  Inflation rate = (CPI_t - CPI_{t-1}) / CPI_{t-1} × 100%
+  
+  Core inflation: CPI kecuali makanan dan energi (lebih stabil)
+  
+  PPI (Producer Price Index): harga grosir/produsen → leading indicator CPI!
+  GDP Deflator: lebih komprehensif dari CPI (seluruh ekonomi)
+  
+  Jenis inflasi:
+  Demand-pull: aggregate demand naik lebih cepat dari supply → "too much money chasing too few goods"
+  Cost-push: biaya produksi naik → supply berkurang → harga naik (stagflasi!)
+  Built-in/wage-price spiral: upah naik → biaya naik → harga naik → tuntut upah lebih...
+  
+  Hyperinflasi: Zimbabwe (2008: 89.7 sextillion %/bulan!!!), Venezuela, Weimar Germany
+  Deflasi: bahaya! Spiral deflasi → orang tunda belanja → permintaan turun → deflasi lebih → ...
+  Target inflasi optimal: Bank Indonesia targetkan 2.5% ± 1%
+```
+
+---
+
+## 2. Model IS-LM: Analisis Pasar Barang dan Uang
+
+```
+MODEL IS-LM (Hicks, 1937 — interpretasi Keynesian):
+  Menggabungkan pasar barang + pasar uang
+  Sumbu: suku bunga (r) vs pendapatan nasional (Y)
+  
+KURVA IS (Investment - Saving):
+  Semua kombinasi (r, Y) di mana pasar barang seimbang
+  Slope: NEGATIF
+  Mengapa? r naik → investasi turun → Y turun → (r, Y) berbanding terbalik
+  
+  Derivasi dari model Keynesian sederhana:
+  Y = C + I + G  (closed economy tanpa net export)
+  C = a + b(Y - T)  (fungsi konsumsi, b = MPC = marginal propensity to consume)
+  I = I₀ - d×r    (investasi turun saat r naik)
+  
+  Equilibrium: Y = a + b(Y-T) + I₀ - d×r + G
+  Solving: Y = [a - bT + I₀ + G] / (1-b) - [d/(1-b)] × r
+  
+  Multiplier Fiskal: 1/(1-b) = 1/(1-MPC)
+  Jika MPC = 0.8: multiplier = 1/(1-0.8) = 5!
+  Setiap Rp 1 belanja pemerintah → Rp 5 kenaikan GDP? (jangka pendek)
+  
+KURVA LM (Liquidity preference - Money supply):
+  Semua kombinasi (r, Y) di mana pasar uang seimbang
+  Ms/P = Md = L(r, Y)  (money supply riil = demand uang)
+  Demand uang meningkat dengan Y (transaksi) dan turun dengan r (opportunity cost)
+  
+  Slope: POSITIF
+  Mengapa? Y naik → Md naik → r harus naik untuk equilbrate pasar uang
+  
+IS-LM EQUILIBRIUM:
+  Intersection kurva IS dan LM → (r*, Y*) keseimbangan simultan pasar barang + uang
+  
+  Kebijakan Fiskal (geser IS):
+  G naik → IS geser kanan → Y naik, r naik
+  Crowding out: r naik → investasi swasta turun (sebagian efek G terkompensasi!)
+  
+  Kebijakan Moneter (geser LM):
+  Ms naik → LM geser kanan → Y naik, r turun
+  Stimulatif tanpa crowding out!
+  
+  Liquidity Trap: r sudah nol, LM horizontal → monetary policy TIDAK efektif!
+  (Japan 1990an, US 2008-2015, Covid) → perlu fiscal policy!
+```
+
+---
+
+## 3. Model AD-AS: Permintaan dan Penawaran Agregat
+
+```
+AGGREGATE DEMAND (AD):
+  Kurva AD: sumbu inflasi/harga (P) vs output (Y)
+  Slope: NEGATIF
+  Mengapa? P naik → real balances turun → r naik → C, I turun → Y turun
+  
+  Geser AD ke kanan: G naik, Ms naik, ekspektasi optimis, net export naik
+
+AGGREGATE SUPPLY (AS):
+  Short-Run AS (SRAS):
+  Slope: POSITIF (dalam SR, ada wage/price stickiness)
+  Perusahaan merespons kenaikan permintaan dengan naikkan output (dan harga)
+  Geser SRAS: biaya input berubah, ekspektasi, shock supply (oil!)
+  
+  Long-Run AS (LRAS):
+  Vertical! Pada Y* (potential output / natural rate of output)
+  Dalam LR, semua harga fleksibel → ekonomi kembali ke Y*
+  LRAS hanya bergeser oleh: kapital, tenaga kerja, teknologi (faktor produksi)
+
+SIKLUS BISNIS (Business Cycle):
+  Fluktuasi output di sekitar tren jangka panjang
+  
+  Peak → Recession → Trough → Expansion → Peak ... (siklus)
+  
+  Definisi resesi: 2 kuartal berturut GDP riil negatif (teknikal)
+  
+  Recession: Y < Y* → cyclical unemployment → deflationary gap
+  Boom: Y > Y* → inflasi → inflationary gap
+  
+  SRAS akan adjust:
+  Resesi: upah turun (lambat) → SRAS geser kanan → Y kembali ke Y*
+  Boom: upah naik → SRAS geser kiri → Y kembali ke Y*
+  
+  Keynes: "In the long run we are all dead!" — adjustment lambat → butuh policy!
+
+Demand Shock (COVID-19 2020):
+  Demand turun → AD ke kiri → resesi BESAR (terdalam sejak WWII!)
+  Policy response: fiscal stimulus (Corona Aid billions) + quantitative easing
+  → AD kembali → tapi supply belum fully recovered → inflasi 2021-2023!
+  
+Supply Shock (Minyak 1973):
+  OPEC embargo → oil prices naik → SRAS ke kiri → STAGFLASI (Y↓ + P↑)
+  Dilema: Federal Reserve stimulasi? (P naik lebih) atau ketat? (Y turun lebih)
+  Arthur Burns (Fed Chair) pilih stimulasi → inflasi 12%!
+  Volcker (Fed 1979): tight money policy radikal → resesi 1981-82 → break inflationary expectations
+```
+
+---
+
+## 4. Kebijakan Moneter
+
+```
+Bank Sentral (Bank Indonesia/Fed/ECB):
+  Mengkontrol money supply + suku bunga → tujuan stabilitas harga, full employment
+
+ALAT KEBIJAKAN MONETER:
+
+Open Market Operations (Operasi Pasar Terbuka):
+  BI beli SBI (Surat Berharga Indonesia) dari bank → uang masuk sistem → Ms naik
+  BI jual SBI → uang keluar sistem → Ms turun
+  PALING SERING DIGUNAKAN, paling fleksibel
+
+Reserve Requirement (GWM — Giro Wajib Minimum):
+  Persentase simpanan yang harus bank pegang (tidak bisa dipinjamkan)
+  GWM ↓ → bank bisa pinjamkan lebih → money multiplier naik → Ms naik
+  Money Multiplier = 1/reserve ratio
+
+Discount Rate (Suku Bunga Diskonto/Fasilitas BI Rate):
+  Suku bunga BI meminjamkan ke bank komersial
+  Suku bunga BI naik → bank mahal meminjam → pinjaman ke nasabah mahal → Ms turun
+
+Forward Guidance:
+  Sinyal ke pasar tentang kebijakan masa depan
+  "Kami akan pertahankan suku bunga rendah hingga inflasi mencapai 2%"
+  → Mempengaruhi ekspektasi → efek ekonomi SEKARANG!
+
+Quantitative Easing (QE):
+  Saat suku bunga sudah 0 (zero lower bound) → ordinary OM tidak efektif!
+  BI/Fed/ECB beli aset jangka panjang (obligasi pemerintah, MBS) → "print money" masif!
+  Fed balance sheet: 2007: ~$0.9T → 2020: $8.9T (9× lipat!)!
+  Tujuan: turunkan yield jangka panjang, injeksi likuiditas sistem
+  Exit strategy: tapering → kompleks!
+
+Teori Kuantitas Uang (Klasik):
+  MV = PY  (Quantity Theory)
+  M = Money supply
+  V = Velocity of money (perputaran uang; sering dianggap konstan)
+  P = Price level
+  Y = Real output
+  
+  Jika V dan Y konstan → ΔM → ΔP proportional
+  "Inflasi adalah selalu dan di mana saja fenomena moneter" — Milton Friedman
+  
+  Realitas: V tidak konstan (turun drastis 2020 saat pandemi → QE tidak inflasioner saat itu)
+  Tapi 2021-2023: V pulih + M masih tinggi → INFLASI!
+
+Inflation Targeting:
+  Kebijakan modern: umumkan target inflasi eksplisit → jangkar ekspektasi
+  Bank Indonesia target: 2.5% ± 1% (2023)
+  ECB: ~2%, Bank of England: 2%, Fed: 2% (average)
+  
+  Independensi bank sentral dari politik → kredibilitas → ekspektasi terjangkar!
+```
+
+---
+
+## 5. Kebijakan Fiskal
+
+```
+Kebijakan Fiskal:
+  Pemerintah menggunakan belanja (G) dan pajak (T) untuk mempengaruhi ekonomi
+  
+Anggaran:
+  Surplus: T > G → pemerintah "menabung"
+  Defisit: G > T → pemerintah berutang (menerbitkan obligasi pemerintah)
+  Debt/GDP ratio: ukuran keberlanjutan fiskal
+  
+  Indonesia: batas deficit 3% GDP (Peraturan), Debt/GDP ≈ 38% (2023)
+  Japan: Debt/GDP ≈ 260% (tertinggi dunia!) → tapi masih bertahan karena yen dan JGB
+  
+Automatic Stabilizers:
+  Bekerja otomatis tanpa legislasi khusus → counter-cyclical!
+  Resesi: pajak turun otomatis (pendapatan berkurang) + transfer naik (pengangguran)
+  → G - T naik otomatis → AD terdorong
+  
+  Contoh: income tax, unemployment insurance, welfare programs
+  Indonesia: lebih lemah dari negara maju (pajak base kecil, coverage sosial terbatas)
+
+Discretionary Fiscal Policy:
+  Kebijakan yang disengaja, butuh legislasi
+  Expansionary: G naik atau T turun → stimulus (saat resesi)
+  Contractionary: G turun atau T naik → konsolidasi (saat boom/inflasi)
+  
+  Masalah:
+  Recognition lag: perlu waktu menyadari resesi
+  Decision lag: proses Politik berbulan-bulan
+  Implementation lag: program butuh waktu berjalan
+  → Fiskal seringkali terlambat, pro-cyclical daripada counter-cyclical!
+
+Ricardian Equivalence (kontroversial!):
+  Jika pemerintah defisit → menerbitkan obligasi → rakyat tahu "pajak masa depan naik"
+  → Rakyat BUKAN sekarang → mereka menabung ekstra sekarang = haircut dari stimulus!
+  
+  Kritik: rakyat "myopic" (tidak berpikir panjang), tidak semua kena pajak, kredit constrained
+  Empiris: Ricardian equivalence tidak penuh, tapi ada dampak parsial
+
+Debt Sustainability:
+  Syarat: r < g (suku bunga debt < growth rate ekonomi) → debt ratio otomatis turun
+  Jika r > g: butuh primary surplus untuk stabilkan debt
+  
+  Kondisi 2020-21: r rendah sekali + g pemulihan → fiscal space lebih besar
+  2022-23: r naik (Fed rate hike) → beban utang banyak negara meningkat!
+```
+
+---
+
+## 6. Pertumbuhan Ekonomi Jangka Panjang
+
+```
+Model Solow (1956, Nobel 1987):
+  Y = F(K, AL)   (output = fungsi kapital + efective labor)
+  A = level teknologi, L = tenaga kerja
+  
+  Akumulasi modal:
+  ΔK = s×Y - δ×K    (investasi - penyusutan)
+  s = saving rate, δ = depreciation rate
+  
+  Steady State: ΔK = 0 → s×Y* = δ×K*
+  
+  Tanpa pertumbuhan teknologi:
+    Lebih banyak kapital → output naik tapi DIMISHING RETURNS
+    → Akhirnya konvergen ke steady state → tidak ada pertumbuhan jangka panjang!
+  
+  Dengan teknologi (Solow Residual):
+    A tumbuh dengan laju g → pertumbuhan berkelanjutan!
+    "Solow Residual" atau TFP (Total Factor Productivity): kontribusi yang tidak bisa 
+    dijelaskan oleh pertumbuhan K dan L → TEKNOLOGI, INOVASI, INSTITUSI, HUMAN CAPITAL
+  
+  Implikasi Solow:
+    Conditional convergence: negara miskin dengan parameter sama → catch up ke negara kaya!
+    China 1979-2010: tambah kapital masif + adopsi teknologi → 10% growth per tahun!
+    Africa tidak converge: different saving rates, institutions, human capital
+
+Endogenous Growth Theory (Romer, 1990, Nobel 2018):
+  Kritik Solow: teknologi A eksogen, tidak dijelaskan!
+  Romer: ideas/knowledge adalah NON-RIVAL → tidak ada diminishing returns!
+  Policy: R&D policy, education, learning-by-doing → DRIVE technology growth
+  
+  Mankiw-Romer-Weil: tambah human capital H ke model → explains cross-country growth better!
+
+Sumber Pertumbuhan:
+  Physical capital: machinery, infrastructure, buildings
+  Human capital: pendidikan, kesehatan, training
+  Technology/TFP: inovasi, R&D, knowledge spillovers
+  Institutions: rule of law, property rights, absence of corruption → PALING FUNDAMENTAL!
+  
+  "Why Nations Fail" (Acemoglu & Robinson, 2012):
+  Inclusive institutions → economic growth
+  Extractive institutions → stagnation/decline
+  
+  Acemoglu: Kolonialisme bentuk institusi → bedanya Afrika paling kolonized dengan tempat tujuan
+  koloni menetap (US, Australia) → extractive vs inclusive → performance gap sampai hari ini!
+  Acemoglu Nobel 2024!
+```
+
+---
+
+## 7. Perdagangan Internasional
+
+```
+Keunggulan Komparatif (Ricardo, 1817):
+  Bukan tentang siapa "lebih baik" — tapi tentang opportunity cost!
+  
+  Contoh:
+              Beras (jam/ton)  Kain (jam/ton)
+  Indonesia   2               5
+  Japan       4               6
+  
+  Indonesia absolute advantage di keduanya!
+  Tapi:
+    Indonesia opportunity cost beras vs kain = 2/5 = 0.4 ton kain per ton beras
+    Japan opportunity cost beras vs kain = 4/6 = 0.67 ton kain per ton beras
+    Indonesia lebih efisien membuat beras relatif! (lower opportunity cost)
+    Japan lebih efisien membuat kain relatif! (0.67 vs... no, Japan 6/4=1.5, Indo 5/2=2.5, Japan lower)
+    
+  Kesimpulan: spesialisasi sesuai komparatif advantage → total output dunia meningkat!
+  TRADE IS WIN-WIN — bukan zero-sum! (meski ada pemenang dan pecundang di dalam negeri)
+
+Perdagangan dan distribusi:
+  Heckscher-Ohlin: negara ekspor barang yang mengintensifkan faktor yang mereka punya berlimpah
+  China: tenaga kerja murah berlimpah → ekspor labor-intensive goods
+  US: kapital dan teknologi → ekspor capital/tech-intensive goods
+  
+  TAPI: buruh di sektor yang bersaing dengan impor DIRUGIKAN!
+  → Trade adjustment assistance, reskilling penting tapi sering terabaikan politiknya
+
+Nilai Tukar (Exchange Rate):
+  Nominal: harga mata uang satu vs lainnya
+  IDR/USD: Rp 15,000/USD artinya Rp 15,000 = $1
+  
+  Real exchange rate: rate yang mengoreksi perbedaan harga
+  q = (e × P*) / P   [e = nominal rate, P* = harga asing, P = harga domestik]
+  
+  Purchasing Power Parity (PPP):
+  e = P/P*  (harga Big Mac harus sama di semua negara!)
+  Useful untuk cross-country comparison
+  Indonesia GDP per capita: $5,000 nominal vs $16,000 PPP (sangat berbeda!)
+  
+  Determinants:
+  Trade balance, interest rate differentials, inflation differentials, capital flows
+  
+  Fixed vs Flexible exchange rates:
+  Fixed (peg): IMF Bretton Woods system 1944-1971 (USD = gold $35/oz)
+               Hong Kong peg to USD 7.8 since 1983
+               Pro: stability; Con: lose monetary policy independence!
+  Flexible: most major currencies today
+               Pro: autonomous monetary policy, automatic adjustment
+               Con: volatility, uncertainty for trade
+
+WTO dan Globalisasi:
+  GATT (1947) → WTO (1995): aturan perdagangan multilateral
+  Penurunan tarif drastis pasca WWII → booming perdagangan global!
+  
+  Globalisasi manfaat: lower prices, efficiency, technology diffusion
+  Globalisasi risiko: job displacement, inequality, dependency
+  
+  Backlash: Brexit (UK 2016), Trump tariffs (US 2017-), China-US trade war
+  Deglobalization/Reshoring: supply chain lessons dari COVID-19 → "friend-shoring"
+```
+
+<Quiz
+  question="Negara A memiliki inflasi 10% per tahun dan negara B 2% per tahun. Menurut teori Purchasing Power Parity (PPP), apa yang seharusnya terjadi pada nilai tukar mata uang A relatif terhadap mata uang B dalam jangka panjang?"
+  options={[
+    "Mata uang A akan MENGUAT karena tingkat inflasi tinggi menandakan ekonomi yang aktif",
+    "Mata uang A akan MELEMAH relatif terhadap B — karena daya beli A menurun lebih cepat dari B. Setiap tahun, A melemah sekitar 8% = selisih inflasi (10% - 2%)",
+    "Nilai tukar tidak akan berubah karena inflasi hanya mempengaruhi harga domestik",
+    "Mata uang B akan melemah karena ekonomi B terlalu stabil dan tidak kompetitif"
+  ]}
+  correctAnswer={1}
+  explanation="Purchasing Power Parity (PPP) menyatakan bahwa nilai tukar jangka panjang ditentukan oleh perbedaan tingkat harga antar negara. Relative PPP: % perubahan nilai tukar ≈ selisih inflasi. Jika inflasi negara A = 10% dan negara B = 2%, maka mata uang A seharusnya MELEMAH sekitar 8% per tahun terhadap mata uang B. Logikanya: inflasi tinggi = daya beli domestik menurun lebih cepat → barang A menjadi relatif lebih mahal → ekspor turun, impor naik → permintaan mata uang B naik, permintaan mata uang A turun → A melemah. Contoh empiris: Rupiah (Indonesia) vs USD — Indonesia rata-rata inflasi lebih tinggi dari US → Rupiah cenderung melemah terhadap USD setiap tahun dalam jangka panjang."
+/>

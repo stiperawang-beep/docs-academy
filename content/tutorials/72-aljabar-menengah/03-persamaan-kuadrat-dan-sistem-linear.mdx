@@ -1,0 +1,263 @@
+---
+title: "Persamaan Kuadrat & Sistem Persamaan Linear"
+description: "Membongkar sandi persamaan kuadrat — faktorisasi, rumus ABC, melengkapi kuadrat sempurna — dan sistem persamaan linear dengan metode substitusi, eliminasi, dan matriks."
+icon: "GitBranch"
+order: 3
+---
+
+# Persamaan Kuadrat: Parabola dan Akar-Akar Tersembunyi
+
+Jika persamaan linear (ax + b = 0) adalah jalan lurus yang hanya punya satu tujuan, maka **persamaan kuadrat** (ax² + bx + c = 0) adalah jalan yang melengkung — parabola — yang bisa memiliki dua persimpangan, satu titik singgung, atau bahkan tidak menyentuh tanah sama sekali.
+
+Parabola bukan sekadar kurva di atas kertas. Antena satelit berbentuk parabola karena sifat matematisnya memantulkan semua sinyal ke satu titik fokus. Air mancur, lintasan bola, jembatan gantung — semuanya mengikuti kurva kuadrat.
+
+---
+
+## 1. Bentuk Standar Persamaan Kuadrat
+
+```
+ax² + bx + c = 0
+
+a = koefisien x² (a ≠ 0, jika a=0 maka bukan kuadrat)
+b = koefisien x
+c = konstanta (term bebas)
+```
+
+**Contoh:** `2x² - 5x + 3 = 0` → a=2, b=-5, c=3
+
+---
+
+## 2. Empat Cara Menyelesaikan Persamaan Kuadrat
+
+### Metode 1: Faktorisasi (Paling Cepat, Tidak Selalu Bisa)
+
+Cari dua bilangan p dan q sedemikian: `p + q = b` dan `p × q = a×c`
+
+**Contoh:** `x² - 5x + 6 = 0` (a=1, b=-5, c=6)
+```
+Cari p,q: p+q = -5, p×q = 6
+Jawaban: p = -2, q = -3   (karena -2 + -3 = -5 dan -2 × -3 = 6)
+
+Faktorisasi: (x - 2)(x - 3) = 0
+Akar:  x = 2  atau  x = 3   ✓
+```
+
+**Contoh koefisien a≠1:** `2x² + 7x + 3 = 0` (a=2, b=7, c=3)
+```
+p×q = a×c = 2×3 = 6, p+q = 7
+p = 6, q = 1  (6+1=7, 6×1=6)
+
+Pisah suku bx:
+2x² + 6x + x + 3 = 0
+2x(x + 3) + 1(x + 3) = 0
+(2x + 1)(x + 3) = 0
+x = -1/2  atau  x = -3  ✓
+```
+
+### Metode 2: Rumus Kuadrat / Rumus ABC (Selalu Bisa)
+
+```
+        -b ± √(b² - 4ac)
+x = ──────────────────────
+              2a
+```
+
+**Diskriminan (D = b² - 4ac) menentukan jenis akar:**
+```
+D > 0 → Dua akar real berbeda
+D = 0 → Satu akar real (kembar)
+D < 0 → Tidak ada akar real (dua akar kompleks/imajiner)
+```
+
+**Contoh:** `3x² - 7x + 2 = 0`
+```
+a=3, b=-7, c=2
+D = (-7)² - 4(3)(2) = 49 - 24 = 25  (D>0 → dua akar)
+
+x = (7 ± √25) / (2×3)
+x = (7 ± 5) / 6
+
+x₁ = (7+5)/6 = 12/6 = 2
+x₂ = (7-5)/6 = 2/6 = 1/3
+```
+
+### Metode 3: Melengkapi Kuadrat Sempurna
+
+Teknik ini mengubah `ax² + bx + c` menjadi bentuk `a(x + p)² + q`:
+
+```
+x² + 6x - 7 = 0
+
+Pindahkan c ke kanan:
+x² + 6x = 7
+
+Tambahkan (b/2)² = (6/2)² = 9 ke KEDUA RUAS:
+x² + 6x + 9 = 7 + 9
+(x + 3)² = 16
+x + 3 = ±4
+x = 1  atau  x = -7
+```
+
+### Metode 4: Grafis (Intuitif)
+
+Akar persamaan `ax² + bx + c = 0` adalah titik di mana parabola `y = ax² + bx + c` **memotong sumbu X** (y = 0).
+
+- Parabola terbuka ke atas jika **a > 0** (minimum di bawah)
+- Parabola terbuka ke bawah jika **a < 0** (maksimum di atas)
+- Puncak (vertex) ada di: `x = -b/(2a)`, `y = c - b²/(4a)`
+
+---
+
+## 3. Teorema Vieta: Hubungan Akar dengan Koefisien
+
+Jika x₁ dan x₂ adalah akar dari `ax² + bx + c = 0`:
+
+```
+x₁ + x₂ = -b/a       ← jumlah akar
+x₁ × x₂ =  c/a       ← hasil kali akar
+```
+
+**Kegunaannya:** Tanpa mencari akar satu per satu, kita bisa langsung tahu jumlah dan hasil kali akarnya!
+
+**Contoh:** `2x² - 8x + 6 = 0`
+```
+Jumlah akar = -(-8)/2 = 4
+Hasil kali akar = 6/2 = 3
+Verifikasi: akar adalah 1 dan 3 → 1+3=4 ✓, 1×3=3 ✓
+```
+
+> [!TIP] Membuat Persamaan dari Akar yang Diketahui
+> Jika akarnya x₁ dan x₂, persamaannya:
+> `x² - (x₁+x₂)x + (x₁×x₂) = 0`
+>
+> Contoh: buat persamaan dengan akar 4 dan -2:
+> `x² - (4+(-2))x + (4×(-2)) = 0`
+> `x² - 2x - 8 = 0`
+
+---
+
+## 4. Sistem Persamaan Linear: Perpotongan Garis-Garis
+
+Sistem persamaan linear adalah sekumpulan persamaan yang harus **dipenuhi serentak**. Solusinya adalah titik perpotongan semua garis (di 2D) atau bidang (di 3D).
+
+### Tiga Kemungkinan Hasil
+
+```
+Dua persamaan, dua variabel:
+
+Satu solusi:      Garis berpotongan di satu titik unik
+Tak terhingga:    Garis berimpit (persamaan sama)
+Tidak ada solusi: Garis sejajar (tidak pernah bertemu)
+```
+
+### Metode Substitusi
+
+```
+Sistem:  2x + y  = 8   ...(1)
+          x - y  = 1   ...(2)
+
+Dari (2): x = 1 + y  → substitusi ke (1):
+2(1 + y) + y = 8
+2 + 2y + y = 8
+3y = 6
+y = 2
+
+x = 1 + y = 1 + 2 = 3
+Solusi: (x, y) = (3, 2)   ✓
+```
+
+### Metode Eliminasi
+
+```
+Sistem:  3x + 2y = 13  ...(1)
+          5x - 2y = 3   ...(2)
+
+Tambah (1) dan (2) — koefisien y berlawanan:
+(3x + 2y) + (5x - 2y) = 13 + 3
+8x = 16
+x  = 2
+
+Substitusi ke (1): 3(2) + 2y = 13 → 2y = 7 → y = 3.5
+Solusi: (x, y) = (2, 3.5)
+```
+
+### Metode Matriks (Eliminasi Gauss)
+
+Untuk sistem yang lebih besar (3 variabel ke atas), gunakan matriks augmented:
+
+```
+Sistem:  x  + 2y + z  = 9
+         2x +  y - z  = 2
+         3x -  y + 2z = 11
+
+Tulis sebagai matriks augmented [A|b]:
+┌ 1  2  1 │ 9  ┐
+│ 2  1 -1 │ 2  │
+└ 3 -1  2 │ 11 ┘
+
+Operasi baris elementer — tujuan: ubah ke bentuk eselon baris:
+R2 → R2 - 2×R1:
+┌ 1  2  1 │ 9  ┐
+│ 0 -3 -3 │-16 │
+└ 3 -1  2 │ 11 ┘
+
+R3 → R3 - 3×R1:
+┌ 1  2  1 │ 9  ┐
+│ 0 -3 -3 │-16 │
+└ 0 -7 -1 │-16 ┘
+
+R3 → R3 - (7/3)×R2:
+┌ 1  2  1  │  9   ┐
+│ 0 -3 -3  │-16   │
+└ 0  0  6  │ 18.67┘
+
+Dari R3: 6z = 18.67 → z ≈ 3.11 (selesaikan ke atas)
+```
+
+> [!NOTE] Mengapa Belajar Matriks untuk Aljabar?
+> Sistem persamaan linear dengan ribuan variabel muncul di **machine learning** (regresi linier), **grafis komputer** (transformasi 3D), **jaringan rangkaian listrik**, dan **analisis tulang/sendi** di biomedis. Komputer menyelesaikannya dengan operasi matriks — bukan substitusi manual.
+
+---
+
+## 5. Aplikasi Nyata: Fisika Gerak Parabola
+
+Lintasan peluru atau bola yang dilempar mengikuti persamaan kuadrat:
+
+```
+y = -½gt² + v₀_y × t + y₀
+
+g  = 9.8 m/s² (gravitasi)
+v₀ = kecepatan awal
+θ  = sudut lemparan
+
+Komponen:
+  v₀_x = v₀ cos θ  (horizontal, konstan)
+  v₀_y = v₀ sin θ  (vertikal, diperlambat gravitasi)
+
+Jarak horizontal: x = v₀_x × t
+Ketinggian:       y = v₀_y × t - ½gt²
+```
+
+**Kapan bola menyentuh tanah?** (y = 0)
+```
+v₀_y × t - ½gt² = 0
+t(v₀_y - ½gt) = 0
+t = 0  (saat dilempar)  atau  t = 2v₀_y/g (saat mendarat)
+
+Jika v₀ = 20 m/s, θ = 45°:
+v₀_y = 20 sin 45° = 20 × 0.707 = 14.14 m/s
+t_mendarat = 2 × 14.14 / 9.8 ≈ 2.89 detik
+x_max = v₀_x × t = 14.14 × 2.89 ≈ 40.9 meter
+```
+
+<Quiz
+  question="Persamaan 2x² - 4x + 5 = 0 memiliki berapa akar real?"
+  options={[
+    "Dua akar real yang berbeda",
+    "Satu akar real kembar",
+    "Tidak memiliki akar real",
+    "Tidak dapat ditentukan tanpa kalkulator"
+  ]}
+  correctAnswer={2}
+  explanation="Hitung diskriminan: D = b² - 4ac = (-4)² - 4×2×5 = 16 - 40 = -24. Karena D < 0, persamaan ini tidak memiliki akar real — akarnya adalah bilangan kompleks (imajiner). Parabola y = 2x² - 4x + 5 tidak pernah menyentuh sumbu X."
+/>

@@ -1,0 +1,252 @@
+---
+title: "Kompleksitas Algoritma & Matematika Numerik"
+description: "Analisis Big-O, Omega, Theta — mengukur efisiensi algoritma secara matematis. Ditambah metode numerik: Newton-Raphson, interpolasi, dan integrasi numerik untuk masalah yang tidak bisa diselesaikan secara analitik."
+icon: "Cpu"
+order: 4
+---
+
+# Matematika Efisiensi: Kompleksitas dan Metode Numerik
+
+Komputer adalah mesin yang cepat — tapi tidak **tak terbatas** cepatnya. Sebuah algoritma dengan kompleksitas eksponensial bisa membutuhkan usia alam semesta untuk menyelesaikan input berukuran 100. Sementara algoritma O(log n) menyelesaikan masalah yang sama dalam hitungan milidetik.
+
+**Analisis kompleksitas** adalah matematika yang mendefinisikan **apa yang mungkin dan apa yang tidak** dalam dunia komputasi.
+
+---
+
+## 1. Notasi Asymptotic: Mengukur Efisiensi
+
+Kita tidak peduli konstanta — yang penting adalah **pola pertumbuhan** saat input membesar:
+
+### Big-O (O): Batas Atas (Worst Case)
+```
+f(n) = O(g(n)) berarti:
+  ada konstanta c > 0 dan n₀ sedemikian:
+  f(n) ≤ c×g(n)  untuk semua n ≥ n₀
+
+Contoh: 3n² + 5n + 7 = O(n²)
+  Alasan: 3n² + 5n + 7 ≤ 15n²  untuk n ≥ 1
+```
+
+### Big-Omega (Ω): Batas Bawah (Best Case)
+```
+f(n) = Ω(g(n)) berarti f(n) tumbuh SETIDAKNYA secepat g(n)
+```
+
+### Big-Theta (Θ): Batas Ketat (Average Case)
+```
+f(n) = Θ(g(n)) berarti f(n) = O(g(n)) DAN f(n) = Ω(g(n))
+→ pertumbuhan persis sama secara asimtotik
+```
+
+---
+
+## 2. Hierarki Kompleksitas: dari Tercepat ke Terlambat
+
+```
+O(1)       < O(log n) < O(n)    < O(n log n) < O(n²)   < O(n³) < O(2ⁿ) < O(n!)
+Konstan      Log         Linear    Linearitmik   Kuadrat   Kubik   Eksponen  Faktorial
+
+Untuk n = 1.000.000:
+  O(1)      : 1 operasi
+  O(log n)  : ~20 operasi
+  O(n)      : 1,000,000 operasi
+  O(n log n): ~20,000,000 operasi
+  O(n²)     : 10¹² operasi  ← tidak praktis
+  O(2ⁿ)     : 10^300,000    ← tidak mungkin
+```
+
+### Tabel Kompleksitas Algoritma Umum:
+
+| Algoritma | Waktu (best/avg/worst) | Memori |
+|-----------|------------------------|--------|
+| Akses array langsung | O(1) | O(1) |
+| Binary search | O(log n) | O(1) |
+| Linear search | O(n) | O(1) |
+| Merge sort | O(n log n) | O(n) |
+| Quicksort | O(n log n) avg, O(n²) worst | O(log n) |
+| Bubble sort | O(n²) | O(1) |
+| Matrix multiply (naif) | O(n³) | O(n²) |
+| Fibonacci (naif rekursif) | O(2ⁿ) | O(n) |
+| Fibonacci (DP/memoize) | O(n) | O(n) |
+
+---
+
+## 3. Analisis Rekurens: Master Theorem
+
+Banyak algoritma divide-and-conquer memiliki recurrence:
+
+```
+T(n) = aT(n/b) + f(n)
+
+a = jumlah subproblem
+b = faktor pembagi ukuran
+f(n) = biaya di luar rekursi
+
+Master Theorem menentukan solusi berdasarkan:
+  p = logₐ(b) [log basis b dari a]
+
+Kasus 1: f(n) = O(nᵖ⁻ᵉ) untuk ε > 0
+  → T(n) = Θ(nᵖ)
+
+Kasus 2: f(n) = Θ(nᵖ)
+  → T(n) = Θ(nᵖ log n)
+
+Kasus 3: f(n) = Ω(nᵖ⁺ᵉ) untuk ε > 0
+  → T(n) = Θ(f(n))
+```
+
+**Contoh — Merge Sort:** T(n) = 2T(n/2) + n
+```
+a=2, b=2, p = log₂(2) = 1
+f(n) = n = Θ(n¹) = Θ(nᵖ)  → Kasus 2
+
+T(n) = Θ(n log n)   ✓
+```
+
+**Contoh — Binary Search:** T(n) = T(n/2) + 1
+```
+a=1, b=2, p = log₂(1) = 0
+f(n) = 1 = Θ(n⁰) = Θ(nᵖ)  → Kasus 2
+
+T(n) = Θ(log n)   ✓
+```
+
+---
+
+## 4. Metode Newton-Raphson: Akar Persamaan Secara Numerik
+
+Tidak semua persamaan bisa diselesaikan secara analitik. `x⁵ - 3x + 1 = 0` tidak punya rumus seperti rumus ABC. Gunakan **metode numerik**:
+
+```
+Newton-Raphson: Iterasi mencari akar f(x) = 0
+
+xₙ₊₁ = xₙ - f(xₙ)/f'(xₙ)
+
+Mulai dari tebakan awal x₀, iterasi sampai konvergen
+```
+
+**Contoh — Cari √2 (akar dari x²-2=0):**
+```
+f(x) = x² - 2,   f'(x) = 2x
+x_{n+1} = xₙ - (xₙ² - 2)/(2xₙ)
+         = (xₙ + 2/xₙ) / 2   ← rata-rata harmonis!
+
+x₀ = 1.0:
+x₁ = (1.0 + 2/1.0)/2 = 1.500000
+x₂ = (1.5 + 2/1.5)/2 = 1.416667
+x₃ = (1.4167 + 2/1.4167)/2 = 1.414216
+x₄ = 1.414214  ← konvergen dengan sangat cepat!
+
+Nilai eksak: √2 = 1.41421356...
+```
+
+> [!TIP] Konvergensi Kuadratik
+> Newton-Raphson memiliki konvergensi **kuadratik** — jumlah digit akurat berlipat ganda setiap iterasi. Dari 1 digit → 2 → 4 → 8 → 16 digit akurat. Itulah mengapa hanya butuh 4-5 iterasi untuk mendapat presisi tinggi.
+
+---
+
+## 5. Interpolasi Lagrange: Kurva Melalui Titik-Titik
+
+Diberikan n+1 titik data, **interpolasi Lagrange** menemukan polinomial derajat-n yang melewati semua titik:
+
+```
+L(x) = Σᵢ [f(xᵢ) × Lᵢ(x)]
+
+Di mana Lᵢ(x) = Π_{j≠i} [(x - xⱼ)/(xᵢ - xⱼ)]
+```
+
+**Contoh — 3 titik: (0,1), (1,3), (2,7):**
+```
+L₀(x) = (x-1)(x-2)/[(0-1)(0-2)] = (x-1)(x-2)/2
+L₁(x) = (x-0)(x-2)/[(1-0)(1-2)] = x(x-2)/(-1) = -x(x-2)
+L₂(x) = (x-0)(x-1)/[(2-0)(2-1)] = x(x-1)/2
+
+L(x) = 1×(x-1)(x-2)/2 + 3×(-x(x-2)) + 7×x(x-1)/2
+     = (x²-3x+2)/2 - 3x²+6x + (7x²-7x)/2
+     = x²/2 - 3x/2 + 1 - 3x² + 6x + 7x²/2 - 7x/2
+     = (1/2 - 3 + 7/2)x² + (-3/2 + 6 - 7/2)x + 1
+     = x² + x + 1
+
+Verifikasi:
+  L(0) = 0+0+1 = 1 ✓
+  L(1) = 1+1+1 = 3 ✓
+  L(2) = 4+2+1 = 7 ✓
+```
+
+---
+
+## 6. Integrasi Numerik: Aturan Trapezoid dan Simpson
+
+Ketika integral analitik tidak bisa dihitung (misal: ∫e^(-x²)dx tidak punya antiturunan analitik):
+
+### Aturan Trapezoid:
+```
+∫ₐᵇ f(x)dx ≈ h/2 × [f(x₀) + 2f(x₁) + 2f(x₂) + ... + 2f(xₙ₋₁) + f(xₙ)]
+
+h = (b-a)/n  ← lebar setiap subinterval
+```
+
+### Aturan Simpson 1/3 (lebih akurat):
+```
+∫ₐᵇ f(x)dx ≈ h/3 × [f(x₀) + 4f(x₁) + 2f(x₂) + 4f(x₃) + ... + f(xₙ)]
+
+n harus genap
+Error ∝ h⁴  (lebih kecil dari trapezoid yang error ∝ h²)
+```
+
+**Contoh — Hitung ∫₀¹ e^(-x²) dx dengan n=4 (Simpson):**
+```
+h = 1/4 = 0.25
+x₀=0,  x₁=0.25, x₂=0.5, x₃=0.75, x₄=1
+
+f(0)    = e⁰    = 1.000000
+f(0.25) = e^-0.0625 = 0.939413
+f(0.5)  = e^-0.25 = 0.778801
+f(0.75) = e^-0.5625 = 0.569783
+f(1)    = e⁻¹ = 0.367879
+
+∫ ≈ (0.25/3) × [1 + 4(0.9394) + 2(0.7788) + 4(0.5698) + 0.3679]
+  = (0.0833) × [1 + 3.7576 + 1.5576 + 2.2792 + 0.3679]
+  = (0.0833) × 8.9623
+  ≈ 0.7468
+
+Nilai eksak (dari tabel): ≈ 0.7468     (sangat akurat hanya dengan 4 subinterval!)
+```
+
+---
+
+## 7. Kelas Kompleksitas P vs NP: Misteri Terbesar Ilmu Komputer
+
+```
+P   = masalah yang bisa DISELESAIKAN dalam waktu polinomial
+      Contoh: sorting, shortest path, matrix multiply
+
+NP  = masalah yang solusinya bisa DIPERIKSA dalam waktu polinomial
+      Contoh: traveling salesman, satisfiability, subset sum
+
+P ⊆ NP   (setiap masalah P juga NP — bisa diperiksa jika bisa diselesaikan)
+Pertanyaan: P = NP ??
+
+Jika P = NP:
+  Semua masalah NP (termasuk faktorisasi bilangan besar)
+  bisa diselesaikan efisien → kriptografi RSA hancur!
+
+Jika P ≠ NP (yang diyakini hampir semua ahli):
+  Ada masalah yang mudah diverifikasi tapi sulit diselesaikan
+  → kriptografi aman secara teoritis
+
+Hadiah: $1,000,000 dari Clay Mathematics Institute
+untuk siapapun yang membuktikan P=NP atau P≠NP
+```
+
+<Quiz
+  question="Algoritma A memiliki kompleksitas O(n log n) dan algoritma B memiliki O(n²). Untuk input n = 1.000, kira-kira berapa kali lebih cepat algoritma A dibanding B?"
+  options={[
+    "10 kali lebih cepat",
+    "100 kali lebih cepat",
+    "1000 kali lebih cepat",
+    "Hampir sama saja"
+  ]}
+  correctAnswer={1}
+  explanation="n log n untuk n=1000: 1000 × log₂(1000) ≈ 1000 × 10 = 10.000 operasi. n² untuk n=1000: 1.000.000 operasi. Rasio: 1.000.000 / 10.000 = 100 kali lebih lambat. B sekitar 100 kali lebih lambat dari A! Untuk n=1.000.000, A ~333 kali lebih cepat — perbedaan makin dramatis seiring input membesar."
+/>

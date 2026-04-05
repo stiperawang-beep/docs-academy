@@ -76,6 +76,12 @@ export default function HomePage() {
             Begin Your Research
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
+          <Link
+            href="/universe"
+            className="inline-flex h-14 items-center justify-center gap-2 px-8 text-base font-semibold w-full sm:w-auto rounded-full bg-violet-600/20 backdrop-blur-sm border border-violet-500/50 text-violet-400 hover:bg-violet-600/30 hover:text-violet-300 transition-colors"
+          >
+            🌌 Explore Universe
+          </Link>
           <a
             href="https://github.com/stiperawang-beep/docs-academy"
             target="_blank"
@@ -83,7 +89,7 @@ export default function HomePage() {
             className="inline-flex h-14 items-center justify-center gap-2 px-8 text-base font-semibold w-full sm:w-auto rounded-full bg-background/50 backdrop-blur-sm border border-border text-foreground hover:bg-accent/50 transition-colors"
           >
             <Terminal className="h-4 w-4" />
-            {'>'}_  View Source
+            {'>'}_  Source
           </a>
         </div>
 

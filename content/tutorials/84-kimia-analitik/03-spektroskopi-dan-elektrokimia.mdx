@@ -1,0 +1,343 @@
+---
+title: "Spektroskopi Analitik & Teknik Elektrokimia"
+description: "Spektroskopi UV-Vis, IR, NMR, dan spektrometri massa untuk identifikasi struktur. Teknik elektrokimia: potensiometri, voltametri, amperometri, dan aplikasi sensor elektrokimia modern."
+icon: "Waves"
+order: 3
+---
+
+# Spektroskopi & Elektrokimia: Membaca Sinyal Tersembunyi Materi
+
+Zat kimia berkomunikasi melalui cahaya dan elektron. Spektroskopi adalah seni mendengarkan "bahasa" mereka — frekuensi spesifik yang diserap, dipancarkan, atau diteruskan mengungkap identitas, struktur, dan konsentrasi suatu molekul. Elektrokimia mengeksploitasi pertukaran elektron antar spesi kimia untuk pengukuran yang sangat sensitif.
+
+---
+
+## 1. Spektroskopi UV-Vis: Elektron yang Melompat
+
+```
+Hukum Beer-Lambert:
+  A = ε × b × c
+
+  A = absorbansi (tidak berdimensi, log₁₀(I₀/I))
+  ε = koefisien absorptivitas molar (L·mol⁻¹·cm⁻¹)
+  b = panjang path sel (cm)
+  c = konsentrasi (mol/L)
+
+  Absorbansi 0.1–1.0 = rentang linier optimal
+  Terlalu tinggi (>2): λmaks bergeser, hukum Beer dilanggar → encerkan!
+
+Transisi Elektronik:
+  n → π* : lon-electron pair ke orbital antibonding π
+            C=O (karbonil, amida): λ ~270-280 nm, ε rendah (~30)
+  π → π* : kromofor konjugasi → λ ~200-400 nm, ε sangat tinggi (~10⁴-10⁵)
+  d → d  : logam transisi → warna kuning, ungu, biru (tergantung ligan)
+
+Kromofor Umum:
+  Keton + aldehid:  C=O  →  290-300 nm  (n→π*)
+  Alkena terkonjugasi: buta-1,3-diene → 217 nm (ε=21,000)
+  Benzena: 254 nm (ε=215, terlarang simetri), 203 nm (ε=7,400)
+  Asam nukleat (DNA): 260 nm (basa purin & pirimidin)
+```
+
+### Spektrofotometer Modern:
+
+```
+Single-beam: ukur blanko dulu, lalu sampel (manual)
+Double-beam: dua sinar — satu ke sel blanko, satu ke sampel (kontinu)
+Array detector (DAD): scan seluruh spektrum UV-Vis sekaligus dalam milidetik!
+
+Koreksi matriks:
+  Sampel berturbid: gunakan integrating sphere
+  Sampel berwarna background: deduct baseline dari blanko
+  Klorofil dalam ekstrak: simultaneous equations (Multi-λ)
+```
+
+### Analisis Kuantitatif DNA/RNA:
+
+```
+Rasio A₂₆₀/A₂₈₀:
+  DNA murni: ~1.8  (protein menyerap di 280 nm via Trp, Tyr)
+  RNA murni: ~2.0
+  < 1.7: kontaminasi protein signifikan!
+  > 2.1: kontaminasi karbonat atau RNA
+  
+Konsentrasi:
+  [dsDNA] = A₂₆₀ × 50 ng/μL          (per unit absorbansi cm⁻¹)
+  [ssDNA] = A₂₆₀ × 33 ng/μL
+  [RNA]   = A₂₆₀ × 40 ng/μL
+  [protein] = A₂₈₀ × ε_protein⁻¹     (tergantung komposisi AA)
+```
+
+---
+
+## 2. Spektroskopi Inframerah (IR): Sidik Jari Molekul
+
+```
+IR mengukur VIBRASI molekul:
+  Stretching (ulur): perubahan panjang ikatan (ν = ~stretching number)
+  Bending (tekuk): perubahan sudut (scissoring, rocking, wagging, twisting)
+  
+Frekuensi vibrasi:
+  ν̃ = (1/2πc) × √(k/μ)
+  k = konstanta gaya ikatan (N/m)
+  μ = masa tereduksi = m₁×m₂/(m₁+m₂)
+  
+  Ikatan kuat (C≡C, C≡N) dan atom ringan (C-H) → ν̃ tinggi
+  Ikatan lemah (C-C) dan atom berat (C-Cl, C-Br) → ν̃ rendah
+
+Rentang Penting (cm⁻¹):
+  
+  3600–3200  : O-H bebas (tajam) → alkohol, asam  
+               O-H terbroadening (hidrogen bonding) → asam karboksilat
+  3300–3500  : N-H (amina: 2 pita; amida: 1-2 pita)
+  3000–2850  : C-H alkil (sp³)
+  3100–3000  : C-H aromatik/alkenil (sp², sedikit lebih tinggi)
+  2260–2100  : C≡N, C≡C, N=C=O (isosianat), CO₂ (2349, 2 pita)
+  1870–1600  : C=O (karbonil!) — REGION PALING INFORMATIF!
+                Asam karboksilat: ~1710-1725 cm⁻¹
+                Aldehid: ~1720-1740 cm⁻¹
+                Keton: ~1705-1715 cm⁻¹
+                Ester: ~1735-1750 cm⁻¹
+                Amida: ~1630-1680 cm⁻¹ (ikatan hidrogen merendahkan ν̃)
+  1600–1450  : C=C aromatik (pita cincin)
+  1300–600   : Region "sidik jari" — unik untuk setiap senyawa!
+
+ATR-FTIR (Attenuated Total Reflectance - Fourier Transform IR):
+  Sampel ditaruh LANGSUNG di kristal (Ge, ZnSe, diamond)
+  Tidak perlu preparasi (tidak perlu KBr pelet)
+  Analisis padatan, cairan, polimer, jaringan biologis in situ
+  Akuisisi hanya detik — sangat cepat!
+```
+
+### Identifikasi Senyawa dengan IR:
+
+```
+Panduan Sistematis:
+  1. Cek 3600-2500: ada O-H? N-H? C-H?
+  2. Cek 1870-1600: ada C=O? Di mana tepatnya?
+  3. Cek 1600-1450: ada cincin aromatik?
+  4. Region sidik jari: cocokkan dengan library (NIST, Sigma-Aldrich)
+  
+Contoh — Asam Asetat (CH₃COOH):
+  3300-2500 cm⁻¹: O-H sangat broad (berantakan karena H-bonding)
+  1710 cm⁻¹: C=O asam karboksilat
+  1300-900: region sidik jari khas
+  
+Contoh — Etil Asetat (CH₃COOC₂H₅):
+  ~2990, 2940 cm⁻¹: C-H alkil
+  1738 cm⁻¹: C=O ester (tidak hadir O-H!)
+  1250, 1050 cm⁻¹: C-O-C ester
+```
+
+---
+
+## 3. NMR (Nuclear Magnetic Resonance): Peta Atom Hidrogen
+
+```
+Prinsip:
+  Inti atom tertentu (¹H, ¹³C, ³¹P, ¹⁹F — spin quantum number ≠ 0)
+  bersifat seperti magnet kecil.
+  Dalam medan magnet eksternal B₀: inti "align" (α) atau "anti-align" (β)
+  RF pulse pada frekuensi resonansi mengeksitasi inti
+  Inti relaksasi → memancarkan sinyal → FT NMR!
+
+Larmor frequency (resonansi):
+  ν₀ = γB₀ / 2π
+  γ = nisbah giromagnetik (khas per nucleus)
+  B₀ = kekuatan magnet (Tesla)
+  
+  400 MHz NMR → B₀ = 9.4 T
+  800 MHz NMR → B₀ = 18.8 T (superconducting magnet cryogenic!)
+
+Chemical Shift (δ, ppm):
+  δ = (ν_sampel - ν_referensi) / ν_instrumen  × 10⁶
+  Referensi: TMS (tetramethylsilane) = 0 ppm
+  
+  Rentang ¹H NMR:
+  0-2 ppm   : H alkil (CH₃, CH₂, CH)
+  2-4 ppm   : H α karbonil (lebih tergeser ke kiri = "downfield")
+  4-6 ppm   : H alkenil (vinyl), H-O (alkohol)
+  6-8 ppm   : H aromatik (benzena dll)
+  8-13 ppm  : H aldehid, H-COOH, H-amida (sangat downfield!)
+
+Efek "deshielding" vs "shielding":
+  Elektron "melindungi" inti dari magnet luar → ppm kecil (upfield)
+  Atom elektronegatif menarik elektron → inti lebih terpajan → ppm besar (downfield)
+  Cincin aromatik: ring current effect → H aromatik sangat downfield!
+
+Spin-Spin Coupling (Splitting):
+  Inti tetangga yang aktif NMR saling mempengaruhi
+  n tetangga ekuivalen → n+1 puncak (multiplet)
+  
+  Dublet (d): 1 tetangga → CH₃-CH (gugus metil = 3H tetangga, mengikuti n+1 = quartet!)
+  
+  Coupling constant J (Hz): jarak antar puncak dalam multiplet
+  ³J (vicinal, 3 ikatan): 7 Hz (alkil), 6-8 Hz (H-H vicinally)
+  Hukum Karplus: ³J = f(torsional angle) — dipakai untuk konformasi!
+
+¹³C NMR:
+  Natural abundance: hanya 1.1% (¹²C tidak aktif NMR)
+  Broadband decoupled: setiap karbon = satu singlet
+  DEPT (Distortionless Enhancement by Polarization Transfer):
+    Bedakan CH₃, CH₂, CH, C kuartener → sangat berguna!
+```
+
+---
+
+## 4. Spektrometri Massa (MS): Menimbang Molekul
+
+```
+Prinsip:
+  1. Ionisasi: molekul dikonversi ke ion
+  2. Pemisahan massa: ion dipisahkan berdasarkan m/z (mass-to-charge ratio)
+  3. Deteksi: ion ditangkap, dihitung
+
+Teknik Ionisasi:
+  EI (Electron Ionization): 70 eV elektron → M⁺• (M radical cation)
+    Fragmentasi ekstensif → "sidik jari" kaya informasi struktural
+    Cocok untuk volatil, GC-MS
+    
+  ESI (Electrospray Ionization): droplet larutan disemprot → ionisasi lembut [M+H]⁺
+    Tidak ada fragmentasi → intact mass terlihat
+    Cocok untuk biomolekul besar (protein, DNA), LC-MS
+    Multiple charging: [M+nH]ⁿ⁺ → protein besar terdeteksi dalam rentang m/z rendah!
+    
+  MALDI (Matrix-Assisted Laser Desorption Ionization):
+    Sampel dicampur matrix yang menyerap UV → laser pulse → desorpsi + ionisasi lembut
+    Cocok untuk polimer, protein, glikoprotein
+    Biasanya MALDI-TOF (Time Of Flight): ion "terbang" ke detektor, m/z dari waktu terbang
+
+Analyzer (Pemisah Massa):
+  Quadrupole (Q): 4 batang, medan RF+DC, scan atau selected monitoring
+  TOF (Time of Flight): v = √(2eV/m) → lighter = faster → semua m/z sekaligus
+  Orbitrap: ion berputar dalam medan orbital → frekuensi ∝ m/z⁻¹ᐟ² → resolusi sangat tinggi!
+  FTICR (Fourier Transform ICR): resolusi tertinggi → massa eksak hingga ppm!
+
+Massa Eksak (Exact Mass):
+  ¹H = 1.007825  ¹²C = 12.000000  ¹⁴N = 14.003074  ¹⁶O = 15.994915
+  
+  Asetaminofen (C₈H₉NO₂): 
+    Exact mass = 8×12 + 9×1.007825 + 14.003074 + 2×15.994915
+               = 96 + 9.070425 + 14.003074 + 31.98983
+               = 151.063329 Da (C₈H₉NO₂, [M+H]⁺ = 152.070605)
+  
+  High-resolution MS (HRMS): massa eksak → rumus molekul unik!
+  (Berbeda dari nominal mass yang bulat)
+```
+
+---
+
+## 5. Potensiometri: pH Meter dan ISE
+
+```
+Sel Elektrokimia Potensiometri:
+  Reference electrode || Larutan sampel | Indicator electrode
+  
+  EMF = E_indicator - E_reference + E_junction
+  Kita ukur potensi (voltase tanpa arus mengalir = zero-current)
+
+Elektroda Referensi:
+  SHE (Standard Hydrogen Electrode): H₂(g, 1atm)/H⁺(1M), E°=0V (definisi!)
+  Calomel Electrode: Hg₂Cl₂/Hg/Cl⁻, E=+0.2412V vs SHE (saturated KCl)
+  Ag/AgCl Electrode: AgCl(s)/Ag/Cl⁻, E=+0.197V (3M KCl) → lebih umum saat ini!
+
+Elektroda pH (Glass Electrode):
+  Membran gelas tipis: SiO₂ termodifikasi
+  Ion H⁺ bertukar dengan ion Na⁺ dalam dua layer gel
+  Potensial Nernst:
+    E = konst + 0.05916/1 × log[H⁺] = konst − 0.05916 × pH (suhu 25°C)
+  
+  Kalibrasi: buffer standar pH 4, 7, 10 (min 2 titik)
+  Error asam: pH rendah (H⁺ sangat tinggi) → glass jenuh
+  Error alkalin: Na⁺ memberi respons seperti H⁺ → pH terbaca lebih rendah dari nyata!
+
+ISE (Ion-Selective Electrode):
+  Semua prinsip sama dengan pH meter tapi untuk ion lain!
+  
+  Fluoride ISE: membran LaF₃ kristal tunggal → deteksi F⁻ hingga 0.02 ppm
+  Chloride ISE: membran AgCl/Ag₂S
+  Nitrate ISE: membran polimer dengan exchanger kation organik
+  Calcium ISE: membran polimer dengan ionofor kalsium
+  
+  Semua mengikuti persamaan Nikolsky-Eisenman (koreksi ion interferens)
+```
+
+---
+
+## 6. Voltametri: Mengukur dengan Arus
+
+```
+Voltametri ≠ Potensiometri:
+  Voltametri: terapkan voltase, ukur arus yang mengalir
+  Potensiometri: ukur voltase tanpa mengalirkan arus (kesetimbangan)
+
+Cyclic Voltammetry (CV):
+  Voltase disweep maju-mundur berbentuk segitiga
+  Puncak oksidasi (Ipa) dan reduksi (Ipc) terlihat
+  
+  Untuk sistem reversibel:
+    ΔEp = Epa - Epc ≈ 59/n mV (pada 25°C, n = jumlah elektron)
+    Ipa/Ipc ≈ 1
+  
+  Dipakai untuk: karakterisasi redoks senyawa baru, mekanisme reaksi,
+                 kinetika transfer elektron, pengembangan katalis
+
+Stripping Voltammetry:
+  Pre-konsentrasi: logam diendapkan di elektroda selama beberapa menit
+  Strip: potensi di-scan → logam teroksidasi kembali → puncak arus
+  
+  LOD: ppb atau bahkan ppt untuk logam berat (Pb, Cd, Hg, As)!
+  
+  DPASV (Differential Pulse Anodic Stripping Voltammetry):
+    Pulse superimposed → baseline correction → noise direduksi drastis
+    Deteksi timbal dalam cat lama, air minum, darah anak
+
+Amperometri:
+  Voltase konstan, ukur arus sepanjang waktu
+  Arus ∝ konsentrasi analit di permukaan elektroda
+  
+  Sensor Glukosa: GOD di elektroda → H₂O₂ → oksidasi di +0.6V → arus
+  Oksigen electrodo (Clark): O₂ + 4H⁺ + 4e⁻ → 2H₂O di Pt
+```
+
+---
+
+## 7. Teknik Elektrokimia Modern
+
+```
+EIS (Electrochemical Impedance Spectroscopy):
+  Terapkan sinyal AC amplitudo kecil di berbagai frekuensi (0.01 Hz – 1 MHz)
+  Plot Nyquist (Im(Z) vs Re(Z)): "busur" dari proses berbeda
+  
+  Interpretasi:
+    Busur frekuensi tinggi: tahanan larutan + tahanan transfer muatan
+    Busur frekuensi rendah: difusi Warburg, adsorpsi
+  
+  Aplikasi:
+    Karakterisasi baterai/fuel cell (internal resistance, SEI layer)
+    Sensor biosensor: lapisan antibodi mengubah kapasitans → deteksi tanpa label!
+    Korosi logam: monitor film oksida
+
+SECM (Scanning Electrochemical Microscopy):
+  Elektroda ultra-mikro (r < 25 μm) di-scan dekat permukaan
+  Peta reaktivitas elektrokimia permukaan dengan resolusi ~μm
+  Aplikasi: enzim tunggal, korosi lokal, transfer elektron di membran biologis
+
+Elektroanalisis Berbasis Nanomaterial:
+  Carbon nanotube (CNT): area permukaan sangat besar, konduktivitas tinggi
+  Graphene: 2D, laju transfer elektron tinggi, transparansi
+  Gold nanoparticles (AuNP): surface enhanced, biokonjugasi mudah
+  
+  LOD sensor berbasis nanomaterial: sering 100-1000× lebih sensitif dari sensor konvensional!
+```
+
+<Quiz
+  question="Sebuah senyawa organik memiliki pita absorpsi IR pada ~1735 cm⁻¹ dan tidak memiliki pita O-H yang lebar di 3300-2500 cm⁻¹. Apa gugus fungsi yang paling mungkin?"
+  options={[
+    "Asam karboksilat (−COOH)",
+    "Keton (C=O)",
+    "Ester (−COO−)",
+    "Alkohol (−OH)"
+  ]}
+  correctAnswer={2}
+  explanation="Rentang 1735-1750 cm⁻¹ adalah khas untuk ester (−COO−). Asam karboksilat memiliki pita C=O lebih rendah (~1710-1725 cm⁻¹) DAN selalu disertai pita O-H yang sangat lebar dan broad di 3300-2500 cm⁻¹ (karena ikatan hidrogen). Keton biasanya 1705-1715 cm⁻¹. Alkohol tidak memiliki C=O sama sekali. Tidak adanya pita O-H + ester C=O di ~1735 cm⁻¹ = ester!"
+/>

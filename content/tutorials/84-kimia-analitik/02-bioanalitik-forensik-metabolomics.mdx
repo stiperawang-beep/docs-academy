@@ -1,0 +1,293 @@
+---
+title: "Kimia Bioanalitik & Forensik"
+description: "Kimia klinik dan bioanalitik, immunoassay, diagnostik DNA, biosensor, analisis forensik, toksikologi analitik, dan frontir kimia analitik modern — metabolomics dan chemometrics."
+icon: "Microscope"
+order: 2
+---
+
+# Kimia Analitik Terapan: Dari Rumah Sakit hingga TKP
+
+Setiap hari, jutaan tes medis dijalankan di seluruh dunia — glukosa darah penderita diabetes, troponin untuk serangan jantung, PCR untuk COVID-19. Masing-masing adalah kimia analitik dalam aksi. Di laboratorium forensik, sisa DNA mikrogram bisa mengidentifikasi tersangka. Di batas bandara, detektor HPLC memindai koper dari jarak jauh için narkotika.
+
+Ini adalah kimia analitik terapan — di mana sains bertemu dengan keputusan nyata.
+
+---
+
+## 1. Kimia Klinik dan Diagnostik
+
+### Panel Metabolik Dasar:
+```
+Glukosa darah:
+  Normal: 70-100 mg/dL (puasa), <140 mg/dL (2 jam post-prandial)
+  Diabetes: >126 mg/dL (puasa) berulang
+  Hipoglikemia: < 70 mg/dL (berbahaya!)
+  
+  Metode: GOD-PAP (Glucose Oxidase - Peroxidase)
+    Glukosa + O₂ → Glukonolakton + H₂O₂   (GOD)
+    H₂O₂ + 4-Aminoantipirin + Fenol → Quinoneimine (merah) + 2H₂O   (POD)
+    Absorpsi 505nm ∝ [Glukosa]
+
+Kreatinin (fungsi ginjal):
+  Normal: 0.6-1.2 mg/dL (pria), 0.5-1.1 mg/dL (wanita)
+  Tinggi → ginjal tidak menyaring dengan baik
+  Metode: Jaffe colorimetric (kreatinin + pikrat alkalin → oranye)
+  HPLC atau MS: lebih spesifik (metode reference)
+
+eGFR (estimated Glomerular Filtration Rate):
+  Dihitung dari kreatinin, usia, jenis kelamin, etnis
+  Normal: >60 mL/min/1.73m²
+  CKD Stage 5 (dialisis): eGFR < 15
+
+HbA1c (control glikemik 2-3 bulan):
+  Normal: <5.7%,  Pre-diabetes: 5.7-6.4%,  Diabetes: ≥6.5%
+  Hemoglobin terglikasi (glukosa berikatan dengan Hb selama lifetime RBC ~120 hari)
+  Metode: HPLC ion-exchange, immunoassay, immunoturbidimetry
+```
+
+### Biomarker Kardiovaskular:
+```
+Troponin I atau T (cardiac):
+  Sangat sensitif dan spesifik untuk kerusakan otot JANTUNG!
+  Rise dalam 3-4 jam setelah infark miokard
+  Puncak: 12-24 jam, normal kembali 7-10 hari
+  High-sensitivity troponin (hsTnI): deteksi hingga femtogram/mL!
+  → Mengubah protokol diagnosis AMI global
+
+BNP / NT-proBNP (gagal jantung):
+  Dilepas ventrikel saat overloaded (tekanan tinggi)
+  BNP > 100 pg/mL atau NT-proBNP > 450 pg/mL (usia tergantung): gagal jantung likely
+  Metode: Immunoassay (ELISA, chemiluminescent)
+
+CRP (C-reactive protein — inflamasi):
+  Normal: < 1 mg/L
+  hsCRP untuk risiko CV: < 1 (rendah), 1-3 (menengah), > 3 mg/L (tinggi)
+  Sangat tinggi: inflamasi akut/bakteri
+```
+
+---
+
+## 2. Immunoassay: Antibodi sebagai Sensor
+
+```
+Immunoassay = menggunakan antibodi (Ab) untuk mendeteksi antigen (Ag)
+Spesifisitas antibodi-antigen → deteksi kuantitatif yang sangat selektif!
+
+ELISA (Enzyme-Linked Immunosorbent Assay):
+
+  Sandwich ELISA:
+  1. Capture Ab (dilapisi di well plate)
+  2. Tambah sampel → Ag menempel ke capture Ab
+  3. Tambah detection Ab (dilabel enzim) → menempel ke Ag
+  4. Tambah substrat enzim → produk berwarna!
+  5. Baca absorbansi = kuantifikasi Ag
+
+  Substrat enzim: HRP + TMB → biru (berhenti dengan H₂SO₄ → kuning)
+  LOD: pg/mL untuk banyak analit
+
+  Inhibition ELISA:
+  Untuk molekul kecil (tidak ada dua epitop untuk sandwich)
+  Sampel bersaing dengan Ag terlabel untuk Ab
+  Lebih banyak Ag dalam sampel → lebih sedikit sinyal (inverse!)
+
+Lateral Flow Assay (LFA) — "Rapid Test":
+  Prinsip sandwich ELISA dalam format strip kertas
+  Hasil dalam 15 menit, tidak perlu instrumen!
+  Contoh: COVID-19 antigen test, kehamilan test, influenza
+  LOD lebih rendah dari ELISA tapi cukup untuk screening
+```
+
+---
+
+## 3. Diagnostik Molekuler: PCR dan NGS
+
+### PCR (Polymerase Chain Reaction) — Kary Mullis, Nobel 1993:
+```
+Mengamplifikasi DNA target juta kali!
+
+Langkah siklus PCR:
+  94°C: Denaturasi (rantai ganda terpisah)
+  55-65°C: Annealing (primer menempel ke target)
+  72°C: Ekstensi (Taq polymerase memanjangkan)
+  25-40 siklus → 2^n kopi (n = jumlah siklus)
+
+  25 siklus: 2²⁵ = 33 juta kopi dari 1 molekul DNA!
+
+qPCR (Quantitative PCR):
+  Flourescent dye (SYBR Green) atau probe (TaqMan) melaporkan amplifikasi real-time
+  Ct (cycle threshold): siklus di mana sinyal melintasi threshold
+  Ct rendah = lebih banyak template awal
+
+  COVID-19 RT-qPCR:
+  RNA virus + reverse transcriptase → cDNA → qPCR
+  Ct < 35 biasanya "positif", Ct > 37 biasanya "negatif"
+  Bisa deteksi 10 kopi RNA/mL!
+
+Digital PCR (dPCR):
+  Sampel dipartisi menjadi ribuan droplet/well kecil
+  Setiap partisi: PCR positif (1) atau negatif (0)
+  Kuantifikasi absolute tanpa kurva kalibrasi!
+  LOD ultra-rendah, presisi tinggi untuk liquid biopsy
+```
+
+### Sequencing DNA:
+```
+Sanger Sequencing (1977, Nobel):
+  Gunakan ddNTP (dideoxy) yang menghentikan elongasi
+  Fragmen berbeda panjang → pisahkan dengan gel → baca urutan
+  Panjang baca: ~800 bp, akurasi >99.9%
+  Standar untuk validasi
+
+Next-Generation Sequencing (NGS):
+  Illumina (Sequencing by Synthesis):
+    Cluster amplikasi → siklus incorporasi fluorescent dNTP → baca oleh kamera
+    Throughput: 6 TB per run, 150-300 bp reads, $1000 per genome 2024!
+    (1990: $3 miliar untuk genome manusia pertama dengan Sanger!)
+
+  Long-read sequencing (PacBio, Oxford Nanopore):
+    Reads hingga 50 kb (50,000 bp)!
+    Nanopore: DNA melalui nanopore → gangguan arus → baca sequence real-time!
+    Bisa dibawa ke lapangan (Minion: ukuran USB drive)
+
+  Aplikasi NGS:
+    Whole Genome Sequencing (WGS): kanker, epidemiologi
+    RNA-seq: profil ekspresi gen seluruh transcriptome
+    ChIP-seq: protein-DNA interaction
+    ATAC-seq: aksesibilitas chromatin
+    Single-cell RNA-seq: profil setiap sel satu per satu!
+```
+
+---
+
+## 4. Biosensor Modern
+
+```
+Biosensor = perangkat yang menggabungkan BIORESEPTOR + TRANSDUSER
+
+  Bioreseptor: spesifik → mengenal target
+    Antibodi, enzim, oligonukleotida, aptamer, sel
+  Transduser: mengubah sinyal biologis → sinyal listrik/optis/akustik
+
+Sensor Glukosa Elektrokimia:
+  Elemen deteksi: GOD (glucose oxidase) terimmobilisasi di elektroda
+  H₂O₂ yang dihasilkan → dioksidasi di elektroda → arus ∝ [glukosa]
+  ~400 juta penderita diabetes di dunia menggunakan sensor ini setiap hari!
+
+  Continuous Glucose Monitor (CGM):
+    Sensor di bawah kulit → transmisi wireless tiap 5 menit
+    Peringatan otomatis hipoglikemia/hiperglikemia
+    Integrasi dengan pompa insulin → "artificial pancreas" sistem closed-loop!
+
+SPR (Surface Plasmon Resonance) Biosensor:
+  Perubahan indeks bias di permukaan sensor saat biomolekul menempel
+  → Perubahan sudut resonansi SPR
+  Merekam interaksi REAL-TIME: kon dan koff
+  Bisa mengukur laju binding dan afinitas tanpa label apapun!
+  Biacore (Cytiva): gold standard untuk karakterisasi interaksi protein-protein/ligand
+
+FRET (Fluorescence Resonance Energy Transfer):
+  Dua fluorofor: donor (tereksitasi) + aseptor (di dekat)
+  Transfer energi secara non-radiasi jika sangat dekat (<10 nm)
+  Intensitas FRET ∝ fungsi jarak dengan r⁶
+  → "Nanometer ruler" biologis → konformasi protein, hybridisasi DNA
+```
+
+---
+
+## 5. Forensik Analitik
+
+### DNA Profiling:
+```
+STR (Short Tandem Repeat) Analysis:
+  Manusia memiliki lokus STR yang bervariasi dalam jumlah repeat:
+  TPOX lokus: seseorang mungkin punya 8 dan 11 repeats (heterozygous)
+  
+  Multiplex PCR: 20+ lokus dianalisis sekaligus (CODIS 20 core loci di AS)
+  Separasi kapiler elektroforesis dengan fluorescent label
+  Profil DNA = kombinasi nomor allel di semua lokus
+  
+  Antara dua orang tak berhubungan: P(match) ~ 10⁻¹⁵ dan 10⁻²⁰!
+
+  Aplikasi: identifikasi tersangka, identifikasi korban bencana, tes paternitas
+
+Touch DNA:
+  Cukup <10 sel yang tertinggal di permukaan → profil DNA
+  Sangat sensitif tapi mudah kontaminasi dari penanganan!
+
+Mitochondrial DNA (mtDNA):
+  Berguna saat DNA inti terdegradasi (tulang tua, rambut tanpa akar)
+  mtDNA dari semua sel identik (maternal inheritance)
+  Kurang diskriminatif dari STR tapi bisa bekerja pada sampel degradasi
+
+Y-STR:
+  Hanya diwariskan melalui garis pria
+  Berguna untuk grupkan tersangka pria, identitas keluarga ayah
+```
+
+### Toksikologi Forensik:
+```
+Analisis post-mortem:
+  Sampel: darah (jantung dan perifer), urin, vitreous humor, liver, rambut
+  Target: alkohol, narkoba, obat resep, racun
+
+  GC-MS: identifikasi senyawa volatil/semi volatil
+  LC-MS/MS: obat polar, metabolit, protein toxin
+  
+  Interpretasi:
+  Konsentrasi darah ≠ korelasi langsung dengan efek (tolerance, post-mortem redistribution)
+  Rambut: timeline penggunaan ~1cm/bulan → 3cm mencerminkan 3 bulan terakhir!
+
+  Alkohol (ethanol):
+    GC headspace: akurat dan spesifik
+    Breathalyser: IR absorpsi 2950cm⁻¹ (C-H alkohol)
+    Legal limit di Indonesia: 0 BAC (zero tolerance)
+    DUI di US: ≥ 0.08 g/dL (BAC)
+
+  Keracunan sianida:
+    HCN berbau seperti almond bitter (tapi 20-40% manusia tidak bisa menciumnya!)
+    Metode: destilasi spektrofotometri dengan CAS colorimetric agent
+    Atau LC-MS/MS untuk plasma/urin → lebih sensitif
+```
+
+---
+
+## 6. Metabolomics dan Chemometrics
+
+```
+Metabolomics:
+  Profil semua metabolit kecil (<1500 Da) dalam sampel biologis
+  Metabolom = "snapshot" dari fisiologi sel/organisme pada saat tertentu
+
+  Platform:
+    NMR (¹H NMR): kuantitatif, tidak perlu kurifikasi, coverage ~200-500 metabolit
+    MS (GC-MS, LC-MS): lebih sensitif, coverage > 1000 metabolit
+
+  Tantangan: spektrum sangat kompleks! >> 1000x sinyal dari satu sampel
+  → Perlu chemometrics (statistik multivariate)
+
+Chemometrics:
+  PCA (Principal Component Analysis): reduksi dimensi, visualisasi cluster
+  PLS-DA (Partial Least Squares Discriminant Analysis): klasifikasi
+  Random Forest, SVM, Neural Network: ML untuk spektroskopi
+  
+  Metabolomic fingerprinting: membandingkan profil keseluruhan (tidak identifikasi per-metabolit)
+  Metabolomic profiling: identifikasi dan kuantifikasi target metabolit
+
+Aplikasi Metabolomics:
+  Biomarker klinis: diabetes, kanker, penyakit jantung, Alzheimer
+  Food authenticity: membedakan EVOO asli dari yang dipalsukan (GC-MS fingerprint)
+  Drug discovery: mekanisme obat, monitor efek samping
+  Microbiome: metabolit yang dihasilkan bakteri usus mempengaruhi kesehatan host!
+  Tanaman: stress metabolites, secondary metabolites breeding
+```
+
+<Quiz
+  question="Dalam PCR dengan 30 siklus, dimulai dari 1 molekul DNA. Berapa kopi yang dihasilkan secara teoritis?"
+  options={[
+    "30 kopi",
+    "60 kopi (2×30)",
+    "sekitar 1 miliar kopi",
+    "tak terbatas"
+  ]}
+  correctAnswer={2}
+  explanation="Setiap siklus PCR menggandakan DNA: 2^n. Dengan 30 siklus: 2³⁰ = 1,073,741,824 ≈ 10⁹ = 1 miliar kopi! Ini mengapa PCR bisa deteksi satu molekul DNA — amplifikasi eksponensial menghasilkan jumlah yang bisa dideteksi dengan gel atau fluoresensi. Aktual sedikit kurang dari teoritis karena efisiensi tidak 100% setiap siklus, tapi mendekati 10⁸-10⁹ kopi cukup untuk deteksi."
+/>

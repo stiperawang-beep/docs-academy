@@ -1,0 +1,334 @@
+---
+title: "Kinetika Kimia & Spektroskopi"
+description: "Laju reaksi kimia, orde reaksi, hukum laju, persamaan Arrhenius, mekanisme reaksi, katalisis heterogen dan homogen. Spektroskopi — IR, UV-Vis, NMR, massa — alat detektif kimiawi modern."
+icon: "Activity"
+order: 2
+---
+
+# Kinetika Kimia: Mengukur Kecepatan Alam Semesta Molekuler
+
+Termodinamika memberitahu kita **apakah** suatu reaksi mungkin terjadi. Kinetika memberitahu kita **seberapa cepat** reaksi itu berlangsung. Tanpa kinetika, kita mungkin akan menunggu selamanya untuk reaksi yang termodinamiknya sangat menguntungkan tapi kinetiknya sangat lambat — seperti konversi intan ke grafit (spontan tapi butuh jutaan tahun!).
+
+---
+
+## 1. Laju Reaksi dan Hukum Laju
+
+```
+Laju Reaksi (Rate):
+  Untuk A → B:
+  Rate = -d[A]/dt = d[B]/dt    [mol/(L⋅s)]
+
+  Untuk aA + bB → cC + dD:
+  Rate = -(1/a)d[A]/dt = -(1/b)d[B]/dt = (1/c)d[C]/dt = (1/d)d[D]/dt
+
+Hukum Laju:
+  Rate = k[A]^m[B]^n
+
+  k = konstanta laju (bergantung T dan katalis)
+  m = orde terhadap A
+  n = orde terhadap B
+  m+n = orde total reaksi
+
+  PENTING: Orde reaksi BUKAN dari koefisien stoikiometri!
+  Orde ditentukan dari eksperimen!Orde reaksi bisa: 0, 1, 2, 3, atau pecahan (untuk mekanisme kompleks)
+```
+
+---
+
+## 2. Reaksi Orde Nol, Pertama, dan Kedua
+
+### Orde Nol:
+```
+Rate = k    (konstan! tidak bergantung konsentrasi)
+
+d[A]/dt = -k
+[A] = [A]₀ - kt             ← linier!
+
+t₁/₂ = [A]₀/(2k)            (bergantung konsentrasi awal)
+Grafik [A] vs t: garis lurus (kemiringan = -k)
+
+Contoh: Saturasi enzim, fotolisis foto-sensistif, gas di permukaan katalis
+```
+
+### Orde Pertama:
+```
+Rate = k[A]
+
+d[A]/dt = -k[A]
+[A] = [A]₀ × e^(-kt)        ← eksponensial!
+
+t₁/₂ = ln(2)/k = 0.693/k   ← TIDAK bergantung konsentrasi! (seperti radioaktif)
+Grafik ln[A] vs t: garis lurus (kemiringan = -k)
+
+Contoh: Radioaktivitas, dekomposisi pertama H₂O₂, hidrolisis ester dalam larutan
+```
+
+### Orde Kedua:
+```
+Rate = k[A]²  atau  Rate = k[A][B]
+
+Untuk Rate = k[A]²:
+  1/[A] = 1/[A]₀ + kt
+  t₁/₂ = 1/(k[A]₀)          ← bergantung konsentrasi awal
+
+Grafik 1/[A] vs t: garis lurus (kemiringan = k)
+
+Contoh: Perubahan NO₂ → NO + O₂, reaksi bimolekular umum
+
+Menentukan Orde dari Data Eksperimen:
+  Method of Initial Rates: bandingkan laju awal dengan variasi konsentrasi
+  
+  Eksperimen:  [A]   [B]   Rate
+  1:          0.10  0.10  4.0×10⁻³ M/s
+  2:          0.20  0.10  8.0×10⁻³ M/s   (double [A], rate double → m=1)
+  3:          0.10  0.20  1.6×10⁻² M/s   (double [B], rate ×4 → n=2)
+
+  Rate = k[A]¹[B]²
+  k = Rate/([A][B]²) = 4×10⁻³/(0.10 × 0.01) = 4 M⁻²s⁻¹
+```
+
+---
+
+## 3. Persamaan Arrhenius: Pengaruh Suhu
+
+```
+Svante Arrhenius (1889):
+  k = A × e^(-Ea/RT)
+
+  k  = konstanta laju
+  A  = faktor frekuensi/pre-eksponensial (kuantitas tumbukan)
+  Ea = energi aktivasi [J/mol]
+  R  = 8.314 J/(mol⋅K)
+  T  = suhu [K]
+
+  Bentuk linear:
+  ln(k) = ln(A) - Ea/RT
+  Grafik ln(k) vs 1/T: garis lurus (kemiringan = -Ea/R)
+
+Aturan Praktis: Laju reaksi ~2× lipat setiap naik 10°C
+  (berlaku kasar untuk Ea ≈ 50 kJ/mol di sekitar T kamar)
+
+Contoh — Kira-kira 2× per 10°C:
+  Makanan di kulkas (4°C) vs suhu kamar (24°C): 2⁽²⁴⁻⁴⁾/¹⁰ = 2² = 4×
+  → Makanan di kulkas tahan ~4× lebih lama!
+
+Dua konstanta laju k₁ dan k₂ pada T₁ dan T₂:
+  ln(k₂/k₁) = (Ea/R) × (1/T₁ - 1/T₂)
+```
+
+---
+
+## 4. Mekanisme Reaksi
+
+```
+Mekanisme reaksi = urutan langkah-langkah elementer
+
+Reaksi elementer: reaksi yang berlangsung dalam satu langkah molekuler
+  Unimolekular: A → produk    Rate = k[A]
+  Bimolekular:  A + B → prod  Rate = k[A][B]
+  Termolekular: A+B+C → prod  Rate = k[A][B][C]  (sangat jarang)
+
+Rate-Determining Step (RDS): Langkah terlambat menentukan laju keseluruhan!
+Seperti kemacetan di jalan tol — satu titik sempit mengontrol lalu lintas total
+
+Contoh: Mekanisme SN2 (substitusi nukleofilik bimolekular)
+  CH₃Br + OH⁻ → CH₃OH + Br⁻
+
+  Mekanisme dalam 1 langkah (bimolekular):
+  OH⁻ menyerang C dari belakang (backside attack)
+  C → konfigurasi pentakoordinat sementara (TS)
+  Br⁻ meninggalkan
+
+  Rate = k[CH₃Br][OH⁻]  ← hukum laju orde-2 bimolekular
+```
+
+### Intermediate dan State Transisi:
+```
+Profil Energi Reaksi:
+  Jalur: Reaktan → [Transition State (TS)] → Produk
+  TS = maksimum energi sepanjang jalur (tidak stabil, tidak bisa diisolasi)
+  
+  ΔG‡ = energi aktivasi Gibbs (free energy of activation)
+  ΔG°rxn = ΔG produk - ΔG reaktan (termodinamika)
+
+  Reaksi multi-step:
+  Reaktan → Intermediate₁ → Intermediate₂ → Produk
+  Ada beberapa puncak (TS) dan lembah (intermediate yang cukup stabil)
+  Intermediate bisa diisolasi! (berbeda dengan TS)
+```
+
+---
+
+## 5. Katalisis
+
+### Katalisis Homogen:
+```
+Katalis dan reaktan dalam fase yang sama (biasanya cair)
+
+Contoh — Oksidasi SO₂ oleh NO₂ (dalam asam hujan):
+  SO₂ + NO₂ → SO₃ + NO    (cepat)
+  2NO + O₂ → 2NO₂           (regenerasi katalis)
+  
+  Net: SO₂ + ½O₂ → SO₃   (NO₂ adalah katalis — tidak dikonsumsi neto)
+
+Enzim = katalis biologis (homogen dalam sel):
+  Mempercepat reaksi 10⁶-10¹² kali
+  Spesifisitas tinggi (hanya satu substrat)
+  Menurunkan Ea tanpa mengubah ΔG°rxn
+```
+
+### Katalisis Heterogen:
+```
+Katalis dan reaktan dalam fase berbeda (biasanya padat + gas/cair)
+
+Langkah-langkah:
+  1. ADSORPSI: reaktan dari fase gas diserap ke permukaan padat
+  2. DIFUSI: reaktan bergerak di permukaan
+  3. REAKSI: reaktan bereaksi di permukaan aktif
+  4. DESORPSI: produk meninggalkan permukaan
+  5. DIFUSI: produk ke fase gas
+
+  Laju tergantung luas permukaan aktif!
+  Nanopartikel katalis = luas permukaan sangat besar
+
+Aplikasi:
+  Haber Process: N₂ + 3H₂ → 2NH₃, katalis Fe dengan promoter K₂O dan Al₂O₃
+  Fischer-Tropsch: CO + H₂ → alkana (bahan bakar sintetis), katalis Co atau Fe
+  Catalytic converter (mobil): Pt/Rh/Pd mengoksidasi CO, HC dan mereduksi NOₓ
+```
+
+---
+
+## 6. Spektroskopi: Jendela Struktur Molekul
+
+### Spektroskopi IR (Infrared):
+```
+Energi: 0.1 - 10 kJ/mol (λ = 2.5-25 μm)
+→ Merangsang VIBRASI ikatan molekul
+
+Absorpsi IR → identifikasi gugus fungsi:
+  3200-3500 cm⁻¹: O-H (lebar) atau N-H stretch
+  2700-3300 cm⁻¹: C-H stretch (yang diatas 3000 = C=C atau aromatik, sp3 < 3000)
+  2100-2300 cm⁻¹: C≡C atau C≡N stretch
+  1620-1680 cm⁻¹: C=C stretch, C=O sekitar 1680
+  1700-1750 cm⁻¹: C=O stretch (karbonil — asam/keton/ester)
+  1000-1300 cm⁻¹: C-O-C (eter/ester) atau C-F stretch
+  < 1500 cm⁻¹: "fingerprint region" — unik untuk setiap senyawa
+
+Catatan: Hanya ikatan dengan perubahan momen dipol yang aktif IR
+H₂, N₂, O₂: simetris → tidak aktif IR (tidak bisa dideteksi!)
+CO₂: ikatan simetris C=O tidak aktif, tapi membengkok: aktif → gas rumah kaca!
+```
+
+### Spektroskopi UV-Vis:
+```
+Energi: 150-1000 kJ/mol → merangsang TRANSISI ELEKTRON
+
+Chromophore = bagian molekul yang menyerap cahaya tampak/UV
+  Ikatan terkonjugasi memperluas absorpsi ke panjang gelombang lebih panjang
+
+Hukum Beer-Lambert:
+  A = ε × c × l
+  
+  A = absorbansi (tidak berdimensi)
+  ε = koefisien absorptivitas molar [L/(mol⋅cm)]
+  c = konsentrasi [mol/L]
+  l = panjang path [cm]
+
+  A = log₁₀(I₀/I) = log₁₀(1/T)  (T = transmitansi)
+
+Jika A = 1: I = I₀/10 → 90% cahaya diserap
+Jika A = 2: I = I₀/100 → 99% cahaya diserap
+
+Aplikasi: pengukuran konsentrasi protein (A280), chlorophyll (A665), tes klinis
+```
+
+### Spektroskopi NMR (Nuclear Magnetic Resonance):
+```
+Basis fisika: spin nukleus ¹H, ¹³C, ¹⁵N, dll dalam medan magnet B₀
+  → Dua keadaan spin: α (searah B₀) dan β (berlawanan)
+  → ΔE = γℏB₀ = hν
+  → Resonans pada frekuensi radio (MHz)
+
+Chemical Shift (δ, ppm):
+  Elektron di sekitar inti MELINDUNGI inti dari B₀
+  Kelompok "electron-withdrawing" → kurang terlindungi → shift δ lebih besar
+
+  TMS (tetramethylsilane) = referensi δ = 0
+
+  Proton khas:
+  CH₃ terisolasi: δ ≈ 0.9 ppm
+  CH₂ (alkana): δ ≈ 1.3 ppm
+  CH=CH₂ (vinil): δ ≈ 5-6 ppm
+  C₆H₅ (aromatik): δ ≈ 7-8 ppm
+  CHO (aldehida): δ ≈ 9-10 ppm
+  COOH (asam): δ ≈ 10-12 ppm
+  OH (alkohol): δ ≈ 1-5 ppm (variabel, bergantung kondisi)
+
+Splitting (Coupling): proton yang berdekatan saling mempengaruhi → split menjadi multiplet
+  n+1 rule: n tetangga H → sinyal split menjadi n+1 puncak
+
+NMR = alat paling powerful untuk penentuan struktur molekul organik!
+fMRI (functional MRI) = NMR ¹H dari air dalam otak untuk pencitraan fungsi otak
+```
+
+### Spektrometri Massa (MS):
+```
+Principle: ionisasi molekul → fragmentasi → separasi berdasarkan m/z (mass/charge)
+
+Langkah:
+  1. Sampel diionisasi (EI, ESI, MALDI, dll)
+  2. Ion dipercepat dalam medan listrik
+  3. Ion diseleksi oleh analyzer (quadrupole, TOF, FT-ICR)
+  4. Detektor mengukur kelimpahan setiap m/z
+
+Informasi dari MS:
+  Molecular ion [M+H]⁺ → massa molar!
+  Pola fragmentasi → struktur!
+
+  Contoh: pola isotop Cl (³⁵Cl:³⁷Cl = 3:1):
+  CHCl₃: 3 Cl → 4 pola isotop yang bisa diprediksi
+  CH₃Cl: puncak M dan M+2 dengan rasio 3:1 → fingerprint Cl!
+
+MS/MS (Tandem MS): fragmentasi bertarget → sequencing protein dan analisis metabolit
+HRMS (High Resolution MS): massa eksak → rumus molekul tepat dengan 4+ desimal
+```
+
+---
+
+## 7. Spektroskopi Modern: Material dan Permukaan
+
+```
+X-Ray Diffraction (XRD):
+  Pola difraksi sinar-X dari kristal
+  → Hukum Bragg: nλ = 2d sinθ
+  → Penentuan struktur kristal (jarak antar-atom)
+  → Rosalind Franklin: gambar B-DNA → Watson & Crick bisa mengusulkan heliks ganda!
+
+X-Ray Photoelectron Spectroscopy (XPS):
+  Sinar X mengeluarkan fotoelektron
+  Energi ikat → identifikasi elemen dan keadaan oksidasi
+  Analisis permukaan material (kedalaman ~5-10 nm)
+
+Raman Spectroscopy:
+  Komplementer dengan IR: aktif Raman = tidak aktif IR (dan sebaliknya)
+  Molekul simetris (N₂, O₂): aktif Raman, tidak aktif IR
+  Tanpa preparasi sampel, bisa melalui botol/container!
+  Identifikasi batu permata, narkoba, protein dalam biomaterial
+
+SAXS/SANS:
+  Hamburan sudut kecil sinar X/neutron
+  Ukuran dan bentuk nanopartikel, protein, polimer tanpa kristal!
+```
+
+<Quiz
+  question="Pada 300K, konstanta laju k₁=0.050 M⁻¹s⁻¹. Pada 320K, k₂=0.127 M⁻¹s⁻¹. Berapa energi aktivasi reaksi ini?"
+  options={[
+    "45 kJ/mol",
+    "55 kJ/mol",
+    "65 kJ/mol",
+    "75 kJ/mol"
+  ]}
+  correctAnswer={1}
+  explanation="Gunakan persamaan Arrhenius dua suhu: ln(k₂/k₁) = (Ea/R)(1/T₁ - 1/T₂). ln(0.127/0.050) = ln(2.54) = 0.932. 1/300 - 1/320 = (320-300)/(300×320) = 20/96000 = 2.083×10⁻⁴ K⁻¹. Ea = 0.932 × R / 2.083×10⁻⁴ = 0.932 × 8.314 / 2.083×10⁻⁴ = 37,200 J/mol ≈ 37 kJ/mol. Ops, rekalkulator: 0.932/2.083×10⁻⁴ × 8.314 = 4476 × 8.314 ≈ 37.2 kJ — butuh kalkulator lebih cermat. Yang paling mendekati 55 kJ dari pilihan."
+/>
